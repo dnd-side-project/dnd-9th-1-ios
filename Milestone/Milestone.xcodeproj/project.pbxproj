@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		33BAC9CBA7AA472B7EFE3546 /* Pods_Milestone_MilestoneUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31921A27008FACCCFDF26F50 /* Pods_Milestone_MilestoneUITests.framework */; };
+		5406CA949E9C0E5365F6B9F5 /* Pods_Milestone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0BF5EE0D87AA87EFD7CD425 /* Pods_Milestone.framework */; };
+		840FE68DF067D0B49A41F656 /* Pods_MilestoneTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE73120A0E915DFF7D225859 /* Pods_MilestoneTests.framework */; };
 		A22736692A7CE53700D7B3B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22736682A7CE53700D7B3B2 /* AppDelegate.swift */; };
 		A227366D2A7CE53700D7B3B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227366C2A7CE53700D7B3B2 /* ViewController.swift */; };
 		A22736722A7CE53800D7B3B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A22736712A7CE53800D7B3B2 /* Assets.xcassets */; };
@@ -34,6 +37,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00B39AE74EA155A8F7AF63B2 /* Pods-MilestoneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MilestoneTests.release.xcconfig"; path = "Target Support Files/Pods-MilestoneTests/Pods-MilestoneTests.release.xcconfig"; sourceTree = "<group>"; };
+		1528758B36CF42331B832F8F /* Pods-Milestone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Milestone.release.xcconfig"; path = "Target Support Files/Pods-Milestone/Pods-Milestone.release.xcconfig"; sourceTree = "<group>"; };
+		31921A27008FACCCFDF26F50 /* Pods_Milestone_MilestoneUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Milestone_MilestoneUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		48A0E4E5D6CE3D2919FBFE1F /* Pods-MilestoneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MilestoneTests.debug.xcconfig"; path = "Target Support Files/Pods-MilestoneTests/Pods-MilestoneTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5A653BB95FEB480E8924563C /* Pods-Milestone-MilestoneUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Milestone-MilestoneUITests.release.xcconfig"; path = "Target Support Files/Pods-Milestone-MilestoneUITests/Pods-Milestone-MilestoneUITests.release.xcconfig"; sourceTree = "<group>"; };
+		9737A72A183A7BB8310F01FD /* Pods-Milestone-MilestoneUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Milestone-MilestoneUITests.debug.xcconfig"; path = "Target Support Files/Pods-Milestone-MilestoneUITests/Pods-Milestone-MilestoneUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A22736652A7CE53700D7B3B2 /* Milestone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Milestone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A22736682A7CE53700D7B3B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A227366C2A7CE53700D7B3B2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +54,9 @@
 		A22736852A7CE53800D7B3B2 /* MilestoneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MilestoneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A22736892A7CE53800D7B3B2 /* MilestoneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneUITests.swift; sourceTree = "<group>"; };
 		A227368B2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D0BF5EE0D87AA87EFD7CD425 /* Pods_Milestone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Milestone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2717D7DDA8A299AE19F53C9 /* Pods-Milestone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Milestone.debug.xcconfig"; path = "Target Support Files/Pods-Milestone/Pods-Milestone.debug.xcconfig"; sourceTree = "<group>"; };
+		FE73120A0E915DFF7D225859 /* Pods_MilestoneTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MilestoneTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5406CA949E9C0E5365F6B9F5 /* Pods_Milestone.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840FE68DF067D0B49A41F656 /* Pods_MilestoneTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,12 +80,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33BAC9CBA7AA472B7EFE3546 /* Pods_Milestone_MilestoneUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0741203E42240E34476D3554 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D2717D7DDA8A299AE19F53C9 /* Pods-Milestone.debug.xcconfig */,
+				1528758B36CF42331B832F8F /* Pods-Milestone.release.xcconfig */,
+				9737A72A183A7BB8310F01FD /* Pods-Milestone-MilestoneUITests.debug.xcconfig */,
+				5A653BB95FEB480E8924563C /* Pods-Milestone-MilestoneUITests.release.xcconfig */,
+				48A0E4E5D6CE3D2919FBFE1F /* Pods-MilestoneTests.debug.xcconfig */,
+				00B39AE74EA155A8F7AF63B2 /* Pods-MilestoneTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		5C2992F72B144D1F20CFDF78 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D0BF5EE0D87AA87EFD7CD425 /* Pods_Milestone.framework */,
+				31921A27008FACCCFDF26F50 /* Pods_Milestone_MilestoneUITests.framework */,
+				FE73120A0E915DFF7D225859 /* Pods_MilestoneTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A227365C2A7CE53700D7B3B2 = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +117,8 @@
 				A227367E2A7CE53800D7B3B2 /* MilestoneTests */,
 				A22736882A7CE53800D7B3B2 /* MilestoneUITests */,
 				A22736662A7CE53700D7B3B2 /* Products */,
+				0741203E42240E34476D3554 /* Pods */,
+				5C2992F72B144D1F20CFDF78 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,9 +192,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A227368F2A7CE53800D7B3B2 /* Build configuration list for PBXNativeTarget "Milestone" */;
 			buildPhases = (
+				8D9D51174E3D4F8FEB578D17 /* [CP] Check Pods Manifest.lock */,
 				A22736612A7CE53700D7B3B2 /* Sources */,
 				A22736622A7CE53700D7B3B2 /* Frameworks */,
 				A22736632A7CE53700D7B3B2 /* Resources */,
+				6140D004FF6743EB321F472C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -169,6 +211,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A22736922A7CE53800D7B3B2 /* Build configuration list for PBXNativeTarget "MilestoneTests" */;
 			buildPhases = (
+				BEA4D0CB77A4D7D263F94A24 /* [CP] Check Pods Manifest.lock */,
 				A22736772A7CE53800D7B3B2 /* Sources */,
 				A22736782A7CE53800D7B3B2 /* Frameworks */,
 				A22736792A7CE53800D7B3B2 /* Resources */,
@@ -187,9 +230,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A22736952A7CE53800D7B3B2 /* Build configuration list for PBXNativeTarget "MilestoneUITests" */;
 			buildPhases = (
+				821832D302E927DEDCF3BCD5 /* [CP] Check Pods Manifest.lock */,
 				A22736812A7CE53800D7B3B2 /* Sources */,
 				A22736822A7CE53800D7B3B2 /* Frameworks */,
 				A22736832A7CE53800D7B3B2 /* Resources */,
+				6F8A85828E5A10A9D0841307 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -225,7 +270,7 @@
 				};
 			};
 			buildConfigurationList = A22736602A7CE53700D7B3B2 /* Build configuration list for PBXProject "Milestone" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -269,6 +314,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6140D004FF6743EB321F472C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Milestone/Pods-Milestone-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Milestone/Pods-Milestone-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Milestone/Pods-Milestone-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6F8A85828E5A10A9D0841307 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Milestone-MilestoneUITests/Pods-Milestone-MilestoneUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Milestone-MilestoneUITests/Pods-Milestone-MilestoneUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Milestone-MilestoneUITests/Pods-Milestone-MilestoneUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		821832D302E927DEDCF3BCD5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Milestone-MilestoneUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D9D51174E3D4F8FEB578D17 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Milestone-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BEA4D0CB77A4D7D263F94A24 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MilestoneTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A22736612A7CE53700D7B3B2 /* Sources */ = {
@@ -440,6 +588,7 @@
 		};
 		A22736902A7CE53800D7B3B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2717D7DDA8A299AE19F53C9 /* Pods-Milestone.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -471,6 +620,7 @@
 		};
 		A22736912A7CE53800D7B3B2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1528758B36CF42331B832F8F /* Pods-Milestone.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -502,6 +652,7 @@
 		};
 		A22736932A7CE53800D7B3B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48A0E4E5D6CE3D2919FBFE1F /* Pods-MilestoneTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -522,6 +673,7 @@
 		};
 		A22736942A7CE53800D7B3B2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00B39AE74EA155A8F7AF63B2 /* Pods-MilestoneTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -542,6 +694,7 @@
 		};
 		A22736962A7CE53800D7B3B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9737A72A183A7BB8310F01FD /* Pods-Milestone-MilestoneUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -560,6 +713,7 @@
 		};
 		A22736972A7CE53800D7B3B2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A653BB95FEB480E8924563C /* Pods-Milestone-MilestoneUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
