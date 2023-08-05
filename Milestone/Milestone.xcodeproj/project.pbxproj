@@ -14,6 +14,14 @@
 		A22736802A7CE53800D7B3B2 /* MilestoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227367F2A7CE53800D7B3B2 /* MilestoneTests.swift */; };
 		A227368A2A7CE53800D7B3B2 /* MilestoneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22736892A7CE53800D7B3B2 /* MilestoneUITests.swift */; };
 		A227368C2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227368B2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift */; };
+		A2B20D442A7E3EA1001ED73C /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D432A7E3EA1001ED73C /* Moya */; };
+		A2B20D462A7E3EA1001ED73C /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D452A7E3EA1001ED73C /* RxMoya */; };
+		A2B20D492A7E3EC6001ED73C /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D482A7E3EC6001ED73C /* Then */; };
+		A2B20D4C2A7E3EE1001ED73C /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D4B2A7E3EE1001ED73C /* RxCocoa */; };
+		A2B20D4E2A7E3EE1001ED73C /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D4D2A7E3EE1001ED73C /* RxRelay */; };
+		A2B20D502A7E3EE1001ED73C /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D4F2A7E3EE1001ED73C /* RxSwift */; };
+		A2B20D532A7E3EF0001ED73C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D522A7E3EF0001ED73C /* SnapKit */; };
+		A2B20D562A7E3F05001ED73C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D552A7E3F05001ED73C /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +60,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2B20D502A7E3EE1001ED73C /* RxSwift in Frameworks */,
+				A2B20D562A7E3F05001ED73C /* Alamofire in Frameworks */,
+				A2B20D4E2A7E3EE1001ED73C /* RxRelay in Frameworks */,
+				A2B20D462A7E3EA1001ED73C /* RxMoya in Frameworks */,
+				A2B20D532A7E3EF0001ED73C /* SnapKit in Frameworks */,
+				A2B20D492A7E3EC6001ED73C /* Then in Frameworks */,
+				A2B20D4C2A7E3EE1001ED73C /* RxCocoa in Frameworks */,
+				A2B20D442A7E3EA1001ED73C /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +177,16 @@
 			dependencies = (
 			);
 			name = Milestone;
+			packageProductDependencies = (
+				A2B20D432A7E3EA1001ED73C /* Moya */,
+				A2B20D452A7E3EA1001ED73C /* RxMoya */,
+				A2B20D482A7E3EC6001ED73C /* Then */,
+				A2B20D4B2A7E3EE1001ED73C /* RxCocoa */,
+				A2B20D4D2A7E3EE1001ED73C /* RxRelay */,
+				A2B20D4F2A7E3EE1001ED73C /* RxSwift */,
+				A2B20D522A7E3EF0001ED73C /* SnapKit */,
+				A2B20D552A7E3F05001ED73C /* Alamofire */,
+			);
 			productName = Milestone;
 			productReference = A22736652A7CE53700D7B3B2 /* Milestone.app */;
 			productType = "com.apple.product-type.application";
@@ -233,6 +259,13 @@
 				Base,
 			);
 			mainGroup = A227365C2A7CE53700D7B3B2;
+			packageReferences = (
+				A2B20D422A7E3EA1001ED73C /* XCRemoteSwiftPackageReference "Moya" */,
+				A2B20D472A7E3EC5001ED73C /* XCRemoteSwiftPackageReference "Then" */,
+				A2B20D4A2A7E3EE1001ED73C /* XCRemoteSwiftPackageReference "RxSwift" */,
+				A2B20D512A7E3EF0001ED73C /* XCRemoteSwiftPackageReference "SnapKit" */,
+				A2B20D542A7E3F05001ED73C /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = A22736662A7CE53700D7B3B2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -448,7 +481,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LM9BKUSL5K;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Milestone/Support/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Milestone;
@@ -479,7 +512,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LM9BKUSL5K;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Milestone/Support/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Milestone;
@@ -618,6 +651,92 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A2B20D422A7E3EA1001ED73C /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		A2B20D472A7E3EC5001ED73C /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		A2B20D4A2A7E3EE1001ED73C /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		A2B20D512A7E3EF0001ED73C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+		A2B20D542A7E3F05001ED73C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A2B20D432A7E3EA1001ED73C /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2B20D422A7E3EA1001ED73C /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		A2B20D452A7E3EA1001ED73C /* RxMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2B20D422A7E3EA1001ED73C /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = RxMoya;
+		};
+		A2B20D482A7E3EC6001ED73C /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2B20D472A7E3EC5001ED73C /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		A2B20D4B2A7E3EE1001ED73C /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2B20D4A2A7E3EE1001ED73C /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		A2B20D4D2A7E3EE1001ED73C /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2B20D4A2A7E3EE1001ED73C /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		A2B20D4F2A7E3EE1001ED73C /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2B20D4A2A7E3EE1001ED73C /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		A2B20D522A7E3EF0001ED73C /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2B20D512A7E3EF0001ED73C /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		A2B20D552A7E3F05001ED73C /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A2B20D542A7E3F05001ED73C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A227365D2A7CE53700D7B3B2 /* Project object */;
 }
