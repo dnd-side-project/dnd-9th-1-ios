@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class ViewController: UIViewController {
+class ViewController: BaseViewController {
     
     let testLabel = UILabel()
         .then {
@@ -24,8 +24,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-
+        
+        Logger.debugDescription(testImage)
+    }
+    
+    override func render() {
         view.addSubViews([testLabel, testImage])
         testLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
@@ -34,6 +37,9 @@ class ViewController: UIViewController {
             make.bottom.equalTo(testLabel.snp.top).offset(-10)
             make.centerX.equalToSuperview()
         }
-        Logger.debugDescription(testImage)
+    }
+    
+    override func configUI() {
+        view.backgroundColor = .white
     }
 }
