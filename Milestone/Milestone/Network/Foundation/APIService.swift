@@ -5,33 +5,37 @@
 //  Created by 서은수 on 2023/08/06.
 //
 
+import Alamofire
 import Foundation
+import RxSwift
 
 final class APIService: Requestable {
-    var requestTimeOut: Float = 30
-    
-    func request<T: Decodable>(_ request: NetworkRequest) async throws -> T? {
-        let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = TimeInterval(request.requestTimeOut ?? requestTimeOut)
-        
-        guard let encodedUrl = request.url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: encodedUrl) else {
-                  throw APIServiceError.urlEncodingError
-              }
-        
-        let (data, response) = try await URLSession.shared.data(for: request.buildURLRequest(with: url))
-        
-        guard let httpResponse = response as? HTTPURLResponse,
-              (200..<500) ~= httpResponse.statusCode else {
-                  throw APIServiceError.serverError
-              }
-        
-        let decoder = JSONDecoder()
-        let baseModelData = try decoder.decode(BaseModel<T>.self, from: data)
-        if baseModelData.success ?? false {
-            return baseModelData.data
-        } else {
-            throw APIServiceError.clientError(message: baseModelData.message)
+    func request<T: Decodable>(with request: URLRequest) -> Observable<Result<T, APIError>> {
+        Observable<Result<T, APIError>>.create { observer in
+            let task = AF.request(request)
+                .responseJSON { response in
+                    
+                    guard let statusCode = response.response?.statusCode else {
+                        observer.onNext(.failure(.unknown))
+                        return
+                    }
+                    
+                    guard (200 ... 399).contains(statusCode) else {
+                        observer.onNext(.failure(.http(status: statusCode)))
+                        return
+                    }
+                    
+                    guard let decoded = response.data?.decode(T.self) else {
+                        observer.onNext(.failure(.decode))
+                        return
+                    }
+                    
+                    observer.onNext(.success(decoded))
+                }
+            
+            return Disposables.create {
+                task.cancel()
+            }
         }
     }
 }

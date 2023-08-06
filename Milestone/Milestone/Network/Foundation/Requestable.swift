@@ -6,9 +6,8 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol Requestable {
-    var requestTimeOut: Float { get }
-    
-    func request<T: Decodable>(_ request: NetworkRequest) async throws -> T?
+    func request<T: Decodable>(with request: URLRequest) -> Observable<Result<T, APIError>>
 }
