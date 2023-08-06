@@ -267,7 +267,7 @@
 		A22736992A7CE73600D7B3B2 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				A227366C2A7CE53700D7B3B2 /* ViewController.swift */,
+				A2FA59342A7FD718006ACA2E /* Onboarding */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -405,6 +405,46 @@
 				A2FA59202A7FD2EC006ACA2E /* BaseTableViewCell.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		A2FA59302A7FD6D3006ACA2E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A2FA59312A7FD6D8006ACA2E /* Cell */,
+				A2FA59322A7FD6EF006ACA2E /* Component */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A2FA59312A7FD6D8006ACA2E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		A2FA59322A7FD6EF006ACA2E /* Component */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		A2FA59332A7FD710006ACA2E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A2FA59342A7FD718006ACA2E /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				A2FA59332A7FD710006ACA2E /* ViewModel */,
+				A2FA59302A7FD6D3006ACA2E /* View */,
+				A227366C2A7CE53700D7B3B2 /* ViewController.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
