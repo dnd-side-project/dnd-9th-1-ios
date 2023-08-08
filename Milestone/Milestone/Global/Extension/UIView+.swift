@@ -22,12 +22,7 @@ extension UIView {
         return self
     }
     
-    func makeShadow(color: UIColor = .black,
-                            alpha: Float,
-                            x: CGFloat,
-                            y: CGFloat,
-                            blur: CGFloat,
-                            spread: CGFloat) -> Self {
+    func makeShadow(color: UIColor = .black, alpha: Float, x: CGFloat, y: CGFloat, blur: CGFloat, spread: CGFloat) -> Self {
         layer.masksToBounds = false
         layer.shadowColor = color.cgColor
         layer.shadowOpacity = alpha
