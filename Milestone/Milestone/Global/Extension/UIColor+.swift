@@ -11,18 +11,18 @@ extension UIColor {
     static var primaty: UIColor {
         return UIColor(hex: "#408DF2")
     }
-    
     static var secondary01: UIColor {
         return UIColor(hex: "#98CEFF")
     }
     static var secondary02: UIColor {
         return UIColor(hex: "#BFE0FF")
     }
-    
+    static var secondary03: UIColor {
+        return UIColor(hex: "EDF6FF")
+    }
     static var black: UIColor {
         return UIColor(hex: "#232930")
     }
-    
     static var gray01: UIColor {
         return UIColor(hex: "#ebf2fc")
     }
