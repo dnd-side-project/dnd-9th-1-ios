@@ -9,7 +9,7 @@ import UIKit
 
 extension UILabel {
     func applyColor(to targetString: String, with color: UIColor) {
-        if let labelText = self.text, labelText.count > 0 {
+        if let labelText = self.text, !labelText.isEmpty {
             let attributedString = NSMutableAttributedString(string: labelText)
             attributedString.addAttribute(.foregroundColor,
                                           value: color,
@@ -19,7 +19,7 @@ extension UILabel {
     }
     
     func applyFont(to targetString: String, with font: UIFont) {
-        if let labelText = self.text, labelText.count > 0 {
+        if let labelText = self.text, !labelText.isEmpty {
             let attributedString = NSMutableAttributedString(string: labelText)
             attributedString.addAttribute(.font,
                                           value: font,
