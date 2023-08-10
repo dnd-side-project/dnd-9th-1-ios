@@ -71,6 +71,7 @@
 		A2B20D9B2A7ED40D001ED73C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B20D992A7ED40D001ED73C /* Logger.swift */; };
 		A2B20D9C2A7ED40D001ED73C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B20D992A7ED40D001ED73C /* Logger.swift */; };
 		A2B969822A85750600C4903F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B969812A85750600C4903F /* MainViewController.swift */; };
+		A2B969842A85812F00C4903F /* GoalStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B969832A85812F00C4903F /* GoalStatusView.swift */; };
 		A2D304BD2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */; };
 		A2D304BE2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */; };
 		A2D304BF2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */; };
@@ -172,6 +173,7 @@
 		A2B20D932A7ED174001ED73C /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		A2B20D992A7ED40D001ED73C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		A2B969812A85750600C4903F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		A2B969832A85812F00C4903F /* GoalStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalStatusView.swift; sourceTree = "<group>"; };
 		A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBoxViewController.swift; sourceTree = "<group>"; };
 		A2D304C02A854EDE00A5BA92 /* MainSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSegmentedControl.swift; sourceTree = "<group>"; };
 		A2D304C82A856B6B00A5BA92 /* StorageBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageBoxViewController.swift; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 		A2D304BA2A854E2600A5BA92 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A2B969832A85812F00C4903F /* GoalStatusView.swift */,
 				A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */,
 			);
 			path = View;
@@ -742,6 +745,7 @@
 				A2FA591D2A7FD2DD006ACA2E /* BaseCollectionViewCell.swift in Sources */,
 				A2B20D902A7ED14C001ED73C /* ImageLiteral.swift in Sources */,
 				A2FA59292A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
+				A2B969842A85812F00C4903F /* GoalStatusView.swift in Sources */,
 				A2FA58C92A7F79EF006ACA2E /* BaseModel.swift in Sources */,
 				A2FA58D52A7F7A2A006ACA2E /* APIError.swift in Sources */,
 				A2FA59252A7FD3B1006ACA2E /* UICollectionView+.swift in Sources */,
