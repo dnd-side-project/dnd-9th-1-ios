@@ -5,7 +5,6 @@
 //  Created by 서은수 on 2023/08/11.
 //
 
-
 import UIKit
 
 import SnapKit
@@ -43,9 +42,8 @@ class GoalStatusView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configUI()
         render()
-        setAttributes()
+        configUI()
     }
     
     @available(*, unavailable)
@@ -56,10 +54,13 @@ class GoalStatusView: UIView {
     // MARK: - Functions
     
     private func configUI() {
-        addSubViews([titleLabel, stoneImageView, goalNumberLabel])
+        self.backgroundColor = .white
+        self.layer.cornerRadius = 20
     }
     
     private func render() {
+        addSubViews([titleLabel, stoneImageView, goalNumberLabel])
+        
         self.snp.makeConstraints { make in
             make.width.equalTo((UIScreen.main.bounds.width - (48 + 14)) / 2)
             make.height.equalTo(80)
@@ -80,10 +81,5 @@ class GoalStatusView: UIView {
             $0.left.equalTo(stoneImageView.snp.right).offset(8)
             $0.centerY.equalTo(stoneImageView)
         }
-    }
-    
-    private func setAttributes() {
-        self.backgroundColor = .white
-        self.layer.cornerRadius = 20
     }
 }
