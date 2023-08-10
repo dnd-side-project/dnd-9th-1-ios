@@ -12,4 +12,6 @@ import UIKit
 enum ImageLiteral {
     static var imgSetting: UIImage { .load(named: "setting")}
     static var imgTempStone: UIImage { .load(named: "tempStone")}
+    static var imgCalendar: UIImage { .load(named: "calendar")}
+    static var imgTempGoal: UIImage { .load(named: "tempGoal")}
 }

@@ -72,6 +72,9 @@
 		A2B20D9C2A7ED40D001ED73C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B20D992A7ED40D001ED73C /* Logger.swift */; };
 		A2B969822A85750600C4903F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B969812A85750600C4903F /* MainViewController.swift */; };
 		A2B969842A85812F00C4903F /* GoalStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B969832A85812F00C4903F /* GoalStatusView.swift */; };
+		A2B969872A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B969862A85875A00C4903F /* ParentGoalTableViewCell.swift */; };
+		A2B969882A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B969862A85875A00C4903F /* ParentGoalTableViewCell.swift */; };
+		A2B969892A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B969862A85875A00C4903F /* ParentGoalTableViewCell.swift */; };
 		A2D304BD2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */; };
 		A2D304BE2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */; };
 		A2D304BF2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */; };
@@ -174,6 +177,7 @@
 		A2B20D992A7ED40D001ED73C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		A2B969812A85750600C4903F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A2B969832A85812F00C4903F /* GoalStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalStatusView.swift; sourceTree = "<group>"; };
+		A2B969862A85875A00C4903F /* ParentGoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentGoalTableViewCell.swift; sourceTree = "<group>"; };
 		A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBoxViewController.swift; sourceTree = "<group>"; };
 		A2D304C02A854EDE00A5BA92 /* MainSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSegmentedControl.swift; sourceTree = "<group>"; };
 		A2D304C82A856B6B00A5BA92 /* StorageBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageBoxViewController.swift; sourceTree = "<group>"; };
@@ -398,6 +402,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		A2B969852A85872B00C4903F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A2B969862A85875A00C4903F /* ParentGoalTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		A2D304B92A854E1600A5BA92 /* FillBox */ = {
 			isa = PBXGroup;
 			children = (
@@ -410,6 +422,7 @@
 		A2D304BA2A854E2600A5BA92 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A2B969852A85872B00C4903F /* Cell */,
 				A2B969832A85812F00C4903F /* GoalStatusView.swift */,
 				A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */,
 			);
@@ -730,6 +743,7 @@
 				A2B20D652A7E5077001ED73C /* UILabel+.swift in Sources */,
 				A2FA58E52A7F7A55006ACA2E /* NetworkStatus.swift in Sources */,
 				88216FC02A85328900FE3A77 /* LoginViewController.swift in Sources */,
+				A2B969872A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
 				A2FA58D12A7F7A1F006ACA2E /* APIEnvironment.swift in Sources */,
 				A2D304BD2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
 				A2FA592D2A7FD433006ACA2E /* NSObject+.swift in Sources */,
@@ -762,6 +776,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2B969882A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
 				A2FA58E22A7F7A4A006ACA2E /* APIService.swift in Sources */,
 				A2FA58DE2A7F7A3E006ACA2E /* Requestable.swift in Sources */,
 				A2FA58CA2A7F79EF006ACA2E /* BaseModel.swift in Sources */,
@@ -798,6 +813,7 @@
 				A2B20D672A7E5077001ED73C /* UILabel+.swift in Sources */,
 				A227368A2A7CE53800D7B3B2 /* MilestoneUITests.swift in Sources */,
 				A2FA58E72A7F7A55006ACA2E /* NetworkStatus.swift in Sources */,
+				A2B969892A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
 				A2FA58D32A7F7A1F006ACA2E /* APIEnvironment.swift in Sources */,
 				A2D304BF2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
 				A2FA592F2A7FD433006ACA2E /* NSObject+.swift in Sources */,
