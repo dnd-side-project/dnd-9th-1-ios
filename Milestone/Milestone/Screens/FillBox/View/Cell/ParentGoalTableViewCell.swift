@@ -18,6 +18,12 @@ class ParentGoalTableViewCell: BaseTableViewCell {
     
     // MARK: - Subviews
     
+    let containerView = UIView()
+        .then {
+            $0.backgroundColor = .white
+            $0.layer.cornerRadius = 20
+        }
+    
     let goalStatusImageView = UIImageView()
         .then {
             $0.image = ImageLiteral.imgTempGoal
@@ -44,23 +50,29 @@ class ParentGoalTableViewCell: BaseTableViewCell {
             $0.textAlignment = .left
         }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0))
-    }
-    
     // MARK: - Functions
     
     override func configUI() {
         self.backgroundColor = .gray01
-        self.contentView.backgroundColor = .white
-        self.contentView.layer.cornerRadius = 20
+        self.selectionStyle = .none
+        
+        // 그림자 설정
+        self.containerView.layer.shadowColor = UIColor.init(hex: "#DCDCDC").cgColor
+        self.containerView.layer.shadowOpacity = 1.0
+        self.containerView.layer.shadowOffset = CGSize.zero
+        self.containerView.layer.shadowRadius = 7
     }
     
     override func render() {
-        contentView.addSubViews([goalStatusImageView, titleLabel,
+        contentView.addSubview(containerView)
+        containerView.addSubViews([goalStatusImageView, titleLabel,
                                       calendarImageView, termLabel])
+        
+        containerView.snp.makeConstraints { make in
+            make.height.equalTo(96)
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalToSuperview().inset(16)
+        }
         
         goalStatusImageView.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(24)
