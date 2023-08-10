@@ -10,5 +10,5 @@ import UIKit
 // MARK: - Assets에 새 이미지 추가 시 여기에도 추가해두기!
 
 enum ImageLiteral {
-    static var imgStone: UIImage { .load(named: "stone")}
+    static var imgSetting: UIImage { .load(named: "setting")}
 }
