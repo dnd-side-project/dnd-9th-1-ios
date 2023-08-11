@@ -44,7 +44,7 @@ class LoginViewController: BaseViewController {
         btn.setTitle("Continue with Apple", for: .normal)
         btn.backgroundColor = UIColor(hex: "#050708")
         btn.setTitleColor(.white, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 19, weight: .medium)
+        btn.titleLabel?.font = UIFont(name: "SFProDisplay-Medium", size: 19)
         btn.titleLabel?.textAlignment = .right
         btn.layer.cornerRadius = 8
         return btn
@@ -61,7 +61,7 @@ class LoginViewController: BaseViewController {
         btn.setTitle("Login With Kakao", for: .normal)
         btn.backgroundColor = UIColor(hex: "#FEE500")
         btn.setTitleColor(.black, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 19, weight: .medium)
+        btn.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 19)
         btn.layer.cornerRadius = 8
         return btn
     }()
@@ -73,6 +73,8 @@ class LoginViewController: BaseViewController {
     }()
     
     override func render() {
+        view.addSubViews([label, logoImageView, labelWithLogo, backgroundImageView, appleLoginButton, appleLogo, kakaoLoginButton, kakaoLogo])
+        
         label.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
             make.leading.equalTo(view.snp.leading).offset(24)
@@ -118,9 +120,5 @@ class LoginViewController: BaseViewController {
             make.centerY.equalTo(kakaoLoginButton.snp.centerY)
             make.centerX.equalTo(appleLogo.snp.centerX)
         }
-    }
-    
-    override func configUI() {
-        view.addSubViews([label, logoImageView, labelWithLogo, backgroundImageView, appleLoginButton, appleLogo, kakaoLoginButton, kakaoLogo])
     }
 }

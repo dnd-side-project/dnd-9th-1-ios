@@ -30,8 +30,8 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configUI()
         render()
+        configUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
