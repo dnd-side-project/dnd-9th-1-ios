@@ -64,12 +64,9 @@ class MainViewController: BaseViewController {
     }
     
     // MARK: - Functions
-    
-    override func configUI() {
-        view.addSubViews([settingButton, segmentedControl, pageViewController.view])
-    }
-    
     override func render() {
+        view.addSubViews([settingButton, segmentedControl, pageViewController.view])
+        
         settingButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(6)
             make.right.equalToSuperview().inset(26)

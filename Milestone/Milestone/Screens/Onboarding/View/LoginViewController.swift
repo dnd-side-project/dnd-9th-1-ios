@@ -73,6 +73,8 @@ class LoginViewController: BaseViewController {
     }()
     
     override func render() {
+        view.addSubViews([label, logoImageView, labelWithLogo, backgroundImageView, appleLoginButton, appleLogo, kakaoLoginButton, kakaoLogo])
+        
         label.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
             make.leading.equalTo(view.snp.leading).offset(24)
@@ -118,9 +120,5 @@ class LoginViewController: BaseViewController {
             make.centerY.equalTo(kakaoLoginButton.snp.centerY)
             make.centerX.equalTo(appleLogo.snp.centerX)
         }
-    }
-    
-    override func configUI() {
-        view.addSubViews([label, logoImageView, labelWithLogo, backgroundImageView, appleLoginButton, appleLogo, kakaoLoginButton, kakaoLogo])
     }
 }
