@@ -10,7 +10,8 @@ import UIKit
 extension UIViewController {
     /// UINavigationController가 없는 VC에서 push 하고 싶을 때 사용
     func push(viewController: UIViewController) {
-        if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
+        if let keyWindow = UIApplication.shared.connectedScenes.compactMap({ ($0 as? UIWindowScene)?.keyWindow }).last,
+           let navigationController = keyWindow.rootViewController as? UINavigationController {
             navigationController.pushViewController(viewController, animated: true)
         }
     }
