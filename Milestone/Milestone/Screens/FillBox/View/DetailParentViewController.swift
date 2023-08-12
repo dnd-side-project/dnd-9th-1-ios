@@ -9,6 +9,8 @@ import UIKit
 
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 // MARK: - 상위 목표 상세 보기 화면
 
@@ -57,12 +59,38 @@ class DetailParentViewController: BaseViewController {
             $0.textColor = .gray03
         }
     
+    let flowLayout = UICollectionViewFlowLayout()
+        .then {
+            $0.itemSize = CGSize(
+                width: (UIScreen.main.bounds.width - 48 - 16) / 3,
+                height: 148)
+            $0.scrollDirection = .vertical
+            $0.minimumLineSpacing = 8
+            $0.minimumInteritemSpacing = 0
+        }
+    lazy var detailGoalCollectionView = UICollectionView(frame: CGRect(), collectionViewLayout: flowLayout)
+        .then {
+            $0.backgroundColor = .gray01
+            $0.showsVerticalScrollIndicator = false
+            $0.isScrollEnabled = false
+            $0.register(cell: DetailGoalCollectionViewCell.self, forCellWithReuseIdentifier: DetailGoalCollectionViewCell.identifier)
+            $0.dataSource = self
+            $0.delegate = self
+        }
+    
     // MARK: - Properties
+    
+    let goalData = [
+        DetailGoal(isGoalSet: true, goalTitle: "해커스 1000 LC 2 풀기"), DetailGoal(isGoalSet: true, goalTitle: "영단기 1000 RC 풀기"), DetailGoal(isGoalSet: true, goalTitle: "동사,전치사 어휘 외우기"),
+        DetailGoal(isGoalSet: true, goalTitle: "오답 지문 해석하기"), DetailGoal(isGoalSet: true, goalTitle: "기출 문제 3회독 하기"), DetailGoal(isGoalSet: true, goalTitle: "단어 500개 외우기"),
+        DetailGoal(isGoalSet: true, goalTitle: "문법 문장 20개 외우기"), DetailGoal(isGoalSet: true, goalTitle: "모르는 단어 정리해두기"), DetailGoal(isGoalSet: false, goalTitle: "다른 교재 새로 사기")
+    ]
+    var tab = 0
     
     // MARK: - Functions
     
     override func render() {
-        view.addSubViews([goalTitleLabel, dDayLabel, termLabel])
+        view.addSubViews([goalTitleLabel, dDayLabel, termLabel, detailGoalCollectionView])
         
         goalTitleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(24)
@@ -78,6 +106,11 @@ class DetailParentViewController: BaseViewController {
             make.centerY.equalTo(dDayLabel)
             make.left.equalTo(dDayLabel.snp.right).offset(8)
         }
+        detailGoalCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(dDayLabel.snp.bottom).offset(20)
+            make.left.right.equalToSuperview().inset(20)
+            make.height.equalTo(444 + 16 + 16 + 8)
+        }
     }
     
     override func configUI() {
@@ -85,6 +118,19 @@ class DetailParentViewController: BaseViewController {
         
         self.navigationItem.leftBarButtonItem = leftBarButton
         self.navigationItem.rightBarButtonItem = rightBarButton
+    }
+}
+
+extension DetailParentViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        goalData.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailGoalCollectionViewCell.identifier, for: indexPath) as? DetailGoalCollectionViewCell else { return UICollectionViewCell() }
+        Logger.debugDescription(cell)
+        cell.update(content: goalData[indexPath.row], index: indexPath.row)
+        return cell
     }
 }
 
