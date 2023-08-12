@@ -14,4 +14,10 @@ extension UIViewController {
             navigationController.pushViewController(viewController, animated: true)
         }
     }
+    
+    /// 현재 VC를 pop하여 이전 화면으로 전환하고 싶을 때 사용
+    @objc
+    func pop() {
+        navigationController?.popViewController(animated: true)
+    }
 }
