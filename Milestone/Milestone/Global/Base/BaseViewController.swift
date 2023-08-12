@@ -32,6 +32,7 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         render()
         configUI()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,5 +45,9 @@ class BaseViewController: UIViewController {
     
     func configUI() {
         // View Configuration
+    }
+    
+    func bind() {
+        // rx
     }
 }

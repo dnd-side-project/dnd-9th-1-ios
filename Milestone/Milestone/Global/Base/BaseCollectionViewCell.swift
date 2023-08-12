@@ -17,6 +17,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         render()
         configUI()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -29,5 +30,9 @@ class BaseCollectionViewCell: UICollectionViewCell {
     
     func configUI() {
         // View Configuration
+    }
+    
+    func bind() {
+        // rx
     }
 }
