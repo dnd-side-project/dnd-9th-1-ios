@@ -14,6 +14,9 @@
 		A22736802A7CE53800D7B3B2 /* MilestoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227367F2A7CE53800D7B3B2 /* MilestoneTests.swift */; };
 		A227368A2A7CE53800D7B3B2 /* MilestoneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22736892A7CE53800D7B3B2 /* MilestoneUITests.swift */; };
 		A227368C2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227368B2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift */; };
+		A28EDA112A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
+		A28EDA122A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
+		A28EDA132A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
 		A2B20D442A7E3EA1001ED73C /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D432A7E3EA1001ED73C /* Moya */; };
 		A2B20D462A7E3EA1001ED73C /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D452A7E3EA1001ED73C /* RxMoya */; };
 		A2B20D492A7E3EC6001ED73C /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D482A7E3EC6001ED73C /* Then */; };
@@ -81,6 +84,9 @@
 		A2B9698F2A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B9698E2A85A89300C4903F /* ParentGoalHeaderView.swift */; };
 		A2B969902A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B9698E2A85A89300C4903F /* ParentGoalHeaderView.swift */; };
 		A2B969912A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B9698E2A85A89300C4903F /* ParentGoalHeaderView.swift */; };
+		A2C2435C2A86210800F5A244 /* DetailParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C2435B2A86210800F5A244 /* DetailParentViewController.swift */; };
+		A2C2435D2A86210800F5A244 /* DetailParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C2435B2A86210800F5A244 /* DetailParentViewController.swift */; };
+		A2C2435E2A86210800F5A244 /* DetailParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C2435B2A86210800F5A244 /* DetailParentViewController.swift */; };
 		A2D304BD2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */; };
 		A2D304BE2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */; };
 		A2D304BF2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */; };
@@ -165,6 +171,7 @@
 		A22736852A7CE53800D7B3B2 /* MilestoneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MilestoneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A22736892A7CE53800D7B3B2 /* MilestoneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneUITests.swift; sourceTree = "<group>"; };
 		A227368B2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A28EDA102A87808A001A021A /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		A2B20D582A7E4E5C001ED73C /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		A2B20D5C2A7E4E68001ED73C /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		A2B20D602A7E4FAD001ED73C /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -186,6 +193,7 @@
 		A2B969862A85875A00C4903F /* ParentGoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentGoalTableViewCell.swift; sourceTree = "<group>"; };
 		A2B9698A2A859EAB00C4903F /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		A2B9698E2A85A89300C4903F /* ParentGoalHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentGoalHeaderView.swift; sourceTree = "<group>"; };
+		A2C2435B2A86210800F5A244 /* DetailParentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailParentViewController.swift; sourceTree = "<group>"; };
 		A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBoxViewController.swift; sourceTree = "<group>"; };
 		A2D304C02A854EDE00A5BA92 /* MainSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSegmentedControl.swift; sourceTree = "<group>"; };
 		A2D304C82A856B6B00A5BA92 /* StorageBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageBoxViewController.swift; sourceTree = "<group>"; };
@@ -333,6 +341,7 @@
 				A2FA59242A7FD3B1006ACA2E /* UICollectionView+.swift */,
 				A2FA59282A7FD3BA006ACA2E /* UITableView+.swift */,
 				A2FA592C2A7FD433006ACA2E /* NSObject+.swift */,
+				A28EDA102A87808A001A021A /* UIViewController+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -435,6 +444,7 @@
 				A2B969852A85872B00C4903F /* Cell */,
 				A2B969832A85812F00C4903F /* GoalStatusView.swift */,
 				A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */,
+				A2C2435B2A86210800F5A244 /* DetailParentViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -755,6 +765,7 @@
 				88216FC02A85328900FE3A77 /* LoginViewController.swift in Sources */,
 				A2B969872A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
 				A2FA58D12A7F7A1F006ACA2E /* APIEnvironment.swift in Sources */,
+				A28EDA112A87808A001A021A /* UIViewController+.swift in Sources */,
 				A2B9698F2A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */,
 				A2D304BD2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
 				A2FA592D2A7FD433006ACA2E /* NSObject+.swift in Sources */,
@@ -766,6 +777,7 @@
 				A2D304C92A856B6B00A5BA92 /* StorageBoxViewController.swift in Sources */,
 				A2FA59212A7FD2EC006ACA2E /* BaseTableViewCell.swift in Sources */,
 				A2FA58E12A7F7A4A006ACA2E /* APIService.swift in Sources */,
+				A2C2435C2A86210800F5A244 /* DetailParentViewController.swift in Sources */,
 				A2FA59142A7FCFC8006ACA2E /* Data+.swift in Sources */,
 				A2FA591D2A7FD2DD006ACA2E /* BaseCollectionViewCell.swift in Sources */,
 				A2B20D902A7ED14C001ED73C /* ImageLiteral.swift in Sources */,
@@ -790,6 +802,7 @@
 			files = (
 				A2B969882A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
 				A2FA58E22A7F7A4A006ACA2E /* APIService.swift in Sources */,
+				A28EDA122A87808A001A021A /* UIViewController+.swift in Sources */,
 				A2FA58DE2A7F7A3E006ACA2E /* Requestable.swift in Sources */,
 				A2FA58CA2A7F79EF006ACA2E /* BaseModel.swift in Sources */,
 				A2B9698C2A859EAB00C4903F /* UIButton+.swift in Sources */,
@@ -807,6 +820,7 @@
 				A2B20D952A7ED174001ED73C /* UIImage+.swift in Sources */,
 				A2B20D912A7ED14C001ED73C /* ImageLiteral.swift in Sources */,
 				A2B20D5A2A7E4E5C001ED73C /* UIFont+.swift in Sources */,
+				A2C2435D2A86210800F5A244 /* DetailParentViewController.swift in Sources */,
 				A2FA591E2A7FD2DD006ACA2E /* BaseCollectionViewCell.swift in Sources */,
 				A2B20D662A7E5077001ED73C /* UILabel+.swift in Sources */,
 				A2FA58D22A7F7A1F006ACA2E /* APIEnvironment.swift in Sources */,
@@ -837,6 +851,7 @@
 				A2FA59122A7FCFB4006ACA2E /* Encodable+.swift in Sources */,
 				A2D304CB2A856B6B00A5BA92 /* StorageBoxViewController.swift in Sources */,
 				A2FA59232A7FD2EC006ACA2E /* BaseTableViewCell.swift in Sources */,
+				A2C2435E2A86210800F5A244 /* DetailParentViewController.swift in Sources */,
 				A2FA58E32A7F7A4A006ACA2E /* APIService.swift in Sources */,
 				A2B9698D2A859EAB00C4903F /* UIButton+.swift in Sources */,
 				A2FA59162A7FCFC8006ACA2E /* Data+.swift in Sources */,
@@ -850,6 +865,7 @@
 				A2B20D9C2A7ED40D001ED73C /* Logger.swift in Sources */,
 				A2B20D5B2A7E4E5C001ED73C /* UIFont+.swift in Sources */,
 				A2B20D962A7ED174001ED73C /* UIImage+.swift in Sources */,
+				A28EDA132A87808A001A021A /* UIViewController+.swift in Sources */,
 				A227368C2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift in Sources */,
 				A2B20D632A7E4FAD001ED73C /* UIView+.swift in Sources */,
 			);

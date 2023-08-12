@@ -68,6 +68,16 @@ class FillBoxViewController: BaseViewController {
         }
     }
     
+//    private func bind() {
+//        parentGoalTableView..alarmButton.rx..tap
+//            .asDriver()
+//            .drive(onNext: { [weak self] in
+//                let alarmViewController = MainAlarmViewController()
+//                self?.navigationController?.pushViewController(alarmViewController, animated: true)
+//            })
+//            .disposed(by: disposeBag)
+//    }
+    
     // MARK: - @objc Functions
     
     @objc
@@ -101,5 +111,8 @@ extension FillBoxViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ParentGoalTableViewCell.identifier, for: indexPath) as? ParentGoalTableViewCell else { return UITableViewCell() }
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        push(viewController: DetailParentViewController())
     }
 }
