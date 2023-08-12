@@ -34,13 +34,24 @@ class DetailParentViewController: BaseViewController {
             $0.target = self
             $0.action = #selector(pop) // TODO: - 나중에 바꿔야 함
         }
+    
+    private let scrollView = UIScrollView()
+        .then {
+            $0.backgroundColor = .gray01
+            $0.showsVerticalScrollIndicator = false
+            $0.showsHorizontalScrollIndicator = false
+        }
+    
+    private let contentView = UIView()
+        .then {
+            $0.isUserInteractionEnabled = true
+        }
     let goalTitleLabel = UILabel()
         .then {
             $0.text = "토익 900점 넘기기"
             $0.textColor = .black
             $0.font = .pretendard(.semibold, ofSize: 24)
         }
-    
     let dDayLabel = UILabel()
         .then {
             $0.text = "D - 183"
@@ -51,7 +62,6 @@ class DetailParentViewController: BaseViewController {
             $0.layer.cornerRadius = 24 / 2
             $0.clipsToBounds = true
         }
-    
     let termLabel = UILabel()
         .then {
             $0.text = "2023.09.08 - 2023.12.02"
@@ -77,6 +87,10 @@ class DetailParentViewController: BaseViewController {
             $0.dataSource = self
             $0.delegate = self
         }
+    private let testView = UIView()
+        .then {
+            $0.backgroundColor = .red
+        }
     
     // MARK: - Properties
     
@@ -85,16 +99,24 @@ class DetailParentViewController: BaseViewController {
         DetailGoal(isGoalSet: true, goalTitle: "오답 지문 해석하기"), DetailGoal(isGoalSet: true, goalTitle: "기출 문제 3회독 하기"), DetailGoal(isGoalSet: true, goalTitle: "단어 500개 외우기"),
         DetailGoal(isGoalSet: true, goalTitle: "문법 문장 20개 외우기"), DetailGoal(isGoalSet: true, goalTitle: "모르는 단어 정리해두기"), DetailGoal(isGoalSet: false, goalTitle: "다른 교재 새로 사기")
     ]
-    var tab = 0
     
     // MARK: - Functions
     
     override func render() {
-        view.addSubViews([goalTitleLabel, dDayLabel, termLabel, detailGoalCollectionView])
+        view.addSubView(scrollView)
+        scrollView.addSubView(contentView)
+        contentView.addSubViews([goalTitleLabel, dDayLabel, termLabel, detailGoalCollectionView, testView])
         
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        contentView.snp.makeConstraints { make in
+            make.edges.width.equalToSuperview()
+            make.bottom.equalTo(testView)
+        }
         goalTitleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(24)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(15)
+            make.top.equalToSuperview().inset(15)
         }
         dDayLabel.snp.makeConstraints { make in
             make.top.equalTo(goalTitleLabel.snp.bottom).offset(12)
@@ -110,6 +132,11 @@ class DetailParentViewController: BaseViewController {
             make.top.equalTo(dDayLabel.snp.bottom).offset(20)
             make.left.right.equalToSuperview().inset(20)
             make.height.equalTo(444 + 16 + 16 + 8)
+        }
+        testView.snp.makeConstraints { make in
+            make.top.equalTo(detailGoalCollectionView.snp.bottom).offset(30)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(100)
         }
     }
     
@@ -133,25 +160,3 @@ extension DetailParentViewController: UICollectionViewDataSource, UICollectionVi
         return cell
     }
 }
-
-#if canImport(SwiftUI) && (DEBUG)
-import SwiftUI
-
-struct DetailParentViewControllerRepresentable: UIViewControllerRepresentable {
-    
-    let viewController: UIViewController
-    
-    func makeUIViewController(context: Context) -> UIViewController {
-        return viewController
-    }
-    
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
-}
-
-struct DetailParentViewController_Preview: PreviewProvider {
-    
-    static var previews: some View {
-        DetailParentViewControllerRepresentable(viewController: UINavigationController(rootViewController: DetailParentViewController()))
-    }
-}
-#endif
