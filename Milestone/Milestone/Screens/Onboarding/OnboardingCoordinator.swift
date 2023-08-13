@@ -26,6 +26,6 @@ class OnboardingCoordinator: Coordinator, OnboardingFlow {
     }
     
     func coordinateToNext() {
-        print("coord")
+        navigationController.pushViewController(OnboardingViewControllerLast(), animated: true)
     }
 }
