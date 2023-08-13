@@ -107,7 +107,12 @@ class OnboardingViewController: BaseViewController {
             $0.setTitleColor(UIColor.white, for: .normal)
             $0.setTitle("목표 만들기 완료", for: .normal)
             $0.titleLabel?.font = UIFont.pretendard(.semibold, ofSize: 16)
+            $0.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
         }
+    
+    @objc func completeButtonTapped(_ sender: UIButton) {
+        coordinator?.coordinateToNext()
+    }
     
     override func render() {
         self.view.addSubViews([mainLabel, titleLabel, titleTextField, dateLabel, startDateLabel, startDateButton, endDateLabel, endDateButton, remindLabel, remindInformationLabel, remindAdditionalInformationLabel, remindToggleButton, completeButton])
