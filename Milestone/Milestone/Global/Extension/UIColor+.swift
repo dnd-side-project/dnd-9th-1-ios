@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIColor {
-    static var primaty: UIColor {
+    static var primary: UIColor {
         return UIColor(hex: "#408DF2")
     }
     static var secondary01: UIColor {
@@ -37,6 +37,9 @@ extension UIColor {
     }
     static var gray05: UIColor {
         return UIColor(hex: "#444B53")
+    }
+    static var gray06: UIColor {
+        return UIColor(hex: "#32373E")
     }
 }
 
