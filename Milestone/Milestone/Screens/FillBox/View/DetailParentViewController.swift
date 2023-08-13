@@ -9,8 +9,6 @@ import UIKit
 
 import SnapKit
 import Then
-import RxSwift
-import RxCocoa
 
 // MARK: - 상위 목표 상세 보기 화면
 
@@ -94,10 +92,10 @@ class DetailParentViewController: BaseViewController {
     
     // MARK: - Properties
     
-    let goalData = [
-        DetailGoal(isGoalSet: true, goalTitle: "해커스 1000 LC 2 풀기"), DetailGoal(isGoalSet: true, goalTitle: "영단기 1000 RC 풀기"), DetailGoal(isGoalSet: true, goalTitle: "동사,전치사 어휘 외우기"),
-        DetailGoal(isGoalSet: true, goalTitle: "오답 지문 해석하기"), DetailGoal(isGoalSet: true, goalTitle: "기출 문제 3회독 하기"), DetailGoal(isGoalSet: true, goalTitle: "단어 500개 외우기"),
-        DetailGoal(isGoalSet: true, goalTitle: "문법 문장 20개 외우기"), DetailGoal(isGoalSet: true, goalTitle: "모르는 단어 정리해두기"), DetailGoal(isGoalSet: false, goalTitle: "다른 교재 새로 사기")
+    private let goalData = [
+        DetailGoal(isCompleted: true, title: "해커스 1000 LC 2 풀기"), DetailGoal(isCompleted: true, title: "영단기 1000 RC 풀기"), DetailGoal(isCompleted: true, title: "동사,전치사 어휘 외우기"),
+        DetailGoal(isCompleted: true, title: "오답 지문 해석하기"), DetailGoal(title: "기출 문제 3회독 하기"), DetailGoal(title: "단어 500개 외우기"),
+        DetailGoal(title: "문법 문장 20개 외우기"), DetailGoal(title: "모르는 단어 정리해두기")
     ]
     
     // MARK: - Functions
@@ -147,6 +145,8 @@ class DetailParentViewController: BaseViewController {
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
 }
+
+// MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 
 extension DetailParentViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

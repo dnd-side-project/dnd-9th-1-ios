@@ -10,6 +10,7 @@ import Foundation
 // MARK: - 세부 목표 데이터 모델
 
 struct DetailGoal {
-    var isGoalSet: Bool?
-    var goalTitle: String?
+    var isSet: Bool = true
+    var isCompleted: Bool = false
+    var title: String = ""
 }

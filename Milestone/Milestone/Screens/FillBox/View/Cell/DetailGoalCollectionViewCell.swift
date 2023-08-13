@@ -7,8 +7,10 @@
 
 import UIKit
 
-import RxSwift
 import RxCocoa
+import RxSwift
+
+// MARK: - 세부 목표 컬렉션 뷰
 
 class DetailGoalCollectionViewCell: BaseCollectionViewCell {
     
@@ -31,11 +33,10 @@ class DetailGoalCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Properties
     
-    static let identifier = "DetailGoalCell"
+    static let identifier = "DetailGoalCollectionViewCell"
     
-    let cellWidth = (UIScreen.main.bounds.width - 48 - 16) / 3
     var index = 0 // 셀 인덱스
-    var isGoalSet = BehaviorRelay(value: false) // 목표가 설정되어 있는지 안 되어 있는지
+    var isSet = BehaviorRelay(value: false) // 목표가 설정되어 있는지 안 되어 있는지
     let stoneImageArray = [ImageLiteral.imgDetailStoneVer1, ImageLiteral.imgDetailStoneVer2, ImageLiteral.imgDetailStoneVer3,
                            ImageLiteral.imgDetailStoneVer4, ImageLiteral.imgDetailStoneVer5, ImageLiteral.imgDetailStoneVer6,
                            ImageLiteral.imgDetailStoneVer7, ImageLiteral.imgDetailStoneVer8, ImageLiteral.imgDetailStoneVer9]
@@ -62,43 +63,36 @@ class DetailGoalCollectionViewCell: BaseCollectionViewCell {
         containerView.addSubViews([stoneImageView, titleLabel])
         
         containerView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(4)
-            make.left.right.equalToSuperview().inset(4)
-            make.width.equalTo(cellWidth)
-            make.height.equalTo(148)
+            make.edges.equalToSuperview().inset(4)
         }
-        
         stoneImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(16)
             make.centerX.equalToSuperview()
             make.width.equalTo(57)
             make.height.equalTo(61)
         }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(stoneImageView.snp.bottom).offset(15)
-            $0.left.right.equalToSuperview().inset(8)
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(stoneImageView.snp.bottom).offset(15)
+            make.left.right.equalToSuperview().inset(8)
         }
     }
     
     override func bind() {
-        isGoalSet
+        isSet
             .asDriver(onErrorJustReturn: false)
-            .drive(onNext: { [weak self] isGoalSet in
+            .drive(onNext: { [weak self] isSet in
                 guard let self = self else { return }
-                self.titleLabel.text = isGoalSet ? "해커스 1000 LC 2 풀기" : "세부 목표를 추가해주세요!"
-                self.titleLabel.textColor = isGoalSet ? .gray05 : .gray02
-                self.stoneImageView.image = isGoalSet ? self.stoneImageArray[self.index] : ImageLiteral.imgAddStone
+                if self.titleLabel.text?.isEmpty ?? true { self.titleLabel.text = "세부 목표를 추가해주세요!" }
+                self.titleLabel.textColor = isSet ? .gray05 : .gray02
+                self.stoneImageView.image = isSet ? self.stoneImageArray[self.index] : ImageLiteral.imgAddStone
             })
             .disposed(by: disposeBag)
     }
     
     /// 셀 내용 업데이트
     func update(content: DetailGoal, index: Int) {
-        if let goalTitle = content.goalTitle {
-            titleLabel.rx.text.onNext(goalTitle)
-        }
-        stoneImageView.rx.image.onNext(stoneImageArray[index])
-        isGoalSet.accept(content.isGoalSet!)
+        self.index = index
+        titleLabel.rx.text.onNext(content.title)
+        isSet.accept(content.isSet)
     }
 }
