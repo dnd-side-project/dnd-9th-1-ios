@@ -134,6 +134,10 @@
 		A2FA592E2A7FD433006ACA2E /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA592C2A7FD433006ACA2E /* NSObject+.swift */; };
 		A2FA592F2A7FD433006ACA2E /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA592C2A7FD433006ACA2E /* NSObject+.swift */; };
 		C90DC9272A81FF2000241B7C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C90DC9262A81FF2000241B7C /* .swiftlint.yml */; };
+		C90DC9762A876F5D00241B7C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9752A876F5D00241B7C /* AppCoordinator.swift */; };
+		C90DC97A2A88814700241B7C /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9792A88814700241B7C /* Coordinator.swift */; };
+		C90DC9822A88854C00241B7C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9812A88854C00241B7C /* OnboardingViewController.swift */; };
+		C90DC9842A88874800241B7C /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9832A88874800241B7C /* OnboardingCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,6 +209,10 @@
 		A2FA59282A7FD3BA006ACA2E /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		A2FA592C2A7FD433006ACA2E /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 		C90DC9262A81FF2000241B7C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		C90DC9752A876F5D00241B7C /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		C90DC9792A88814700241B7C /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		C90DC9812A88854C00241B7C /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		C90DC9832A88874800241B7C /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +300,8 @@
 			isa = PBXGroup;
 			children = (
 				A22736682A7CE53700D7B3B2 /* AppDelegate.swift */,
+				C90DC9752A876F5D00241B7C /* AppCoordinator.swift */,
+				C90DC9792A88814700241B7C /* Coordinator.swift */,
 				A22736762A7CE53800D7B3B2 /* Info.plist */,
 			);
 			path = Support;
@@ -533,6 +543,7 @@
 			isa = PBXGroup;
 			children = (
 				88216FBF2A85328900FE3A77 /* LoginViewController.swift */,
+				C90DC9812A88854C00241B7C /* OnboardingViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -547,6 +558,7 @@
 		A2FA59342A7FD718006ACA2E /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				C90DC9832A88874800241B7C /* OnboardingCoordinator.swift */,
 				A2FA59332A7FD710006ACA2E /* ViewModel */,
 				A2FA59302A7FD6D3006ACA2E /* View */,
 			);
@@ -751,6 +763,7 @@
 			files = (
 				A2FA58DD2A7F7A3E006ACA2E /* Requestable.swift in Sources */,
 				A2B20D652A7E5077001ED73C /* UILabel+.swift in Sources */,
+				C90DC9762A876F5D00241B7C /* AppCoordinator.swift in Sources */,
 				A2FA58E52A7F7A55006ACA2E /* NetworkStatus.swift in Sources */,
 				88216FC02A85328900FE3A77 /* LoginViewController.swift in Sources */,
 				A2B969872A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
@@ -758,8 +771,10 @@
 				A2B9698F2A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */,
 				A2D304BD2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
 				A2FA592D2A7FD433006ACA2E /* NSObject+.swift in Sources */,
+				C90DC97A2A88814700241B7C /* Coordinator.swift in Sources */,
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
 				A2FA59192A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
+				C90DC9842A88874800241B7C /* OnboardingCoordinator.swift in Sources */,
 				A2D304CD2A856B7800A5BA92 /* CompletionBoxViewController.swift in Sources */,
 				A2B20D5D2A7E4E68001ED73C /* UIColor+.swift in Sources */,
 				A2FA59102A7FCFB4006ACA2E /* Encodable+.swift in Sources */,
@@ -779,6 +794,7 @@
 				A2B20D9A2A7ED40D001ED73C /* Logger.swift in Sources */,
 				A2B20D592A7E4E5C001ED73C /* UIFont+.swift in Sources */,
 				A2B20D942A7ED174001ED73C /* UIImage+.swift in Sources */,
+				C90DC9822A88854C00241B7C /* OnboardingViewController.swift in Sources */,
 				A22736692A7CE53700D7B3B2 /* AppDelegate.swift in Sources */,
 				A2B20D612A7E4FAD001ED73C /* UIView+.swift in Sources */,
 			);
