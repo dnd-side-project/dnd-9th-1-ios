@@ -3,7 +3,7 @@ name: Feat Issue Template
 about: DND 9기 1조의 iOS FEAT 이슈 템플릿
 title: "[feature/브랜치명] ~를 구현한다."
 labels: feat
-assignees: EunsuSeo01
+assignees: ''
 
 ---
 

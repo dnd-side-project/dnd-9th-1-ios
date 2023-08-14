@@ -17,6 +17,7 @@ class BaseTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         render()
         configUI()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -29,5 +30,9 @@ class BaseTableViewCell: UITableViewCell {
     
     func configUI() {
         // Override ConfigUI
+    }
+    
+    func bind() {
+        // rx
     }
 }

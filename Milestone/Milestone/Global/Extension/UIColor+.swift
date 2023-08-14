@@ -41,6 +41,12 @@ extension UIColor {
     static var gray06: UIColor {
         return UIColor(hex: "#32373E")
     }
+    static var pointPurple: UIColor {
+        return UIColor(hex: "#7871FF")
+    }
+    static var pointRed: UIColor {
+        return UIColor(hex: "#FD3D51")
+    }
 }
 
 extension UIColor {

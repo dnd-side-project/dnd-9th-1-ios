@@ -14,7 +14,7 @@ class CompletionBoxViewController: BaseViewController {
     
     private let emptyImageView = UIImageView()
         .then {
-            $0.image = #imageLiteral(resourceName: "completionEmptyImage")
+            $0.image = ImageLiteral.imgcompletionEmpty
             $0.contentMode = .scaleAspectFit
         }
     

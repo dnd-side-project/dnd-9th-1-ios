@@ -102,4 +102,8 @@ extension FillBoxViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ParentGoalTableViewCell.identifier, for: indexPath) as? ParentGoalTableViewCell else { return UITableViewCell() }
         return cell
     }
+    // 셀 클릭 시 실행
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        push(viewController: DetailParentViewController())
+    }
 }
