@@ -42,6 +42,7 @@ class DetailGoalTableViewCell: BaseTableViewCell {
     override func prepareForReuse() {
         self.titleLabel.text = ""
         self.checkImageView.image = UIImage()
+        self.containerView.backgroundColor = .white
     }
     
     override func configUI() {
@@ -75,6 +76,7 @@ class DetailGoalTableViewCell: BaseTableViewCell {
     }
     
     override func bind() {
+//        Logger.debugDescription(isCompleted)
         isCompleted
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: { [weak self] isCompleted in

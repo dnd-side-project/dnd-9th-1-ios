@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
 
@@ -98,18 +100,23 @@ class DetailParentViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private let goalData = [
-        DetailGoal(isCompleted: true, title: "해커스 1000 LC 2 풀기"), DetailGoal(isCompleted: true, title: "영단기 1000 RC 풀기"), DetailGoal(isCompleted: true, title: "동사,전치사 어휘 외우기"),
-        DetailGoal(isCompleted: true, title: "오답 지문 해석하기"), DetailGoal(title: "기출 문제 3회독 하기"), DetailGoal(title: "단어 500개 외우기"),
-        DetailGoal(title: "문법 문장 20개 외우기"), DetailGoal(title: "모르는 단어 정리해두기")
+    private var goalData = [
+        DetailGoal(id: 0, isCompleted: true, title: "해커스 1000 LC 2 풀기"), DetailGoal(id: 1, isCompleted: true, title: "영단기 1000 RC 풀기"), DetailGoal(id: 2, isCompleted: true, title: "동사, 전치사 어휘 외우기"),
+        DetailGoal(id: 3, isCompleted: true, title: "오답 지문 해석하기"), DetailGoal(id: 4, title: "기출 문제 3회독 하기"), DetailGoal(id: 5, title: "단어 500개 외우기"),
+        DetailGoal(id: 6, title: "문법 문장 20개 외우기"), DetailGoal(id: 7, title: "모르는 단어 정리해두기")
     ]
-    private var emptyGoal: DetailGoal? // 세부 목표를 추가해주세요! 데이터
+    // goalData를 정렬한, 테이블뷰에 보여줄 데이터
+    lazy var sortedGoalData: [DetailGoal] = {
+        return sortGoalForCheckList(goalArray: goalData)
+    }()
+    // 세부 목표를 추가해주세요! 데이터
+    private var emptyGoal: DetailGoal?
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setEmptyGoalForCollectionView()
     }
     
@@ -166,6 +173,24 @@ class DetailParentViewController: BaseViewController {
             self.emptyGoal = DetailGoal(isSet: false)
         }
     }
+    
+    /// 체크리스트(TableView)를 위해 goalData를 정렬하는 함수
+    /// 리스트는 id순(작성순)으로 정렬되어야 한다
+    /// 또한 완료된 목표는 완료되지 않은 목표들보다 뒤에 위치해야 한다
+    private func sortGoalForCheckList(goalArray: [DetailGoal]) -> [DetailGoal] {
+        return goalArray.sorted {
+            if $0.isCompleted == $1.isCompleted {
+                return $0.id < $1.id
+            } else {
+                return !$0.isCompleted && $1.isCompleted
+            }
+        }
+    }
+    
+    /// 파라미터로 받은 id가 배열에서 몇 번째 인덱스에 위치해 있는지 반환
+    private func findIndex(id: Int, goalArray: [DetailGoal]) -> Int? {
+        return goalArray.firstIndex { $0.id == id }
+    }
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
@@ -187,18 +212,28 @@ extension DetailParentViewController: UICollectionViewDataSource, UICollectionVi
 // MARK: - UITableViewDataSource, UITableViewDelegate
 
 extension DetailParentViewController: UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        2
-    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let filteredGoal = goalData.filter { section == 0 ? !($0.isCompleted) : $0.isCompleted }
-        return filteredGoal.count
+        sortedGoalData.count
     }
                          
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailGoalTableViewCell.identifier, for: indexPath) as? DetailGoalTableViewCell else { return UITableViewCell() }
-        let filteredGoal = goalData.filter { indexPath.section == 0 ? !($0.isCompleted) : ($0.isCompleted) }
-        cell.update(content: filteredGoal[indexPath.row])
+        cell.update(content: sortedGoalData[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let row = indexPath.row
+        let selectedGoalId = sortedGoalData[row].id
+        
+        sortedGoalData[row].isCompleted.toggle() // 원본 배열의 isCompleted 값 변경
+        sortedGoalData = sortGoalForCheckList(goalArray: sortedGoalData) // 원본 배열 재정렬
+        
+        let newIndex = findIndex(id: selectedGoalId, goalArray: sortedGoalData) // 재정렬된 배열과 비교하여 완료도가 업데이트된 목표가 들어가야할 인덱스를 찾는다
+        let destIndexPath = IndexPath(row: newIndex ?? 0, section: 0) // 목적지 indexPath
+        tableView.moveRow(at: indexPath, to: destIndexPath) // 해당 인덱스로 셀 이동
+        
+        guard let movedCell = tableView.cellForRow(at: destIndexPath) as? DetailGoalTableViewCell else { return } // 이동한 셀
+        movedCell.update(content: sortedGoalData[newIndex ?? 0]) // 이동한 셀 UI 업데이트
     }
 }
