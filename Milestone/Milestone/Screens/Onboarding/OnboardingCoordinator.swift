@@ -33,6 +33,7 @@ class OnboardingCoordinator: Coordinator, OnboardingFlow {
     }
     
     func coordinateToMain() {
-        navigationController.pushViewController(MainViewController(), animated: true)
+        let mainCoordinator = MainCoordinator(navigationController: navigationController)
+        coordinate(to: mainCoordinator)
     }
 }

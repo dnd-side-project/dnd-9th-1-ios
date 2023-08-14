@@ -142,6 +142,7 @@
 		C90DC9882A891A8500241B7C /* OnboardingViewControllerLast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9872A891A8500241B7C /* OnboardingViewControllerLast.swift */; };
 		C90DC98A2A8922D300241B7C /* NSMutableAttributedString+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9892A8922D300241B7C /* NSMutableAttributedString+.swift */; };
 		C90DC98C2A89C35D00241B7C /* CompletionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC98B2A89C35D00241B7C /* CompletionCoordinator.swift */; };
+		C90DC98E2A89EDE000241B7C /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC98D2A89EDE000241B7C /* MainCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -221,6 +222,7 @@
 		C90DC9872A891A8500241B7C /* OnboardingViewControllerLast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerLast.swift; sourceTree = "<group>"; };
 		C90DC9892A8922D300241B7C /* NSMutableAttributedString+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+.swift"; sourceTree = "<group>"; };
 		C90DC98B2A89C35D00241B7C /* CompletionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionCoordinator.swift; sourceTree = "<group>"; };
+		C90DC98D2A89EDE000241B7C /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -417,6 +419,7 @@
 		A2B9697F2A8574EA00C4903F /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				C90DC98D2A89EDE000241B7C /* MainCoordinator.swift */,
 				A2B969802A8574F200C4903F /* View */,
 			);
 			path = Main;
@@ -808,6 +811,7 @@
 				A2FA59252A7FD3B1006ACA2E /* UICollectionView+.swift in Sources */,
 				A2D304C12A854EDE00A5BA92 /* MainSegmentedControl.swift in Sources */,
 				A2B20D9A2A7ED40D001ED73C /* Logger.swift in Sources */,
+				C90DC98E2A89EDE000241B7C /* MainCoordinator.swift in Sources */,
 				A2B20D592A7E4E5C001ED73C /* UIFont+.swift in Sources */,
 				A2B20D942A7ED174001ED73C /* UIImage+.swift in Sources */,
 				C90DC9822A88854C00241B7C /* OnboardingViewController.swift in Sources */,

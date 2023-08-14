@@ -161,3 +161,82 @@ extension MainViewController: UIPageViewControllerDelegate {
         self.segmentedControl.selectedSegmentIndex = index
     }
 }
+
+extension UIPageViewController: HasDelegate, HasDataSource {
+    public typealias Delegate = UIPageViewControllerDelegate
+    public typealias DataSource = UIPageViewControllerDataSource
+}
+
+class RxUIPageViewControllerDelegateProxy: DelegateProxy<UIPageViewController, UIPageViewControllerDelegate>, DelegateProxyType, UIPageViewControllerDelegate {
+    weak private(set) var pageViewController: UIPageViewController?
+    
+    init(pageViewController: UIPageViewController) {
+        self.pageViewController = pageViewController
+        
+        super.init(parentObject: pageViewController, delegateProxy: RxUIPageViewControllerDelegateProxy.self)
+    }
+
+    static func registerKnownImplementations() {
+        self.register {
+            RxUIPageViewControllerDelegateProxy(pageViewController: $0)
+        }
+    }
+}
+
+extension Reactive where Base: UIPageViewController {
+    var delegate: DelegateProxy<UIPageViewController, UIPageViewControllerDelegate> {
+        return RxUIPageViewControllerDelegateProxy.proxy(for: base)
+    }
+    
+    var willTransitionTo: Observable<[UIViewController]> {
+        return delegate.methodInvoked(#selector(UIPageViewControllerDelegate.pageViewController(_:willTransitionTo:)))
+            .map { $0[1] as! [UIViewController] }
+    }
+}
+
+class RxUIPageViewcontrollerDataSourceProxy: DelegateProxy<UIPageViewController, UIPageViewControllerDataSource>, DelegateProxyType, UIPageViewControllerDataSource {
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        
+        print(pageViewController.viewControllers)
+        afterVC.onNext(viewController)
+        
+        return nil
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        previousVC.onNext(viewController)
+        return nil
+    }
+    
+    weak private(set) var pageViewController: UIPageViewController?
+
+    init(pageViewController: UIPageViewController) {
+        self.pageViewController = pageViewController
+
+        super.init(parentObject: pageViewController, delegateProxy: RxUIPageViewcontrollerDataSourceProxy.self)
+    }
+
+    static func registerKnownImplementations() {
+        self.register {
+            RxUIPageViewcontrollerDataSourceProxy(pageViewController: $0)
+        }
+    }
+    
+    fileprivate let previousVC = PublishSubject<UIViewController>()
+    fileprivate let afterVC = PublishSubject<UIViewController>()
+}
+ 
+extension Reactive where Base: UIPageViewController {
+    var dataSource: RxUIPageViewcontrollerDataSourceProxy {
+        return RxUIPageViewcontrollerDataSourceProxy.proxy(for: base)
+    }
+
+    var pageViewControllerBefore: Observable<UIViewController> {
+        return dataSource.previousVC
+    }
+    
+    var pageViewControllerAfter: Observable<UIViewController> {
+        return dataSource.afterVC
+    }
+}
