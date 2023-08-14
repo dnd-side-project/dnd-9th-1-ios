@@ -59,11 +59,21 @@ class MainViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setAttributes()
         changeCurrentPage(control: self.segmentedControl)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     // MARK: - Functions
+    
     override func render() {
         view.addSubViews([settingButton, segmentedControl, pageViewController.view])
         
@@ -83,7 +93,7 @@ class MainViewController: BaseViewController {
         }
     }
     
-    private func setAttributes() {
+    override func configUI() {
         view.backgroundColor = .gray01
         
         self.segmentedControl.setTitleTextAttributes(
