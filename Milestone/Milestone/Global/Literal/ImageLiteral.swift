@@ -15,4 +15,5 @@ enum ImageLiteral {
     static var imgCalendar: UIImage { .load(named: "calendar")}
     static var imgTempGoal: UIImage { .load(named: "tempGoal")}
     static var imgPlus: UIImage { .load(named: "plus")}
+    static var imgOnboarding: UIImage { .load(named: "onboarding2") }
 }
