@@ -29,7 +29,7 @@ class MainViewController: BaseViewController {
     
     private let storageBoxVC = StorageBoxViewController()
     private let fillBoxVC = FillBoxViewController()
-    private let completionVC = CompletionBoxViewController()
+    private var completionVC = CompletionBoxViewController()
     var viewControllers: [UIViewController] { [self.storageBoxVC, self.fillBoxVC, self.completionVC] }
     
     private lazy var pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
@@ -60,6 +60,7 @@ class MainViewController: BaseViewController {
         super.viewDidLoad()
         
         changeCurrentPage(control: self.segmentedControl)
+        bindingModels()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,6 +110,11 @@ class MainViewController: BaseViewController {
             ],
             for: .selected
         )
+    }
+    
+    /// 세 개의 섹션들에 대해 뷰모델 바인딩
+    func bindingModels() {
+        completionVC.bind(viewModel: CompletionViewModel())
     }
     
     // MARK: - @objc Functions
