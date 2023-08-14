@@ -39,7 +39,12 @@ class OnboardingViewControllerLast: BaseViewController {
             $0.backgroundColor = .gray06
             $0.layer.cornerRadius = 20
             $0.titleLabel?.font = UIFont.pretendard(.semibold, ofSize: 16)
+            $0.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
         }
+    
+    @objc func completeButtonTapped(_ sender: UIButton) {
+        coordinator?.coordinateToMain()
+    }
     
     override func render() {
         view.addSubViews([onboardingImageView, label, completeButton])

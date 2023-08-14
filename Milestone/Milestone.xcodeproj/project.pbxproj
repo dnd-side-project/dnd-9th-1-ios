@@ -141,6 +141,7 @@
 		C90DC9862A88F0B100241B7C /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9852A88F0B100241B7C /* UITextField+.swift */; };
 		C90DC9882A891A8500241B7C /* OnboardingViewControllerLast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9872A891A8500241B7C /* OnboardingViewControllerLast.swift */; };
 		C90DC98A2A8922D300241B7C /* NSMutableAttributedString+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9892A8922D300241B7C /* NSMutableAttributedString+.swift */; };
+		C90DC98C2A89C35D00241B7C /* CompletionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC98B2A89C35D00241B7C /* CompletionCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -219,6 +220,7 @@
 		C90DC9852A88F0B100241B7C /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		C90DC9872A891A8500241B7C /* OnboardingViewControllerLast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerLast.swift; sourceTree = "<group>"; };
 		C90DC9892A8922D300241B7C /* NSMutableAttributedString+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+.swift"; sourceTree = "<group>"; };
+		C90DC98B2A89C35D00241B7C /* CompletionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -475,6 +477,7 @@
 		A2D304C52A856AF400A5BA92 /* CompletionBox */ = {
 			isa = PBXGroup;
 			children = (
+				C90DC98B2A89C35D00241B7C /* CompletionCoordinator.swift */,
 				A2D304C72A856B4F00A5BA92 /* View */,
 			);
 			path = CompletionBox;
@@ -790,6 +793,7 @@
 				A2D304CD2A856B7800A5BA92 /* CompletionBoxViewController.swift in Sources */,
 				A2B20D5D2A7E4E68001ED73C /* UIColor+.swift in Sources */,
 				A2FA59102A7FCFB4006ACA2E /* Encodable+.swift in Sources */,
+				C90DC98C2A89C35D00241B7C /* CompletionCoordinator.swift in Sources */,
 				A2D304C92A856B6B00A5BA92 /* StorageBoxViewController.swift in Sources */,
 				A2FA59212A7FD2EC006ACA2E /* BaseTableViewCell.swift in Sources */,
 				A2FA58E12A7F7A4A006ACA2E /* APIService.swift in Sources */,
