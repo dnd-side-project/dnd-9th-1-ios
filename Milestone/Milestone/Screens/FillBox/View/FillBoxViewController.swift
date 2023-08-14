@@ -30,15 +30,15 @@ class FillBoxViewController: BaseViewController {
     
     lazy var addGoalButton = UIButton()
         .then {
-            $0.backgroundColor = .gray05
+            $0.backgroundColor = .primary
             $0.layer.cornerRadius = 64 / 2
             $0.setImage(ImageLiteral.imgPlus, for: .normal)
             $0.addTarget(self, action: #selector(addNewParentGoal), for: .touchUpInside)
             // 그림자 생성
-            $0.layer.shadowColor = UIColor.black.cgColor
-            $0.layer.shadowOpacity = 0.4
+            $0.layer.shadowColor = UIColor.primary.cgColor
+            $0.layer.shadowOpacity = 0.6
             $0.layer.shadowOffset = CGSize(width: 0, height: 4)
-            $0.layer.shadowRadius = 5
+            $0.layer.shadowRadius = 6 / 2.0
         }
     
     // MARK: - Properties
@@ -50,7 +50,7 @@ class FillBoxViewController: BaseViewController {
         
         parentGoalTableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
-            make.left.right.equalToSuperview().inset(24)
+            make.left.right.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(16)
         }
         addGoalButton.snp.makeConstraints { make in
@@ -87,7 +87,7 @@ extension FillBoxViewController: UITableViewDataSource, UITableViewDelegate {
     }
     // 헤더뷰 높이 설정
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        80 + 16
+        80 + 8
     }
     // 셀 높이 설정
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
