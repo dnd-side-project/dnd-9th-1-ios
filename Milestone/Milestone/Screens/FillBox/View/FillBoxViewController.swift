@@ -30,15 +30,15 @@ class FillBoxViewController: BaseViewController {
     
     lazy var addGoalButton = UIButton()
         .then {
-            $0.backgroundColor = .gray05
+            $0.backgroundColor = .primary
             $0.layer.cornerRadius = 64 / 2
             $0.setImage(ImageLiteral.imgPlus, for: .normal)
             $0.addTarget(self, action: #selector(addNewParentGoal), for: .touchUpInside)
             // 그림자 생성
-            $0.layer.shadowColor = UIColor.black.cgColor
-            $0.layer.shadowOpacity = 0.4
+            $0.layer.shadowColor = UIColor.primary.cgColor
+            $0.layer.shadowOpacity = 0.6
             $0.layer.shadowOffset = CGSize(width: 0, height: 4)
-            $0.layer.shadowRadius = 5
+            $0.layer.shadowRadius = 6 / 2.0
         }
     
     // MARK: - Properties
