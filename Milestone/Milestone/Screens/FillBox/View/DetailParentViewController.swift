@@ -32,7 +32,7 @@ class DetailParentViewController: BaseViewController {
             $0.style = .plain
             $0.tintColor = .gray05
             $0.target = self
-            $0.action = #selector(pop) // TODO: - 나중에 바꿔야 함
+            $0.action = #selector(showMore)
         }
     
     private let scrollView = UIScrollView()
@@ -190,6 +190,19 @@ class DetailParentViewController: BaseViewController {
     /// 파라미터로 받은 id가 배열에서 몇 번째 인덱스에 위치해 있는지 반환
     private func findIndex(id: Int, goalArray: [DetailGoal]) -> Int? {
         return goalArray.firstIndex { $0.id == id }
+    }
+    
+    // MARK: - @objc Functions
+    
+    @objc
+    func showMore() {
+        let moreVC = MoreViewController()
+        moreVC.modalPresentationStyle = .pageSheet
+        
+        guard let sheet = moreVC.sheetPresentationController else { return }
+        let fraction = UISheetPresentationController.Detent.custom { _ in moreVC.viewHeight }
+        sheet.detents = [fraction]
+        present(moreVC, animated: true)
     }
 }
 

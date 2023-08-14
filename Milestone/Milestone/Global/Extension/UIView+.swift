@@ -22,7 +22,7 @@ extension UIView {
         return self
     }
     
-    func makeShadow(color: UIColor = .black, alpha: Float, x: CGFloat, y: CGFloat, blur: CGFloat, spread: CGFloat) -> Self {
+    func makeShadow(color: UIColor = .black, alpha: Float, x: CGFloat, y: CGFloat, blur: CGFloat, spread: CGFloat) {
         layer.masksToBounds = false
         layer.shadowColor = color.cgColor
         layer.shadowOpacity = alpha
@@ -35,7 +35,6 @@ extension UIView {
             let rect = bounds.insetBy(dx: dx, dy: dx)
             layer.shadowPath = UIBezierPath(rect: rect).cgPath
         }
-        return self
     }
     
     func addSubView<T: UIView>(_ subview: T, completionHandler closure: ((T) -> Void)? = nil) {
