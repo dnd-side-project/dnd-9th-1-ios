@@ -24,6 +24,15 @@ enum ImageLiteral {
     static var imgDetailStoneVer7: UIImage { .load(named: "detailStone7")}
     static var imgDetailStoneVer8: UIImage { .load(named: "detailStone8")}
     static var imgDetailStoneVer9: UIImage { .load(named: "detailStone9")}
+    static var imgCompletedStoneVer1: UIImage { .load(named: "completedStone1")}
+    static var imgCompletedStoneVer2: UIImage { .load(named: "completedStone2")}
+    static var imgCompletedStoneVer3: UIImage { .load(named: "completedStone3")}
+    static var imgCompletedStoneVer4: UIImage { .load(named: "completedStone4")}
+    static var imgCompletedStoneVer5: UIImage { .load(named: "completedStone5")}
+    static var imgCompletedStoneVer6: UIImage { .load(named: "completedStone6")}
+    static var imgCompletedStoneVer7: UIImage { .load(named: "completedStone7")}
+    static var imgCompletedStoneVer8: UIImage { .load(named: "completedStone8")}
+    static var imgCompletedStoneVer9: UIImage { .load(named: "completedStone9")}
     static var imgAddStone: UIImage { .load(named: "addStone")}
     static var imgWhiteCheck: UIImage { .load(named: "whiteCheck")}
     static var imgBlueCheck: UIImage { .load(named: "blueCheck")}

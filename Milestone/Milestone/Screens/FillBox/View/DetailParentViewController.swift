@@ -235,5 +235,8 @@ extension DetailParentViewController: UITableViewDataSource, UITableViewDelegate
         
         guard let movedCell = tableView.cellForRow(at: destIndexPath) as? DetailGoalTableViewCell else { return } // 이동한 셀
         movedCell.update(content: sortedGoalData[newIndex ?? 0]) // 이동한 셀 UI 업데이트
+        
+        goalData[selectedGoalId].isCompleted.toggle() // 원본 배열의 isCompleted 값 변경
+        self.detailGoalCollectionView.reloadData()
     }
 }
