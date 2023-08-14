@@ -16,38 +16,37 @@ class DetailGoalInfoView: UIView {
     
     // MARK: - Subviews
     
-    public var stoneImageView = UIImageView()
-    public var titleLabel = UILabel()
+    var stoneImageView = UIImageView()
+    var titleLabel = UILabel()
         .then {
             $0.text = "기출 문제 다시 풀기"
             $0.textAlignment = .left
             $0.font = .pretendard(.semibold, ofSize: 20)
             $0.textColor = .black
         }
-    public var startDateLabel = UILabel()
+    var startDateLabel = UILabel()
         .then {
             $0.text = "2023.11.23 시작"
             $0.textAlignment = .left
             $0.font = .pretendard(.regular, ofSize: 16)
             $0.textColor = .gray03
         }
-    public var alarmImageView = UIImageView()
+    let alarmImageView = UIImageView()
         .then {
             $0.image = ImageLiteral.imgAlarm
             $0.layer.cornerRadius = 24 / 2
         }
-    public var alarmInfoLabel = UILabel()
+    var alarmInfoLabel = UILabel()
         .then {
             $0.text = "월 오전 10:00"
             $0.textAlignment = .left
             $0.font = .pretendard(.regular, ofSize: 14)
             $0.textColor = .gray03
         }
-    lazy var xButton = UIButton()
+    let xButton = UIButton()
         .then {
             $0.setImage(ImageLiteral.imgX, for: .normal)
-            $0.tintColor = .clear
-            $0.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
+            $0.configuration = .plain()
         }
     lazy var removeButton = UIButton()
         .then {
@@ -146,17 +145,14 @@ class DetailGoalInfoView: UIView {
     }
     
     @objc
-    func dismiss() {
-        
-    }
-    
-    @objc
     func removeDetailGoal() {
-        
+        // TODO: - 세부 목표 삭제하기 모달 연결
+        Logger.debugDescription("removeDetailGoal")
     }
     
     @objc
     func modifyDetailGoal() {
-        
+        // TODO: - 세부 목표 수정하기 모달 연결
+        Logger.debugDescription("modifyDetailGoal")
     }
 }

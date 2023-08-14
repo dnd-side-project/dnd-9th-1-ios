@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
 import Then
 
 // MARK: - 세부 목표 정보 팝업뷰
@@ -15,6 +17,12 @@ class DetailGoalInfoViewController: BaseViewController {
     
     // MARK: - SubViews
     
+    let dimmedViewTap = UITapGestureRecognizer()
+    lazy var dimmedView = UIView()
+        .then {
+            $0.backgroundColor = .black.withAlphaComponent(0.3)
+            $0.addGestureRecognizer(dimmedViewTap)
+        }
     let infoView = DetailGoalInfoView()
     
     // MARK: - Life Cycle
@@ -28,15 +36,31 @@ class DetailGoalInfoViewController: BaseViewController {
     // MARK: - Functions
     
     override func render() {
-        view.addSubView(infoView)
+        view.addSubViews([dimmedView, infoView])
         
+        dimmedView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         infoView.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
     }
-
-    override func configUI() {
-        view.backgroundColor = .black.withAlphaComponent(0.3) // dimmed view
+    
+    override func bind() {
+        infoView.xButton.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        dimmedViewTap.rx.event
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     /// TEMP
