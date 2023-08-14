@@ -50,7 +50,7 @@ class FillBoxViewController: BaseViewController {
         
         parentGoalTableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
-            make.left.right.equalToSuperview().inset(24)
+            make.left.right.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(16)
         }
         addGoalButton.snp.makeConstraints { make in
@@ -87,7 +87,7 @@ extension FillBoxViewController: UITableViewDataSource, UITableViewDelegate {
     }
     // 헤더뷰 높이 설정
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        80 + 16
+        80 + 8
     }
     // 셀 높이 설정
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

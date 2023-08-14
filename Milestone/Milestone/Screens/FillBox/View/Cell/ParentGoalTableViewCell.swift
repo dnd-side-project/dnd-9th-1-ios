@@ -60,7 +60,7 @@ class ParentGoalTableViewCell: BaseTableViewCell {
         self.containerView.layer.shadowColor = UIColor.init(hex: "#DCDCDC").cgColor
         self.containerView.layer.shadowOpacity = 1.0
         self.containerView.layer.shadowOffset = CGSize.zero
-        self.containerView.layer.shadowRadius = 7
+        self.containerView.layer.shadowRadius = 7 / 2.0
     }
     
     override func render() {
@@ -70,8 +70,8 @@ class ParentGoalTableViewCell: BaseTableViewCell {
         
         containerView.snp.makeConstraints { make in
             make.height.equalTo(96)
-            make.top.left.right.equalToSuperview()
-            make.bottom.equalToSuperview().inset(16)
+            make.top.bottom.equalToSuperview().inset(8)
+            make.left.right.equalToSuperview().inset(4)
         }
         
         goalStatusImageView.snp.makeConstraints { make in
