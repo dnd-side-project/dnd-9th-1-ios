@@ -9,6 +9,7 @@ import UIKit
 
 protocol OnboardingFlow {
     func coordinateToNext()
+    func coordinateToMain()
 }
 
 class OnboardingCoordinator: Coordinator, OnboardingFlow {
@@ -26,6 +27,12 @@ class OnboardingCoordinator: Coordinator, OnboardingFlow {
     }
     
     func coordinateToNext() {
-        navigationController.pushViewController(OnboardingViewControllerLast(), animated: true)
+        let onboardingLastVC = OnboardingViewControllerLast()
+        onboardingLastVC.coordinator = self
+        navigationController.pushViewController(onboardingLastVC, animated: true)
+    }
+    
+    func coordinateToMain() {
+        navigationController.pushViewController(MainViewController(), animated: true)
     }
 }
