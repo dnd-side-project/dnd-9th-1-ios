@@ -8,7 +8,36 @@
 import UIKit
 import SnapKit
 
+protocol LoginFlow {
+    func coordinateToOnboarding()
+}
+
+class LoginCoordinator: Coordinator, LoginFlow {
+    let navigationController: UINavigationController
+    
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
+    
+    func start() {
+        let loginViewController = LoginViewController()
+        loginViewController.coordinator = self
+        navigationController.pushViewController(loginViewController, animated: true)
+    }
+    
+    func coordinateToOnboarding() {
+        let onboardingCoordinator = OnboardingCoordinator(navigationController: navigationController)
+        coordinate(to: onboardingCoordinator)
+    }
+}
+
 class LoginViewController: BaseViewController {
+    
+    var coordinator: LoginFlow?
+    
+    @objc func kakaoButtonTapped(_ sender: UIButton) {
+        coordinator?.coordinateToOnboarding()
+    }
     
     let label: UILabel = {
         let label = UILabel()
@@ -63,6 +92,7 @@ class LoginViewController: BaseViewController {
         btn.setTitleColor(.black, for: .normal)
         btn.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 19)
         btn.layer.cornerRadius = 8
+        btn.addTarget(self, action: #selector(kakaoButtonTapped), for: .touchUpInside)
         return btn
     }()
     
