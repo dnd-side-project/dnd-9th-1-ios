@@ -164,6 +164,10 @@
 		C90DC98A2A8922D300241B7C /* NSMutableAttributedString+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9892A8922D300241B7C /* NSMutableAttributedString+.swift */; };
 		C9B2CDD62A8A77F1006289A8 /* CompletionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDD52A8A77F1006289A8 /* CompletionViewModel.swift */; };
 		C9B2CDD82A8A7B26006289A8 /* ViewModelBindableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDD72A8A7B26006289A8 /* ViewModelBindableType.swift */; };
+		C9B2CDDB2A8B1EBC006289A8 /* CompletionAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDDA2A8B1EBC006289A8 /* CompletionAlertView.swift */; };
+		C9B2CDDE2A8B42CA006289A8 /* CompletionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDDD2A8B42CA006289A8 /* CompletionTableViewCell.swift */; };
+		C9B2CDE12A8B5E9D006289A8 /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = C9B2CDE02A8B5E9D006289A8 /* Differentiator */; };
+		C9B2CDE32A8B5E9D006289A8 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = C9B2CDE22A8B5E9D006289A8 /* RxDataSources */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -251,6 +255,8 @@
 		C90DC9892A8922D300241B7C /* NSMutableAttributedString+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+.swift"; sourceTree = "<group>"; };
 		C9B2CDD52A8A77F1006289A8 /* CompletionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewModel.swift; sourceTree = "<group>"; };
 		C9B2CDD72A8A7B26006289A8 /* ViewModelBindableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelBindableType.swift; sourceTree = "<group>"; };
+		C9B2CDDA2A8B1EBC006289A8 /* CompletionAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionAlertView.swift; sourceTree = "<group>"; };
+		C9B2CDDD2A8B42CA006289A8 /* CompletionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,10 +267,12 @@
 				A2B20D502A7E3EE1001ED73C /* RxSwift in Frameworks */,
 				A2B20D562A7E3F05001ED73C /* Alamofire in Frameworks */,
 				A2B20D4E2A7E3EE1001ED73C /* RxRelay in Frameworks */,
+				C9B2CDE32A8B5E9D006289A8 /* RxDataSources in Frameworks */,
 				A2B20D462A7E3EA1001ED73C /* RxMoya in Frameworks */,
 				A2B20D532A7E3EF0001ED73C /* SnapKit in Frameworks */,
 				A2B20D492A7E3EC6001ED73C /* Then in Frameworks */,
 				A2B20D4C2A7E3EE1001ED73C /* RxCocoa in Frameworks */,
+				C9B2CDE12A8B5E9D006289A8 /* Differentiator in Frameworks */,
 				A2B20D442A7E3EA1001ED73C /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,7 +547,9 @@
 		A2D304C72A856B4F00A5BA92 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C9B2CDDC2A8B42AD006289A8 /* Cell */,
 				A2248E942A8A5A5C00EB995A /* CompletionBoxViewController.swift */,
+				C9B2CDDA2A8B1EBC006289A8 /* CompletionAlertView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -631,6 +641,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		C9B2CDDC2A8B42AD006289A8 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C9B2CDDD2A8B42CA006289A8 /* CompletionTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -657,6 +675,8 @@
 				A2B20D4F2A7E3EE1001ED73C /* RxSwift */,
 				A2B20D522A7E3EF0001ED73C /* SnapKit */,
 				A2B20D552A7E3F05001ED73C /* Alamofire */,
+				C9B2CDE02A8B5E9D006289A8 /* Differentiator */,
+				C9B2CDE22A8B5E9D006289A8 /* RxDataSources */,
 			);
 			productName = Milestone;
 			productReference = A22736652A7CE53700D7B3B2 /* Milestone.app */;
@@ -736,6 +756,7 @@
 				A2B20D4A2A7E3EE1001ED73C /* XCRemoteSwiftPackageReference "RxSwift" */,
 				A2B20D512A7E3EF0001ED73C /* XCRemoteSwiftPackageReference "SnapKit" */,
 				A2B20D542A7E3F05001ED73C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				C9B2CDDF2A8B5E9D006289A8 /* XCRemoteSwiftPackageReference "RxDataSources" */,
 			);
 			productRefGroup = A22736662A7CE53700D7B3B2 /* Products */;
 			projectDirPath = "";
@@ -845,6 +866,7 @@
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
 				A2FA59192A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
 				A2248E8B2A8A0C5400EB995A /* MoreOptionView.swift in Sources */,
+				C9B2CDDB2A8B1EBC006289A8 /* CompletionAlertView.swift in Sources */,
 				A23075CA2A87F8EE00D841F6 /* DetailGoal.swift in Sources */,
 				A2248E832A8818AD00EB995A /* DetailGoalTableViewCell.swift in Sources */,
 				C90DC97A2A88814700241B7C /* Coordinator.swift in Sources */,
@@ -875,6 +897,7 @@
 				A2B20D942A7ED174001ED73C /* UIImage+.swift in Sources */,
 				A28EDA152A8791F7001A021A /* DetailGoalCollectionViewCell.swift in Sources */,
 				C90DC9822A88854C00241B7C /* OnboardingViewController.swift in Sources */,
+				C9B2CDDE2A8B42CA006289A8 /* CompletionTableViewCell.swift in Sources */,
 				A22736692A7CE53700D7B3B2 /* AppDelegate.swift in Sources */,
 				A2B20D612A7E4FAD001ED73C /* UIView+.swift in Sources */,
 			);
@@ -1328,6 +1351,14 @@
 				kind = branch;
 			};
 		};
+		C9B2CDDF2A8B5E9D006289A8 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1370,6 +1401,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A2B20D542A7E3F05001ED73C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		C9B2CDE02A8B5E9D006289A8 /* Differentiator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9B2CDDF2A8B5E9D006289A8 /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = Differentiator;
+		};
+		C9B2CDE22A8B5E9D006289A8 /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9B2CDDF2A8B5E9D006289A8 /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
