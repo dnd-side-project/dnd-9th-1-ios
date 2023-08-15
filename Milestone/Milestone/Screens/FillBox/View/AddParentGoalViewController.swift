@@ -29,6 +29,7 @@ class AddParentGoalViewController: BaseViewController {
             $0.textAlignment = .center
         }
     var enterGoalTitleView = EnterGoalTitleView()
+    var enterGoalDateView = EnterGoalDateView()
     
     // MARK: - Properties
     
@@ -37,7 +38,7 @@ class AddParentGoalViewController: BaseViewController {
     // MARK: - Functions
     
     override func render() {
-        view.addSubViews([backButton, topicLabel, enterGoalTitleView])
+        view.addSubViews([backButton, topicLabel, enterGoalTitleView, enterGoalDateView])
         
         view.snp.makeConstraints { make in
             make.width.equalTo(UIScreen.main.bounds.width)
@@ -55,6 +56,10 @@ class AddParentGoalViewController: BaseViewController {
         }
         enterGoalTitleView.snp.makeConstraints { make in
             make.top.equalTo(topicLabel.snp.bottom).offset(32)
+            make.centerX.equalToSuperview()
+        }
+        enterGoalDateView.snp.makeConstraints { make in
+            make.top.equalTo(enterGoalTitleView.snp.bottom).offset(24)
             make.centerX.equalToSuperview()
         }
     }
