@@ -168,6 +168,7 @@
 		C9B2CDDE2A8B42CA006289A8 /* CompletionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDDD2A8B42CA006289A8 /* CompletionTableViewCell.swift */; };
 		C9B2CDE12A8B5E9D006289A8 /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = C9B2CDE02A8B5E9D006289A8 /* Differentiator */; };
 		C9B2CDE32A8B5E9D006289A8 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = C9B2CDE22A8B5E9D006289A8 /* RxDataSources */; };
+		C9B2CDE72A8BBCCC006289A8 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDE62A8BBCCC006289A8 /* TriangleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -257,6 +258,7 @@
 		C9B2CDD72A8A7B26006289A8 /* ViewModelBindableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelBindableType.swift; sourceTree = "<group>"; };
 		C9B2CDDA2A8B1EBC006289A8 /* CompletionAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionAlertView.swift; sourceTree = "<group>"; };
 		C9B2CDDD2A8B42CA006289A8 /* CompletionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCell.swift; sourceTree = "<group>"; };
+		C9B2CDE62A8BBCCC006289A8 /* TriangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -550,6 +552,7 @@
 				C9B2CDDC2A8B42AD006289A8 /* Cell */,
 				A2248E942A8A5A5C00EB995A /* CompletionBoxViewController.swift */,
 				C9B2CDDA2A8B1EBC006289A8 /* CompletionAlertView.swift */,
+				C9B2CDE62A8BBCCC006289A8 /* TriangleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -885,6 +888,7 @@
 				A2FA591D2A7FD2DD006ACA2E /* BaseCollectionViewCell.swift in Sources */,
 				A2B20D902A7ED14C001ED73C /* ImageLiteral.swift in Sources */,
 				A2FA59292A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
+				C9B2CDE72A8BBCCC006289A8 /* TriangleView.swift in Sources */,
 				A2B969842A85812F00C4903F /* GoalStatusView.swift in Sources */,
 				A2B9698B2A859EAB00C4903F /* UIButton+.swift in Sources */,
 				A2FA58C92A7F79EF006ACA2E /* BaseModel.swift in Sources */,
