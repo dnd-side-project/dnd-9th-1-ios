@@ -31,15 +31,16 @@ class AddParentGoalViewController: BaseViewController {
     var enterGoalTitleView = EnterGoalTitleView()
     var enterGoalDateView = EnterGoalDateView()
     var reminderAlarmView = ReminderAlarmView()
+    var completeButton = RoundedDarkButton()
     
     // MARK: - Properties
     
-    let viewHeight = 579.0
+    let viewHeight = 549.0
     
     // MARK: - Functions
     
     override func render() {
-        view.addSubViews([backButton, topicLabel, enterGoalTitleView, enterGoalDateView, reminderAlarmView])
+        view.addSubViews([backButton, topicLabel, enterGoalTitleView, enterGoalDateView, reminderAlarmView, completeButton])
         
         view.snp.makeConstraints { make in
             make.width.equalTo(UIScreen.main.bounds.width)
@@ -66,6 +67,11 @@ class AddParentGoalViewController: BaseViewController {
             make.top.equalTo(enterGoalDateView.snp.bottom).offset(24)
             make.centerX.equalToSuperview()
         }
+        completeButton.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(24)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
+            make.height.equalTo(54)
+        }
     }
 
     override func configUI() {
@@ -74,5 +80,7 @@ class AddParentGoalViewController: BaseViewController {
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.layer.cornerRadius = 20
         view.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
+        
+        completeButton.titleString = "목표 만들기 완료"
     }
 }
