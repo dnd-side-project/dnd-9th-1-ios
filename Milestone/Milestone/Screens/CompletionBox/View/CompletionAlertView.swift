@@ -15,15 +15,10 @@ class CompletionAlertView: UIView {
             $0.image = #imageLiteral(resourceName: "alert")
         }
     
-    private let label = UILabel()
+    let label = UILabel()
         .then {
             $0.font = UIFont.pretendard(.semibold, ofSize: 14)
-            let stringValue = "총 1개의 목표 회고를 작성할 수 있어요!"
-            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
-            attributedString.setColorForText(textForAttribute: "총 1개의 목표 회고", withColor: .pointPurple)
-            attributedString.setColorForText(textForAttribute: "를 작성할 수 있어요!", withColor: .black)
-            
-            $0.attributedText = attributedString
+            let stringValue = ""
         }
 
     // MARK: - Initialization
