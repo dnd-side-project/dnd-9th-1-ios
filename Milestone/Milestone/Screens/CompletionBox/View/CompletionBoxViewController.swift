@@ -7,6 +7,7 @@
 
 import UIKit
 
+import RxSwift
 import SnapKit
 import Then
 
@@ -88,10 +89,20 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard let cell = tableView.visibleCells.first else { return }
+        let alertView = cell.contentView.subviews.last as! CompletionAlertView
         
         viewModel.completionList
             .map { $0.isEmpty }
             .bind(to: cell.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        viewModel.completionList
+            .map {
+                let string = NSMutableAttributedString(string: "총 \($0.count - 1)개의 목표 회고를 작성할 수 있어요!")
+                string.setColorForText(textForAttribute: "총 \($0.count - 1)개의 목표 회고", withColor: .pointPurple)
+                return string
+            }
+            .bind(to: alertView.label.rx.attributedText)
             .disposed(by: disposeBag)
     }
     
