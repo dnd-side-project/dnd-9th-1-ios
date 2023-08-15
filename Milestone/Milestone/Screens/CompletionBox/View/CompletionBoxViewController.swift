@@ -29,22 +29,37 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             $0.textAlignment = .center
         }
     
-    private let alertBox = UIView()
+    private let alertBox = CompletionAlertView()
         .then {
             $0.isHidden = true
             $0.layer.cornerRadius = 20
-            $0.backgroundColor = .white
+        }
+    
+    private let tableView = UITableView()
+        .then {
+            $0.separatorStyle = .none
+            $0.backgroundColor = .clear
+            $0.register(cell: CompletionTableViewCell.self, forCellReuseIdentifier: CompletionTableViewCell.identifier)
         }
     
     // MARK: Properties
-    var coordinator: CompletionViewFlow?
     
     var viewModel: CompletionViewModel!
+    
+    // MARK: Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.delegate = nil
+        tableView.dataSource = nil
+        tableView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
+    }
     
     // MARK: functions
     
     override func render() {
-        view.addSubViews([emptyImageView, label, alertBox])
+        view.addSubViews([emptyImageView, label, tableView])
         
         emptyImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(100)
@@ -56,11 +71,11 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             make.centerX.equalTo(view.snp.centerX)
         }
         
-        alertBox.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(16)
+        tableView.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(24)
             make.trailing.equalTo(view.snp.trailing).offset(-24)
-            make.height.equalTo(60)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.bottom.equalTo(view.snp.bottom)
         }
     }
     
@@ -70,20 +85,43 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         bindViewModel()
     }
     
-    func bindViewModel() {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard let cell = tableView.visibleCells.first else { return }
         
-        viewModel.goalList
-            .subscribe(onNext: { [weak self] elem in
-                if(elem.isEmpty) {
-                    self?.alertBox.isHidden = true
-                    self?.emptyImageView.isHidden = false
-                    self?.label.isHidden = false
-                } else {
-                    self?.alertBox.isHidden = false
-                    self?.emptyImageView.isHidden = true
-                    self?.label.isHidden = true
-                }
-            })
+        viewModel.completionList
+            .map { $0.isEmpty }
+            .bind(to: cell.rx.isHidden)
             .disposed(by: disposeBag)
+    }
+    
+    func bindViewModel() {
+        viewModel.completionList
+            .bind(to: tableView.rx.items(dataSource: viewModel.dataSource))
+            .disposed(by: disposeBag)
+        
+        viewModel.completionList
+            .map { !$0.isEmpty }
+            .bind(to: emptyImageView.rx.isHidden, label.rx.isHidden)
+            .disposed(by: disposeBag) 
+    }
+}
+
+extension CompletionBoxViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if(indexPath.section == 0) {
+            return 60
+        }
+        return 150
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
     }
 }
