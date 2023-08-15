@@ -33,6 +33,7 @@ class EnterGoalTitleView: UIView {
             $0.layer.cornerRadius = 10
             $0.setLeftPaddingPoints(16)
             $0.addTarget(self, action: #selector(updateNowNumOfCharaters), for: .editingChanged)
+            $0.delegate = self
         }
     var limitGuideLabel = UILabel()
         .then {
@@ -84,5 +85,15 @@ class EnterGoalTitleView: UIView {
     @objc
     private func updateNowNumOfCharaters(_ textField: UITextField) {
         limitGuideLabel.text = "\(textField.text?.count ?? 0)/15"
+    }
+}
+
+extension EnterGoalTitleView: UITextFieldDelegate {
+    /// 텍스트 필드 15글자 제한
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let maxLength = 15
+        let currentString = (textField.text ?? "") as NSString
+        let newString = currentString.replacingCharacters(in: range, with: string)
+        return newString.count <= maxLength
     }
 }

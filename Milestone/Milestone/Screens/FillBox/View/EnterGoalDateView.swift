@@ -42,7 +42,7 @@ class EnterGoalDateView: UIView {
             $0.text = "종료일"
             $0.font = .pretendard(.regular, ofSize: 12)
         }
-    lazy var endDateButton = UIButton()
+    lazy var endDateButton = UIButton(type: .system)
         .then {
             $0.backgroundColor = .gray01
             $0.layer.cornerRadius = 10
