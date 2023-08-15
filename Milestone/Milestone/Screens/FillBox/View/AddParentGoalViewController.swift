@@ -30,6 +30,7 @@ class AddParentGoalViewController: BaseViewController {
         }
     var enterGoalTitleView = EnterGoalTitleView()
     var enterGoalDateView = EnterGoalDateView()
+    var reminderAlarmView = ReminderAlarmView()
     
     // MARK: - Properties
     
@@ -38,11 +39,10 @@ class AddParentGoalViewController: BaseViewController {
     // MARK: - Functions
     
     override func render() {
-        view.addSubViews([backButton, topicLabel, enterGoalTitleView, enterGoalDateView])
+        view.addSubViews([backButton, topicLabel, enterGoalTitleView, enterGoalDateView, reminderAlarmView])
         
         view.snp.makeConstraints { make in
             make.width.equalTo(UIScreen.main.bounds.width)
-            make.height.equalTo(579)
         }
         backButton.snp.makeConstraints { make in
             make.top.equalTo(28)
@@ -60,6 +60,10 @@ class AddParentGoalViewController: BaseViewController {
         }
         enterGoalDateView.snp.makeConstraints { make in
             make.top.equalTo(enterGoalTitleView.snp.bottom).offset(24)
+            make.centerX.equalToSuperview()
+        }
+        reminderAlarmView.snp.makeConstraints { make in
+            make.top.equalTo(enterGoalDateView.snp.bottom).offset(24)
             make.centerX.equalToSuperview()
         }
     }
