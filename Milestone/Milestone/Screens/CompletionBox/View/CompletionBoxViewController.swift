@@ -37,7 +37,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         }
     
     // MARK: Properties
-    var coordinator: CompletionViewFlow?
+//    var coordinator: CompletionViewFlow?
     
     var viewModel: CompletionViewModel!
     

@@ -40,4 +40,5 @@ enum ImageLiteral {
     static var imgBlueCheck: UIImage { .load(named: "blueCheck")}
     static var imgAlarm: UIImage { .load(named: "alarm")}
     static var imgX: UIImage { .load(named: "xMark")}
+    static var imgBack: UIImage { .load(named: "back")}
 }
