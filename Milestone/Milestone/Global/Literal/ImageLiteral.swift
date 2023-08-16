@@ -38,6 +38,8 @@ enum ImageLiteral {
     static var imgAddStone: UIImage { .load(named: "addStone")}
     static var imgWhiteCheck: UIImage { .load(named: "whiteCheck")}
     static var imgBlueCheck: UIImage { .load(named: "blueCheck")}
+    static var imgAlert: UIImage { .load(named: "alert") }
+    static var imgPlaceholder: UIImage { .load(named: "placeholder") }
     static var imgAlarm: UIImage { .load(named: "alarm")}
     static var imgX: UIImage { .load(named: "xMark")}
 }
