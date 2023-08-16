@@ -33,7 +33,7 @@ class FillBoxViewController: BaseViewController {
             $0.backgroundColor = .primary
             $0.layer.cornerRadius = 64 / 2
             $0.setImage(ImageLiteral.imgPlus, for: .normal)
-            $0.addTarget(self, action: #selector(showAddParentGoal), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(presentAddParentGoal), for: .touchUpInside)
             // 그림자 생성
             $0.layer.shadowColor = UIColor.primary.cgColor
             $0.layer.shadowOpacity = 0.6
@@ -71,7 +71,7 @@ class FillBoxViewController: BaseViewController {
     // MARK: - @objc Functions
     
     @objc
-    func showAddParentGoal() {
+    func presentAddParentGoal() {
         let addParentGoalVC = AddParentGoalViewController()
         addParentGoalVC.modalPresentationStyle = .pageSheet
         
@@ -110,5 +110,12 @@ extension FillBoxViewController: UITableViewDataSource, UITableViewDelegate {
     // 셀 클릭 시 실행
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         push(viewController: DetailParentViewController())
+    }
+}
+
+extension FillBoxViewController: UIAdaptivePresentationControllerDelegate {
+    // UISheetPresentationController를 수동으로 dismiss
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        
     }
 }

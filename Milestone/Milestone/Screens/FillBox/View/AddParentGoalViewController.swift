@@ -26,7 +26,7 @@ class AddParentGoalViewController: BaseViewController {
     lazy var backButton = UIButton()
         .then {
             $0.setImage(ImageLiteral.imgBack, for: .normal)
-            $0.addTarget(self, action: #selector(pop), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(dismissAddParentGoal), for: .touchUpInside)
         }
     var topicLabel = UILabel()
         .then {
@@ -91,6 +91,13 @@ class AddParentGoalViewController: BaseViewController {
         view.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
         
         completeButton.titleString = "목표 만들기 완료"
+    }
+    
+    // MARK: - @objc Functions
+    
+    @objc
+    private func dismissAddParentGoal() {
+        dismiss(animated: true)
     }
 }
 
