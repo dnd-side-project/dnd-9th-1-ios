@@ -74,6 +74,18 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         case highest = "완전 만족해요"
     }
     
+    // MARK: Life Cycles
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.render()
+            self?.view.setNeedsLayout()
+            self?.view.layoutIfNeeded()
+        }
+        
+     }
+    
     // MARK: Functions
     
     override func render() {
@@ -142,17 +154,6 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         setPointViews()
         selectPointView()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.render()
-            self?.view.setNeedsLayout()
-            self?.view.layoutIfNeeded()
-        }
-        
-     }
     
     func setAttributedIndexLabel() {
         setAttributedText(originString: .first, targetView: firstQuestionView, "좋았던 점")
