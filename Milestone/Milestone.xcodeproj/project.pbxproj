@@ -112,6 +112,12 @@
 		A2D304C92A856B6B00A5BA92 /* StorageBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D304C82A856B6B00A5BA92 /* StorageBoxViewController.swift */; };
 		A2D304CA2A856B6B00A5BA92 /* StorageBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D304C82A856B6B00A5BA92 /* StorageBoxViewController.swift */; };
 		A2D304CB2A856B6B00A5BA92 /* StorageBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D304C82A856B6B00A5BA92 /* StorageBoxViewController.swift */; };
+		A2EC47CC2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EC47CB2A8A962600401B03 /* DetailGoalInfoViewController.swift */; };
+		A2EC47CD2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EC47CB2A8A962600401B03 /* DetailGoalInfoViewController.swift */; };
+		A2EC47CE2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EC47CB2A8A962600401B03 /* DetailGoalInfoViewController.swift */; };
+		A2EC47D02A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EC47CF2A8A968A00401B03 /* DetailGoalInfoView.swift */; };
+		A2EC47D12A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EC47CF2A8A968A00401B03 /* DetailGoalInfoView.swift */; };
+		A2EC47D22A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EC47CF2A8A968A00401B03 /* DetailGoalInfoView.swift */; };
 		A2FA58C92A7F79EF006ACA2E /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58C82A7F79EF006ACA2E /* BaseModel.swift */; };
 		A2FA58CA2A7F79EF006ACA2E /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58C82A7F79EF006ACA2E /* BaseModel.swift */; };
 		A2FA58CB2A7F79EF006ACA2E /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58C82A7F79EF006ACA2E /* BaseModel.swift */; };
@@ -238,6 +244,8 @@
 		A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBoxViewController.swift; sourceTree = "<group>"; };
 		A2D304C02A854EDE00A5BA92 /* MainSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSegmentedControl.swift; sourceTree = "<group>"; };
 		A2D304C82A856B6B00A5BA92 /* StorageBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageBoxViewController.swift; sourceTree = "<group>"; };
+		A2EC47CB2A8A962600401B03 /* DetailGoalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalInfoViewController.swift; sourceTree = "<group>"; };
+		A2EC47CF2A8A968A00401B03 /* DetailGoalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalInfoView.swift; sourceTree = "<group>"; };
 		A2FA58C82A7F79EF006ACA2E /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		A2FA58D02A7F7A1F006ACA2E /* APIEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnvironment.swift; sourceTree = "<group>"; };
 		A2FA58D42A7F7A2A006ACA2E /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
@@ -519,9 +527,11 @@
 				A2B969852A85872B00C4903F /* Cell */,
 				A2B969832A85812F00C4903F /* GoalStatusView.swift */,
 				A2248E8A2A8A0C5400EB995A /* MoreOptionView.swift */,
+				A2EC47CF2A8A968A00401B03 /* DetailGoalInfoView.swift */,
 				A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */,
 				A28EDA182A879565001A021A /* DetailParentViewController.swift */,
 				A2248E862A8A076D00EB995A /* MoreViewController.swift */,
+				A2EC47CB2A8A962600401B03 /* DetailGoalInfoViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -870,6 +880,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2FA58DD2A7F7A3E006ACA2E /* Requestable.swift in Sources */,
+				A2EC47CC2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */,
 				A2B20D652A7E5077001ED73C /* UILabel+.swift in Sources */,
 				C90DC9862A88F0B100241B7C /* UITextField+.swift in Sources */,
 				C90DC9762A876F5D00241B7C /* AppCoordinator.swift in Sources */,
@@ -892,6 +903,7 @@
 				C9B2CDDB2A8B1EBC006289A8 /* CompletionAlertView.swift in Sources */,
 				A23075CA2A87F8EE00D841F6 /* DetailGoal.swift in Sources */,
 				A2248E832A8818AD00EB995A /* DetailGoalTableViewCell.swift in Sources */,
+				A2EC47D02A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */,
 				C90DC97A2A88814700241B7C /* Coordinator.swift in Sources */,
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
 				A2FA59192A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
@@ -945,6 +957,7 @@
 				A2B9698C2A859EAB00C4903F /* UIButton+.swift in Sources */,
 				A28EDA162A8791F7001A021A /* DetailGoalCollectionViewCell.swift in Sources */,
 				A2FA59222A7FD2EC006ACA2E /* BaseTableViewCell.swift in Sources */,
+				A2EC47CD2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */,
 				A2FA58D62A7F7A2A006ACA2E /* APIError.swift in Sources */,
 				A2B20D622A7E4FAD001ED73C /* UIView+.swift in Sources */,
 				A2248E8C2A8A0C5400EB995A /* MoreOptionView.swift in Sources */,
@@ -957,6 +970,7 @@
 				A2FA592A2A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
 				A2B20D952A7ED174001ED73C /* UIImage+.swift in Sources */,
 				A2B20D912A7ED14C001ED73C /* ImageLiteral.swift in Sources */,
+				A2EC47D12A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */,
 				A28EDA1A2A879565001A021A /* DetailParentViewController.swift in Sources */,
 				A2248E882A8A076D00EB995A /* MoreViewController.swift in Sources */,
 				A2B20D5A2A7E4E5C001ED73C /* UIFont+.swift in Sources */,
@@ -980,6 +994,7 @@
 				A2248E892A8A076D00EB995A /* MoreViewController.swift in Sources */,
 				A2FA58DF2A7F7A3E006ACA2E /* Requestable.swift in Sources */,
 				A2B20D672A7E5077001ED73C /* UILabel+.swift in Sources */,
+				A2EC47CE2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */,
 				A28EDA172A8791F7001A021A /* DetailGoalCollectionViewCell.swift in Sources */,
 				A227368A2A7CE53800D7B3B2 /* MilestoneUITests.swift in Sources */,
 				A2FA58E72A7F7A55006ACA2E /* NetworkStatus.swift in Sources */,
@@ -1001,6 +1016,7 @@
 				A2FA591F2A7FD2DD006ACA2E /* BaseCollectionViewCell.swift in Sources */,
 				A2B969912A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */,
 				A2B20D922A7ED14C001ED73C /* ImageLiteral.swift in Sources */,
+				A2EC47D22A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */,
 				A23075CC2A87F8EE00D841F6 /* DetailGoal.swift in Sources */,
 				A2FA592B2A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
 				A2FA58CB2A7F79EF006ACA2E /* BaseModel.swift in Sources */,
