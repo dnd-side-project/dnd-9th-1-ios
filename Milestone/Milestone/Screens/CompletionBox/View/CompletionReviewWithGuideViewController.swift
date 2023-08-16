@@ -74,6 +74,8 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         case highest = "완전 만족해요"
     }
     
+    private var fillSelected = false
+    
     // MARK: Life Cycles
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -95,28 +97,28 @@ class CompletionReviewWithGuideViewController: BaseViewController {
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
             make.top.equalTo(view.snp.top)
-            make.height.equalTo(244)
+            make.height.equalTo(260)
         }
         
         secondQuestionView.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
             make.top.equalTo(firstQuestionView.snp.bottom).offset(24)
-            make.height.equalTo(244)
+            make.height.equalTo(260)
         }
         
         thirdQuestionView.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
             make.top.equalTo(secondQuestionView.snp.bottom).offset(24)
-            make.height.equalTo(244)
+            make.height.equalTo(260)
         }
         
         fourthQuestionView.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
             make.top.equalTo(thirdQuestionView.snp.bottom).offset(24)
-            make.height.equalTo(244)
+            make.height.equalTo(260)
         }
         
         fillLabel.snp.makeConstraints { make in
@@ -153,6 +155,7 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         setAttributedIndexLabel()
         setPointViews()
         selectPointView()
+        validateInput()
     }
     
     func setAttributedIndexLabel() {
@@ -204,8 +207,10 @@ class CompletionReviewWithGuideViewController: BaseViewController {
     func selectPointView() {
         lowestPointView.pointButton.rx.tap
             .subscribe(onNext: { [unowned self] in
+                self.fillSelected = true
+                
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgAfterSelected1, for: .normal)
-                self.lowestPointView.pointLabel.textColor = .black
+                self.lowestPointView.pointLabel.textColor = .primary
                 
                 self.lowerPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected2, for: .normal)
                 self.lowerPointView.pointLabel.textColor = .gray02
@@ -223,11 +228,13 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         
         lowerPointView.pointButton.rx.tap
             .subscribe(onNext: {
+                self.fillSelected = true
+                
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected1, for: .normal)
                 self.lowestPointView.pointLabel.textColor = .gray02
                 
                 self.lowerPointView.pointButton.setBackgroundImage(ImageLiteral.imgAfterSelected2, for: .normal)
-                self.lowerPointView.pointLabel.textColor = .black
+                self.lowerPointView.pointLabel.textColor = .primary
                 
                 self.middlePointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected3, for: .normal)
                 self.middlePointView.pointLabel.textColor = .gray02
@@ -243,6 +250,8 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         
         middlePointView.pointButton.rx.tap
             .subscribe(onNext: {
+                self.fillSelected = true
+                
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected1, for: .normal)
                 self.lowestPointView.pointLabel.textColor = .gray02
                 
@@ -250,7 +259,7 @@ class CompletionReviewWithGuideViewController: BaseViewController {
                 self.lowerPointView.pointLabel.textColor = .gray02
                 
                 self.middlePointView.pointButton.setBackgroundImage(ImageLiteral.imgAfterSelected3, for: .normal)
-                self.middlePointView.pointLabel.textColor = .black
+                self.middlePointView.pointLabel.textColor = .primary
                 
                 self.higherPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected4, for: .normal)
                 self.higherPointView.pointLabel.textColor = .gray02
@@ -263,6 +272,8 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         
         higherPointView.pointButton.rx.tap
             .subscribe(onNext: {
+                self.fillSelected = true
+                
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected1, for: .normal)
                 self.lowestPointView.pointLabel.textColor = .gray02
                 
@@ -273,7 +284,7 @@ class CompletionReviewWithGuideViewController: BaseViewController {
                 self.middlePointView.pointLabel.textColor = .gray02
                 
                 self.higherPointView.pointButton.setBackgroundImage(ImageLiteral.imgAfterSelected4, for: .normal)
-                self.higherPointView.pointLabel.textColor = .black
+                self.higherPointView.pointLabel.textColor = .primary
                 
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
@@ -283,6 +294,8 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         
         highestPointView.pointButton.rx.tap
             .subscribe(onNext: {
+                self.fillSelected = true
+                
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected1, for: .normal)
                 self.lowestPointView.pointLabel.textColor = .gray02
                 
@@ -296,8 +309,46 @@ class CompletionReviewWithGuideViewController: BaseViewController {
                 self.higherPointView.pointLabel.textColor = .gray02
                 
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgAfterSelected5, for: .normal)
-                self.highestPointView.pointLabel.textColor = .black
+                self.highestPointView.pointLabel.textColor = .primary
             })
             .disposed(by: disposeBag)
+    }
+    
+    /// 입력 유효성 검사
+    func validateInput() {
+        let firstObservable = firstQuestionView.textView.rx.text
+            .compactMap { $0 }
+            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
+        
+        let secondObservable = secondQuestionView.textView.rx.text
+            .compactMap { $0 }
+            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
+        
+        let thirdObservable = thirdQuestionView.textView.rx.text
+            .compactMap { $0 }
+            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
+        
+        let fourthObservable = fourthQuestionView.textView.rx.text
+            .compactMap { $0 }
+            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
+        
+        Observable.combineLatest(firstObservable, secondObservable, thirdObservable, fourthObservable) { first, second, third, fourth -> Bool in
+            if first > 0 && second > 0 && third > 0 && fourth > 0 {
+                return true
+            } else {
+                return false
+            }
+        }
+        .subscribe(onNext: { [unowned self] in
+            if self.fillSelected && $0 {
+                self.registerButton.backgroundColor = .primary
+                self.registerButton.isEnabled = true
+            } else {
+                self.registerButton.backgroundColor = .init(hex: "#ADBED6")
+                self.registerButton.isEnabled = false
+            }
+        })
+        .disposed(by: disposeBag)
+            
     }
 }
