@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
 
@@ -46,7 +48,15 @@ class FillBoxViewController: BaseViewController {
             $0.guideLabel.text = "목표를 클릭하여 세부 목표를 설정해보세요!"
         }
     
-    // MARK: - Properties
+    // MARK: - Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        parentGoalTableView.layoutIfNeeded()
+        checkFirstFillBox()
+        didScrollTableView()
+    }
     
     // MARK: - Functions
     
@@ -71,27 +81,38 @@ class FillBoxViewController: BaseViewController {
         if #available(iOS 15, *) {
             parentGoalTableView.sectionHeaderTopPadding = 16
         }
-        addBubbleView()
     }
     
+    /// 처음이 맞는지 확인 -> 맞으면 말풍선 뷰 띄우기
     private func checkFirstFillBox() {
-        // TODO: - 채움함에 있는 최초의 셀인지 확인해야됨
+        if UserDefaults.standard.string(forKey: "showBubble") == nil {
+            addBubbleView()
+        }
     }
     
     /// 말풍선 뷰 추가
     private func addBubbleView() {
         view.addSubview(bubbleView)
         bubbleView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(30) // TEMP
+            Logger.debugDescription(parentGoalTableView.visibleCells)
+            make.top.equalTo(parentGoalTableView.visibleCells[0].snp.bottom).offset(8)
             make.centerX.equalToSuperview()
             make.width.equalTo(268)
             make.height.equalTo(45)
         }
+        UserDefaults.standard.set("", forKey: "showBubble")
+    }
+    
+    private func didScrollTableView() {
+        parentGoalTableView.rx.didScroll
+            .subscribe { [weak self] _ in
+                self?.removeBubbleView()
+            }
+            .disposed(by: disposeBag)
     }
     
     private func removeBubbleView() {
         bubbleView.removeFromSuperview()
-        
     }
     
     // MARK: - @objc Functions
@@ -121,7 +142,7 @@ extension FillBoxViewController: UITableViewDataSource, UITableViewDelegate {
     }
     // 셀(상위 목표) 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        1
     }
     // 셀 내용 구성
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
