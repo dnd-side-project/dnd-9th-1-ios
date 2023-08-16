@@ -59,7 +59,6 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         }
     
     // MARK: Properties
-    
     var viewModel: CompletionViewModel!
     
     // MARK: Life Cycle

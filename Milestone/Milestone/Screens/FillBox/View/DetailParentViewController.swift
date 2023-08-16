@@ -220,6 +220,13 @@ extension DetailParentViewController: UICollectionViewDataSource, UICollectionVi
         }
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailInfo = DetailGoalInfoViewController()
+        detailInfo.modalPresentationStyle = .overFullScreen
+        detailInfo.modalTransitionStyle = .crossDissolve
+        self.present(detailInfo, animated: true)
+    }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
