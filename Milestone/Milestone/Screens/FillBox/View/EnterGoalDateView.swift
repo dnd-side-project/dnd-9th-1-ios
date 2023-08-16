@@ -266,7 +266,6 @@ class EnterGoalDateView: UIView {
         endDateAlert.setValue(vc2, forKey: "contentViewController")
         presentDelegate?.present(alert: endDateAlert)
         
-        isAfterEndDateSetting = true
-        endDateButton.setTitle(dateFormatter.string(from: endDatePicker.date), for: .normal)
+        isAfterEndDateSetting = true // 종료일 설정 이후
     }
 }
