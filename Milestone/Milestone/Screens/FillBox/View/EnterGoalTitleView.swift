@@ -32,8 +32,8 @@ class EnterGoalTitleView: UIView {
             $0.backgroundColor = .gray01
             $0.layer.cornerRadius = 10
             $0.setLeftPaddingPoints(16)
+            $0.setRightPaddingPoints(16)
             $0.addTarget(self, action: #selector(updateNowNumOfCharaters), for: .editingChanged)
-            $0.delegate = self
         }
     var limitGuideLabel = UILabel()
         .then {
@@ -79,21 +79,31 @@ class EnterGoalTitleView: UIView {
         }
     }
     
+    private func setErrorStyle() {
+        titleTextField.layer.borderWidth = 1.0
+        titleTextField.layer.borderColor = UIColor.pointRed.cgColor
+        limitGuideLabel.textColor = .pointRed
+    }
+    
+    private func setOriginStyle() {
+        titleTextField.layer.borderWidth = 0
+        titleTextField.layer.borderColor = UIColor.clear.cgColor
+        limitGuideLabel.textColor = .black
+    }
+    
     // MARK: - @objc Functions
     
     /// 현재 텍스트필드의 글자 수 업데이트
     @objc
     private func updateNowNumOfCharaters(_ textField: UITextField) {
-        limitGuideLabel.text = "\(textField.text?.count ?? 0)/15"
-    }
-}
-
-extension EnterGoalTitleView: UITextFieldDelegate {
-    /// 텍스트 필드 15글자 제한
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let maxLength = 15
-        let currentString = (textField.text ?? "") as NSString
-        let newString = currentString.replacingCharacters(in: range, with: string)
-        return newString.count <= maxLength
+        let count = textField.text?.count ?? 0
+        limitGuideLabel.text = "\(count)/15"
+        
+        if count > 15 {
+            setErrorStyle()
+        } else {
+            setOriginStyle()
+            // TODO: - 버튼 활성화
+        }
     }
 }
