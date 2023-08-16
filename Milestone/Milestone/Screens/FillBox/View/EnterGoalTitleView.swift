@@ -25,10 +25,10 @@ class EnterGoalTitleView: UIView {
         }
     lazy var titleTextField = UITextField()
         .then {
-            $0.placeholder = "제목을 입력해주세요!"
+            $0.attributedPlaceholder = NSAttributedString(string: "제목을 입력해주세요!", attributes: [.foregroundColor: UIColor.gray02])
             $0.textAlignment = .left
             $0.font = .pretendard(.semibold, ofSize: 16)
-            $0.textColor = .gray02
+            $0.textColor = .black
             $0.backgroundColor = .gray01
             $0.layer.cornerRadius = 10
             $0.setLeftPaddingPoints(16)
