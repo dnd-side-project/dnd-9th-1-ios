@@ -74,7 +74,7 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         case highest = "완전 만족해요"
     }
     
-    private var fillSelected = false
+    private var fillSelected = PublishSubject<Bool>()
     
     // MARK: Life Cycles
     override func viewDidAppear(_ animated: Bool) {
@@ -207,7 +207,7 @@ class CompletionReviewWithGuideViewController: BaseViewController {
     func selectPointView() {
         lowestPointView.pointButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                self.fillSelected = true
+                self.fillSelected.onNext(true)
                 
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgAfterSelected1, for: .normal)
                 self.lowestPointView.pointLabel.textColor = .primary
@@ -228,7 +228,7 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         
         lowerPointView.pointButton.rx.tap
             .subscribe(onNext: {
-                self.fillSelected = true
+                self.fillSelected.onNext(true)
                 
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected1, for: .normal)
                 self.lowestPointView.pointLabel.textColor = .gray02
@@ -250,7 +250,7 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         
         middlePointView.pointButton.rx.tap
             .subscribe(onNext: {
-                self.fillSelected = true
+                self.fillSelected.onNext(true)
                 
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected1, for: .normal)
                 self.lowestPointView.pointLabel.textColor = .gray02
@@ -272,7 +272,7 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         
         higherPointView.pointButton.rx.tap
             .subscribe(onNext: {
-                self.fillSelected = true
+                self.fillSelected.onNext(true)
                 
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected1, for: .normal)
                 self.lowestPointView.pointLabel.textColor = .gray02
@@ -294,7 +294,7 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         
         highestPointView.pointButton.rx.tap
             .subscribe(onNext: {
-                self.fillSelected = true
+                self.fillSelected.onNext(true)
                 
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected1, for: .normal)
                 self.lowestPointView.pointLabel.textColor = .gray02
@@ -332,15 +332,15 @@ class CompletionReviewWithGuideViewController: BaseViewController {
             .compactMap { $0 }
             .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
         
-        Observable.combineLatest(firstObservable, secondObservable, thirdObservable, fourthObservable) { first, second, third, fourth -> Bool in
-            if first > 0 && second > 0 && third > 0 && fourth > 0 {
+        Observable.combineLatest(firstObservable, secondObservable, thirdObservable, fourthObservable, fillSelected) { first, second, third, fourth, fill -> Bool in
+            if first > 0 && second > 0 && third > 0 && fourth > 0 && fill {
                 return true
             } else {
                 return false
             }
         }
         .subscribe(onNext: { [unowned self] in
-            if self.fillSelected && $0 {
+            if $0 {
                 self.registerButton.backgroundColor = .primary
                 self.registerButton.isEnabled = true
             } else {
