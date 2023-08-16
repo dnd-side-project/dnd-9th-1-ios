@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// 말풍선 꼬리 뷰
 class TriangleView: UIView {
     
     override init(frame: CGRect) {
