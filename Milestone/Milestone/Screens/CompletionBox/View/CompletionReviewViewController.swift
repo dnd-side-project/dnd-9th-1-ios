@@ -12,6 +12,7 @@ import RxSwift
 class CompletionReviewViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: Subviews
+    
     let titleBox = UIView()
 
     let titleLabel = UILabel()
@@ -65,6 +66,7 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
     lazy var reviewVCWithoutGuide = CompletionReviewWithoutGuideViewController()
     
     // MARK: Properties
+    
     var viewModel: CompletionViewModel!
     var coordinator: CompletionBoxCoordinator!
     var goalIndex: Int!
@@ -74,6 +76,7 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
         }
     
     // MARK: Functions
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         coordinator = CompletionBoxCoordinator(navigationController: self.navigationController!)
@@ -189,6 +192,7 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
       }
     
     // MARK: Objc functions
+    
     @objc
     func resignKeyboardAction() {
         self.view.endEditing(true)

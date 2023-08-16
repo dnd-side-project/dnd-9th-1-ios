@@ -12,6 +12,7 @@ import RxSwift
 class CompletionReviewWithGuideViewController: BaseViewController {
     
     // MARK: Subviews
+    
     let firstQuestionView = IndexView()
     let secondQuestionView = IndexView()
     let thirdQuestionView = IndexView()
@@ -74,6 +75,7 @@ class CompletionReviewWithGuideViewController: BaseViewController {
     }
     
     // MARK: Functions
+    
     override func render() {
         view.addSubViews([firstQuestionView, secondQuestionView, thirdQuestionView, fourthQuestionView, fillLabel, fillInformationLabel, fillPointStackView, registerButton])
         
