@@ -39,9 +39,12 @@ class ReminderAlarmView: UIView {
             $0.font = .pretendard(.regular, ofSize: 12)
             $0.textColor = .gray03
         }
-    let onOffSwitch = UISwitch()
+    lazy var onOffSwitch = UISwitch()
         .then {
             $0.onTintColor = .primary
+            $0.backgroundColor = .black
+            $0.layer.cornerRadius = 16
+            $0.clipsToBounds = true
         }
     
     // MARK: - Initialization
@@ -82,8 +85,6 @@ class ReminderAlarmView: UIView {
         }
         onOffSwitch.snp.makeConstraints { make in
             make.top.right.equalToSuperview()
-            make.width.equalTo(52)
-            make.height.equalTo(28)
         }
     }
 }
