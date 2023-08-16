@@ -13,13 +13,13 @@ import Then
 // MARK: - 상위 목표 추가 모달뷰
 
 /// Alert를 present 해주는 델리게이트 패턴
-/// UIView에서 present 시 사용함
+/// 서브뷰에서 present 시 사용함
 protocol PresentAlertDelegate: AnyObject {
     func present(alert: UIAlertController)
 }
 
 /// 버튼의 상태를 업데이트 해주는 델리게이트 패턴
-/// 목표 제목 입력 뷰에서 버튼의 상태를 업데이트 할 때 사용함
+/// 서브뷰에서 버튼의 상태를 업데이트 할 때 사용함
 protocol UpdateButtonStateDelegate: AnyObject {
     func updateButtonState(_ state: ButtonState)
 }
@@ -45,7 +45,8 @@ class AddParentGoalViewController: BaseViewController {
         }
     lazy var enterGoalDateView = EnterGoalDateView()
         .then {
-            $0.delegate = self
+            $0.presentDelegate = self
+            $0.buttonStateDelegate = self
         }
     var reminderAlarmView = ReminderAlarmView()
     lazy var completeButton = RoundedDarkButton()

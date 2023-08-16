@@ -143,7 +143,9 @@ class EnterGoalDateView: UIView {
     /// 종료일 세팅한 후인지 확인하기 위한 변수
     var isAfterEndDateSetting = false
     var isErrorDate = false
-    weak var delegate: PresentAlertDelegate?
+    
+    weak var presentDelegate: (PresentAlertDelegate)?
+    weak var buttonStateDelegate: (UpdateButtonStateDelegate)?
     
     let vc = UIViewController()
     let vc2 = UIViewController()
@@ -209,11 +211,13 @@ class EnterGoalDateView: UIView {
     /// 시작일이 종료일보다 앞서거나 같은지 확인
     private func checkDateCondition() {
         if startDate <= endDate {
-            if isErrorDate {
+            if isErrorDate { // 이전에 에러였다면
                 setOriginDateStyle()
+                buttonStateDelegate?.updateButtonState(.original)
             }
         } else { // ERROR!
             setErrorDateStyle()
+            buttonStateDelegate?.updateButtonState(.disabled)
         }
     }
     
@@ -248,10 +252,10 @@ class EnterGoalDateView: UIView {
         
         if isAfterEndDateSetting { // 종료일 설정 전일 때
             startDateAfterEndDateSettingAlert.setValue(vc3, forKey: "contentViewController")
-            delegate?.present(alert: startDateAfterEndDateSettingAlert)
+            presentDelegate?.present(alert: startDateAfterEndDateSettingAlert)
         } else { // 종료일 설정 후일 때
             startDateAlert.setValue(vc, forKey: "contentViewController")
-            delegate?.present(alert: startDateAlert)
+            presentDelegate?.present(alert: startDateAlert)
         }
     }
     
@@ -260,7 +264,7 @@ class EnterGoalDateView: UIView {
     private func presentEndAlert() {
         alertMessage = "종료일을 선택해주세요"
         endDateAlert.setValue(vc2, forKey: "contentViewController")
-        delegate?.present(alert: endDateAlert)
+        presentDelegate?.present(alert: endDateAlert)
         
         isAfterEndDateSetting = true
         endDateButton.setTitle(dateFormatter.string(from: endDatePicker.date), for: .normal)

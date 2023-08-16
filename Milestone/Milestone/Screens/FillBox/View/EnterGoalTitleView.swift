@@ -45,7 +45,7 @@ class EnterGoalTitleView: UIView {
     
     // MARK: - Properties
     
-    var delegate: UpdateButtonStateDelegate?
+    weak var delegate: UpdateButtonStateDelegate?
     
     // MARK: - Initialization
     
