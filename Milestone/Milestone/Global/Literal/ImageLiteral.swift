@@ -40,4 +40,14 @@ enum ImageLiteral {
     static var imgBlueCheck: UIImage { .load(named: "blueCheck")}
     static var imgAlert: UIImage { .load(named: "alert") }
     static var imgPlaceholder: UIImage { .load(named: "placeholder") }
+    static var imgBeforeSelected1: UIImage { .load(named: "beforeSelected1") }
+    static var imgBeforeSelected2: UIImage { .load(named: "beforeSelected2") }
+    static var imgBeforeSelected3: UIImage { .load(named: "beforeSelected3") }
+    static var imgBeforeSelected4: UIImage { .load(named: "beforeSelected4") }
+    static var imgBeforeSelected5: UIImage { .load(named: "beforeSelected5") }
+    static var imgAfterSelected1: UIImage {.load(named: "afterSelected1") }
+    static var imgAfterSelected2: UIImage {.load(named: "afterSelected2") }
+    static var imgAfterSelected3: UIImage {.load(named: "afterSelected3") }
+    static var imgAfterSelected4: UIImage {.load(named: "afterSelected4") }
+    static var imgAfterSelected5: UIImage {.load(named: "afterSelected5") }
 }
