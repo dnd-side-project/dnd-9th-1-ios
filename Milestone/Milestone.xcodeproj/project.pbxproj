@@ -175,6 +175,12 @@
 		C9B2CDE12A8B5E9D006289A8 /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = C9B2CDE02A8B5E9D006289A8 /* Differentiator */; };
 		C9B2CDE32A8B5E9D006289A8 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = C9B2CDE22A8B5E9D006289A8 /* RxDataSources */; };
 		C9B2CDE72A8BBCCC006289A8 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDE62A8BBCCC006289A8 /* TriangleView.swift */; };
+		C9B2CDE92A8BCBE0006289A8 /* CompletionBoxCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDE82A8BCBE0006289A8 /* CompletionBoxCoordinator.swift */; };
+		C9B2CDEB2A8BCD6B006289A8 /* CompletionReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEA2A8BCD6B006289A8 /* CompletionReviewViewController.swift */; };
+		C9B2CDED2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEC2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift */; };
+		C9B2CDEF2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */; };
+		C9B2CDF12A8CA397006289A8 /* IndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDF02A8CA397006289A8 /* IndexView.swift */; };
+		C9B2CDF72A8CC26E006289A8 /* PointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDF62A8CC26E006289A8 /* PointView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -267,6 +273,12 @@
 		C9B2CDDA2A8B1EBC006289A8 /* CompletionAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionAlertView.swift; sourceTree = "<group>"; };
 		C9B2CDDD2A8B42CA006289A8 /* CompletionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCell.swift; sourceTree = "<group>"; };
 		C9B2CDE62A8BBCCC006289A8 /* TriangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
+		C9B2CDE82A8BCBE0006289A8 /* CompletionBoxCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionBoxCoordinator.swift; sourceTree = "<group>"; };
+		C9B2CDEA2A8BCD6B006289A8 /* CompletionReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionReviewViewController.swift; sourceTree = "<group>"; };
+		C9B2CDEC2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionReviewWithGuideViewController.swift; sourceTree = "<group>"; };
+		C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionReviewWithoutGuideViewController.swift; sourceTree = "<group>"; };
+		C9B2CDF02A8CA397006289A8 /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
+		C9B2CDF62A8CC26E006289A8 /* PointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -542,6 +554,7 @@
 		A2D304C52A856AF400A5BA92 /* CompletionBox */ = {
 			isa = PBXGroup;
 			children = (
+				C9B2CDE82A8BCBE0006289A8 /* CompletionBoxCoordinator.swift */,
 				C9B2CDD42A8A77D7006289A8 /* ViewModel */,
 				A2D304C72A856B4F00A5BA92 /* View */,
 			);
@@ -562,7 +575,12 @@
 				C9B2CDDC2A8B42AD006289A8 /* Cell */,
 				A2248E942A8A5A5C00EB995A /* CompletionBoxViewController.swift */,
 				C9B2CDDA2A8B1EBC006289A8 /* CompletionAlertView.swift */,
+				C9B2CDEA2A8BCD6B006289A8 /* CompletionReviewViewController.swift */,
+				C9B2CDEC2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift */,
+				C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */,
 				C9B2CDE62A8BBCCC006289A8 /* TriangleView.swift */,
+				C9B2CDF02A8CA397006289A8 /* IndexView.swift */,
+				C9B2CDF62A8CC26E006289A8 /* PointView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -876,6 +894,8 @@
 				A2D304BD2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
 				A2FA592D2A7FD433006ACA2E /* NSObject+.swift in Sources */,
 				A28EDA192A879565001A021A /* DetailParentViewController.swift in Sources */,
+				C9B2CDEF2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift in Sources */,
+				C9B2CDE92A8BCBE0006289A8 /* CompletionBoxCoordinator.swift in Sources */,
 				A2248E872A8A076D00EB995A /* MoreViewController.swift in Sources */,
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
 				A2FA59192A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
@@ -899,11 +919,15 @@
 				C9B2CDD82A8A7B26006289A8 /* ViewModelBindableType.swift in Sources */,
 				A2FA591D2A7FD2DD006ACA2E /* BaseCollectionViewCell.swift in Sources */,
 				A2B20D902A7ED14C001ED73C /* ImageLiteral.swift in Sources */,
+				C9B2CDED2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift in Sources */,
+				C9B2CDF72A8CC26E006289A8 /* PointView.swift in Sources */,
+				C9B2CDF12A8CA397006289A8 /* IndexView.swift in Sources */,
 				A2FA59292A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
 				C9B2CDE72A8BBCCC006289A8 /* TriangleView.swift in Sources */,
 				A2B969842A85812F00C4903F /* GoalStatusView.swift in Sources */,
 				A2B9698B2A859EAB00C4903F /* UIButton+.swift in Sources */,
 				A2FA58C92A7F79EF006ACA2E /* BaseModel.swift in Sources */,
+				C9B2CDEB2A8BCD6B006289A8 /* CompletionReviewViewController.swift in Sources */,
 				A2FA58D52A7F7A2A006ACA2E /* APIError.swift in Sources */,
 				A2FA59252A7FD3B1006ACA2E /* UICollectionView+.swift in Sources */,
 				A2D304C12A854EDE00A5BA92 /* MainSegmentedControl.swift in Sources */,

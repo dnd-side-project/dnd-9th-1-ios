@@ -31,56 +31,12 @@ class CompletionViewModel {
     }
     
     private lazy var store = BehaviorSubject<[CompletionSectionModel]>(value: sectionModel)
-    
-    var dataSource: RxTableViewSectionedAnimatedDataSource<CompletionSectionModel> = {
-        let ds = RxTableViewSectionedAnimatedDataSource<CompletionSectionModel> { dataSource, tableView, indexPath, goal in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CompletionTableViewCell.identifier, for: indexPath) as? CompletionTableViewCell else { return UITableViewCell() }
-            
-            if indexPath.section == 0 {
-                let completionView = CompletionAlertView()
-                
-                cell.contentView.addSubview(completionView)
-                completionView.snp.makeConstraints { make in
-                    make.margins.equalTo(cell.contentView.snp.margins)
-                }
-                cell.calendarImageView.isHidden = true
-                cell.button.isHidden = true
-                cell.completionImageView.isHidden = true
-                cell.dateLabel.isHidden = true
-                cell.label.isHidden = true
-                
-                return cell
-            }
-            
-            cell.label.text = goal.title
-            
-            let dateFormatter = DateFormatter().then { $0.dateFormat = "yyyy.MM.dd" }
-            let startDateString = dateFormatter.string(from: goal.startDate)
-            let endDateString = dateFormatter.string(from: goal.endDate)
-            
-            cell.dateLabel.text = startDateString + " - " + endDateString
-            
-            if goal.isCompleted {
-                cell.button.setTitle("회고 보기", for: .normal)
-                cell.button.setTitleColor(.primary, for: .normal)
-                cell.button.backgroundColor = .white
-                cell.button.layer.borderColor = UIColor.secondary01.cgColor
-                cell.button.layer.borderWidth = 1
-            } else {
-                cell.button.setTitle("회고 작성하기", for: .normal)
-                cell.button.setTitleColor(.primary, for: .normal)
-                cell.backgroundColor = .secondary03
-                cell.layer.borderColor = UIColor.clear.cgColor
-            }
-            
-            return cell
-        }
-        
-        return ds
-    }()
 
     var completionList: Observable<[CompletionSectionModel]> {
         return store
     }
-
+    
+    var goalObservable: Observable<Goal> {
+        return Observable.from(goalList)
+    }
 }

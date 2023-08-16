@@ -44,6 +44,7 @@ class CompletionTableViewCell: BaseTableViewCell, ViewModelBindableType {
     // MARK: Properties
     static let identifier = "CompletionBoxCell"
     var viewModel: CompletionViewModel!
+    var coordinator = CompletionBoxCoordinator(navigationController: UINavigationController())
     
     // MARK: Functions
     override func render() {
@@ -87,5 +88,4 @@ class CompletionTableViewCell: BaseTableViewCell, ViewModelBindableType {
     func bindViewModel() {
         
     }
-
 }
