@@ -43,6 +43,10 @@ class EnterGoalTitleView: UIView {
             $0.textColor = .black
         }
     
+    // MARK: - Properties
+    
+    var delegate: UpdateButtonStateDelegate?
+    
     // MARK: - Initialization
     
     override init(frame: CGRect) {
@@ -101,9 +105,10 @@ class EnterGoalTitleView: UIView {
         
         if count > 15 {
             setErrorStyle()
+            delegate?.updateButtonState(.disabled)
         } else {
             setOriginStyle()
-            // TODO: - 버튼 활성화
+            delegate?.updateButtonState(.original)
         }
     }
 }

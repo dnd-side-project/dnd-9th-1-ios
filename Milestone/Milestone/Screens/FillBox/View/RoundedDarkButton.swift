@@ -12,6 +12,13 @@ import Then
 
 // MARK: - 모달뷰 하단에 있는 모서리가 둥근 버튼
 
+/// 버튼의 상태를 나타내는 enum
+enum ButtonState {
+    case original
+    case press
+    case disabled
+}
+
 class RoundedDarkButton: UIButton {
     
     // MARK: - Properties
@@ -19,6 +26,11 @@ class RoundedDarkButton: UIButton {
     var titleString = "" {
         didSet {
             self.setTitle(titleString, for: .normal)
+        }
+    }
+    var buttonState: ButtonState = .disabled {
+        didSet {
+            updateButtonStyle(state: buttonState)
         }
     }
     
@@ -44,9 +56,24 @@ class RoundedDarkButton: UIButton {
         }
     }
     private func configUI() {
-        backgroundColor = .gray06
         layer.cornerRadius = 20
         setTitleColor(.white, for: .normal)
         titleLabel?.font = .pretendard(.semibold, ofSize: 16)
+        updateButtonStyle(state: .disabled)
+    }
+    
+    /// 버튼 state에 따라 버튼 스타일을 변경
+    private func updateButtonStyle(state: ButtonState) {
+        switch state {
+        case .original:
+            isEnabled = true
+            backgroundColor = .gray06
+        case .press:
+            isEnabled = true
+            backgroundColor = .black
+        case .disabled:
+            isEnabled = false
+            backgroundColor = .gray02
+        }
     }
 }

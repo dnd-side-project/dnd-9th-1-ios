@@ -7,8 +7,7 @@
 
 import UIKit
 
-import RxCocoa
-import RxSwift
+import SnapKit
 import Then
 
 // MARK: - 상위 목표 추가 모달뷰
@@ -17,6 +16,12 @@ import Then
 /// UIView에서 present 시 사용함
 protocol PresentAlertDelegate: AnyObject {
     func present(alert: UIAlertController)
+}
+
+/// 버튼의 상태를 업데이트 해주는 델리게이트 패턴
+/// 목표 제목 입력 뷰에서 버튼의 상태를 업데이트 할 때 사용함
+protocol UpdateButtonStateDelegate: AnyObject {
+    func updateButtonState(_ state: ButtonState)
 }
 
 class AddParentGoalViewController: BaseViewController {
@@ -34,7 +39,10 @@ class AddParentGoalViewController: BaseViewController {
             $0.font = .pretendard(.semibold, ofSize: 18)
             $0.textAlignment = .center
         }
-    var enterGoalTitleView = EnterGoalTitleView()
+    lazy var enterGoalTitleView = EnterGoalTitleView()
+        .then {
+            $0.delegate = self
+        }
     lazy var enterGoalDateView = EnterGoalDateView()
         .then {
             $0.delegate = self
@@ -42,7 +50,7 @@ class AddParentGoalViewController: BaseViewController {
     var reminderAlarmView = ReminderAlarmView()
     lazy var completeButton = RoundedDarkButton()
         .then {
-            $0.addTarget(self, action: #selector(dismissAddParentGoal), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(completeAddParentGoal), for: .touchUpInside)
         }
     
     // MARK: - Properties
@@ -100,7 +108,17 @@ class AddParentGoalViewController: BaseViewController {
     
     @objc
     private func dismissAddParentGoal() {
-        dismiss(animated: true)
+        self.dismiss(animated: true)
+    }
+    
+    @objc
+    private func completeAddParentGoal() {
+        updateButtonState(.press)
+        
+        // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.dismiss(animated: true)
+        }
     }
 }
 
@@ -109,5 +127,13 @@ class AddParentGoalViewController: BaseViewController {
 extension AddParentGoalViewController: PresentAlertDelegate {
     func present(alert: UIAlertController) {
         self.present(alert, animated: true)
+    }
+}
+
+// MARK: - UpdateButtonStateDelegate
+
+extension AddParentGoalViewController: UpdateButtonStateDelegate {
+    func updateButtonState(_ state: ButtonState) {
+        self.completeButton.buttonState = state
     }
 }
