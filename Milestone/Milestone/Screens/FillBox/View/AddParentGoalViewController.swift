@@ -13,6 +13,12 @@ import Then
 
 // MARK: - 상위 목표 추가 모달뷰
 
+/// Alert를 present 해주는 델리게이트 패턴
+/// UIView에서 present 시 사용함
+protocol PresentAlertDelegate: AnyObject {
+    func present(alert: UIAlertController)
+}
+
 class AddParentGoalViewController: BaseViewController {
     
     // MARK: - SubViews
@@ -29,7 +35,10 @@ class AddParentGoalViewController: BaseViewController {
             $0.textAlignment = .center
         }
     var enterGoalTitleView = EnterGoalTitleView()
-    var enterGoalDateView = EnterGoalDateView()
+    lazy var enterGoalDateView = EnterGoalDateView()
+        .then {
+            $0.delegate = self
+        }
     var reminderAlarmView = ReminderAlarmView()
     var completeButton = RoundedDarkButton()
     
@@ -82,5 +91,13 @@ class AddParentGoalViewController: BaseViewController {
         view.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
         
         completeButton.titleString = "목표 만들기 완료"
+    }
+}
+
+// MARK: - PresentAlertDelegate
+
+extension AddParentGoalViewController: PresentAlertDelegate {
+    func present(alert: UIAlertController) {
+        self.present(alert, animated: true)
     }
 }
