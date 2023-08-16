@@ -40,7 +40,10 @@ class AddParentGoalViewController: BaseViewController {
             $0.delegate = self
         }
     var reminderAlarmView = ReminderAlarmView()
-    var completeButton = RoundedDarkButton()
+    lazy var completeButton = RoundedDarkButton()
+        .then {
+            $0.addTarget(self, action: #selector(dismissAddParentGoal), for: .touchUpInside)
+        }
     
     // MARK: - Properties
     

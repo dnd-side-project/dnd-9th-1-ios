@@ -112,10 +112,3 @@ extension FillBoxViewController: UITableViewDataSource, UITableViewDelegate {
         push(viewController: DetailParentViewController())
     }
 }
-
-extension FillBoxViewController: UIAdaptivePresentationControllerDelegate {
-    // UISheetPresentationController를 수동으로 dismiss
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        
-    }
-}
