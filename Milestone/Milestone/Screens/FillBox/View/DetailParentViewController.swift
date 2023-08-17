@@ -100,10 +100,10 @@ class DetailParentViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private var goalData = [
-        DetailGoal(id: 0, isCompleted: true, title: "해커스 1000 LC 2 풀기"), DetailGoal(id: 1, isCompleted: true, title: "영단기 1000 RC 풀기"), DetailGoal(id: 2, isCompleted: true, title: "동사, 전치사 어휘 외우기"),
-        DetailGoal(id: 3, isCompleted: true, title: "오답 지문 해석하기"), DetailGoal(id: 4, title: "기출 문제 3회독 하기"), DetailGoal(id: 5, title: "단어 500개 외우기"),
-        DetailGoal(id: 6, title: "문법 문장 20개 외우기"), DetailGoal(id: 7, title: "모르는 단어 정리해두기")
+    private var goalData: [DetailGoal] = [
+//        DetailGoal(id: 0, isCompleted: true, title: "해커스 1000 LC 2 풀기"), DetailGoal(id: 1, isCompleted: true, title: "영단기 1000 RC 풀기"), DetailGoal(id: 2, isCompleted: true, title: "동사, 전치사 어휘 외우기"),
+//        DetailGoal(id: 3, isCompleted: true, title: "오답 지문 해석하기"), DetailGoal(id: 4, title: "기출 문제 3회독 하기"), DetailGoal(id: 5, title: "단어 500개 외우기"),
+//        DetailGoal(id: 6, title: "문법 문장 20개 외우기"), DetailGoal(id: 7, title: "모르는 단어 정리해두기")
     ]
     // goalData를 정렬한, 테이블뷰에 보여줄 데이터
     lazy var sortedGoalData: [DetailGoal] = {
@@ -118,6 +118,10 @@ class DetailParentViewController: BaseViewController {
         super.viewDidLoad()
 
         setEmptyGoalForCollectionView()
+        let couchMarkVC = CouchMarkViewController()
+        couchMarkVC.modalPresentationStyle = .overFullScreen
+        couchMarkVC.modalTransitionStyle = .crossDissolve
+        present(couchMarkVC, animated: true)
     }
     
     // MARK: - Functions
@@ -137,6 +141,7 @@ class DetailParentViewController: BaseViewController {
         goalTitleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(24)
             make.top.equalToSuperview().inset(15)
+            make.height.equalTo(32)
         }
         dDayLabel.snp.makeConstraints { make in
             make.top.equalTo(goalTitleLabel.snp.bottom).offset(12)
