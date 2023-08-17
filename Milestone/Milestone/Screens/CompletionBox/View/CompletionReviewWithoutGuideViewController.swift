@@ -176,7 +176,6 @@ class CompletionReviewWithoutGuideViewController: BaseViewController {
             }
             .bind(to: textView.rx.text)
             .disposed(by: disposeBag)
-        
     }
     
     func setPointViews() {
@@ -333,7 +332,7 @@ class CompletionReviewWithoutGuideViewController: BaseViewController {
                 self.registerButton.backgroundColor = .primary
             } else {
                 self.registerButton.isEnabled = false
-                self.registerButton.backgroundColor = .gray01
+                self.registerButton.backgroundColor = .init(hex: "#ADBED6")
             }
         })
         .disposed(by: disposeBag)
