@@ -29,6 +29,9 @@
 		A23075CA2A87F8EE00D841F6 /* DetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23075C92A87F8EE00D841F6 /* DetailGoal.swift */; };
 		A23075CB2A87F8EE00D841F6 /* DetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23075C92A87F8EE00D841F6 /* DetailGoal.swift */; };
 		A23075CC2A87F8EE00D841F6 /* DetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23075C92A87F8EE00D841F6 /* DetailGoal.swift */; };
+		A265090C2A8D458300E9A2D7 /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265090B2A8D458300E9A2D7 /* BubbleView.swift */; };
+		A265090D2A8D458300E9A2D7 /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265090B2A8D458300E9A2D7 /* BubbleView.swift */; };
+		A265090E2A8D458300E9A2D7 /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265090B2A8D458300E9A2D7 /* BubbleView.swift */; };
 		A28EDA112A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
 		A28EDA122A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
 		A28EDA132A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
@@ -232,6 +235,7 @@
 		A22736892A7CE53800D7B3B2 /* MilestoneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneUITests.swift; sourceTree = "<group>"; };
 		A227368B2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A23075C92A87F8EE00D841F6 /* DetailGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoal.swift; sourceTree = "<group>"; };
+		A265090B2A8D458300E9A2D7 /* BubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		A28EDA102A87808A001A021A /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		A28EDA142A8791F7001A021A /* DetailGoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		A28EDA182A879565001A021A /* DetailParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailParentViewController.swift; sourceTree = "<group>"; };
@@ -548,6 +552,7 @@
 				A2B969832A85812F00C4903F /* GoalStatusView.swift */,
 				A2248E8A2A8A0C5400EB995A /* MoreOptionView.swift */,
 				A2EC47CF2A8A968A00401B03 /* DetailGoalInfoView.swift */,
+				A265090B2A8D458300E9A2D7 /* BubbleView.swift */,
 				A2C98F052A8B6122009B5579 /* EnterGoalTitleView.swift */,
 				A2C98F0D2A8B7A99009B5579 /* EnterGoalDateView.swift */,
 				A2C98F112A8B9A8E009B5579 /* ReminderAlarmView.swift */,
@@ -928,6 +933,7 @@
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
 				A2FA59192A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
 				A2248E8B2A8A0C5400EB995A /* MoreOptionView.swift in Sources */,
+				A265090C2A8D458300E9A2D7 /* BubbleView.swift in Sources */,
 				C9B2CDDB2A8B1EBC006289A8 /* CompletionAlertView.swift in Sources */,
 				A23075CA2A87F8EE00D841F6 /* DetailGoal.swift in Sources */,
 				A2248E832A8818AD00EB995A /* DetailGoalTableViewCell.swift in Sources */,
@@ -983,6 +989,7 @@
 				A28EDA122A87808A001A021A /* UIViewController+.swift in Sources */,
 				A2C98F072A8B6122009B5579 /* EnterGoalTitleView.swift in Sources */,
 				A2FA58DE2A7F7A3E006ACA2E /* Requestable.swift in Sources */,
+				A265090D2A8D458300E9A2D7 /* BubbleView.swift in Sources */,
 				A2248E842A8818AD00EB995A /* DetailGoalTableViewCell.swift in Sources */,
 				A2FA58CA2A7F79EF006ACA2E /* BaseModel.swift in Sources */,
 				A2B9698C2A859EAB00C4903F /* UIButton+.swift in Sources */,
@@ -1027,6 +1034,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2248E892A8A076D00EB995A /* MoreViewController.swift in Sources */,
+				A265090E2A8D458300E9A2D7 /* BubbleView.swift in Sources */,
 				A2FA58DF2A7F7A3E006ACA2E /* Requestable.swift in Sources */,
 				A2B20D672A7E5077001ED73C /* UILabel+.swift in Sources */,
 				A2EC47CE2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */,
