@@ -50,4 +50,5 @@ enum ImageLiteral {
     static var imgAfterSelected3: UIImage {.load(named: "afterSelected3") }
     static var imgAfterSelected4: UIImage {.load(named: "afterSelected4") }
     static var imgAfterSelected5: UIImage {.load(named: "afterSelected5") }
+    static var imgClose: UIImage {.load(named: "close") }
 }
