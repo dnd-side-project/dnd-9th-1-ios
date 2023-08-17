@@ -111,6 +111,7 @@ class DetailParentViewController: BaseViewController {
     }()
     // 세부 목표를 추가해주세요! 데이터
     private var emptyGoal: DetailGoal?
+    private var keyValue: String = "showCouchMark"
     
     // MARK: - Life Cycle
     
@@ -118,10 +119,7 @@ class DetailParentViewController: BaseViewController {
         super.viewDidLoad()
 
         setEmptyGoalForCollectionView()
-        let couchMarkVC = CouchMarkViewController()
-        couchMarkVC.modalPresentationStyle = .overFullScreen
-        couchMarkVC.modalTransitionStyle = .crossDissolve
-        present(couchMarkVC, animated: true)
+        checkFirstDetailView()
     }
     
     // MARK: - Functions
@@ -177,6 +175,24 @@ class DetailParentViewController: BaseViewController {
         if goalData.count < 9 {
             self.emptyGoal = DetailGoal(isSet: false)
         }
+    }
+    
+    /// 여기 들어온 게 처음이 맞는지 확인 -> 맞으면 코치 마크 뷰 띄우기
+    private func checkFirstDetailView() {
+        if UserDefaults.standard.string(forKey: keyValue) == nil {
+            presentCouchMark()
+        }
+    }
+    
+    /// 코치 마크 뷰 띄우기
+    private func presentCouchMark() {
+        let couchMarkVC = CouchMarkViewController()
+            .then {
+                $0.modalPresentationStyle = .overFullScreen
+                $0.modalTransitionStyle = .crossDissolve
+            }
+        present(couchMarkVC, animated: true)
+        UserDefaults.standard.set("", forKey: keyValue)
     }
     
     /// 체크리스트(TableView)를 위해 goalData를 정렬하는 함수
