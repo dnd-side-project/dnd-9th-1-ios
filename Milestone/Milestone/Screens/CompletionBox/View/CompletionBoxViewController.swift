@@ -61,8 +61,8 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         }
     
     var tapDisposable: [Disposable] = []
-    var cellHideDisposable: Disposable!
-    var nsAttributedStringDisposable: Disposable!
+    var cellHideDisposable: Disposable?
+    var nsAttributedStringDisposable: Disposable?
     
     // MARK: Properties
     var viewModel: CompletionViewModel!
@@ -120,8 +120,8 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         }
         tapDisposable = []
         
-        cellHideDisposable.dispose()
-        nsAttributedStringDisposable.dispose()
+        cellHideDisposable?.dispose()
+        nsAttributedStringDisposable?.dispose()
     }
     
     // MARK: functions

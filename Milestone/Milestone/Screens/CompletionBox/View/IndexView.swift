@@ -22,14 +22,18 @@ class IndexView: UIView {
             $0.font = UIFont.pretendard(.semibold, ofSize: 16)
         }
     
-    private let textView = UITextView()
+    let textView = UITextView()
         .then {
-            $0.textContainerInset = .init(top: 24, left: 24, bottom: 24, right: 24)
-            $0.textColor = .gray02
+            $0.textContainerInset = UIEdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
             $0.font = UIFont.pretendard(.regular, ofSize: 14)
             $0.text = "내용을 입력해주세요!"
             $0.layer.cornerRadius = 20
             $0.backgroundColor = .gray01
+            
+            let style = NSMutableParagraphStyle()
+            style.lineHeightMultiple = 1.3
+            let attributes = [NSMutableAttributedString.Key.paragraphStyle: style, NSMutableAttributedString.Key.font: UIFont.pretendard(.regular, ofSize: 14), NSMutableAttributedString.Key.foregroundColor: UIColor.gray02]
+            $0.attributedText = NSAttributedString(string: $0.text, attributes: attributes)
         }
     
     private let textCountLabel = UILabel()
@@ -71,7 +75,7 @@ class IndexView: UIView {
             make.leading.equalTo(self.snp.leading).offset(24)
             make.trailing.equalTo(self.snp.trailing).offset(-24)
             make.top.equalTo(indexView.snp.bottom).offset(16)
-            make.height.equalTo(204)
+            make.height.equalTo(220)
         }
         
         textCountLabel.snp.makeConstraints { make in
@@ -108,6 +112,14 @@ class IndexView: UIView {
             .compactMap { $0 }
             .map { "\($0 == "내용을 입력해주세요!" ? 0 : $0.count)/200" }
             .bind(to: textCountLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        textView.rx.text
+            .compactMap { $0 }
+            .scan("") { previous, new in
+                return new.count <= 200 ? new : previous
+            }
+            .bind(to: textView.rx.text)
             .disposed(by: disposeBag)
     }
 }

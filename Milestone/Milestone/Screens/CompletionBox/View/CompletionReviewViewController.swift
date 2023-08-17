@@ -14,6 +14,9 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
     // MARK: Subviews
     
     let titleBox = UIView()
+        .then {
+            $0.backgroundColor = .systemBackground
+        }
 
     let titleLabel = UILabel()
         .then {
@@ -90,13 +93,13 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
         
         titleBox.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.equalTo(view.snp.leading).offset(24)
-            make.trailing.equalTo(view.snp.trailing).offset(-24)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
             make.height.equalTo(90)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(titleBox.snp.leading)
+            make.leading.equalTo(titleBox.snp.leading).offset(24)
             make.top.equalTo(titleBox.snp.top).offset(16)
         }
         
@@ -142,6 +145,17 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
         singleTapGestureRecognizer.isEnabled = true
         singleTapGestureRecognizer.cancelsTouchesInView = false
         pageViewController.view.addGestureRecognizer(singleTapGestureRecognizer)
+        
+        scrollView.rx.didScroll
+            .asDriver()
+            .drive(onNext: { [unowned self] _ in
+                if self.scrollView.contentOffset.y <= 0 {
+                    self.titleBox.makeShadow(alpha: 0, x: 0, y: 0, blur: 0, spread: 0)
+                } else {
+                    self.titleBox.makeShadow(color: .init(hex: "#464646", alpha: 0.1), alpha: 1, x: 0, y: 10, blur: 10, spread: 0)
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     func bindViewModel() {
