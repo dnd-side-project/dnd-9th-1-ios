@@ -65,7 +65,6 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     var nsAttributedStringDisposable: Disposable?
     
     // MARK: Properties
-    
     var viewModel: CompletionViewModel!
     
     // MARK: Life Cycle

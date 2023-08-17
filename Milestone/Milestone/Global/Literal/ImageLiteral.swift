@@ -51,4 +51,8 @@ enum ImageLiteral {
     static var imgAfterSelected4: UIImage {.load(named: "afterSelected4") }
     static var imgAfterSelected5: UIImage {.load(named: "afterSelected5") }
     static var imgClose: UIImage {.load(named: "close") }
+    static var imgAlarm: UIImage { .load(named: "alarm")}
+    static var imgX: UIImage { .load(named: "xMark")}
+    static var imgBubbleTail: UIImage { .load(named: "bubbleTail")}
+    static var imgBack: UIImage { .load(named: "back")}
 }
