@@ -33,7 +33,7 @@ class FillBoxViewController: BaseViewController {
             $0.backgroundColor = .primary
             $0.layer.cornerRadius = 64 / 2
             $0.setImage(ImageLiteral.imgPlus, for: .normal)
-            $0.addTarget(self, action: #selector(addNewParentGoal), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(presentAddParentGoal), for: .touchUpInside)
             // 그림자 생성
             $0.layer.shadowColor = UIColor.primary.cgColor
             $0.layer.shadowOpacity = 0.6
@@ -71,9 +71,14 @@ class FillBoxViewController: BaseViewController {
     // MARK: - @objc Functions
     
     @objc
-    private func addNewParentGoal() {
-        // TODO: - 새 상위 목표 추가
-        Logger.debugDescription("CLICK")
+    func presentAddParentGoal() {
+        let addParentGoalVC = AddParentGoalViewController()
+        addParentGoalVC.modalPresentationStyle = .pageSheet
+        
+        guard let sheet = addParentGoalVC.sheetPresentationController else { return }
+        let fraction = UISheetPresentationController.Detent.custom { _ in addParentGoalVC.viewHeight }
+        sheet.detents = [fraction]
+        present(addParentGoalVC, animated: true)
     }
 }
 
