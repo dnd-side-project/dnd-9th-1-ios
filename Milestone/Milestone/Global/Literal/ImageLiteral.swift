@@ -15,7 +15,8 @@ enum ImageLiteral {
     static var imgCalendar: UIImage { .load(named: "calendar")}
     static var imgTempGoal: UIImage { .load(named: "tempGoal")}
     static var imgPlus: UIImage { .load(named: "plus")}
-    static var imgOnboarding: UIImage { .load(named: "onboarding2") }
+    static var imgOnboarding1: UIImage { .load(named: "onboarding1") }
+    static var imgOnboarding2: UIImage { .load(named: "onboarding2") }
     static var imgcompletionEmpty: UIImage { .load(named: "completionEmptyImage") }
     static var imgDetailStoneVer1: UIImage { .load(named: "detailStone1")}
     static var imgDetailStoneVer2: UIImage { .load(named: "detailStone2")}
@@ -54,4 +55,7 @@ enum ImageLiteral {
     static var imgX: UIImage { .load(named: "xMark")}
     static var imgBubbleTail: UIImage { .load(named: "bubbleTail")}
     static var imgBack: UIImage { .load(named: "back")}
+    static var imgMileStone: UIImage { .load(named: "Milestone") }
+    static var imgAppleLogo: UIImage { .load(named: "appleLogo_black") }
+    static var imgKakaoLogo: UIImage { .load(named: "kakaoLogo") }
 }
