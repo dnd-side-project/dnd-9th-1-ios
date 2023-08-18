@@ -57,6 +57,23 @@ class CompletionReviewWithoutGuideViewController: BaseViewController {
     let higherPointView = PointView()
     let highestPointView = PointView()
     
+    let scrollView = UIScrollView()
+        .then { sv in
+            let view = UIView()
+            sv.addSubview(view)
+            view.snp.makeConstraints {
+                $0.top.equalTo(sv.contentLayoutGuide.snp.top)
+                $0.leading.equalTo(sv.contentLayoutGuide.snp.leading)
+                $0.trailing.equalTo(sv.contentLayoutGuide.snp.trailing)
+                $0.bottom.equalTo(sv.contentLayoutGuide.snp.bottom)
+
+                $0.leading.equalTo(sv.frameLayoutGuide.snp.leading)
+                $0.trailing.equalTo(sv.frameLayoutGuide.snp.trailing)
+                $0.height.equalTo(sv.frameLayoutGuide.snp.height).priority(.low)
+            }
+        }
+    
+    
     private lazy var fillPointStackView = UIStackView(arrangedSubviews: [self.lowestPointView, self.lowerPointView, self.middlePointView, self.higherPointView, self.highestPointView])
         .then {
             $0.distribution = .equalSpacing
@@ -94,10 +111,18 @@ class CompletionReviewWithoutGuideViewController: BaseViewController {
     
     // MARK: Functions
     override func render() {
-        view.addSubViews([textViewWrapper, textView, textCountLabel, fillLabel, fillInformationLabel, fillPointStackView, registerButton])
+        view.addSubView(scrollView)
+        scrollView.subviews.first!.addSubViews([textViewWrapper, textView, textCountLabel, fillLabel, fillInformationLabel, fillPointStackView, registerButton])
+        
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(view.snp.top)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.bottom.equalTo(view.snp.bottom)
+        }
         
         textViewWrapper.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.top)
+            make.top.equalTo(scrollView.snp.top)
             make.leading.equalTo(view.snp.leading).offset(24)
             make.trailing.equalTo(view.snp.trailing).offset(-24)
             make.height.equalTo(320)
@@ -133,10 +158,11 @@ class CompletionReviewWithoutGuideViewController: BaseViewController {
         }
         
         registerButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
+            make.top.equalTo(fillPointStackView.snp.bottom).offset(32)
             make.leading.equalTo(view.snp.leading).offset(24)
             make.trailing.equalTo(view.snp.trailing).offset(-24)
             make.height.equalTo(54)
+            make.bottom.equalTo(scrollView.snp.bottom).offset(-16)
         }
     }
     
