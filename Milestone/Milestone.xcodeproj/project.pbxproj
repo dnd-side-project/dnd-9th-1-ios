@@ -199,6 +199,9 @@
 		C9B2CDEF2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */; };
 		C9B2CDF12A8CA397006289A8 /* IndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDF02A8CA397006289A8 /* IndexView.swift */; };
 		C9B2CDF72A8CC26E006289A8 /* PointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDF62A8CC26E006289A8 /* PointView.swift */; };
+		C9B2CE032A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */; };
+		C9B2CE052A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */; };
+		C9B2CE072A8E69E5006289A8 /* IndexViewAfterSaved.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE062A8E69E5006289A8 /* IndexViewAfterSaved.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -303,6 +306,9 @@
 		C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionReviewWithoutGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CDF02A8CA397006289A8 /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
 		C9B2CDF62A8CC26E006289A8 /* PointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointView.swift; sourceTree = "<group>"; };
+		C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSavedReviewWithGuideViewController.swift; sourceTree = "<group>"; };
+		C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSavedReviewWithoutGuideViewController.swift; sourceTree = "<group>"; };
+		C9B2CE062A8E69E5006289A8 /* IndexViewAfterSaved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewAfterSaved.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -608,8 +614,11 @@
 				C9B2CDEA2A8BCD6B006289A8 /* CompletionReviewViewController.swift */,
 				C9B2CDEC2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift */,
 				C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */,
+				C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */,
+				C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */,
 				C9B2CDE62A8BBCCC006289A8 /* TriangleView.swift */,
 				C9B2CDF02A8CA397006289A8 /* IndexView.swift */,
+				C9B2CE062A8E69E5006289A8 /* IndexViewAfterSaved.swift */,
 				C9B2CDF62A8CC26E006289A8 /* PointView.swift */,
 			);
 			path = View;
@@ -909,6 +918,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9B2CE072A8E69E5006289A8 /* IndexViewAfterSaved.swift in Sources */,
 				A2FA58DD2A7F7A3E006ACA2E /* Requestable.swift in Sources */,
 				A2EC47CC2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */,
 				A2B20D652A7E5077001ED73C /* UILabel+.swift in Sources */,
@@ -940,6 +950,7 @@
 				A2EC47D02A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */,
 				C90DC97A2A88814700241B7C /* Coordinator.swift in Sources */,
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
+				C9B2CE052A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift in Sources */,
 				A2C98F022A8B6117009B5579 /* AddParentGoalViewController.swift in Sources */,
 				A2FA59192A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
 				C90DC98A2A8922D300241B7C /* NSMutableAttributedString+.swift in Sources */,
@@ -967,6 +978,7 @@
 				A2FA58D52A7F7A2A006ACA2E /* APIError.swift in Sources */,
 				A2FA59252A7FD3B1006ACA2E /* UICollectionView+.swift in Sources */,
 				A2D304C12A854EDE00A5BA92 /* MainSegmentedControl.swift in Sources */,
+				C9B2CE032A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift in Sources */,
 				A2B20D9A2A7ED40D001ED73C /* Logger.swift in Sources */,
 				A2B20D592A7E4E5C001ED73C /* UIFont+.swift in Sources */,
 				C9B2CDD62A8A77F1006289A8 /* CompletionViewModel.swift in Sources */,
