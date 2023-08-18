@@ -14,6 +14,15 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
     
     // MARK: Subviews
     
+    lazy var leftBarButton = UIBarButtonItem()
+        .then {
+            $0.image = UIImage(systemName: "chevron.left")
+            $0.style = .plain
+            $0.tintColor = .gray05
+            $0.target = self
+            $0.action = #selector(pop)
+        }
+    
     let titleBox = UIView()
         .then {
             $0.backgroundColor = .systemBackground
@@ -167,6 +176,8 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
     override func configUI() {
         view.backgroundColor = .systemBackground
         setAttributedIndexLabel()
+        
+        navigationItem.leftBarButtonItem = leftBarButton
     }
     
     func bindViewModel() {

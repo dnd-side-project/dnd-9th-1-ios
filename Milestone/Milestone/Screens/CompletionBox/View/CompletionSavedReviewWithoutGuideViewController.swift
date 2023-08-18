@@ -10,6 +10,16 @@ import UIKit
 class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewModelBindableType {
 
     // MARK: Subviews
+    
+    lazy var leftBarButton = UIBarButtonItem()
+        .then {
+            $0.image = UIImage(systemName: "chevron.left")
+            $0.style = .plain
+            $0.tintColor = .gray05
+            $0.target = self
+            $0.action = #selector(pop)
+        }
+    
     let titleBox = UIView()
         .then {
             $0.backgroundColor = .systemBackground
@@ -161,7 +171,8 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
             .disposed(by: disposeBag)
         
         textViewWrapper.makeShadow(color: .init(hex: "#DCDCDC"), alpha: 1, x: 0, y: 0, blur: 7, spread: 0)
-
+        
+        navigationItem.leftBarButtonItem = leftBarButton
     }
     
     func bindViewModel() {
