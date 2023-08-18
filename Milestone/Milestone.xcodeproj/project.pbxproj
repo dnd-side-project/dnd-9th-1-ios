@@ -205,6 +205,8 @@
 		C9B2CDEF2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */; };
 		C9B2CDF12A8CA397006289A8 /* IndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDF02A8CA397006289A8 /* IndexView.swift */; };
 		C9B2CDF72A8CC26E006289A8 /* PointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDF62A8CC26E006289A8 /* PointView.swift */; };
+		C9B2CDFF2A8DE365006289A8 /* ReviewCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDFE2A8DE365006289A8 /* ReviewCompleteView.swift */; };
+		C9B2CE012A8DEBE0006289A8 /* ReviewCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE002A8DEBE0006289A8 /* ReviewCompleteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -311,6 +313,8 @@
 		C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionReviewWithoutGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CDF02A8CA397006289A8 /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
 		C9B2CDF62A8CC26E006289A8 /* PointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointView.swift; sourceTree = "<group>"; };
+		C9B2CDFE2A8DE365006289A8 /* ReviewCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCompleteView.swift; sourceTree = "<group>"; };
+		C9B2CE002A8DEBE0006289A8 /* ReviewCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCompleteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -621,6 +625,8 @@
 				C9B2CDE62A8BBCCC006289A8 /* TriangleView.swift */,
 				C9B2CDF02A8CA397006289A8 /* IndexView.swift */,
 				C9B2CDF62A8CC26E006289A8 /* PointView.swift */,
+				C9B2CDFE2A8DE365006289A8 /* ReviewCompleteView.swift */,
+				C9B2CE002A8DEBE0006289A8 /* ReviewCompleteViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -972,6 +978,7 @@
 				C9B2CDF12A8CA397006289A8 /* IndexView.swift in Sources */,
 				A2FA59292A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
 				C9B2CDE72A8BBCCC006289A8 /* TriangleView.swift in Sources */,
+				C9B2CE012A8DEBE0006289A8 /* ReviewCompleteViewController.swift in Sources */,
 				A2B969842A85812F00C4903F /* GoalStatusView.swift in Sources */,
 				A2B9698B2A859EAB00C4903F /* UIButton+.swift in Sources */,
 				A2FA58C92A7F79EF006ACA2E /* BaseModel.swift in Sources */,
@@ -982,6 +989,7 @@
 				A2B20D9A2A7ED40D001ED73C /* Logger.swift in Sources */,
 				A2B20D592A7E4E5C001ED73C /* UIFont+.swift in Sources */,
 				C9B2CDD62A8A77F1006289A8 /* CompletionViewModel.swift in Sources */,
+				C9B2CDFF2A8DE365006289A8 /* ReviewCompleteView.swift in Sources */,
 				A2B20D942A7ED174001ED73C /* UIImage+.swift in Sources */,
 				A28EDA152A8791F7001A021A /* DetailGoalCollectionViewCell.swift in Sources */,
 				C90DC9822A88854C00241B7C /* OnboardingViewController.swift in Sources */,

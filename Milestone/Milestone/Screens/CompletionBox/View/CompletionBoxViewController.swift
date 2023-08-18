@@ -79,15 +79,16 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     }
     
     /// 뷰 사라질때 등록해둔 구독자들을 클래스 속성에 추가한 뒤 viewWillDisappear에서 커스텀 디스포즈
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.layoutIfNeeded()
         guard let cell = tableView.visibleCells.first else { return }
         let alertView = cell.contentView.subviews.last as! CompletionAlertView
-        
+
         cellHideDisposable = viewModel.completionList
             .map { $0.isEmpty }
             .bind(to: cell.rx.isHidden)
-        
+
         nsAttributedStringDisposable = viewModel.completionList
             .map {
                 let string = NSMutableAttributedString(string: "총 \($0.count - 1)개의 목표 회고를 작성할 수 있어요!")
@@ -95,10 +96,10 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                 return string
             }
             .bind(to: alertView.label.rx.attributedText)
-        
+
         tableView.visibleCells.enumerated().forEach { index, cell in
             guard let cell = cell as? CompletionTableViewCell else { return }
-            
+
             tapDisposable.append(cell.button.rx.tap
                 .subscribe(onNext: { [weak self] _ in
                     guard let self = self else { return }
@@ -108,7 +109,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                     self.push(viewController: reviewVC)
                 }))
         }
-        
+
         setAdditionalLayout()
     }
     
