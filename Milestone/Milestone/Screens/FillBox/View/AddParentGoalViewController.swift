@@ -16,6 +16,7 @@ import Then
 /// 서브뷰에서 present 시 사용함
 protocol PresentAlertDelegate: AnyObject {
     func present(alert: UIAlertController)
+    func present(vc: UIViewController)
 }
 
 /// 버튼의 상태를 업데이트 해주는 델리게이트 패턴
@@ -128,6 +129,9 @@ class AddParentGoalViewController: BaseViewController {
 extension AddParentGoalViewController: PresentAlertDelegate {
     func present(alert: UIAlertController) {
         self.present(alert, animated: true)
+    }
+    func present(vc: UIViewController) {
+        self.present(vc, animated: true)
     }
 }
 

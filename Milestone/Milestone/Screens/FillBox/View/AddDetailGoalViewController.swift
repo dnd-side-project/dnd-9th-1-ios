@@ -37,6 +37,7 @@ class AddDetailGoalViewController: BaseViewController {
         }
     lazy var completeButton = RoundedDarkButton()
         .then {
+            $0.titleString = "목표 만들기 완료"
             $0.addTarget(self, action: #selector(completeAddDetailGoal), for: .touchUpInside)
         }
     
@@ -83,8 +84,6 @@ class AddDetailGoalViewController: BaseViewController {
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.layer.cornerRadius = 20
         view.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
-        
-        completeButton.titleString = "목표 만들기 완료"
     }
     
     // MARK: - @objc Functions
@@ -108,6 +107,10 @@ class AddDetailGoalViewController: BaseViewController {
 // MARK: - PresentAlertDelegate
 
 extension AddDetailGoalViewController: PresentAlertDelegate {
+    func present(vc: UIViewController) {
+        self.present(vc, animated: true)
+    }
+    
     func present(alert: UIAlertController) {
         self.present(alert, animated: true)
     }

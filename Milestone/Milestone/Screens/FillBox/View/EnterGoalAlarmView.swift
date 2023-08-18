@@ -69,11 +69,11 @@ class EnterGoalAlarmView: UIView {
     lazy var timeButton = UIButton()
         .then {
             $0.backgroundColor = .gray01
-            $0.setTitle("오후   01 : 00", for: .normal)
+            $0.setTitle("\(selectedAmOrPm)   \(selectedHour) : \(selectedMin)", for: .normal)
             $0.layer.cornerRadius = 10
             $0.setTitleColor(.black, for: .normal)
             $0.titleLabel?.font = .pretendard(.semibold, ofSize: 16)
-            $0.addTarget(self, action: #selector(presentTimeAlert), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(presentTimePickerView), for: .touchUpInside)
         }
     lazy var receiveAlarmLabel = UILabel()
         .then {
@@ -82,31 +82,31 @@ class EnterGoalAlarmView: UIView {
             $0.font = .pretendard(.semibold, ofSize: 14)
             $0.textColor = .black
         }
-    lazy var timeSelectPicker = UIDatePicker()
+    lazy var timePickerView = UIPickerView()
         .then {
-            $0.datePickerMode = .time
-            $0.preferredDatePickerStyle = .wheels
-            $0.minuteInterval = 30
-            $0.locale = Locale(identifier: "ko_KR")
+            $0.delegate = self
+            $0.dataSource = self
+            $0.selectRow(1, inComponent: 0, animated: false) // 피커뷰가 '오후'를 가리키고 있도록 설정
         }
-    lazy var timeSelectAlert = UIAlertController(title: nil, message: "시간을 선택해주세요", preferredStyle: .actionSheet)
+    lazy var timePickerAlert = UIAlertController(title: nil, message: "시간을 선택해주세요", preferredStyle: .actionSheet)
         .then {
-            $0.addAction(timeSelectAction)
+            $0.addAction(timePickerAction)
         }
-    lazy var timeSelectAction = UIAlertAction(title: "완료", style: .default) { [self] _ in
-        timeButton.setTitle("\(dateFormatter.string(from: timeSelectPicker.date))", for: .normal)
+    lazy var timePickerAction = UIAlertAction(title: "완료", style: .default) { [self] _ in
+        timeButton.setTitle("\(selectedAmOrPm)   \(selectedHour) : \(selectedMin)", for: .normal)
+        Logger.debugDescription("최종 선택된 요일 : \(getSelectedDay())")
     }
-    let timeSelectViewController = UIViewController()
+    let timePickerViewController = UIViewController()
     
     // MARK: - Properties
     
+    var timePickerData = [["오전", "오후"], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"], ["00", "30"]]
     var dayList = [DayData(day: Days.MONDAY.rawValue), DayData(day: Days.TUEDAY.rawValue), DayData(day: Days.WEDDAY.rawValue), DayData(day: Days.THUDAY.rawValue), DayData(day: Days.FRIDAY.rawValue), DayData(day: Days.SATDAY.rawValue), DayData(day: Days.SUNDAY.rawValue)]
-    let dateFormatter = DateFormatter()
-        .then {
-            $0.dateFormat = "a   hh : mm"
-        }
     weak var delegate: (PresentAlertDelegate)?
     var isSelected: Bool = true
+    var selectedAmOrPm = "오후"
+    var selectedHour = "01"
+    var selectedMin = "00"
     
     // MARK: - Initialization
     
@@ -158,7 +158,7 @@ class EnterGoalAlarmView: UIView {
     }
     
     private func configUI() {
-        timeSelectViewController.view = timeSelectPicker
+        timePickerViewController.view = timePickerView
     }
     
     /// 상황에 따라 버튼의 스타일을 업데이트 해줌
@@ -182,6 +182,17 @@ class EnterGoalAlarmView: UIView {
         return dayStringList.firstIndex(of: element)
     }
     
+    /// 최종 선택된 요일 배열을 반환
+    private func getSelectedDay() -> [String] {
+        return dayList
+            .filter { day in // 선택된 값들만 필터링 하고
+                day.isSelected
+            }
+            .map { day in // 그 중 String만 가지고 배열을 구성
+                day.day
+            }
+    }
+    
     // MARK: - @objc Functions
     
     /// 요일 버튼 클릭 시 실행
@@ -199,12 +210,35 @@ class EnterGoalAlarmView: UIView {
 //        }
     }
     
-    /// 시간 설정 버튼 클릭 시 실행
-    /// 시간을 선택할 수 있는 DatePicker가 액션 시트 형태로 present 된다
+    /// 시간 선택할 수 있는 피커뷰가 들어있는 액션시트를 present
     @objc
-    private func presentTimeAlert() {
-        timeSelectAlert
-            .setValue(timeSelectViewController, forKey: "contentViewController")
-        delegate?.present(alert: timeSelectAlert)
+    private func presentTimePickerView() {
+        timePickerAlert
+            .setValue(timePickerViewController, forKey: "contentViewController")
+        delegate?.present(alert: timePickerAlert)
+    }
+}
+
+extension EnterGoalAlarmView: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        3
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        timePickerData[component].count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        timePickerData[component][row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch component {
+        case 0:
+            selectedAmOrPm = timePickerData[component][row]
+        case 1:
+            selectedHour = timePickerData[component][row]
+        case 2:
+            selectedMin = timePickerData[component][row]
+        default:
+            return
+        }
     }
 }
