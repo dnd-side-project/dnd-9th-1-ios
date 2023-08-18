@@ -42,6 +42,7 @@ class EnterGoalAlarmView: UIView {
         .then {
             $0.isOn = true
             $0.onTintColor = .primary
+            $0.addTarget(self, action: #selector(toggleAlarmSwitch), for: .valueChanged)
         }
     var dayButton = UIButton()
     lazy var dayStackView = UIStackView()
@@ -100,13 +101,12 @@ class EnterGoalAlarmView: UIView {
     
     // MARK: - Properties
     
-    var timePickerData = [["오전", "오후"], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"], ["00", "30"]]
-    var dayList = [DayData(day: Days.MONDAY.rawValue), DayData(day: Days.TUEDAY.rawValue), DayData(day: Days.WEDDAY.rawValue), DayData(day: Days.THUDAY.rawValue), DayData(day: Days.FRIDAY.rawValue), DayData(day: Days.SATDAY.rawValue), DayData(day: Days.SUNDAY.rawValue)]
     weak var delegate: (PresentAlertDelegate)?
-    var isSelected: Bool = true
-    var selectedAmOrPm = "오후"
-    var selectedHour = "01"
-    var selectedMin = "00"
+    private var timePickerData = [["오전", "오후"], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"], ["00", "30"]]
+    private var dayList = [DayData(day: Days.MONDAY.rawValue), DayData(day: Days.TUEDAY.rawValue), DayData(day: Days.WEDDAY.rawValue), DayData(day: Days.THUDAY.rawValue), DayData(day: Days.FRIDAY.rawValue), DayData(day: Days.SATDAY.rawValue), DayData(day: Days.SUNDAY.rawValue)]
+    private var selectedAmOrPm = "오후"
+    private var selectedHour = "01"
+    private var selectedMin = "00"
     
     // MARK: - Initialization
     
@@ -194,6 +194,11 @@ class EnterGoalAlarmView: UIView {
     }
     
     // MARK: - @objc Functions
+    
+    @objc
+    private func toggleAlarmSwitch() {
+        [dayStackView, timeButton, receiveAlarmLabel].forEach { $0.isHidden = !onOffSwitch.isOn }
+    }
     
     /// 요일 버튼 클릭 시 실행
     /// dayList에서 해당 인덱스의 isSelected 값을 토글하고
