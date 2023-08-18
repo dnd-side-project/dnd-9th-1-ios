@@ -15,6 +15,12 @@ enum Style {
     case guide
 }
 
+// FIXME: 지우기
+protocol PostModelOutput: Lodable {
+    var _posts: BehaviorRelay<[Post]> { get }
+    var onError: PublishSubject<APIError?> { get }
+}
+
 struct Goal: IdentifiableType, Equatable {
     let title: String
     let startDate: Date
@@ -27,8 +33,36 @@ struct Goal: IdentifiableType, Equatable {
 
 typealias CompletionSectionModel = AnimatableSectionModel<Int, Goal>
 
-class CompletionViewModel {
+class CompletionViewModel: BindableViewModel {
     
+    // MARK: BindableViewModel Properties
+    var apiSession: APIService = APISession()
+    var bag = DisposeBag()
+    var input = Input()
+    var output = Output()
+    var utilityQueue = OperationQueue()
+    
+    struct Input { }
+    struct Output: PostModelOutput{
+        var _posts: BehaviorRelay<[Post]> = .init(value: [])
+        var onError: PublishSubject<APIError?> = .init()
+        var loading: BehaviorRelay<Bool> = .init(value: false)
+    }
+    
+    func bindInput() {
+        
+    }
+    func bindOutput() {
+        
+    }
+    
+    init() {
+        bindInput()
+        bindOutput()
+    }
+    
+    
+    // MARK: Properties
     private var goalList = [
         Goal(title: "", startDate: Date(), endDate: Date(),isCompleted: true, identity: -1, style: .free, contents: []),
         Goal(title: "포토샵 자격증 따기", startDate: Date(), endDate: Date().addingTimeInterval(100), isCompleted: true, identity: 0, style: .free, contents: ["큰 목표만 세웠을 때는 못 이룰까봐 괜히 부담이 됐었는데, ‘작은 목표 하나라도 이루자’ 라는 마음으로 하니까 부담감도 많이 사라지고 포기도 안하게 돼서 좋았다. 큰 목표만 세웠을 때는 못 이룰까봐 괜히 부담이 됐었는데, ‘작은 목표 하나라도 이루자’ 라는 마음으로 하니까 부담감도 많이 사라지고 포기도 안하게 돼서 좋았큰 목표만 세큰 목표만 세웠을 때는 못큰 목표만 세웠을 때는 못 이룰까봐 괜히 부담이 됐었는데, ‘작은 목표 하나라도 이루자’ 라는 마음으로 하니까 부담감도 많이 사라지고 포기도 안하게 돼서 좋았다. 큰 목표만 세웠을 때는 못 이룰까봐 괜히 부담이 됐었는데, ‘작은 목표 하나라도 이루자’ 라는 마음으로 하니까 부담감도 많이 사라지고 포기도 안하게 돼서 좋았큰 목표만 세큰 목표만 세웠을 때는 못큰 목표만 세웠을 때는 못 이룰까봐 괜히 부담이 됐었는데, ‘작은 목표 하나라도 이루자’ 라는 마음으로 하니까 부담감도 많이 사라지고 포기도 안하게 돼서 좋았다. 큰 목표만 세웠을 때는 못 이룰까봐 괜히 부담이 됐었는데, ‘작은 목표 하나라도 이루자’ 라는 마음으로 하니까 부담감도 많이 사라지고 포기도 안하게 돼서 좋았큰 목표만 세큰 목표만 세웠을 때는 못"]),
@@ -49,5 +83,31 @@ class CompletionViewModel {
     
     var goalObservable: Observable<Goal> {
         return Observable.from(goalList)
+    }
+    
+    deinit {
+        bag = DisposeBag()
+    }
+}
+
+extension CompletionViewModel: ServicesPost {
+    private func getPost() {
+        
+        let op = RetrievePostOperation(viewModel: self)
+        
+        op.onComplete = { [weak self] apiError, success in
+            guard let self = self,
+                  success else {
+                self?.output.endLoading()
+                self?.output.onError.onNext(apiError)
+                return
+            }
+            
+            let posts = op.posts
+            self.output._posts.accept(posts)
+            self.output.endLoading()
+        }
+        
+        utilityQueue.addOperation(op)
     }
 }
