@@ -221,11 +221,24 @@ extension DetailParentViewController: UICollectionViewDataSource, UICollectionVi
         return cell
     }
     
+    // MARK: - @objc Functions
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailInfo = DetailGoalInfoViewController()
-        detailInfo.modalPresentationStyle = .overFullScreen
-        detailInfo.modalTransitionStyle = .crossDissolve
-        self.present(detailInfo, animated: true)
+        guard let cell = collectionView.cellForItem(at: indexPath) as? DetailGoalCollectionViewCell else { return }
+        if cell.isSet.value {
+            let detailInfo = DetailGoalInfoViewController()
+            detailInfo.modalPresentationStyle = .overFullScreen
+            detailInfo.modalTransitionStyle = .crossDissolve
+            self.present(detailInfo, animated: true)
+        } else {
+            let addDetailGoalVC = AddDetailGoalViewController()
+            addDetailGoalVC.modalPresentationStyle = .pageSheet
+            
+            guard let sheet = addDetailGoalVC.sheetPresentationController else { return }
+            let fraction = UISheetPresentationController.Detent.custom { _ in 500.0 }
+            sheet.detents = [fraction]
+            present(addDetailGoalVC, animated: true)
+        }
     }
 }
 
