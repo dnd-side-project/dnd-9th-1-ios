@@ -63,6 +63,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     var tapDisposable: [Disposable] = []
     var cellHideDisposable: Disposable?
     var nsAttributedStringDisposable: Disposable?
+    var tableViewScrollDisposable: Disposable?
     
     // MARK: Properties
     var viewModel: CompletionViewModel!
@@ -76,6 +77,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         tableView.dataSource = nil
         tableView.rx.setDelegate(self)
             .disposed(by: disposeBag)
+        checkFirstCompletionBox()
     }
     
     /// 뷰 사라질때 등록해둔 구독자들을 클래스 속성에 추가한 뒤 viewWillDisappear에서 커스텀 디스포즈
@@ -99,14 +101,35 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
 
         tableView.visibleCells.enumerated().forEach { index, cell in
             guard let cell = cell as? CompletionTableViewCell else { return }
-
             tapDisposable.append(cell.button.rx.tap
                 .subscribe(onNext: { [weak self] _ in
                     guard let self = self else { return }
-                    var reviewVC = CompletionReviewViewController()
-                    reviewVC.goalIndex = index
-                    reviewVC.bind(viewModel: self.viewModel)
-                    self.push(viewController: reviewVC)
+                    
+                    self.viewModel.goalObservable
+                        .element(at: index)
+                        .subscribe(onNext: {
+                            
+                            if $0.isCompleted {
+                                switch $0.style {
+                                case .guide:
+                                    var savedReviewViewWithGuide = CompletionSavedReviewWithGuideViewController()
+                                    savedReviewViewWithGuide.goalIndex = index
+                                    savedReviewViewWithGuide.bind(viewModel: self.viewModel)
+                                    self.push(viewController: savedReviewViewWithGuide)
+                                case .free:
+                                    var savedReviewViewWithoutGuide = CompletionSavedReviewWithoutGuideViewController()
+                                    savedReviewViewWithoutGuide.goalIndex = index
+                                    savedReviewViewWithoutGuide.bind(viewModel: self.viewModel)
+                                    self.push(viewController: savedReviewViewWithoutGuide)
+                                }
+                            } else {
+                                var reviewVC = CompletionReviewViewController()
+                                reviewVC.goalIndex = index
+                                reviewVC.bind(viewModel: self.viewModel)
+                                self.push(viewController: reviewVC)
+                            }
+                        })
+                        .disposed(by: self.disposeBag)
                 }))
         }
 
@@ -144,7 +167,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             make.leading.equalTo(view.snp.leading).offset(24)
             make.trailing.equalTo(view.snp.trailing).offset(-24)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.bottom.equalTo(view.snp.bottom)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
     }
     
@@ -164,13 +187,12 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             .bind(to: emptyImageView.rx.isHidden, label.rx.isHidden)
             .disposed(by: disposeBag)
         
-        tableView.rx.didScroll
+        tableViewScrollDisposable = tableView.rx.didScroll
             .subscribe { [weak self] _ in
                 self?.bubbleView.isHidden = true
                 self?.bubbleLabel.isHidden = true
                 self?.triangle.isHidden = true
             }
-            .disposed(by: disposeBag)
     }
     
     /// 테이블뷰 레이아웃 세팅 완료 후 정의해야할 레이아웃 대상들을 분리
@@ -198,6 +220,18 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         bubbleLabel.snp.makeConstraints { make in
             make.centerY.equalTo(bubbleView.snp.centerY)
             make.centerX.equalTo(bubbleView.snp.centerX)
+        }
+    }
+    
+    /// 처음이 맞는지 확인 -> 맞으면 말풍선 뷰 띄우기
+    private func checkFirstCompletionBox() {
+        if UserDefaults.standard.string(forKey: "showBubbleInCompleteBox") == nil {
+            bubbleView.isHidden = false
+            UserDefaults.standard.set("", forKey: "showBubbleInCompleteBox")
+        } else {
+            bubbleView.isHidden = true
+            triangle.isHidden = true
+            tableViewScrollDisposable?.dispose()
         }
     }
 }
