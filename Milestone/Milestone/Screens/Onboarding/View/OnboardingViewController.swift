@@ -12,282 +12,105 @@ import UIKit
 
 class OnboardingViewController: BaseViewController {
     
-    var coordinator: OnboardingFlow?
+    // MARK: - SubViews
     
-    private var startDate = Date()
-    private var endDate = Date()
-    
-    private let mainLabel = UILabel()
+    lazy var backButton = UIButton()
         .then {
-            $0.text = "이루고 싶은\n목표를 적어주세요!"
+            $0.setImage(ImageLiteral.imgBack, for: .normal)
+            $0.addTarget(self, action: #selector(dismissAddParentGoal), for: .touchUpInside)
+        }
+    
+    var topicLabel = UILabel()
+        .then {
             $0.numberOfLines = 0
-            $0.font = UIFont.pretendard(.bold, ofSize: 28)
+            $0.text = "이루고 싶은\n목표를 적어주세요!"
+            $0.font = .pretendard(.bold, ofSize: 28)
             $0.textAlignment = .left
         }
     
-    private let titleLabel = UILabel()
+    lazy var enterGoalTitleView = EnterGoalTitleView()
         .then {
-            $0.text = "제목"
-            $0.font = UIFont.pretendard(.semibold, ofSize: 16)
+            $0.delegate = self
         }
     
-    private let titleTextField = UITextField()
+    lazy var enterGoalDateView = EnterGoalDateView()
         .then {
-            $0.font = UIFont.pretendard(.semibold, ofSize: 16)
-            $0.placeholder = "제목을 입력해주세요!"
-            $0.layer.cornerRadius = 10
-            $0.backgroundColor = UIColor.gray01
+            $0.presentDelegate = self
+            $0.buttonStateDelegate = self
         }
     
-    private let dateLabel = UILabel()
-        .then {
-            $0.text = "날짜를 설정해주세요"
-            $0.font = UIFont.pretendard(.semibold, ofSize: 16)
-        }
+    var reminderAlarmView = ReminderAlarmView()
     
-    private let startDateLabel = UILabel()
+    lazy var completeButton = RoundedDarkButton()
         .then {
-            $0.text = "시작일"
-            $0.font = UIFont.pretendard(.regular, ofSize: 12)
-        }
-    
-    private let startDateButton = UIButton(type: .system)
-        .then {
-            $0.backgroundColor = .gray01
-            $0.titleLabel?.font = UIFont.pretendard(.semibold, ofSize: 16)
-            $0.layer.cornerRadius = 10
-            $0.setTitleColor(UIColor.black, for: .normal)
-        }
-    
-    private let endDateLabel = UILabel()
-        .then {
-            $0.text = "종료일"
-            $0.font = UIFont.pretendard(.regular, ofSize: 12)
-        }
-    
-    private let endDateButton = UIButton(type: .system)
-        .then {
-            $0.backgroundColor = .gray01
-            $0.titleLabel?.font = UIFont.pretendard(.semibold, ofSize: 16)
-            $0.layer.cornerRadius = 10
-            $0.setTitleColor(UIColor.black, for: .normal)
-        }
-    
-    private let remindLabel = UILabel()
-        .then {
-            $0.text = "리마인드 알림"
-            $0.font = UIFont.pretendard(.semibold, ofSize: 16)
-        }
-    
-    private let remindInformationLabel = UILabel()
-        .then {
-            $0.numberOfLines = 0
-            $0.textColor = .primary
-            $0.font = UIFont.pretendard(.regular, ofSize: 14)
-            $0.text = "목표를 잊지 않도록 랜덤한 시간에\n앱 알림을 통해 리마인드 시켜드려요!"
-            $0.setLineSpacing(lineSpacing: 1.5)
-        }
-    
-    private let remindAdditionalInformationLabel = UILabel()
-        .then {
-            $0.text = "언제든 설정 화면에서 리마인드 알림을 끌 수 있어요."
-            $0.textColor = .gray03
-            $0.font = UIFont.pretendard(.regular, ofSize: 12)
-        }
-    
-    private let remindToggleButton = UISwitch()
-        .then {
-            $0.onTintColor = .primary
-        }
-    
-    private let completeButton = UIButton(type: .system)
-        .then {
-            $0.layer.cornerRadius = 20
-            $0.backgroundColor = .gray06
-            $0.setTitleColor(UIColor.white, for: .normal)
-            $0.setTitle("목표 만들기 완료", for: .normal)
-            $0.titleLabel?.font = UIFont.pretendard(.semibold, ofSize: 16)
             $0.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
         }
     
-    @objc func completeButtonTapped(_ sender: UIButton) {
-        coordinator?.coordinateToNext()
-    }
+    // MARK: Properties
+    var coordinator: OnboardingFlow?
+    
+    // MARK: Function
     
     override func render() {
-        self.view.addSubViews([mainLabel, titleLabel, titleTextField, dateLabel, startDateLabel, startDateButton, endDateLabel, endDateButton, remindLabel, remindInformationLabel, remindAdditionalInformationLabel, remindToggleButton, completeButton])
+        view.addSubViews([backButton, topicLabel, enterGoalTitleView, enterGoalDateView, reminderAlarmView, completeButton])
         
-        mainLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(100)
-            make.leading.equalTo(self.view.snp.leading).offset(24)
+        topicLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(100)
+            make.leading.equalToSuperview().offset(24)
         }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(mainLabel.snp.bottom).offset(48)
-            make.leading.equalTo(self.view.snp.leading).offset(24)
+        enterGoalTitleView.snp.makeConstraints { make in
+            make.top.equalTo(topicLabel.snp.bottom).offset(32)
+            make.centerX.equalToSuperview()
         }
-        
-        titleTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(12)
-            make.leading.equalTo(self.view.snp.leading).offset(24)
-            make.trailing.equalTo(self.view.snp.trailing).offset(-24)
-            make.height.equalTo(46)
+        enterGoalDateView.snp.makeConstraints { make in
+            make.top.equalTo(enterGoalTitleView.snp.bottom).offset(24)
+            make.centerX.equalToSuperview()
         }
-        
-        dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleTextField.snp.bottom).offset(40)
-            make.leading.equalTo(self.view.snp.leading).offset(24)
+        reminderAlarmView.snp.makeConstraints { make in
+            make.top.equalTo(enterGoalDateView.snp.bottom).offset(24)
+            make.centerX.equalToSuperview()
         }
-        
-        startDateLabel.snp.makeConstraints { make in
-            make.top.equalTo(dateLabel.snp.bottom).offset(12)
-            make.leading.equalTo(self.view.snp.leading).offset(24)
-        }
-        
-        startDateButton.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.leading).offset(24)
-            make.top.equalTo(startDateLabel.snp.bottom).offset(8)
-            make.trailing.equalTo(view.snp.centerX).offset(-10)
-            make.height.equalTo(46)
-        }
-        
-        endDateLabel.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.centerX).offset(10)
-            make.top.equalTo(startDateLabel.snp.top)
-        }
-        
-        endDateButton.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.centerX).offset(10)
-            make.top.equalTo(startDateLabel.snp.bottom).offset(8)
-            make.trailing.equalTo(view.snp.trailing).offset(-24)
-            make.height.equalTo(46)
-        }
-        
-        remindLabel.snp.makeConstraints { make in
-            make.top.equalTo(endDateButton.snp.bottom).offset(24)
-            make.leading.equalTo(view.snp.leading).offset(24)
-        }
-        
-        remindInformationLabel.snp.makeConstraints { make in
-            make.top.equalTo(remindLabel.snp.bottom).offset(8)
-            make.leading.equalTo(view.snp.leading).offset(24)
-        }
-        
-        remindAdditionalInformationLabel.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.leading).offset(24)
-            make.top.equalTo(remindInformationLabel.snp.bottom).offset(4)
-        }
-        
-        remindToggleButton.snp.makeConstraints { make in
-            make.top.equalTo(remindLabel)
-            make.trailing.equalTo(view.snp.trailing).offset(-24)
-        }
-        
         completeButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
-            make.leading.equalTo(view.snp.leading).offset(24)
-            make.trailing.equalTo(view.snp.trailing).offset(-24)
+            make.left.right.equalToSuperview().inset(24)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
             make.height.equalTo(54)
         }
     }
     
     override func configUI() {
-        self.view.backgroundColor = .systemBackground
+        view.backgroundColor = .white
+        view.layer.masksToBounds = true
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.layer.cornerRadius = 20
+        view.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
         
-        titleTextField.setLeftPaddingPoints(16)
-        
-        startDateButton.setTitle(getDateString(), for: .normal)
-        endDateButton.setTitle(getDateString(), for: .normal)
-        
-        setupDateButton()
+        completeButton.titleString = "목표 만들기 완료"
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+    // MARK: Objc functions
+    @objc func completeButtonTapped(_ sender: UIButton) {
+        updateButtonState(.press)
+        coordinator?.coordinateToNext()
     }
     
-    func setupDateButton() {
-        startDateButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                
-                let datePicker = UIDatePicker()
-                datePicker.datePickerMode = .date
-                datePicker.preferredDatePickerStyle = .wheels
-                datePicker.locale = Locale(identifier: "ko_KR")
-                
-                if let startDate = self?.startDate {
-                    datePicker.date = startDate
-                }
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy / MM / dd"
-                
-                let alert = UIAlertController(title: "", message: "날짜를 골라주세요", preferredStyle: .actionSheet)
-                let tapAction = UIAlertAction(title: "선택 완료", style: .cancel) { _ in
-                    self?.startDate = datePicker.date
-                    
-                    if let endDate = self?.endDate,
-                       endDate < datePicker.date {
-                        self?.startDateButton.setTitle("\(dateFormatter.string(from: endDate))", for: .normal)
-                        self?.startDate = endDate
-                    } else {
-                        self?.startDateButton.setTitle("\(dateFormatter.string(from: datePicker.date))", for: .normal)
-                    }
-                }
-                        
-                alert.addAction(tapAction)
-                
-                let vc = UIViewController()
-                vc.view = datePicker
-                        
-                alert.setValue(vc, forKey: "contentViewController")
-                        
-                self?.present(alert, animated: true)
-            })
-            .disposed(by: disposeBag)
-        
-        endDateButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                let datePicker = UIDatePicker()
-                datePicker.datePickerMode = .date
-                datePicker.preferredDatePickerStyle = .wheels
-                datePicker.locale = Locale(identifier: "ko_KR")
-                
-                if let endDate = self?.endDate {
-                    datePicker.date = endDate
-                }
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy / MM / dd"
-                
-                let alert = UIAlertController(title: "", message: "날짜를 골라주세요", preferredStyle: .actionSheet)
-                let tapAction = UIAlertAction(title: "선택 완료", style: .cancel) { _ in
-                    self?.endDate = datePicker.date
-                    
-                    if let startDate = self?.startDate, datePicker.date < startDate {
-                        self?.endDate = startDate
-                        self?.endDateButton.setTitle("\(dateFormatter.string(from: startDate))", for: .normal)
-                    } else {
-                        self?.endDateButton.setTitle("\(dateFormatter.string(from: datePicker.date))", for: .normal)
-                    }
-                }
-                
-                alert.addAction(tapAction)
-                
-                let vc = UIViewController()
-                vc.view = datePicker
-                        
-                alert.setValue(vc, forKey: "contentViewController")
-                        
-                self?.present(alert, animated: true)
-            })
-            .disposed(by: disposeBag)
+    @objc
+    private func dismissAddParentGoal() {
+        self.dismiss(animated: true)
     }
-    
-    func getDateString() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy / MM / dd"
-        
-        return dateFormatter.string(from: Date())
+}
+
+// MARK: - PresentAlertDelegate
+
+extension OnboardingViewController: PresentAlertDelegate {
+    func present(alert: UIAlertController) {
+        self.present(alert, animated: true)
+    }
+}
+
+// MARK: - UpdateButtonStateDelegate
+
+extension OnboardingViewController: UpdateButtonStateDelegate {
+    func updateButtonState(_ state: ButtonState) {
+        self.completeButton.buttonState = state
     }
 }
