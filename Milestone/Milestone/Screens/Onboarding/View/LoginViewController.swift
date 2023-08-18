@@ -50,7 +50,7 @@ class LoginViewController: BaseViewController {
     
     let logoImageView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "Milestone")
+        iv.image = ImageLiteral.imgMileStone
         return iv
     }()
     
@@ -63,7 +63,7 @@ class LoginViewController: BaseViewController {
     
     let backgroundImageView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "onboarding_1")
+        iv.image = ImageLiteral.imgOnboarding1
         iv.contentMode = .scaleAspectFill
         return iv
     }()
@@ -81,7 +81,7 @@ class LoginViewController: BaseViewController {
     
     let appleLogo: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "appleLogo_black")
+        iv.image = ImageLiteral.imgAppleLogo
         return iv
     }()
     
@@ -98,7 +98,7 @@ class LoginViewController: BaseViewController {
     
     let kakaoLogo: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "kakaoLogo")
+        iv.image = ImageLiteral.imgKakaoLogo
         return iv
     }()
     
@@ -112,12 +112,12 @@ class LoginViewController: BaseViewController {
         
         logoImageView.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading).offset(24)
-            make.top.equalTo(label.snp.bottom).offset(36)
+            make.top.equalTo(label.snp.bottom).offset(24)
         }
         
         labelWithLogo.snp.makeConstraints { make in
             make.leading.equalTo(logoImageView.snp.trailing).offset(10)
-            make.firstBaseline.equalTo(logoImageView.snp.bottom)
+            make.centerY.equalTo(logoImageView.snp.centerY)
         }
         
         backgroundImageView.snp.makeConstraints { make in

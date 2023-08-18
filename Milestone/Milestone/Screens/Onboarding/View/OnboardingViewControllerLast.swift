@@ -13,7 +13,7 @@ class OnboardingViewControllerLast: BaseViewController {
     
     let onboardingImageView = UIImageView()
         .then {
-            $0.image = #imageLiteral(resourceName: "onboarding2")
+            $0.image = ImageLiteral.imgOnboarding2
             $0.contentMode = .scaleAspectFit
         }
     
