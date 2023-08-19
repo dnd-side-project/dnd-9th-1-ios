@@ -10,18 +10,13 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
-enum Style {
-    case free
-    case guide
-}
-
 struct Goal: IdentifiableType, Equatable {
     let title: String
     let startDate: Date
     let endDate: Date
     let isCompleted: Bool
     let identity: Int
-    let style: Style
+    let style: WriteRetrospectStyle
     let contents: [String]
 }
 

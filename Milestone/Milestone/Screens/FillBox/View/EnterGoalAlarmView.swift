@@ -15,16 +15,6 @@ struct DayData: Equatable { // TEMP
     var isSelected: Bool = false
 }
 
-enum Days: String {
-    case MONDAY = "월"
-    case TUEDAY = "화"
-    case WEDDAY = "수"
-    case THUDAY = "목"
-    case FRIDAY = "금"
-    case SATDAY = "토"
-    case SUNDAY = "일"
-}
-
 // MARK: - 목표 알람 설정 뷰
 
 class EnterGoalAlarmView: UIView {
