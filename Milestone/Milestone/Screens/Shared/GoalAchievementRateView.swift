@@ -7,9 +7,6 @@
 
 import UIKit
 
-import RxCocoa
-import RxSwift
-
 class GoalAchievementRateView: UIView {
     
     // MARK: Subviews
@@ -21,8 +18,7 @@ class GoalAchievementRateView: UIView {
     
     // MARK: Properties
     var completedCount: CGFloat = 0
-    var totalCompletedCount: CGFloat = 0
-    var disposeBag = DisposeBag()
+    var totalCount: CGFloat = 0
     
     // MARK: - Initialization
     
@@ -41,9 +37,9 @@ class GoalAchievementRateView: UIView {
     
     override func draw(_ rect: CGRect) {
         
-        let radian = 270 - 360 * (completedCount / totalCompletedCount)
+        let radian = 270 - 360 * (completedCount / totalCount)
         
-        self.countLabel.text = "\(Int(completedCount))/\(Int(totalCompletedCount))"
+        self.countLabel.text = "\(Int(completedCount))/\(Int(totalCount))"
         
         let path = UIBezierPath(arcCenter: CGPoint(x: rect.midX, y: rect.midY), radius: 22, startAngle: (270 * .pi) / 180, endAngle: (radian * .pi) / 180, clockwise: false)
 
