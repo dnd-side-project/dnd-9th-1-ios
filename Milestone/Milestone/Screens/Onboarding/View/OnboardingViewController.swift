@@ -104,6 +104,9 @@ extension OnboardingViewController: PresentAlertDelegate {
     func present(alert: UIAlertController) {
         self.present(alert, animated: true)
     }
+    func present(vc: UIViewController) {
+        self.present(vc, animated: true)
+    }
 }
 
 // MARK: - UpdateButtonStateDelegate

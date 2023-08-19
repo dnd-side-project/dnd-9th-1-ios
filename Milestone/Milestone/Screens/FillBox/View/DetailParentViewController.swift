@@ -18,6 +18,10 @@ enum UserDefaultsKey: String {
     case couchMark = "showCouchMark"
 }
 
+protocol PresentDelegate: AnyObject {
+    func present(_ viewController: UIViewController)
+}
+
 // MARK: - 상위 목표 상세 보기 화면
 
 class DetailParentViewController: BaseViewController {
@@ -261,6 +265,7 @@ extension DetailParentViewController: UICollectionViewDataSource, UICollectionVi
         guard let cell = collectionView.cellForItem(at: indexPath) as? DetailGoalCollectionViewCell else { return }
         if cell.isSet.value {
             let detailInfo = DetailGoalInfoViewController()
+            detailInfo.delegate = self
             detailInfo.modalPresentationStyle = .overFullScreen
             detailInfo.modalTransitionStyle = .crossDissolve
             self.present(detailInfo, animated: true)
@@ -305,5 +310,15 @@ extension DetailParentViewController: UITableViewDataSource, UITableViewDelegate
         
         goalData[selectedGoalId].isCompleted.toggle() // 원본 배열의 isCompleted 값 변경
         self.detailGoalCollectionView.reloadData()
+    }
+}
+
+// MARK: - PresentDelegate
+
+extension DetailParentViewController: PresentDelegate {
+    func present(_ viewController: UIViewController) {
+        viewController.modalTransitionStyle = .crossDissolve
+        viewController.modalPresentationStyle = .overFullScreen
+        present(viewController, animated: true)
     }
 }
