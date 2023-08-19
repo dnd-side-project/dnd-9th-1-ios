@@ -193,15 +193,10 @@
 		C9B2CE202A8F62B2006289A8 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE1F2A8F62B2006289A8 /* Service.swift */; };
 		C9B2CE222A8F672C006289A8 /* ServicesUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE212A8F672C006289A8 /* ServicesUser.swift */; };
 		C9B2CE242A8F673C006289A8 /* ServicesGoalList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE232A8F673C006289A8 /* ServicesGoalList.swift */; };
-		C9B2CE282A8F9A59006289A8 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE272A8F9A59006289A8 /* AsyncOperation.swift */; };
-		C9B2CE2A2A8F9B0F006289A8 /* NetworkOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE292A8F9B0F006289A8 /* NetworkOperation.swift */; };
-		C9B2CE2D2A8F9B31006289A8 /* APIResponseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE2C2A8F9B31006289A8 /* APIResponseProvider.swift */; };
 		C9B2CE302A8F9B89006289A8 /* BindableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE2F2A8F9B89006289A8 /* BindableViewModel.swift */; };
 		C9B2CE322A8F9B9F006289A8 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE312A8F9B9F006289A8 /* Input.swift */; };
 		C9B2CE342A8F9BBC006289A8 /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE332A8F9BBC006289A8 /* Output.swift */; };
 		C9B2CE362A8F9BC9006289A8 /* Lodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE352A8F9BC9006289A8 /* Lodable.swift */; };
-		C9B2CE392A8FA818006289A8 /* RetrievePostOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE382A8FA818006289A8 /* RetrievePostOperation.swift */; };
-		C9B2CE3B2A8FA835006289A8 /* DeletePostOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE3A2A8FA835006289A8 /* DeletePostOperation.swift */; };
 		C9B2CE3D2A8FA892006289A8 /* ServicesPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE3C2A8FA892006289A8 /* ServicesPost.swift */; };
 		C9B2CE402A8FAE77006289A8 /* PostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE3F2A8FAE77006289A8 /* PostResponse.swift */; };
 /* End PBXBuildFile section */
@@ -314,15 +309,10 @@
 		C9B2CE1F2A8F62B2006289A8 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		C9B2CE212A8F672C006289A8 /* ServicesUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesUser.swift; sourceTree = "<group>"; };
 		C9B2CE232A8F673C006289A8 /* ServicesGoalList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesGoalList.swift; sourceTree = "<group>"; };
-		C9B2CE272A8F9A59006289A8 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
-		C9B2CE292A8F9B0F006289A8 /* NetworkOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOperation.swift; sourceTree = "<group>"; };
-		C9B2CE2C2A8F9B31006289A8 /* APIResponseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseProvider.swift; sourceTree = "<group>"; };
 		C9B2CE2F2A8F9B89006289A8 /* BindableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableViewModel.swift; sourceTree = "<group>"; };
 		C9B2CE312A8F9B9F006289A8 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		C9B2CE332A8F9BBC006289A8 /* Output.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
 		C9B2CE352A8F9BC9006289A8 /* Lodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lodable.swift; sourceTree = "<group>"; };
-		C9B2CE382A8FA818006289A8 /* RetrievePostOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrievePostOperation.swift; sourceTree = "<group>"; };
-		C9B2CE3A2A8FA835006289A8 /* DeletePostOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePostOperation.swift; sourceTree = "<group>"; };
 		C9B2CE3C2A8FA892006289A8 /* ServicesPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesPost.swift; sourceTree = "<group>"; };
 		C9B2CE3F2A8FAE77006289A8 /* PostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -687,7 +677,6 @@
 		C9B2CE0E2A8F4ED6006289A8 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				C9B2CE252A8F9A3D006289A8 /* Operations */,
 				C9B2CE112A8F50F5006289A8 /* API */,
 				C9B2CE1E2A8F6295006289A8 /* Services */,
 				C9B2CE2E2A8F9B69006289A8 /* Foundation */,
@@ -725,33 +714,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		C9B2CE252A8F9A3D006289A8 /* Operations */ = {
-			isa = PBXGroup;
-			children = (
-				C9B2CE2B2A8F9B1C006289A8 /* Providers */,
-				C9B2CE262A8F9A4A006289A8 /* Foundation */,
-				C9B2CE372A8FA7FC006289A8 /* Post */,
-			);
-			path = Operations;
-			sourceTree = "<group>";
-		};
-		C9B2CE262A8F9A4A006289A8 /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-				C9B2CE272A8F9A59006289A8 /* AsyncOperation.swift */,
-				C9B2CE292A8F9B0F006289A8 /* NetworkOperation.swift */,
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
-		C9B2CE2B2A8F9B1C006289A8 /* Providers */ = {
-			isa = PBXGroup;
-			children = (
-				C9B2CE2C2A8F9B31006289A8 /* APIResponseProvider.swift */,
-			);
-			path = Providers;
-			sourceTree = "<group>";
-		};
 		C9B2CE2E2A8F9B69006289A8 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
@@ -761,15 +723,6 @@
 				C9B2CE352A8F9BC9006289A8 /* Lodable.swift */,
 			);
 			path = Foundation;
-			sourceTree = "<group>";
-		};
-		C9B2CE372A8FA7FC006289A8 /* Post */ = {
-			isa = PBXGroup;
-			children = (
-				C9B2CE382A8FA818006289A8 /* RetrievePostOperation.swift */,
-				C9B2CE3A2A8FA835006289A8 /* DeletePostOperation.swift */,
-			);
-			path = Post;
 			sourceTree = "<group>";
 		};
 		C9B2CE3E2A8FAE6C006289A8 /* Post */ = {
@@ -994,7 +947,6 @@
 				C9B2CE362A8F9BC9006289A8 /* Lodable.swift in Sources */,
 				A28EDA112A87808A001A021A /* UIViewController+.swift in Sources */,
 				A2B9698F2A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */,
-				C9B2CE3B2A8FA835006289A8 /* DeletePostOperation.swift in Sources */,
 				C9B2CE1B2A8F5355006289A8 /* Post.swift in Sources */,
 				C90DC9882A891A8500241B7C /* OnboardingViewControllerLast.swift in Sources */,
 				A2D304BD2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
@@ -1018,22 +970,18 @@
 				A2EC47D02A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */,
 				C90DC97A2A88814700241B7C /* Coordinator.swift in Sources */,
 				C9B2CE3D2A8FA892006289A8 /* ServicesPost.swift in Sources */,
-				C9B2CE2D2A8F9B31006289A8 /* APIResponseProvider.swift in Sources */,
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
 				C9B2CE052A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift in Sources */,
 				A2C98F022A8B6117009B5579 /* AddParentGoalViewController.swift in Sources */,
 				A2FA59192A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
 				C90DC98A2A8922D300241B7C /* NSMutableAttributedString+.swift in Sources */,
-				C9B2CE2A2A8F9B0F006289A8 /* NetworkOperation.swift in Sources */,
 				C90DC9842A88874800241B7C /* OnboardingCoordinator.swift in Sources */,
 				A2248E952A8A5A5C00EB995A /* CompletionBoxViewController.swift in Sources */,
 				A2B20D5D2A7E4E68001ED73C /* UIColor+.swift in Sources */,
-				C9B2CE282A8F9A59006289A8 /* AsyncOperation.swift in Sources */,
 				A2C98F122A8B9A8E009B5579 /* ReminderAlarmView.swift in Sources */,
 				A2FA59102A7FCFB4006ACA2E /* Encodable+.swift in Sources */,
 				A2D304C92A856B6B00A5BA92 /* StorageBoxViewController.swift in Sources */,
 				A2FA59212A7FD2EC006ACA2E /* BaseTableViewCell.swift in Sources */,
-				C9B2CE392A8FA818006289A8 /* RetrievePostOperation.swift in Sources */,
 				A2FA59142A7FCFC8006ACA2E /* Data+.swift in Sources */,
 				C9B2CDD82A8A7B26006289A8 /* ViewModelBindableType.swift in Sources */,
 				A2FA591D2A7FD2DD006ACA2E /* BaseCollectionViewCell.swift in Sources */,
