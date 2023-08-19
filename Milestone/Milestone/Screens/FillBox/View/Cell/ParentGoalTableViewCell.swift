@@ -29,8 +29,8 @@ class ParentGoalTableViewCell: BaseTableViewCell {
     /// 나중에 바인딩하면 draw메서드가 다시 호출되지 않아 원을 그릴 수 없음
     lazy var goalAchievementRateView = GoalAchievementRateView()
         .then {
-            $0.totalCompletedCount = 9
-            $0.completedCount = 9
+            $0.totalCount = 9
+            $0.completedCount = 6
         }
     
     public var titleLabel = UILabel()
