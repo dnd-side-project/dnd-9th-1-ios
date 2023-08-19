@@ -7,13 +7,16 @@
 
 import Foundation
 
-struct Constants {
+struct K {
     
     /// API base URL
     static let baseUrl = "https://jsonplaceholder.typicode.com"
     
     /// 리퀘스트 바디 파라미터의 키값을 문자열로 사용할때 직접 추가
     struct Parameters {
+        static let id = "id"
+        static let title = "title"
+        static let body = "body"
         static let userId = "userId"
     }
     
