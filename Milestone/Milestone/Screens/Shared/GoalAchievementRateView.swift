@@ -42,10 +42,17 @@ class GoalAchievementRateView: UIView {
         self.countLabel.text = "\(Int(completedCount))/\(Int(totalCount))"
         
         let path = UIBezierPath(arcCenter: CGPoint(x: rect.midX, y: rect.midY), radius: 22, startAngle: (270 * .pi) / 180, endAngle: (radian * .pi) / 180, clockwise: false)
-
         path.lineWidth = 6
         UIColor.primary.set()
+        path.lineCapStyle = .round
+        
         path.stroke()
+        
+        let remainingPath = UIBezierPath(arcCenter: CGPoint(x: rect.midX, y: rect.midY), radius: 22, startAngle: (radian * .pi) / 180, endAngle: (-90 * .pi) / 180, clockwise: false)
+        remainingPath.lineWidth = 6
+        UIColor.secondary03.set()
+        remainingPath.stroke()
+        
     }
     
     func render() {
