@@ -36,11 +36,7 @@ class FillBoxViewController: BaseViewController {
             $0.layer.cornerRadius = 64 / 2
             $0.setImage(ImageLiteral.imgPlus, for: .normal)
             $0.addTarget(self, action: #selector(presentAddParentGoal), for: .touchUpInside)
-            // 그림자 생성
-            $0.layer.shadowColor = UIColor.primary.cgColor
-            $0.layer.shadowOpacity = 0.6
-            $0.layer.shadowOffset = CGSize(width: 0, height: 4)
-            $0.layer.shadowRadius = 6 / 2.0
+            $0.makeButtonShadow(color: .primary, alpha: 0.6, x: 0, y: 4, blur: 6, spread: 0)
         }
     
     private let bubbleView = BubbleView()
