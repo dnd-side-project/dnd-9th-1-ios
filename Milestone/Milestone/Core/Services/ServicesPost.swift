@@ -9,11 +9,16 @@ import Foundation
 import RxSwift
 
 protocol ServicesPost: Service {
-    func getPost() -> Observable<Result<PostResponse, APIError>>
+    func createPost() -> Observable<Result<Post, APIError>>
+    func getPost() -> Observable<Result<[Post], APIError>>
 }
 
 extension ServicesPost {
-    func getPost() -> Observable<Result<PostResponse, APIError>> {
-        return apiSession.request(.getPosts(id: 0))
+    func createPost() -> Observable<Result<Post, APIError>> {
+        return apiSession.request(.createPost(post: Post(id: 1, title: "타이틀", body: "바디", userId: 1)))
+    }
+    
+    func getPost() -> Observable<Result<[Post], APIError>> {
+        return apiSession.request(.getPosts(id: 1))
     }
 }
