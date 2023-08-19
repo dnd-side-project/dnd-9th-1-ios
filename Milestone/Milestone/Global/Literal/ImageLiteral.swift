@@ -61,4 +61,5 @@ enum ImageLiteral {
     static var imgMileStone: UIImage { .load(named: "Milestone") }
     static var imgAppleLogo: UIImage { .load(named: "appleLogoBlack") }
     static var imgKakaoLogo: UIImage { .load(named: "kakaoLogo") }
+    static var imgCompleteGoal: UIImage { .load(named: "completeGoal") }
 }

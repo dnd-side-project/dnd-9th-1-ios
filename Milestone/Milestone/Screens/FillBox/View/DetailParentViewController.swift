@@ -130,6 +130,13 @@ class DetailParentViewController: BaseViewController {
 
         setEmptyGoalForCollectionView()
         checkFirstDetailView()
+        
+        let vc = CompleteGoalViewController()
+            .then {
+                $0.modalTransitionStyle = .crossDissolve
+                $0.modalPresentationStyle = .overFullScreen
+            }
+        self.present(vc, animated: true)
     }
     
     // MARK: - Functions
@@ -252,14 +259,25 @@ extension DetailParentViewController: UICollectionViewDataSource, UICollectionVi
         return cell
     }
     
+    // MARK: - @objc Functions
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailInfo = DetailGoalInfoViewController()
-            .then {
-                $0.modalPresentationStyle = .overFullScreen
-                $0.modalTransitionStyle = .crossDissolve
-                $0.delegate = self
-            }
-        self.present(detailInfo, animated: true)
+        guard let cell = collectionView.cellForItem(at: indexPath) as? DetailGoalCollectionViewCell else { return }
+        if cell.isSet.value {
+            let detailInfo = DetailGoalInfoViewController()
+            detailInfo.delegate = self
+            detailInfo.modalPresentationStyle = .overFullScreen
+            detailInfo.modalTransitionStyle = .crossDissolve
+            self.present(detailInfo, animated: true)
+        } else {
+            let addDetailGoalVC = AddDetailGoalViewController()
+            addDetailGoalVC.modalPresentationStyle = .pageSheet
+            
+            guard let sheet = addDetailGoalVC.sheetPresentationController else { return }
+            let fraction = UISheetPresentationController.Detent.custom { _ in 500.0 }
+            sheet.detents = [fraction]
+            present(addDetailGoalVC, animated: true)
+        }
     }
 }
 

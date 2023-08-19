@@ -33,6 +33,9 @@
 		A23E8BA22A9013610051D135 /* AskOneOfTwoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */; };
 		A23E8BA32A9013610051D135 /* AskOneOfTwoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */; };
 		A23E8BA42A9013610051D135 /* AskOneOfTwoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */; };
+		A23E8B9C2A8FF54D0051D135 /* CompleteGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */; };
+		A23E8B9D2A8FF54D0051D135 /* CompleteGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */; };
+		A23E8B9E2A8FF54D0051D135 /* CompleteGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */; };
 		A265090C2A8D458300E9A2D7 /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265090B2A8D458300E9A2D7 /* BubbleView.swift */; };
 		A265090D2A8D458300E9A2D7 /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265090B2A8D458300E9A2D7 /* BubbleView.swift */; };
 		A265090E2A8D458300E9A2D7 /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265090B2A8D458300E9A2D7 /* BubbleView.swift */; };
@@ -42,6 +45,12 @@
 		A26509142A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26509132A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift */; };
 		A26509152A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26509132A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift */; };
 		A26509162A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26509132A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift */; };
+		A27C9A0C2A8E4258002C6F44 /* AddDetailGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */; };
+		A27C9A0D2A8E4258002C6F44 /* AddDetailGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */; };
+		A27C9A0E2A8E4258002C6F44 /* AddDetailGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */; };
+		A27C9A102A8E42B5002C6F44 /* EnterGoalAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C9A0F2A8E42B5002C6F44 /* EnterGoalAlarmView.swift */; };
+		A27C9A112A8E42B5002C6F44 /* EnterGoalAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C9A0F2A8E42B5002C6F44 /* EnterGoalAlarmView.swift */; };
+		A27C9A122A8E42B5002C6F44 /* EnterGoalAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C9A0F2A8E42B5002C6F44 /* EnterGoalAlarmView.swift */; };
 		A28EDA112A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
 		A28EDA122A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
 		A28EDA132A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
@@ -209,7 +218,7 @@
 		C9B2CDEF2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */; };
 		C9B2CDF12A8CA397006289A8 /* IndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDF02A8CA397006289A8 /* IndexView.swift */; };
 		C9B2CDF72A8CC26E006289A8 /* PointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDF62A8CC26E006289A8 /* PointView.swift */; };
-		C9B2CDFF2A8DE365006289A8 /* ReviewCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDFE2A8DE365006289A8 /* ReviewCompleteView.swift */; };
+		C9B2CDFF2A8DE365006289A8 /* CompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDFE2A8DE365006289A8 /* CompleteView.swift */; };
 		C9B2CE012A8DEBE0006289A8 /* ReviewCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE002A8DEBE0006289A8 /* ReviewCompleteViewController.swift */; };
 		C9B2CE032A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */; };
 		C9B2CE052A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */; };
@@ -252,9 +261,13 @@
 		A23075C92A87F8EE00D841F6 /* DetailGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoal.swift; sourceTree = "<group>"; };
 		A23E8B9F2A900EEC0051D135 /* DeleteGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGoalViewController.swift; sourceTree = "<group>"; };
 		A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskOneOfTwoView.swift; sourceTree = "<group>"; };
+		A26509132A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailGoalStoneView.swift; sourceTree = "<group>"; };
+		A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteGoalViewController.swift; sourceTree = "<group>"; };
 		A265090B2A8D458300E9A2D7 /* BubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		A265090F2A8D604100E9A2D7 /* CouchMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouchMarkViewController.swift; sourceTree = "<group>"; };
 		A26509132A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailGoalStoneView.swift; sourceTree = "<group>"; };
+		A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailGoalViewController.swift; sourceTree = "<group>"; };
+		A27C9A0F2A8E42B5002C6F44 /* EnterGoalAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterGoalAlarmView.swift; sourceTree = "<group>"; };
 		A28EDA102A87808A001A021A /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		A28EDA142A8791F7001A021A /* DetailGoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		A28EDA182A879565001A021A /* DetailParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailParentViewController.swift; sourceTree = "<group>"; };
@@ -322,7 +335,7 @@
 		C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionReviewWithoutGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CDF02A8CA397006289A8 /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
 		C9B2CDF62A8CC26E006289A8 /* PointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointView.swift; sourceTree = "<group>"; };
-		C9B2CDFE2A8DE365006289A8 /* ReviewCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCompleteView.swift; sourceTree = "<group>"; };
+		C9B2CDFE2A8DE365006289A8 /* CompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteView.swift; sourceTree = "<group>"; };
 		C9B2CE002A8DEBE0006289A8 /* ReviewCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCompleteViewController.swift; sourceTree = "<group>"; };
 		C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSavedReviewWithGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSavedReviewWithoutGuideViewController.swift; sourceTree = "<group>"; };
@@ -446,9 +459,9 @@
 		A25F09322A7CFFC2003F28C3 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				A2B20D682A7E5097001ED73C /* Font */,
 				A22736712A7CE53800D7B3B2 /* Assets.xcassets */,
 				A22736732A7CE53800D7B3B2 /* LaunchScreen.storyboard */,
-				A2B20D682A7E5097001ED73C /* Font */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -581,6 +594,7 @@
 				A2C98F0D2A8B7A99009B5579 /* EnterGoalDateView.swift */,
 				A2C98F112A8B9A8E009B5579 /* ReminderAlarmView.swift */,
 				A26509132A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift */,
+				A27C9A0F2A8E42B5002C6F44 /* EnterGoalAlarmView.swift */,
 				A2C98F152A8BA6F0009B5579 /* RoundedDarkButton.swift */,
 				A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */,
 				A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */,
@@ -590,6 +604,8 @@
 				A265090F2A8D604100E9A2D7 /* CouchMarkViewController.swift */,
 				A2C98F012A8B6117009B5579 /* AddParentGoalViewController.swift */,
 				A23E8B9F2A900EEC0051D135 /* DeleteGoalViewController.swift */,
+				A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */,
+				A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -631,6 +647,7 @@
 			isa = PBXGroup;
 			children = (
 				C9B2CDDC2A8B42AD006289A8 /* Cell */,
+				C9B2CDFE2A8DE365006289A8 /* CompleteView.swift */,
 				A2248E942A8A5A5C00EB995A /* CompletionBoxViewController.swift */,
 				C9B2CDDA2A8B1EBC006289A8 /* CompletionAlertView.swift */,
 				C9B2CDEA2A8BCD6B006289A8 /* CompletionReviewViewController.swift */,
@@ -642,7 +659,6 @@
 				C9B2CDF02A8CA397006289A8 /* IndexView.swift */,
 				C9B2CE062A8E69E5006289A8 /* IndexViewAfterSaved.swift */,
 				C9B2CDF62A8CC26E006289A8 /* PointView.swift */,
-				C9B2CDFE2A8DE365006289A8 /* ReviewCompleteView.swift */,
 				C9B2CE002A8DEBE0006289A8 /* ReviewCompleteViewController.swift */,
 			);
 			path = View;
@@ -963,12 +979,14 @@
 				A28EDA192A879565001A021A /* DetailParentViewController.swift in Sources */,
 				C9B2CDEF2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift in Sources */,
 				A23E8BA02A900EEC0051D135 /* DeleteGoalViewController.swift in Sources */,
+				A23E8B9C2A8FF54D0051D135 /* CompleteGoalViewController.swift in Sources */,
 				C9B2CDE92A8BCBE0006289A8 /* CompletionBoxCoordinator.swift in Sources */,
 				A2248E872A8A076D00EB995A /* MoreViewController.swift in Sources */,
 				A26509142A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift in Sources */,
 				A2C98F0E2A8B7A99009B5579 /* EnterGoalDateView.swift in Sources */,
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
 				A2FA59192A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
+				A27C9A102A8E42B5002C6F44 /* EnterGoalAlarmView.swift in Sources */,
 				A2248E8B2A8A0C5400EB995A /* MoreOptionView.swift in Sources */,
 				A265090C2A8D458300E9A2D7 /* BubbleView.swift in Sources */,
 				C9B2CDDB2A8B1EBC006289A8 /* CompletionAlertView.swift in Sources */,
@@ -1011,12 +1029,13 @@
 				A2B20D9A2A7ED40D001ED73C /* Logger.swift in Sources */,
 				A2B20D592A7E4E5C001ED73C /* UIFont+.swift in Sources */,
 				C9B2CDD62A8A77F1006289A8 /* CompletionViewModel.swift in Sources */,
-				C9B2CDFF2A8DE365006289A8 /* ReviewCompleteView.swift in Sources */,
+				C9B2CDFF2A8DE365006289A8 /* CompleteView.swift in Sources */,
 				A2B20D942A7ED174001ED73C /* UIImage+.swift in Sources */,
 				A28EDA152A8791F7001A021A /* DetailGoalCollectionViewCell.swift in Sources */,
 				C90DC9822A88854C00241B7C /* OnboardingViewController.swift in Sources */,
 				C9B2CDDE2A8B42CA006289A8 /* CompletionTableViewCell.swift in Sources */,
 				A22736692A7CE53700D7B3B2 /* AppDelegate.swift in Sources */,
+				A27C9A0C2A8E4258002C6F44 /* AddDetailGoalViewController.swift in Sources */,
 				A2B20D612A7E4FAD001ED73C /* UIView+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1048,6 +1067,7 @@
 				A2D304CA2A856B6B00A5BA92 /* StorageBoxViewController.swift in Sources */,
 				A2FA592E2A7FD433006ACA2E /* NSObject+.swift in Sources */,
 				A2FA59152A7FCFC8006ACA2E /* Data+.swift in Sources */,
+				A27C9A112A8E42B5002C6F44 /* EnterGoalAlarmView.swift in Sources */,
 				A2FA591A2A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
 				A2FA592A2A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
 				A2C98F032A8B6117009B5579 /* AddParentGoalViewController.swift in Sources */,
@@ -1056,6 +1076,7 @@
 				A2B20D912A7ED14C001ED73C /* ImageLiteral.swift in Sources */,
 				A2EC47D12A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */,
 				A28EDA1A2A879565001A021A /* DetailParentViewController.swift in Sources */,
+				A27C9A0D2A8E4258002C6F44 /* AddDetailGoalViewController.swift in Sources */,
 				A2248E882A8A076D00EB995A /* MoreViewController.swift in Sources */,
 				A26509112A8D604100E9A2D7 /* CouchMarkViewController.swift in Sources */,
 				A2B20D5A2A7E4E5C001ED73C /* UIFont+.swift in Sources */,
@@ -1070,6 +1091,7 @@
 				A2FA59262A7FD3B1006ACA2E /* UICollectionView+.swift in Sources */,
 				A2C98F172A8BA6F0009B5579 /* RoundedDarkButton.swift in Sources */,
 				A2B20D9B2A7ED40D001ED73C /* Logger.swift in Sources */,
+				A23E8B9D2A8FF54D0051D135 /* CompleteGoalViewController.swift in Sources */,
 				A2D304BE2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1079,6 +1101,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2248E892A8A076D00EB995A /* MoreViewController.swift in Sources */,
+				A27C9A0E2A8E4258002C6F44 /* AddDetailGoalViewController.swift in Sources */,
 				A265090E2A8D458300E9A2D7 /* BubbleView.swift in Sources */,
 				A2FA58DF2A7F7A3E006ACA2E /* Requestable.swift in Sources */,
 				A2B20D672A7E5077001ED73C /* UILabel+.swift in Sources */,
@@ -1099,8 +1122,10 @@
 				A26509162A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift in Sources */,
 				A2C98F102A8B7A99009B5579 /* EnterGoalDateView.swift in Sources */,
 				A2248E8D2A8A0C5400EB995A /* MoreOptionView.swift in Sources */,
+				A23E8B9E2A8FF54D0051D135 /* CompleteGoalViewController.swift in Sources */,
 				A2248E852A8818AD00EB995A /* DetailGoalTableViewCell.swift in Sources */,
 				A2D304CB2A856B6B00A5BA92 /* StorageBoxViewController.swift in Sources */,
+				A27C9A122A8E42B5002C6F44 /* EnterGoalAlarmView.swift in Sources */,
 				A28EDA1B2A879565001A021A /* DetailParentViewController.swift in Sources */,
 				A2FA59232A7FD2EC006ACA2E /* BaseTableViewCell.swift in Sources */,
 				A23E8BA42A9013610051D135 /* AskOneOfTwoView.swift in Sources */,
