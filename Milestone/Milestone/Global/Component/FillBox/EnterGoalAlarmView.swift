@@ -91,7 +91,7 @@ class EnterGoalAlarmView: UIView {
     
     // MARK: - Properties
     
-    weak var delegate: (PresentAlertDelegate)?
+    weak var delegate: (PresentDelegate)?
     private var timePickerData = [["오전", "오후"], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"], ["00", "30"]]
     private var dayList = [DayData(day: Days.MONDAY.rawValue), DayData(day: Days.TUEDAY.rawValue), DayData(day: Days.WEDDAY.rawValue), DayData(day: Days.THUDAY.rawValue), DayData(day: Days.FRIDAY.rawValue), DayData(day: Days.SATDAY.rawValue), DayData(day: Days.SUNDAY.rawValue)]
     private var selectedAmOrPm = "오후"

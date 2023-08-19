@@ -59,6 +59,12 @@
 		A289D9522A912864005B7F00 /* PointTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D9512A912864005B7F00 /* PointTextStyle.swift */; };
 		A289D9532A912864005B7F00 /* PointTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D9512A912864005B7F00 /* PointTextStyle.swift */; };
 		A289D9542A912864005B7F00 /* PointTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D9512A912864005B7F00 /* PointTextStyle.swift */; };
+		A289D95C2A9133C7005B7F00 /* PresentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D95B2A9133C7005B7F00 /* PresentDelegate.swift */; };
+		A289D95D2A9133C7005B7F00 /* PresentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D95B2A9133C7005B7F00 /* PresentDelegate.swift */; };
+		A289D95E2A9133C7005B7F00 /* PresentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D95B2A9133C7005B7F00 /* PresentDelegate.swift */; };
+		A289D9602A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D95F2A913400005B7F00 /* UpdateButtonStateDelegate.swift */; };
+		A289D9612A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D95F2A913400005B7F00 /* UpdateButtonStateDelegate.swift */; };
+		A289D9622A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D95F2A913400005B7F00 /* UpdateButtonStateDelegate.swift */; };
 		A28EDA112A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
 		A28EDA122A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
 		A28EDA132A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
@@ -271,6 +277,8 @@
 		A289D9492A912616005B7F00 /* WriteRetrospectStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteRetrospectStyle.swift; sourceTree = "<group>"; };
 		A289D94D2A912849005B7F00 /* IndexTextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexTextStyle.swift; sourceTree = "<group>"; };
 		A289D9512A912864005B7F00 /* PointTextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointTextStyle.swift; sourceTree = "<group>"; };
+		A289D95B2A9133C7005B7F00 /* PresentDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentDelegate.swift; sourceTree = "<group>"; };
+		A289D95F2A913400005B7F00 /* UpdateButtonStateDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateButtonStateDelegate.swift; sourceTree = "<group>"; };
 		A28EDA102A87808A001A021A /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		A28EDA142A8791F7001A021A /* DetailGoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		A28EDA182A879565001A021A /* DetailParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailParentViewController.swift; sourceTree = "<group>"; };
@@ -539,6 +547,15 @@
 			path = CompletionBox;
 			sourceTree = "<group>";
 		};
+		A289D95A2A91337E005B7F00 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				A289D95B2A9133C7005B7F00 /* PresentDelegate.swift */,
+				A289D95F2A913400005B7F00 /* UpdateButtonStateDelegate.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		A2B20D572A7E4253001ED73C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -649,6 +666,7 @@
 		A2D304B92A854E1600A5BA92 /* FillBox */ = {
 			isa = PBXGroup;
 			children = (
+				A289D95A2A91337E005B7F00 /* Protocol */,
 				A23075C82A87F8DD00D841F6 /* Model */,
 				A2D304BB2A854E2B00A5BA92 /* ViewModel */,
 				A2D304BA2A854E2600A5BA92 /* View */,
@@ -661,14 +679,14 @@
 			children = (
 				A2B969852A85872B00C4903F /* Cell */,
 				A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */,
-				A28EDA182A879565001A021A /* DetailParentViewController.swift */,
-				A2248E862A8A076D00EB995A /* MoreViewController.swift */,
-				A2EC47CB2A8A962600401B03 /* DetailGoalInfoViewController.swift */,
 				A265090F2A8D604100E9A2D7 /* CouchMarkViewController.swift */,
 				A2C98F012A8B6117009B5579 /* AddParentGoalViewController.swift */,
+				A28EDA182A879565001A021A /* DetailParentViewController.swift */,
+				A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */,
+				A2EC47CB2A8A962600401B03 /* DetailGoalInfoViewController.swift */,
 				A23E8B9F2A900EEC0051D135 /* DeleteGoalViewController.swift */,
 				A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */,
-				A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */,
+				A2248E862A8A076D00EB995A /* MoreViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1038,6 +1056,7 @@
 				A28EDA192A879565001A021A /* DetailParentViewController.swift in Sources */,
 				C9B2CDEF2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift in Sources */,
 				A23E8BA02A900EEC0051D135 /* DeleteGoalViewController.swift in Sources */,
+				A289D9602A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */,
 				A23E8B9C2A8FF54D0051D135 /* CompleteGoalViewController.swift in Sources */,
 				C9B2CDE92A8BCBE0006289A8 /* CompletionBoxCoordinator.swift in Sources */,
 				A2248E872A8A076D00EB995A /* MoreViewController.swift in Sources */,
@@ -1055,6 +1074,7 @@
 				A23075CA2A87F8EE00D841F6 /* DetailGoal.swift in Sources */,
 				A2248E832A8818AD00EB995A /* DetailGoalTableViewCell.swift in Sources */,
 				A2EC47D02A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */,
+				A289D95C2A9133C7005B7F00 /* PresentDelegate.swift in Sources */,
 				C90DC97A2A88814700241B7C /* Coordinator.swift in Sources */,
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
 				C9B2CE052A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift in Sources */,
@@ -1107,6 +1127,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A289D95D2A9133C7005B7F00 /* PresentDelegate.swift in Sources */,
 				A289D9532A912864005B7F00 /* PointTextStyle.swift in Sources */,
 				A2B969882A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
 				A23075CB2A87F8EE00D841F6 /* DetailGoal.swift in Sources */,
@@ -1122,6 +1143,7 @@
 				A289D9432A91241C005B7F00 /* UserDefaultsKeyStyle.swift in Sources */,
 				A2FA59222A7FD2EC006ACA2E /* BaseTableViewCell.swift in Sources */,
 				A2EC47CD2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */,
+				A289D9612A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */,
 				A2FA58D62A7F7A2A006ACA2E /* APIError.swift in Sources */,
 				A2B20D622A7E4FAD001ED73C /* UIView+.swift in Sources */,
 				A2FA59112A7FCFB4006ACA2E /* Encodable+.swift in Sources */,
@@ -1164,9 +1186,11 @@
 				A289D9502A912849005B7F00 /* IndexTextStyle.swift in Sources */,
 				A2FA58DF2A7F7A3E006ACA2E /* Requestable.swift in Sources */,
 				A2B20D672A7E5077001ED73C /* UILabel+.swift in Sources */,
+				A289D9622A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */,
 				A2EC47CE2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */,
 				A28EDA172A8791F7001A021A /* DetailGoalCollectionViewCell.swift in Sources */,
 				A227368A2A7CE53800D7B3B2 /* MilestoneUITests.swift in Sources */,
+				A289D95E2A9133C7005B7F00 /* PresentDelegate.swift in Sources */,
 				A2FA58E72A7F7A55006ACA2E /* NetworkStatus.swift in Sources */,
 				A2B969892A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
 				A2FA58D32A7F7A1F006ACA2E /* APIEnvironment.swift in Sources */,

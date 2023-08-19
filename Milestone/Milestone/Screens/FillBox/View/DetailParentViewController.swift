@@ -12,10 +12,6 @@ import RxSwift
 import SnapKit
 import Then
 
-protocol PresentDelegate: AnyObject {
-    func present(_ viewController: UIViewController)
-}
-
 // MARK: - 상위 목표 상세 보기 화면
 
 class DetailParentViewController: BaseViewController {
