@@ -580,16 +580,16 @@
 				A2C98F052A8B6122009B5579 /* EnterGoalTitleView.swift */,
 				A2C98F0D2A8B7A99009B5579 /* EnterGoalDateView.swift */,
 				A2C98F112A8B9A8E009B5579 /* ReminderAlarmView.swift */,
+				A26509132A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift */,
 				A2C98F152A8BA6F0009B5579 /* RoundedDarkButton.swift */,
+				A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */,
 				A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */,
 				A28EDA182A879565001A021A /* DetailParentViewController.swift */,
 				A2248E862A8A076D00EB995A /* MoreViewController.swift */,
 				A2EC47CB2A8A962600401B03 /* DetailGoalInfoViewController.swift */,
 				A265090F2A8D604100E9A2D7 /* CouchMarkViewController.swift */,
-				A26509132A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift */,
 				A2C98F012A8B6117009B5579 /* AddParentGoalViewController.swift */,
 				A23E8B9F2A900EEC0051D135 /* DeleteGoalViewController.swift */,
-				A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

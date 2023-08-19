@@ -23,7 +23,14 @@ class DetailGoalInfoViewController: BaseViewController {
             $0.backgroundColor = .black.withAlphaComponent(0.3)
             $0.addGestureRecognizer(dimmedViewTap)
         }
-    let infoView = DetailGoalInfoView()
+    lazy var infoView = DetailGoalInfoView()
+        .then {
+            $0.removeButton.addTarget(self, action: #selector(replacePopUpView), for: .touchUpInside)
+        }
+    
+    // MARK: - Properties
+    
+    weak var delegate: (PresentDelegate)?
     
     // MARK: - Life Cycle
     
@@ -68,5 +75,21 @@ class DetailGoalInfoViewController: BaseViewController {
         infoView.stoneImageView.image = ImageLiteral.imgDetailStoneVer1
         infoView.titleLabel.text = "테스트~"
         infoView.startDateLabel.text = "2033.02.02 시작"
+    }
+    
+    private func dismissViewController() {
+        self.dismiss(animated: true)
+    }
+    
+    // MARK: - @objc Functions
+    
+    /// 팝업 뷰 교체
+    /// 세부 목표 정보 팝업 뷰 dismiss하고
+    /// 목표 삭제 팝업 뷰를 present한다
+    @objc
+    private func replacePopUpView() {
+        dismissViewController()
+        delegate?.present(DeleteGoalViewController())
+        // TODO: - 삭제 API 연동
     }
 }

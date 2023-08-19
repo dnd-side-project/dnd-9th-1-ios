@@ -18,6 +18,10 @@ enum UserDefaultsKey: String {
     case couchMark = "showCouchMark"
 }
 
+protocol PresentDelegate: AnyObject {
+    func present(_ viewController: UIViewController)
+}
+
 // MARK: - 상위 목표 상세 보기 화면
 
 class DetailParentViewController: BaseViewController {
@@ -107,9 +111,9 @@ class DetailParentViewController: BaseViewController {
     // MARK: - Properties
     
     private var goalData: [DetailGoal] = [
-//        DetailGoal(id: 0, isCompleted: true, title: "해커스 1000 LC 2 풀기"), DetailGoal(id: 1, isCompleted: true, title: "영단기 1000 RC 풀기"), DetailGoal(id: 2, isCompleted: true, title: "동사, 전치사 어휘 외우기"),
-//        DetailGoal(id: 3, isCompleted: true, title: "오답 지문 해석하기"), DetailGoal(id: 4, title: "기출 문제 3회독 하기"), DetailGoal(id: 5, title: "단어 500개 외우기"),
-//        DetailGoal(id: 6, title: "문법 문장 20개 외우기"), DetailGoal(id: 7, title: "모르는 단어 정리해두기")
+        DetailGoal(id: 0, isCompleted: true, title: "해커스 1000 LC 2 풀기"), DetailGoal(id: 1, isCompleted: true, title: "영단기 1000 RC 풀기"), DetailGoal(id: 2, isCompleted: true, title: "동사, 전치사 어휘 외우기"),
+        DetailGoal(id: 3, isCompleted: true, title: "오답 지문 해석하기"), DetailGoal(id: 4, title: "기출 문제 3회독 하기"), DetailGoal(id: 5, title: "단어 500개 외우기"),
+        DetailGoal(id: 6, title: "문법 문장 20개 외우기"), DetailGoal(id: 7, title: "모르는 단어 정리해두기")
     ]
     // goalData를 정렬한, 테이블뷰에 보여줄 데이터
     lazy var sortedGoalData: [DetailGoal] = {
@@ -250,8 +254,11 @@ extension DetailParentViewController: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailInfo = DetailGoalInfoViewController()
-        detailInfo.modalPresentationStyle = .overFullScreen
-        detailInfo.modalTransitionStyle = .crossDissolve
+            .then {
+                $0.modalPresentationStyle = .overFullScreen
+                $0.modalTransitionStyle = .crossDissolve
+                $0.delegate = self
+            }
         self.present(detailInfo, animated: true)
     }
 }
@@ -285,5 +292,15 @@ extension DetailParentViewController: UITableViewDataSource, UITableViewDelegate
         
         goalData[selectedGoalId].isCompleted.toggle() // 원본 배열의 isCompleted 값 변경
         self.detailGoalCollectionView.reloadData()
+    }
+}
+
+// MARK: - PresentDelegate
+
+extension DetailParentViewController: PresentDelegate {
+    func present(_ viewController: UIViewController) {
+        viewController.modalTransitionStyle = .crossDissolve
+        viewController.modalPresentationStyle = .overFullScreen
+        present(viewController, animated: true)
     }
 }
