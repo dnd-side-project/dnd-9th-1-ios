@@ -59,21 +59,6 @@ class CompletionReviewWithGuideViewController: BaseViewController {
     
     // MARK: Properties
     
-    enum IndexText: String {
-        case first = "좋았던 점은 무엇인가요?"
-        case second = "아쉬웠던 점이나, 부족했던 점은 무엇인가요?"
-        case third = "배운 점은 무엇인가요?"
-        case fourth = "목표를 통해 뭘 얻고자 하셨나요?"
-    }
-    
-    enum PointText: String {
-        case lowest = "별로예요"
-        case lower = "아쉬워요"
-        case middle = "그저 그랬어요"
-        case higher = "만족해요"
-        case highest = "완전 만족해요"
-    }
-    
     private var fillSelected = PublishSubject<Bool>()
     
     // MARK: Life Cycles
@@ -165,7 +150,7 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         setAttributedText(originString: .fourth, targetView: fourthQuestionView, "얻고자")
     }
     
-    func setAttributedText(originString: IndexText, targetView: IndexView, _ targetText: String...) {
+    func setAttributedText(originString: IndexTextStyle, targetView: IndexView, _ targetText: String...) {
         let attributedText = NSMutableAttributedString(string: originString.rawValue)
         
         for target in targetText {
@@ -180,27 +165,27 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         lowestPointView.image
             .onNext(ImageLiteral.imgBeforeSelected1)
         lowestPointView.pointText
-            .onNext(PointText.lowest.rawValue)
+            .onNext(PointTextStyle.lowest.rawValue)
         
         lowerPointView.image
             .onNext(ImageLiteral.imgBeforeSelected2)
         lowerPointView.pointText
-            .onNext(PointText.lower.rawValue)
+            .onNext(PointTextStyle.lower.rawValue)
         
         middlePointView.image
             .onNext(ImageLiteral.imgBeforeSelected3)
         middlePointView.pointText
-            .onNext(PointText.middle.rawValue)
+            .onNext(PointTextStyle.middle.rawValue)
         
         higherPointView.image
             .onNext(ImageLiteral.imgBeforeSelected4)
         higherPointView.pointText
-            .onNext(PointText.higher.rawValue)
+            .onNext(PointTextStyle.higher.rawValue)
         
         highestPointView.image
             .onNext(ImageLiteral.imgBeforeSelected5)
         highestPointView.pointText
-            .onNext(PointText.highest.rawValue)
+            .onNext(PointTextStyle.highest.rawValue)
     }
     
     /// 스택뷰에서 탭된 이미지만 after select로 변경
