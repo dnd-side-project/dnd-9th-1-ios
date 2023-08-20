@@ -12,16 +12,6 @@ import RxSwift
 import SnapKit
 import Then
 
-// MARK: - UserDefaults에 사용되는 key 값 모음
-
-enum UserDefaultsKey: String {
-    case couchMark = "showCouchMark"
-}
-
-protocol PresentDelegate: AnyObject {
-    func present(_ viewController: UIViewController)
-}
-
 // MARK: - 상위 목표 상세 보기 화면
 
 class DetailParentViewController: BaseViewController {
@@ -121,7 +111,7 @@ class DetailParentViewController: BaseViewController {
     }()
     // 세부 목표를 추가해주세요! 데이터
     private var emptyGoal: DetailGoal?
-    private var couchMarkKey: String = UserDefaultsKey.couchMark.rawValue
+    private var couchMarkKey: String = UserDefaultsKeyStyle.couchMark.rawValue
     
     // MARK: - Life Cycle
     

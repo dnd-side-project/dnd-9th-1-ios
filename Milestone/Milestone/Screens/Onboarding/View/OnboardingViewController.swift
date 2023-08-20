@@ -100,12 +100,12 @@ class OnboardingViewController: BaseViewController {
 
 // MARK: - PresentAlertDelegate
 
-extension OnboardingViewController: PresentAlertDelegate {
+extension OnboardingViewController: PresentDelegate {
     func present(alert: UIAlertController) {
         self.present(alert, animated: true)
     }
-    func present(vc: UIViewController) {
-        self.present(vc, animated: true)
+    func present(_ viewController: UIViewController) {
+        self.present(viewController, animated: true)
     }
 }
 

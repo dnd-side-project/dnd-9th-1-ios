@@ -144,7 +144,7 @@ class EnterGoalDateView: UIView {
     var isAfterEndDateSetting = false
     var isErrorDate = false
     
-    weak var presentDelegate: (PresentAlertDelegate)?
+    weak var presentDelegate: (PresentDelegate)?
     weak var buttonStateDelegate: (UpdateButtonStateDelegate)?
     
     let vc = UIViewController()
