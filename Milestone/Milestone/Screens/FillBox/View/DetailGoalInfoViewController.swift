@@ -25,7 +25,8 @@ class DetailGoalInfoViewController: BaseViewController {
         }
     lazy var infoView = DetailGoalInfoView()
         .then {
-            $0.removeButton.addTarget(self, action: #selector(replacePopUpView), for: .touchUpInside)
+            $0.removeButton.addTarget(self, action: #selector(replacePopUpViewToRemove), for: .touchUpInside)
+            $0.modifyButton.addTarget(self, action: #selector(replacePopUpViewToModify), for: .touchUpInside)
         }
     
     // MARK: - Properties
@@ -87,9 +88,25 @@ class DetailGoalInfoViewController: BaseViewController {
     /// 세부 목표 정보 팝업 뷰 dismiss하고
     /// 목표 삭제 팝업 뷰를 present한다
     @objc
-    private func replacePopUpView() {
+    private func replacePopUpViewToRemove() {
         dismissViewController()
         delegate?.present(DeleteGoalViewController())
         // TODO: - 삭제 API 연동
+    }
+    
+    /// 팝업 뷰 교체
+    /// 세부 목표 정보 팝업 뷰 dismiss하고
+    /// 목표 수정 팝업 뷰를 present한다
+    @objc
+    private func replacePopUpViewToModify() {
+        dismissViewController()
+        lazy var addParentGoalVC = AddParentGoalViewController()
+            .then {
+                $0.completeButton.titleString = "목표 수정 완료"
+                $0.enterGoalTitleView.titleTextField.text = "토익 900점 넘기기"
+                $0.enterGoalTitleView.updateNowNumOfCharaters()
+            }
+        self.presentingViewController?.presentCustomModal(addParentGoalVC, height: addParentGoalVC.viewHeight)
+        // TODO: - 수정 API 연동
     }
 }

@@ -58,7 +58,6 @@ class DetailGoalInfoView: UIView {
                 .foregroundColor: UIColor.gray04
             ]
             $0.setAttributedTitle(NSAttributedString(string: "삭제하기", attributes: attributes), for: .normal)
-//            $0.addTarget(self, action: #selector(removeDetailGoal), for: .touchUpInside)
         }
     lazy var modifyButton = UIButton()
         .then {
@@ -70,7 +69,6 @@ class DetailGoalInfoView: UIView {
                 .foregroundColor: UIColor.primary
             ]
             $0.setAttributedTitle(NSAttributedString(string: "수정하기", attributes: attributes), for: .normal)
-            $0.addTarget(self, action: #selector(modifyDetailGoal), for: .touchUpInside)
         }
     
     // MARK: - Initialization
@@ -142,17 +140,5 @@ class DetailGoalInfoView: UIView {
     private func configUI() {
         backgroundColor = .white
         layer.cornerRadius = 20
-    }
-//
-//    @objc
-//    func removeDetailGoal() {
-//        // TODO: - 세부 목표 삭제하기 모달 연결
-//        Logger.debugDescription("removeDetailGoal")
-//    }
-//
-    @objc
-    func modifyDetailGoal() {
-        // TODO: - 세부 목표 수정하기 모달 연결
-        Logger.debugDescription("modifyDetailGoal")
     }
 }
