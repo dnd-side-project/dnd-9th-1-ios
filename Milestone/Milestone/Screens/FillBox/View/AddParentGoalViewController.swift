@@ -12,19 +12,6 @@ import Then
 
 // MARK: - 상위 목표 추가 모달뷰
 
-/// Alert를 present 해주는 델리게이트 패턴
-/// 서브뷰에서 present 시 사용함
-protocol PresentAlertDelegate: AnyObject {
-    func present(alert: UIAlertController)
-    func present(vc: UIViewController)
-}
-
-/// 버튼의 상태를 업데이트 해주는 델리게이트 패턴
-/// 서브뷰에서 버튼의 상태를 업데이트 할 때 사용함
-protocol UpdateButtonStateDelegate: AnyObject {
-    func updateButtonState(_ state: ButtonState)
-}
-
 class AddParentGoalViewController: BaseViewController {
     
     // MARK: - SubViews
@@ -126,12 +113,12 @@ class AddParentGoalViewController: BaseViewController {
 
 // MARK: - PresentAlertDelegate
 
-extension AddParentGoalViewController: PresentAlertDelegate {
+extension AddParentGoalViewController: PresentDelegate {
     func present(alert: UIAlertController) {
         self.present(alert, animated: true)
     }
-    func present(vc: UIViewController) {
-        self.present(vc, animated: true)
+    func present(_ viewController: UIViewController) {
+        self.present(viewController, animated: true)
     }
 }
 
