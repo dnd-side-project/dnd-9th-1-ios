@@ -12,13 +12,6 @@ import Then
 
 // MARK: - 모달뷰 하단에 있는 모서리가 둥근 버튼
 
-/// 버튼의 상태를 나타내는 enum
-enum ButtonState {
-    case original
-    case press
-    case disabled
-}
-
 class RoundedDarkButton: UIButton {
     
     // MARK: - Properties

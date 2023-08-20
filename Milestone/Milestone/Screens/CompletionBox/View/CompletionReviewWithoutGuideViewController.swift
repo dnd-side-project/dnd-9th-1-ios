@@ -97,14 +97,6 @@ class CompletionReviewWithoutGuideViewController: BaseViewController {
     // MARK: Properties
     let heightSubject = PublishSubject<Int>()
     
-    enum PointText: String {
-        case lowest = "별로예요"
-        case lower = "아쉬워요"
-        case middle = "그저 그랬어요"
-        case higher = "만족해요"
-        case highest = "완전 만족해요"
-    }
-    
     var fillSelected = PublishSubject<Bool>()
     
     // MARK: Life Cycles
@@ -208,27 +200,27 @@ class CompletionReviewWithoutGuideViewController: BaseViewController {
         lowestPointView.image
             .onNext(ImageLiteral.imgBeforeSelected1)
         lowestPointView.pointText
-            .onNext(PointText.lowest.rawValue)
+            .onNext(PointTextStyle.lowest.rawValue)
         
         lowerPointView.image
             .onNext(ImageLiteral.imgBeforeSelected2)
         lowerPointView.pointText
-            .onNext(PointText.lower.rawValue)
+            .onNext(PointTextStyle.lower.rawValue)
         
         middlePointView.image
             .onNext(ImageLiteral.imgBeforeSelected3)
         middlePointView.pointText
-            .onNext(PointText.middle.rawValue)
+            .onNext(PointTextStyle.middle.rawValue)
         
         higherPointView.image
             .onNext(ImageLiteral.imgBeforeSelected4)
         higherPointView.pointText
-            .onNext(PointText.higher.rawValue)
+            .onNext(PointTextStyle.higher.rawValue)
         
         highestPointView.image
             .onNext(ImageLiteral.imgBeforeSelected5)
         highestPointView.pointText
-            .onNext(PointText.highest.rawValue)
+            .onNext(PointTextStyle.highest.rawValue)
     }
     
     /// 스택뷰에서 탭된 이미지만 after select로 변경
