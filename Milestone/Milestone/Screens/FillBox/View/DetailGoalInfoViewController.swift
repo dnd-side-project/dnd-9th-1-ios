@@ -53,7 +53,7 @@ class DetailGoalInfoViewController: BaseViewController {
         }
     }
     
-    override func bind() {
+    override func bindUI() {
         infoView.xButton.rx.tap
             .asDriver()
             .drive(onNext: { [weak self] _ in
