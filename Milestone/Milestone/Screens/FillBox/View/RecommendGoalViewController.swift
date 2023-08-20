@@ -47,6 +47,7 @@ class RecommendGoalViewController: BaseViewController {
             $0.backgroundColor = .white
             $0.separatorStyle = .none
             $0.showsVerticalScrollIndicator = false
+            $0.isScrollEnabled = false
             $0.register(cell: ParentGoalTableViewCell.self, forCellReuseIdentifier: ParentGoalTableViewCell.identifier)
             $0.dataSource = self
             $0.delegate = self
@@ -138,8 +139,4 @@ extension RecommendGoalViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         96 + 16
     }
-    // 셀 클릭 시 실행
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        push(viewController: DetailParentViewController())
-//    }
 }
