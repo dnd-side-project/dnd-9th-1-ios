@@ -7,8 +7,12 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
+
+// MARK: - 목표 권유 팝업 뷰
 
 class RecommendGoalViewController: BaseViewController {
     
@@ -89,8 +93,25 @@ class RecommendGoalViewController: BaseViewController {
             make.height.equalTo(54)
         }
     }
+    
     override func configUI() {
         view.backgroundColor = .init(hex: "#000000", alpha: 0.3)
+    }
+    
+    override func bindUI() {
+        xButton.rx.tap
+            .subscribe(onNext: { [unowned self] in
+                self.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        if let touch = touches.first, touch.view == view {
+            dismiss(animated: true) // 배경 클릭 시 dismiss
+        }
     }
     
     // MARK: - @objc Functions
