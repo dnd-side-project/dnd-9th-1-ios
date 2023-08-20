@@ -61,6 +61,13 @@ class MainViewController: BaseViewController {
         
         changeCurrentPage(control: self.segmentedControl)
         bindingModels()
+        // TEMP
+        let vc = RecommendGoalViewController()
+            .then {
+                $0.modalTransitionStyle = .crossDissolve
+                $0.modalPresentationStyle = .overFullScreen
+            }
+        self.present(vc, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
