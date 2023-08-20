@@ -48,6 +48,10 @@ class FillBoxViewController: BaseViewController {
             $0.guideLabel.text = "목표를 클릭하여 세부 목표를 설정해보세요!"
         }
     
+    // MARK: - Properties
+    
+    var bubbleKey = UserDefaultsKeyStyle.bubbleInFillBox.rawValue
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -85,7 +89,8 @@ class FillBoxViewController: BaseViewController {
     
     /// 처음이 맞는지 확인 -> 맞으면 말풍선 뷰 띄우기
     private func checkFirstFillBox() {
-        if UserDefaults.standard.string(forKey: "showBubble") == nil {
+        if !UserDefaults.standard.bool(forKey: bubbleKey) { // 처음이면 무조건 false 반환함
+            UserDefaults.standard.set(true, forKey: bubbleKey)
             addBubbleView()
         }
     }
@@ -100,7 +105,6 @@ class FillBoxViewController: BaseViewController {
             make.width.equalTo(268)
             make.height.equalTo(45)
         }
-        UserDefaults.standard.set("", forKey: "showBubble")
     }
     
     private func didScrollTableView() {
