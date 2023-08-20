@@ -28,14 +28,16 @@ class MoreViewController: BaseViewController {
             $0.backgroundColor = .gray02
             $0.layer.cornerRadius = 5 / 2
         }
-    var modifyOptionView = MoreOptionView()
+    lazy var modifyOptionView = MoreOptionView()
         .then {
             $0.optionLabel.text = "수정하기"
+            var tapModifyGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentModifyGoalViewController))
+            $0.addGestureRecognizer(tapModifyGesture)
         }
-    lazy var tapRemoveGesture = UITapGestureRecognizer(target: self, action: #selector(presentDeleteGoalViewController))
     lazy var removeOptionView = MoreOptionView()
         .then {
             $0.optionLabel.text = "삭제하기"
+            var tapRemoveGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentDeleteGoalViewController))
             $0.addGestureRecognizer(tapRemoveGesture)
         }
     // MARK: - Properties
@@ -73,7 +75,25 @@ class MoreViewController: BaseViewController {
     }
     
     // MARK: - @objc Functions
-    
+
+    @objc
+    private func presentModifyGoalViewController() {
+        let addParentGoalVC = AddParentGoalViewController()
+            .then {
+                $0.modalTransitionStyle = .coverVertical
+                $0.modalPresentationStyle = .pageSheet
+            }
+        
+        guard let sheet = addParentGoalVC.sheetPresentationController else { return }
+        let fraction = UISheetPresentationController.Detent.custom { _ in addParentGoalVC.viewHeight }
+        sheet.detents = [fraction]
+        present(addParentGoalVC, animated: true)
+        
+        addParentGoalVC.completeButton.titleString = "목표 수정 완료"
+        addParentGoalVC.enterGoalTitleView.titleTextField.text = "토익 900점 넘기기"
+        addParentGoalVC.enterGoalTitleView.updateNowNumOfCharaters()
+    }
+
     @objc
     private func presentDeleteGoalViewController() {
         Logger.debugDescription("삭제하기 클릭")
