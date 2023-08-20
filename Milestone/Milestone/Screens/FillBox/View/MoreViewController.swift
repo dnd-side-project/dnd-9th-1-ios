@@ -78,20 +78,13 @@ class MoreViewController: BaseViewController {
 
     @objc
     private func presentModifyGoalViewController() {
-        let addParentGoalVC = AddParentGoalViewController()
+        lazy var addParentGoalVC = AddParentGoalViewController()
             .then {
-                $0.modalTransitionStyle = .coverVertical
-                $0.modalPresentationStyle = .pageSheet
+                $0.completeButton.titleString = "목표 수정 완료"
+                $0.enterGoalTitleView.titleTextField.text = "토익 900점 넘기기"
+                $0.enterGoalTitleView.updateNowNumOfCharaters()
             }
-        
-        guard let sheet = addParentGoalVC.sheetPresentationController else { return }
-        let fraction = UISheetPresentationController.Detent.custom { _ in addParentGoalVC.viewHeight }
-        sheet.detents = [fraction]
-        present(addParentGoalVC, animated: true)
-        
-        addParentGoalVC.completeButton.titleString = "목표 수정 완료"
-        addParentGoalVC.enterGoalTitleView.titleTextField.text = "토익 900점 넘기기"
-        addParentGoalVC.enterGoalTitleView.updateNowNumOfCharaters()
+        presentCustomModal(addParentGoalVC, height: addParentGoalVC.viewHeight)
     }
 
     @objc

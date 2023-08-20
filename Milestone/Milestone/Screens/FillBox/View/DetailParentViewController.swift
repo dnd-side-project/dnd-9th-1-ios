@@ -235,12 +235,7 @@ class DetailParentViewController: BaseViewController {
     @objc
     func showMore() {
         let moreVC = MoreViewController()
-        moreVC.modalPresentationStyle = .pageSheet
-        
-        guard let sheet = moreVC.sheetPresentationController else { return }
-        let fraction = UISheetPresentationController.Detent.custom { _ in moreVC.viewHeight }
-        sheet.detents = [fraction]
-        present(moreVC, animated: true)
+        presentCustomModal(moreVC, height: moreVC.viewHeight)
     }
 }
 
