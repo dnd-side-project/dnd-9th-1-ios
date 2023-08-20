@@ -19,6 +19,7 @@ class MainViewController: BaseViewController {
     private let settingButton = UIButton()
         .then {
             $0.setImage(ImageLiteral.imgSetting, for: .normal)
+            $0.configuration = .plain()
         }
     
     lazy var segmentedControl = UnderlineSegmentedControl(items: ["보관함", "채움함", "완료함"])
