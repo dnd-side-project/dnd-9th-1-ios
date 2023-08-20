@@ -29,10 +29,6 @@ class DetailGoalInfoViewController: BaseViewController {
             $0.modifyButton.addTarget(self, action: #selector(replacePopUpViewToModify), for: .touchUpInside)
         }
     
-    // MARK: - Properties
-    
-    weak var delegate: (PresentDelegate)?
-    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -90,7 +86,12 @@ class DetailGoalInfoViewController: BaseViewController {
     @objc
     private func replacePopUpViewToRemove() {
         dismissViewController()
-        delegate?.present(DeleteGoalViewController())
+        let deleteGoalVC = DeleteGoalViewController()
+            .then {
+                $0.modalPresentationStyle = .overFullScreen
+                $0.modalTransitionStyle = .crossDissolve
+            }
+        self.presentingViewController?.present(deleteGoalVC, animated: true)
         // TODO: - 삭제 API 연동
     }
     
