@@ -11,7 +11,6 @@ import UIKit
 
 enum ImageLiteral {
     static var imgSetting: UIImage { .load(named: "setting")}
-    static var imgTempStone: UIImage { .load(named: "tempStone")}
     static var imgCalendar: UIImage { .load(named: "calendar")}
     static var imgTempGoal: UIImage { .load(named: "tempGoal")}
     static var imgPlus: UIImage { .load(named: "plus")}
@@ -102,11 +101,9 @@ enum ImageLiteral {
     static var imgGreenStonePopUpVer3: UIImage { .load(named: "greenStonePopUpVer3")}
     static var imgGreenStonePopUpVer4: UIImage { .load(named: "greenStonePopUpVer4")}
     static var imgGreenStonePopUpVer5: UIImage { .load(named: "greenStonePopUpVer5")}
-    static var imgClose: UIImage {.load(named: "close") }
-    static var imgAlarm: UIImage { .load(named: "alarm")}
     static var imgRestore: UIImage { .load(named: "restore")}
     static var imgRemove: UIImage { .load(named: "remove")}
     static var imgModify: UIImage { .load(named: "modify")}
-    static var imgOngoingGoal: UIImage { .load(named: "OngoingGoalIcon")}
-    static var imgCompletedGoal: UIImage { .load(named: "CompletedGoalIcon")}
+    static var imgOngoingGoal: UIImage { .load(named: "ongoingGoalIcon")}
+    static var imgCompletedGoal: UIImage { .load(named: "completedGoalIcon")}
 }
