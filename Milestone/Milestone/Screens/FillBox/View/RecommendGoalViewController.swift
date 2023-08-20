@@ -24,8 +24,9 @@ class RecommendGoalViewController: BaseViewController {
             $0.layer.cornerRadius = 20
             $0.makeShadow(color: .init(hex: "#464646", alpha: 0.4), alpha: 1, x: 0, y: 8, blur: 10, spread: 0)
         }
-    let xButton = UIButton(type: .custom)
+    let xButton = UIButton()
         .then {
+            $0.configuration = .plain()
             $0.setImage(ImageLiteral.imgX, for: .normal)
         }
     lazy var guideLabel = UILabel()
