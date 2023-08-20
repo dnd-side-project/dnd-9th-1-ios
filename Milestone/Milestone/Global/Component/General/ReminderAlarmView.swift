@@ -41,10 +41,8 @@ class ReminderAlarmView: UIView {
         }
     lazy var onOffSwitch = UISwitch()
         .then {
+            $0.isOn = true
             $0.onTintColor = .primary
-            $0.backgroundColor = .black
-            $0.layer.cornerRadius = 16
-            $0.clipsToBounds = true
         }
     
     // MARK: - Initialization
