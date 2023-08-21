@@ -12,12 +12,6 @@ import RxSwift
 import SnapKit
 import Then
 
-// MARK: - UserDefaults에 사용되는 key 값 모음
-
-enum UserDefaultsKey: String {
-    case couchMark = "showCouchMark"
-}
-
 // MARK: - 상위 목표 상세 보기 화면
 
 class DetailParentViewController: BaseViewController {
@@ -117,7 +111,7 @@ class DetailParentViewController: BaseViewController {
     }()
     // 세부 목표를 추가해주세요! 데이터
     private var emptyGoal: DetailGoal?
-    private var couchMarkKey: String = UserDefaultsKey.couchMark.rawValue
+    private var couchMarkKey: String = UserDefaultsKeyStyle.couchMark.rawValue
     
     // MARK: - Life Cycle
     
@@ -192,7 +186,7 @@ class DetailParentViewController: BaseViewController {
     
     /// 여기 들어온 게 처음이 맞는지 확인 -> 맞으면 코치 마크 뷰 띄우기
     private func checkFirstDetailView() {
-        if UserDefaults.standard.string(forKey: couchMarkKey) == nil {
+        if !UserDefaults.standard.bool(forKey: couchMarkKey) {
             presentCouchMark()
         }
     }
@@ -205,7 +199,7 @@ class DetailParentViewController: BaseViewController {
                 $0.modalTransitionStyle = .crossDissolve
             }
         present(couchMarkVC, animated: true)
-        UserDefaults.standard.set("", forKey: couchMarkKey)
+        UserDefaults.standard.set(true, forKey: couchMarkKey)
     }
     
     /// 체크리스트(TableView)를 위해 goalData를 정렬하는 함수

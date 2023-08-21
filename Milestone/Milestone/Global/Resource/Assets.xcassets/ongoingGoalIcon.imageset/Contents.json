@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ongoingGoalIcon.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -106,9 +106,9 @@ class AddDetailGoalViewController: BaseViewController {
 
 // MARK: - PresentAlertDelegate
 
-extension AddDetailGoalViewController: PresentAlertDelegate {
-    func present(vc: UIViewController) {
-        self.present(vc, animated: true)
+extension AddDetailGoalViewController: PresentDelegate {
+    func present(_ viewController: UIViewController) {
+        self.present(viewController, animated: true)
     }
     
     func present(alert: UIAlertController) {

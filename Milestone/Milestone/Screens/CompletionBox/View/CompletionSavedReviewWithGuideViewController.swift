@@ -86,13 +86,6 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
             $0.dateFormat = "yyyy.MM.dd"
         }
     
-    enum IndexText: String {
-        case first = "좋았던 점은 무엇인가요?"
-        case second = "아쉬웠던 점이나, 부족했던 점은 무엇인가요?"
-        case third = "배운 점은 무엇인가요?"
-        case fourth = "목표를 통해 뭘 얻고자 하셨나요?"
-    }
-    
     // MARK: Functions
     
     override func render() {
@@ -234,7 +227,7 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
         setAttributedText(originString: .fourth, targetView: fourthQuestionView, "얻고자")
     }
     
-    func setAttributedText(originString: IndexText, targetView: IndexViewAfterSaved, _ targetText: String...) {
+    func setAttributedText(originString: IndexTextStyle, targetView: IndexViewAfterSaved, _ targetText: String...) {
         let attributedText = NSMutableAttributedString(string: originString.rawValue)
         
         for target in targetText {

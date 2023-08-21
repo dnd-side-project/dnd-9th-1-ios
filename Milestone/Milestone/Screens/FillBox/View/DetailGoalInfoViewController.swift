@@ -25,17 +25,15 @@ class DetailGoalInfoViewController: BaseViewController {
         }
     lazy var infoView = DetailGoalInfoView()
         .then {
+            $0.titleLabel.text = "기출문제다시한번풀고정리해보기"
+            $0.stoneImageView.image = ImageLiteral.imgDetailStoneVer1 // TEMP
             $0.removeButton.addTarget(self, action: #selector(replacePopUpViewToRemove), for: .touchUpInside)
             $0.modifyButton.addTarget(self, action: #selector(replacePopUpViewToModify), for: .touchUpInside)
         }
     
-    // MARK: - Life Cycle
+    // MARK: - Properties
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setGoalInfo()
-    }
+    weak var delegate: (PresentDelegate)?
     
     // MARK: - Functions
     
@@ -50,7 +48,7 @@ class DetailGoalInfoViewController: BaseViewController {
         }
     }
     
-    override func bind() {
+    override func bindUI() {
         infoView.xButton.rx.tap
             .asDriver()
             .drive(onNext: { [weak self] _ in
@@ -65,13 +63,6 @@ class DetailGoalInfoViewController: BaseViewController {
                 self.dismiss(animated: true)
             })
             .disposed(by: disposeBag)
-    }
-    
-    /// TEMP
-    private func setGoalInfo() {
-        infoView.stoneImageView.image = ImageLiteral.imgDetailStoneVer1
-        infoView.titleLabel.text = "테스트~"
-        infoView.startDateLabel.text = "2033.02.02 시작"
     }
     
     private func dismissViewController() {
