@@ -56,7 +56,7 @@ class StorageBoxViewController: BaseViewController {
     
     // MARK: - Properties
     
-    var goals = BehaviorRelay<[Goal]>(value: [Goal(identity: 0, title: "마일스톤 런칭", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true)])
+    var goals = BehaviorRelay<[Goal]>(value: [Goal(identity: 0, title: "마일스톤 런칭", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true), Goal(identity: 0, title: "마일스톤 런칭", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true), Goal(identity: 0, title: "마일스톤 런칭", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true)])
     lazy var goalsValue = goals.value
     
     // MARK: - Life Cycle
@@ -64,8 +64,6 @@ class StorageBoxViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // 보관함의 빈 화면과 보관함 채워져있는 화면 간의 전환하는 테스트를 위해 화면 보일 때마다 계속 1개씩 추가해줌
-        goalsValue.append(Goal(identity: 0, title: "마일스톤 런칭", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true))
         updateStorageVisibility()
     }
     
@@ -157,11 +155,15 @@ extension StorageBoxViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         96 + 16
     }
-    // 보관함 빈 화면 잘 나오는지 테스트하기 위한 용도입니다!!!
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 보관함 빈 화면 잘 나오는지 테스트하기 위한 용도입니다!!!
 //        goalsValue.remove(at: indexPath.row) // 삭제
 //        goals.accept(goalsValue) // 변경된 배열로 업데이트
 //        tableView.reloadData() // 테이블뷰 UI 업데이트
-        push(viewController: DetailParentViewController())
+        let detailParentVC = DetailParentViewController()
+            .then {
+                $0.isFromStorage = true
+            }
+        push(viewController: detailParentVC)
     }
 }

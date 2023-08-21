@@ -59,12 +59,12 @@ class DetailParentViewController: BaseViewController {
             $0.textColor = .black
             $0.font = .pretendard(.semibold, ofSize: 24)
         }
-    let dDayLabel = UILabel()
+    lazy var dDayLabel = UILabel()
         .then {
-            $0.text = "D - 183"
+            $0.text = isFromStorage ? "D + 12" : "D - 183"
             $0.textColor = .gray01
             $0.font = .pretendard(.semibold, ofSize: 12)
-            $0.backgroundColor = .pointPurple
+            $0.backgroundColor = isFromStorage ? .gray04 : .pointPurple
             $0.textAlignment = .center
             $0.layer.cornerRadius = 24 / 2
             $0.clipsToBounds = true
@@ -107,6 +107,7 @@ class DetailParentViewController: BaseViewController {
     
     // MARK: - Properties
     
+    var isFromStorage = false
     private var goalData: [DetailGoalTemp] = [
         DetailGoalTemp(id: 0, isCompleted: true, title: "해커스 1000 LC 2 풀기"), DetailGoalTemp(id: 1, isCompleted: true, title: "영단기 1000 RC 풀기"), DetailGoalTemp(id: 2, isCompleted: true, title: "동사, 전치사 어휘 외우기"),
         DetailGoalTemp(id: 3, isCompleted: true, title: "오답 지문 해석하기"), DetailGoalTemp(id: 4, title: "기출 문제 3회독 하기"), DetailGoalTemp(id: 5, title: "단어 500개 외우기"),
@@ -128,13 +129,6 @@ class DetailParentViewController: BaseViewController {
 
         setEmptyGoalForCollectionView()
         checkFirstDetailView()
-        
-        let vc = CompleteGoalViewController()
-            .then {
-                $0.modalTransitionStyle = .crossDissolve
-                $0.modalPresentationStyle = .overFullScreen
-            }
-        self.present(vc, animated: true)
     }
     
     // MARK: - Functions
@@ -249,6 +243,11 @@ extension DetailParentViewController: UICollectionViewDataSource, UICollectionVi
         if let goal = indexPath.row < goalData.count ? goalData[indexPath.row] : emptyGoal {
             cell.update(content: goal, index: indexPath.row)
         }
+        // 보관함일 때
+        if isFromStorage {
+            cell.isUserInteractionEnabled = false
+            cell.makeCellBlurry()
+        }
         return cell
     }
     
@@ -282,6 +281,13 @@ extension DetailParentViewController: UITableViewDataSource, UITableViewDelegate
                          
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailGoalTableViewCell.identifier, for: indexPath) as? DetailGoalTableViewCell else { return UITableViewCell() }
+        
+        // 보관함일 때
+        if isFromStorage {
+            cell.isUserInteractionEnabled = false
+            cell.makeCellBlurry()
+            cell.isFromStorage = isFromStorage
+        }
         cell.update(content: sortedGoalData[indexPath.row])
         return cell
     }

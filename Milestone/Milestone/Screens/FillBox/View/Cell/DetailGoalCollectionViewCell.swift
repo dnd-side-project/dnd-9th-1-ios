@@ -30,6 +30,11 @@ class DetailGoalCollectionViewCell: BaseCollectionViewCell {
             $0.font = .pretendard(.semibold, ofSize: 14)
             $0.textAlignment = .center
         }
+    lazy var blurryView = UIView()
+        .then {
+            $0.backgroundColor = .white.withAlphaComponent(0.5)
+            $0.layer.cornerRadius = 30
+        }
     
     // MARK: - Properties
     
@@ -109,6 +114,13 @@ class DetailGoalCollectionViewCell: BaseCollectionViewCell {
         isSet.accept(content.isSet)
         if content.isSet { // 세팅되지 않은 값은 완료를 고려 안함
             isCompleted.accept(content.isCompleted)
+        }
+    }
+    
+    func makeCellBlurry() {
+        containerView.addSubView(blurryView)
+        blurryView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
 }
