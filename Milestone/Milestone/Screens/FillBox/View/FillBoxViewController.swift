@@ -33,14 +33,11 @@ class FillBoxViewController: BaseViewController {
     lazy var addGoalButton = UIButton()
         .then {
             $0.backgroundColor = .primary
+            $0.configuration = .plain()
             $0.layer.cornerRadius = 64 / 2
             $0.setImage(ImageLiteral.imgPlus, for: .normal)
-            $0.addTarget(self, action: #selector(presentAddParentGoal), for: .touchUpInside)
-            // 그림자 생성
-            $0.layer.shadowColor = UIColor.primary.cgColor
-            $0.layer.shadowOpacity = 0.6
-            $0.layer.shadowOffset = CGSize(width: 0, height: 4)
-            $0.layer.shadowRadius = 6 / 2.0
+            $0.addTarget(self, action: #selector(tapAddParentGoalButton), for: .touchUpInside)
+            $0.makeButtonShadow(color: .primary, alpha: 0.6, x: 0, y: 4, blur: 6, spread: 0)
         }
     
     private let bubbleView = BubbleView()
@@ -119,17 +116,28 @@ class FillBoxViewController: BaseViewController {
         bubbleView.removeFromSuperview()
     }
     
-    // MARK: - @objc Functions
-    
-    @objc
-    func presentAddParentGoal() {
+    private func presentAddParentGoal() {
         let addParentGoalVC = AddParentGoalViewController()
         addParentGoalVC.modalPresentationStyle = .pageSheet
         
         guard let sheet = addParentGoalVC.sheetPresentationController else { return }
         let fraction = UISheetPresentationController.Detent.custom { _ in addParentGoalVC.viewHeight }
         sheet.detents = [fraction]
-        present(addParentGoalVC, animated: true)
+        self.present(addParentGoalVC, animated: true)
+    }
+    
+    // MARK: - @objc Functions
+    
+    @objc
+    private func tapAddParentGoalButton() {
+        // 클릭 스타일로 배경색 변경
+        addGoalButton.backgroundColor = .init(hex: "#2B75D4")
+        
+        // 바뀐 배경색이 보일 수 있게 0.01초만 딜레이
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [self] in
+            addGoalButton.backgroundColor = .primary // 다시 색깔 복구
+            presentAddParentGoal() // 모달 뷰 띄우기
+        }
     }
 }
 
