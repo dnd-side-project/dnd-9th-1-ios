@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
 
@@ -33,7 +35,6 @@ class EnterGoalTitleView: UIView {
             $0.layer.cornerRadius = 10
             $0.setLeftPaddingPoints(16)
             $0.setRightPaddingPoints(16)
-            $0.addTarget(self, action: #selector(updateNowNumOfCharaters), for: .editingChanged)
         }
     var limitGuideLabel = UILabel()
         .then {
@@ -46,6 +47,7 @@ class EnterGoalTitleView: UIView {
     // MARK: - Properties
     
     weak var delegate: UpdateButtonStateDelegate?
+    let disposeBag = DisposeBag()
     
     // MARK: - Initialization
     
@@ -53,6 +55,7 @@ class EnterGoalTitleView: UIView {
         super.init(frame: frame)
         
         render()
+        bindUI()
     }
     
     @available(*, unavailable)
@@ -83,6 +86,14 @@ class EnterGoalTitleView: UIView {
         }
     }
     
+    private func bindUI() {
+        titleTextField.rx.text.changed
+            .subscribe(onNext: { [unowned self] _ in
+                updateNowNumOfCharaters()
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func setErrorStyle() {
         titleTextField.layer.borderWidth = 1.0
         titleTextField.layer.borderColor = UIColor.pointRed.cgColor
@@ -98,9 +109,8 @@ class EnterGoalTitleView: UIView {
     // MARK: - @objc Functions
     
     /// 현재 텍스트필드의 글자 수 업데이트
-    @objc
-    private func updateNowNumOfCharaters(_ textField: UITextField) {
-        let count = textField.text?.count ?? 0
+    func updateNowNumOfCharaters() {
+        let count = titleTextField.text?.count ?? 0
         limitGuideLabel.text = "\(count)/15"
         
         if count > 15 {

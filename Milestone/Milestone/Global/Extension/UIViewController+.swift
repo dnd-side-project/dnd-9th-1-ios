@@ -21,4 +21,14 @@ extension UIViewController {
     func pop() {
         navigationController?.popViewController(animated: true)
     }
+    
+    /// sheetPresentationController를 사용한 커스텀 모달을 띄우고 싶을 때 사용
+    func presentCustomModal(_ viewController: UIViewController, height: CGFloat) {
+        viewController.modalPresentationStyle = .pageSheet
+        
+        guard let sheet = viewController.sheetPresentationController else { return }
+        let fraction = UISheetPresentationController.Detent.custom { _ in height }
+        sheet.detents = [fraction]
+        present(viewController, animated: true)
+    }
 }

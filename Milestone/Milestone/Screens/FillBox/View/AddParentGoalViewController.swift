@@ -40,6 +40,7 @@ class AddParentGoalViewController: BaseViewController {
     lazy var completeButton = RoundedButton()
         .then {
             $0.buttonComponentStyle = .primary_l
+            $0.titleString = "목표 만들기 완료
             $0.addTarget(self, action: #selector(completeAddParentGoal), for: .touchUpInside)
         }
     
@@ -90,8 +91,6 @@ class AddParentGoalViewController: BaseViewController {
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.layer.cornerRadius = 20
         view.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
-        
-        completeButton.titleString = "목표 만들기 완료"
     }
     
     // MARK: - @objc Functions
