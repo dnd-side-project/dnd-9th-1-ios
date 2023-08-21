@@ -14,7 +14,8 @@ import Then
 
 class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
-    // MARK: subviews
+    // MARK: - Subviews
+    
     private let emptyImageView = UIImageView()
         .then {
             $0.image = ImageLiteral.imgcompletionEmpty
@@ -55,10 +56,13 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     var nsAttributedStringDisposable: Disposable?
     var tableViewScrollDisposable: Disposable?
     
-    // MARK: Properties
-    var viewModel: CompletionViewModel!
+    // MARK: - Properties
     
-    // MARK: Life Cycle
+    var viewModel: CompletionViewModel!
+    var bubbleKey = UserDefaultsKeyStyle.bubbleInCompletionBox.rawValue
+    
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -138,7 +142,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         nsAttributedStringDisposable?.dispose()
     }
     
-    // MARK: functions
+    // MARK: - Functions
     
     override func render() {
         view.addSubViews([emptyImageView, label, tableView])
@@ -197,15 +201,17 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     /// 처음이 맞는지 확인 -> 맞으면 말풍선 뷰 띄우기
     private func checkFirstCompletionBox() {
-        if UserDefaults.standard.string(forKey: "showBubbleInCompleteBox") == nil {
+        if !UserDefaults.standard.bool(forKey: bubbleKey) {
             bubbleView.isHidden = false
-            UserDefaults.standard.set("", forKey: "showBubbleInCompleteBox")
+            UserDefaults.standard.set(true, forKey: bubbleKey)
         } else {
             bubbleView.isHidden = true
             tableViewScrollDisposable?.dispose()
         }
     }
 }
+
+// MARK: - UITableViewDelegate
 
 extension CompletionBoxViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -225,6 +231,8 @@ extension CompletionBoxViewController: UITableViewDelegate {
         return headerView
     }
 }
+
+// MARK: - RxTableViewSectionedAnimatedDataSource
 
 extension CompletionBoxViewController {
     private func dataSource() -> RxTableViewSectionedAnimatedDataSource<CompletionSectionModel> {

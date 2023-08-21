@@ -186,7 +186,7 @@ class DetailParentViewController: BaseViewController {
     
     /// 여기 들어온 게 처음이 맞는지 확인 -> 맞으면 코치 마크 뷰 띄우기
     private func checkFirstDetailView() {
-        if UserDefaults.standard.string(forKey: couchMarkKey) == nil {
+        if !UserDefaults.standard.bool(forKey: couchMarkKey) {
             presentCouchMark()
         }
     }
@@ -199,7 +199,7 @@ class DetailParentViewController: BaseViewController {
                 $0.modalTransitionStyle = .crossDissolve
             }
         present(couchMarkVC, animated: true)
-        UserDefaults.standard.set("", forKey: couchMarkKey)
+        UserDefaults.standard.set(true, forKey: couchMarkKey)
     }
     
     /// 체크리스트(TableView)를 위해 goalData를 정렬하는 함수
