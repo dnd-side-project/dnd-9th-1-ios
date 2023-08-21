@@ -18,16 +18,12 @@ class GoalStatusView: UIView {
     
     public var titleLabel = UILabel()
         .then {
-            $0.text = "진행 중 목표"
             $0.font = .pretendard(.semibold, ofSize: 14)
             $0.textColor = .black
             $0.textAlignment = .center
         }
     
     public var stoneImageView = UIImageView()
-        .then {
-            $0.image = ImageLiteral.imgTempStone
-        }
     
     public var goalNumberLabel = UILabel()
         .then {
