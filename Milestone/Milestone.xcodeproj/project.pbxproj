@@ -159,26 +159,13 @@
 		A2EC47CD2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EC47CB2A8A962600401B03 /* DetailGoalInfoViewController.swift */; };
 		A2EC47CE2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EC47CB2A8A962600401B03 /* DetailGoalInfoViewController.swift */; };
 		A2EC47D02A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EC47CF2A8A968A00401B03 /* DetailGoalInfoView.swift */; };
-		A2EC47D12A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EC47CF2A8A968A00401B03 /* DetailGoalInfoView.swift */; };
-		A2EC47D22A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EC47CF2A8A968A00401B03 /* DetailGoalInfoView.swift */; };
-		A2FA58C92A7F79EF006ACA2E /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58C82A7F79EF006ACA2E /* BaseModel.swift */; };
-		A2FA58CA2A7F79EF006ACA2E /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58C82A7F79EF006ACA2E /* BaseModel.swift */; };
-		A2FA58CB2A7F79EF006ACA2E /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58C82A7F79EF006ACA2E /* BaseModel.swift */; };
-		A2FA58D12A7F7A1F006ACA2E /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58D02A7F7A1F006ACA2E /* APIEnvironment.swift */; };
-		A2FA58D22A7F7A1F006ACA2E /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58D02A7F7A1F006ACA2E /* APIEnvironment.swift */; };
-		A2FA58D32A7F7A1F006ACA2E /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58D02A7F7A1F006ACA2E /* APIEnvironment.swift */; };
-		A2FA58D52A7F7A2A006ACA2E /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58D42A7F7A2A006ACA2E /* APIError.swift */; };
-		A2FA58D62A7F7A2A006ACA2E /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58D42A7F7A2A006ACA2E /* APIError.swift */; };
-		A2FA58D72A7F7A2A006ACA2E /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58D42A7F7A2A006ACA2E /* APIError.swift */; };
-		A2FA58DD2A7F7A3E006ACA2E /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58DC2A7F7A3E006ACA2E /* Requestable.swift */; };
-		A2FA58DE2A7F7A3E006ACA2E /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58DC2A7F7A3E006ACA2E /* Requestable.swift */; };
-		A2FA58DF2A7F7A3E006ACA2E /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58DC2A7F7A3E006ACA2E /* Requestable.swift */; };
-		A2FA58E12A7F7A4A006ACA2E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58E02A7F7A4A006ACA2E /* APIService.swift */; };
-		A2FA58E22A7F7A4A006ACA2E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58E02A7F7A4A006ACA2E /* APIService.swift */; };
-		A2FA58E32A7F7A4A006ACA2E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58E02A7F7A4A006ACA2E /* APIService.swift */; };
-		A2FA58E52A7F7A55006ACA2E /* NetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58E42A7F7A55006ACA2E /* NetworkStatus.swift */; };
-		A2FA58E62A7F7A55006ACA2E /* NetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58E42A7F7A55006ACA2E /* NetworkStatus.swift */; };
-		A2FA58E72A7F7A55006ACA2E /* NetworkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA58E42A7F7A55006ACA2E /* NetworkStatus.swift */; };
+		A2FA58D12A7F7A1F006ACA2E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		A2FA58D22A7F7A1F006ACA2E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		A2FA58D62A7F7A2A006ACA2E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		A2FA58DE2A7F7A3E006ACA2E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		A2FA58DF2A7F7A3E006ACA2E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		A2FA58E62A7F7A55006ACA2E /* (null) in Sources */ = {isa = PBXBuildFile; };
+		A2FA58E72A7F7A55006ACA2E /* (null) in Sources */ = {isa = PBXBuildFile; };
 		A2FA59102A7FCFB4006ACA2E /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA590F2A7FCFB4006ACA2E /* Encodable+.swift */; };
 		A2FA59112A7FCFB4006ACA2E /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA590F2A7FCFB4006ACA2E /* Encodable+.swift */; };
 		A2FA59122A7FCFB4006ACA2E /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA590F2A7FCFB4006ACA2E /* Encodable+.swift */; };
@@ -238,8 +225,6 @@
 		C9B2CE222A8F672C006289A8 /* ServicesUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE212A8F672C006289A8 /* ServicesUser.swift */; };
 		C9B2CE242A8F673C006289A8 /* ServicesGoalList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE232A8F673C006289A8 /* ServicesGoalList.swift */; };
 		C9B2CE302A8F9B89006289A8 /* BindableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE2F2A8F9B89006289A8 /* BindableViewModel.swift */; };
-		C9B2CE322A8F9B9F006289A8 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE312A8F9B9F006289A8 /* Input.swift */; };
-		C9B2CE342A8F9BBC006289A8 /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE332A8F9BBC006289A8 /* Output.swift */; };
 		C9B2CE362A8F9BC9006289A8 /* Lodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE352A8F9BC9006289A8 /* Lodable.swift */; };
 /* End PBXBuildFile section */
 
@@ -368,8 +353,6 @@
 		C9B2CE212A8F672C006289A8 /* ServicesUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesUser.swift; sourceTree = "<group>"; };
 		C9B2CE232A8F673C006289A8 /* ServicesGoalList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesGoalList.swift; sourceTree = "<group>"; };
 		C9B2CE2F2A8F9B89006289A8 /* BindableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableViewModel.swift; sourceTree = "<group>"; };
-		C9B2CE312A8F9B9F006289A8 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
-		C9B2CE332A8F9BBC006289A8 /* Output.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
 		C9B2CE352A8F9BC9006289A8 /* Lodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lodable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -845,8 +828,6 @@
 			isa = PBXGroup;
 			children = (
 				C9B2CE2F2A8F9B89006289A8 /* BindableViewModel.swift */,
-				C9B2CE312A8F9B9F006289A8 /* Input.swift */,
-				C9B2CE332A8F9BBC006289A8 /* Output.swift */,
 				C9B2CE352A8F9BC9006289A8 /* Lodable.swift */,
 			);
 			path = Foundation;
@@ -1059,14 +1040,13 @@
 				C90DC9862A88F0B100241B7C /* UITextField+.swift in Sources */,
 				C90DC9762A876F5D00241B7C /* AppCoordinator.swift in Sources */,
 				88216FC02A85328900FE3A77 /* LoginViewController.swift in Sources */,
-				C9B2CE342A8F9BBC006289A8 /* Output.swift in Sources */,
 				A2C98F062A8B6122009B5579 /* EnterGoalTitleView.swift in Sources */,
 				A2B969872A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
 				A2C98F162A8BA6F0009B5579 /* RoundedDarkButton.swift in Sources */,
 				C9B2CE172A8F5267006289A8 /* APIRouter.swift in Sources */,
 				C9B2CE362A8F9BC9006289A8 /* Lodable.swift in Sources */,
 				A289D9462A91246C005B7F00 /* DayStyle.swift in Sources */,
-				A2FA58D12A7F7A1F006ACA2E /* APIEnvironment.swift in Sources */,
+				A2FA58D12A7F7A1F006ACA2E /* (null) in Sources */,
 				A28EDA112A87808A001A021A /* UIViewController+.swift in Sources */,
 				A2B9698F2A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */,
 				C90DC9882A891A8500241B7C /* OnboardingViewControllerLast.swift in Sources */,
@@ -1084,7 +1064,6 @@
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
 				C9B2CE102A8F4F9A006289A8 /* Constants.swift in Sources */,
 				A2FA59192A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
-				C9B2CE322A8F9B9F006289A8 /* Input.swift in Sources */,
 				C9B2CE222A8F672C006289A8 /* ServicesUser.swift in Sources */,
 				A27C9A102A8E42B5002C6F44 /* EnterGoalAlarmView.swift in Sources */,
 				A289D94A2A912616005B7F00 /* WriteRetrospectStyle.swift in Sources */,
@@ -1157,9 +1136,7 @@
 				A2B969882A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
 				A23075CB2A87F8EE00D841F6 /* DetailGoal.swift in Sources */,
 				A28EDA122A87808A001A021A /* UIViewController+.swift in Sources */,
-				A2C98F072A8B6122009B5579 /* EnterGoalTitleView.swift in Sources */,
-				A265090D2A8D458300E9A2D7 /* BubbleView.swift in Sources */,
-				A2FA58DE2A7F7A3E006ACA2E /* Requestable.swift in Sources */,
+				A2FA58DE2A7F7A3E006ACA2E /* (null) in Sources */,
 				A2248E842A8818AD00EB995A /* DetailGoalTableViewCell.swift in Sources */,
 				A2B9698C2A859EAB00C4903F /* UIButton+.swift in Sources */,
 				A289D9472A91246C005B7F00 /* DayStyle.swift in Sources */,
@@ -1168,9 +1145,8 @@
 				A289D9432A91241C005B7F00 /* UserDefaultsKeyStyle.swift in Sources */,
 				A2FA59222A7FD2EC006ACA2E /* BaseTableViewCell.swift in Sources */,
 				A2EC47CD2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */,
-				A2C98F0F2A8B7A99009B5579 /* EnterGoalDateView.swift in Sources */,
 				A289D9612A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */,
-				A2FA58D62A7F7A2A006ACA2E /* APIError.swift in Sources */,
+				A2FA58D62A7F7A2A006ACA2E /* (null) in Sources */,
 				A2B20D622A7E4FAD001ED73C /* UIView+.swift in Sources */,
 				A2FA59112A7FCFB4006ACA2E /* Encodable+.swift in Sources */,
 				A2B969902A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */,
@@ -1190,8 +1166,8 @@
 				A2248E962A8A5A5C00EB995A /* CompletionBoxViewController.swift in Sources */,
 				A2FA591E2A7FD2DD006ACA2E /* BaseCollectionViewCell.swift in Sources */,
 				A2B20D662A7E5077001ED73C /* UILabel+.swift in Sources */,
-				A2FA58D22A7F7A1F006ACA2E /* APIEnvironment.swift in Sources */,
-				A2FA58E62A7F7A55006ACA2E /* NetworkStatus.swift in Sources */,
+				A2FA58D22A7F7A1F006ACA2E /* (null) in Sources */,
+				A2FA58E62A7F7A55006ACA2E /* (null) in Sources */,
 				A289D94B2A912616005B7F00 /* WriteRetrospectStyle.swift in Sources */,
 				A22736802A7CE53800D7B3B2 /* MilestoneTests.swift in Sources */,
 				A2B20D5E2A7E4E68001ED73C /* UIColor+.swift in Sources */,
@@ -1208,17 +1184,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2248E892A8A076D00EB995A /* MoreViewController.swift in Sources */,
-				A265090E2A8D458300E9A2D7 /* BubbleView.swift in Sources */,
 				A27C9A0E2A8E4258002C6F44 /* AddDetailGoalViewController.swift in Sources */,
 				A289D9502A912849005B7F00 /* IndexTextStyle.swift in Sources */,
-				A2FA58DF2A7F7A3E006ACA2E /* Requestable.swift in Sources */,
+				A2FA58DF2A7F7A3E006ACA2E /* (null) in Sources */,
 				A2B20D672A7E5077001ED73C /* UILabel+.swift in Sources */,
 				A289D9622A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */,
 				A2EC47CE2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */,
 				A28EDA172A8791F7001A021A /* DetailGoalCollectionViewCell.swift in Sources */,
 				A227368A2A7CE53800D7B3B2 /* MilestoneUITests.swift in Sources */,
 				A289D95E2A9133C7005B7F00 /* PresentDelegate.swift in Sources */,
-				A2FA58E72A7F7A55006ACA2E /* NetworkStatus.swift in Sources */,
+				A2FA58E72A7F7A55006ACA2E /* (null) in Sources */,
 				A2B969892A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
 				A2D304BF2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
 				A289D9442A91241C005B7F00 /* UserDefaultsKeyStyle.swift in Sources */,
