@@ -230,6 +230,7 @@
 		C9B2CE032A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */; };
 		C9B2CE052A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */; };
 		C9B2CE072A8E69E5006289A8 /* IndexViewAfterSaved.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE062A8E69E5006289A8 /* IndexViewAfterSaved.swift */; };
+		C9B2CE432A90E76B006289A8 /* GoalAchievementRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE422A90E76B006289A8 /* GoalAchievementRateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -355,6 +356,7 @@
 		C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSavedReviewWithGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSavedReviewWithoutGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CE062A8E69E5006289A8 /* IndexViewAfterSaved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewAfterSaved.swift; sourceTree = "<group>"; };
+		C9B2CE422A90E76B006289A8 /* GoalAchievementRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAchievementRateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -454,6 +456,7 @@
 		A22736992A7CE73600D7B3B2 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				C9B2CE412A90E70D006289A8 /* Shared */,
 				A2FA59342A7FD718006ACA2E /* Onboarding */,
 				A2B9697F2A8574EA00C4903F /* Main */,
 				A2D304B92A854E1600A5BA92 /* FillBox */,
@@ -840,6 +843,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		C9B2CE412A90E70D006289A8 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				C9B2CE422A90E76B006289A8 /* GoalAchievementRateView.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1090,6 +1101,7 @@
 				A289D9422A91241C005B7F00 /* UserDefaultsKeyStyle.swift in Sources */,
 				C90DC9842A88874800241B7C /* OnboardingCoordinator.swift in Sources */,
 				A2248E952A8A5A5C00EB995A /* CompletionBoxViewController.swift in Sources */,
+				C9B2CE432A90E76B006289A8 /* GoalAchievementRateView.swift in Sources */,
 				A2B20D5D2A7E4E68001ED73C /* UIColor+.swift in Sources */,
 				A2C98F122A8B9A8E009B5579 /* ReminderAlarmView.swift in Sources */,
 				A2FA59102A7FCFB4006ACA2E /* Encodable+.swift in Sources */,
