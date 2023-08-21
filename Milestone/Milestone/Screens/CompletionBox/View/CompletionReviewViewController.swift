@@ -77,6 +77,8 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
     lazy var reviewVCWithGuide = CompletionReviewWithGuideViewController()
     lazy var reviewVCWithoutGuide = CompletionReviewWithoutGuideViewController()
     
+    let reviewCompleteVC = ReviewCompleteViewController()
+    
     // MARK: Properties
     
     var viewModel: CompletionViewModel!
@@ -167,6 +169,36 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
             .disposed(by: disposeBag)
         
         navigationItem.leftBarButtonItem = leftBarButton
+
+        reviewVCWithGuide.registerButton.rx.tap
+            .subscribe(onNext: { [unowned self] in
+                reviewCompleteVC.modalTransitionStyle = .crossDissolve
+                reviewCompleteVC.modalPresentationStyle = .overFullScreen
+                self.present(reviewCompleteVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        reviewVCWithoutGuide.registerButton.rx.tap
+            .subscribe(onNext: { [unowned self] in
+                reviewCompleteVC.modalTransitionStyle = .crossDissolve
+                reviewCompleteVC.modalPresentationStyle = .overFullScreen
+                self.present(reviewCompleteVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        reviewCompleteVC.closeButton.rx.tap
+            .subscribe(onNext: { [unowned self] in
+                self.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        reviewCompleteVC.button.rx.tap
+            .subscribe(onNext: { [unowned self] in
+                self.dismiss(animated: true) {
+                    self.pop()
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     func bindViewModel() {
@@ -197,6 +229,7 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
                 }
             })
             .disposed(by: disposeBag)
+        
     }
     
     func setFontSize() {

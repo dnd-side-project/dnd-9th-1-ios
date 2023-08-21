@@ -1,8 +1,8 @@
 //
-//  AddParentGoalViewController.swift
+//  AddDetailGoalViewController.swift
 //  Milestone
 //
-//  Created by 서은수 on 2023/08/15.
+//  Created by 서은수 on 2023/08/17.
 //
 
 import UIKit
@@ -10,16 +10,16 @@ import UIKit
 import SnapKit
 import Then
 
-// MARK: - 상위 목표 추가 모달뷰
+// MARK: - 하위 목표 추가 모달뷰
 
-class AddParentGoalViewController: BaseViewController {
+class AddDetailGoalViewController: BaseViewController {
     
     // MARK: - SubViews
     
     lazy var backButton = UIButton()
         .then {
             $0.setImage(ImageLiteral.imgBack, for: .normal)
-            $0.addTarget(self, action: #selector(dismissAddParentGoal), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(dismissAddDetailGoal), for: .touchUpInside)
         }
     var topicLabel = UILabel()
         .then {
@@ -31,15 +31,14 @@ class AddParentGoalViewController: BaseViewController {
         .then {
             $0.delegate = self
         }
-    lazy var enterGoalDateView = EnterGoalDateView()
+    lazy var enterGoalAlarmView = EnterGoalAlarmView()
         .then {
-            $0.presentDelegate = self
-            $0.buttonStateDelegate = self
+            $0.delegate = self
         }
-    var reminderAlarmView = ReminderAlarmView()
     lazy var completeButton = RoundedDarkButton()
         .then {
-            $0.addTarget(self, action: #selector(completeAddParentGoal), for: .touchUpInside)
+            $0.titleString = "목표 만들기 완료"
+            $0.addTarget(self, action: #selector(completeAddDetailGoal), for: .touchUpInside)
         }
     
     // MARK: - Properties
@@ -49,7 +48,7 @@ class AddParentGoalViewController: BaseViewController {
     // MARK: - Functions
     
     override func render() {
-        view.addSubViews([backButton, topicLabel, enterGoalTitleView, enterGoalDateView, reminderAlarmView, completeButton])
+        view.addSubViews([backButton, topicLabel, enterGoalTitleView, enterGoalAlarmView, completeButton])
         
         view.snp.makeConstraints { make in
             make.width.equalTo(UIScreen.main.bounds.width)
@@ -68,12 +67,8 @@ class AddParentGoalViewController: BaseViewController {
             make.top.equalTo(topicLabel.snp.bottom).offset(32)
             make.centerX.equalToSuperview()
         }
-        enterGoalDateView.snp.makeConstraints { make in
-            make.top.equalTo(enterGoalTitleView.snp.bottom).offset(24)
-            make.centerX.equalToSuperview()
-        }
-        reminderAlarmView.snp.makeConstraints { make in
-            make.top.equalTo(enterGoalDateView.snp.bottom).offset(24)
+        enterGoalAlarmView.snp.makeConstraints { make in
+            make.top.equalTo(enterGoalTitleView.snp.bottom).offset(32)
             make.centerX.equalToSuperview()
         }
         completeButton.snp.makeConstraints { make in
@@ -89,19 +84,17 @@ class AddParentGoalViewController: BaseViewController {
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.layer.cornerRadius = 20
         view.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
-        
-        completeButton.titleString = "목표 만들기 완료"
     }
     
     // MARK: - @objc Functions
     
     @objc
-    private func dismissAddParentGoal() {
+    private func dismissAddDetailGoal() {
         self.dismiss(animated: true)
     }
     
     @objc
-    private func completeAddParentGoal() {
+    private func completeAddDetailGoal() {
         updateButtonState(.press)
         
         // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
@@ -113,18 +106,19 @@ class AddParentGoalViewController: BaseViewController {
 
 // MARK: - PresentAlertDelegate
 
-extension AddParentGoalViewController: PresentDelegate {
-    func present(alert: UIAlertController) {
-        self.present(alert, animated: true)
-    }
+extension AddDetailGoalViewController: PresentDelegate {
     func present(_ viewController: UIViewController) {
         self.present(viewController, animated: true)
+    }
+    
+    func present(alert: UIAlertController) {
+        self.present(alert, animated: true)
     }
 }
 
 // MARK: - UpdateButtonStateDelegate
 
-extension AddParentGoalViewController: UpdateButtonStateDelegate {
+extension AddDetailGoalViewController: UpdateButtonStateDelegate {
     func updateButtonState(_ state: ButtonState) {
         self.completeButton.buttonState = state
     }

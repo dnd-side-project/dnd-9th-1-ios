@@ -100,7 +100,7 @@ class DetailParentViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private var goalData = [
+    private var goalData: [DetailGoal] = [
         DetailGoal(id: 0, isCompleted: true, title: "해커스 1000 LC 2 풀기"), DetailGoal(id: 1, isCompleted: true, title: "영단기 1000 RC 풀기"), DetailGoal(id: 2, isCompleted: true, title: "동사, 전치사 어휘 외우기"),
         DetailGoal(id: 3, isCompleted: true, title: "오답 지문 해석하기"), DetailGoal(id: 4, title: "기출 문제 3회독 하기"), DetailGoal(id: 5, title: "단어 500개 외우기"),
         DetailGoal(id: 6, title: "문법 문장 20개 외우기"), DetailGoal(id: 7, title: "모르는 단어 정리해두기")
@@ -111,6 +111,7 @@ class DetailParentViewController: BaseViewController {
     }()
     // 세부 목표를 추가해주세요! 데이터
     private var emptyGoal: DetailGoal?
+    private var couchMarkKey: String = UserDefaultsKeyStyle.couchMark.rawValue
     
     // MARK: - Life Cycle
     
@@ -118,6 +119,14 @@ class DetailParentViewController: BaseViewController {
         super.viewDidLoad()
 
         setEmptyGoalForCollectionView()
+        checkFirstDetailView()
+        
+        let vc = CompleteGoalViewController()
+            .then {
+                $0.modalTransitionStyle = .crossDissolve
+                $0.modalPresentationStyle = .overFullScreen
+            }
+        self.present(vc, animated: true)
     }
     
     // MARK: - Functions
@@ -137,6 +146,7 @@ class DetailParentViewController: BaseViewController {
         goalTitleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(24)
             make.top.equalToSuperview().inset(15)
+            make.height.equalTo(32)
         }
         dDayLabel.snp.makeConstraints { make in
             make.top.equalTo(goalTitleLabel.snp.bottom).offset(12)
@@ -172,6 +182,24 @@ class DetailParentViewController: BaseViewController {
         if goalData.count < 9 {
             self.emptyGoal = DetailGoal(isSet: false)
         }
+    }
+    
+    /// 여기 들어온 게 처음이 맞는지 확인 -> 맞으면 코치 마크 뷰 띄우기
+    private func checkFirstDetailView() {
+        if UserDefaults.standard.string(forKey: couchMarkKey) == nil {
+            presentCouchMark()
+        }
+    }
+    
+    /// 코치 마크 뷰 띄우기
+    private func presentCouchMark() {
+        let couchMarkVC = CouchMarkViewController()
+            .then {
+                $0.modalPresentationStyle = .overFullScreen
+                $0.modalTransitionStyle = .crossDissolve
+            }
+        present(couchMarkVC, animated: true)
+        UserDefaults.standard.set("", forKey: couchMarkKey)
     }
     
     /// 체크리스트(TableView)를 위해 goalData를 정렬하는 함수
@@ -221,11 +249,25 @@ extension DetailParentViewController: UICollectionViewDataSource, UICollectionVi
         return cell
     }
     
+    // MARK: - @objc Functions
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailInfo = DetailGoalInfoViewController()
-        detailInfo.modalPresentationStyle = .overFullScreen
-        detailInfo.modalTransitionStyle = .crossDissolve
-        self.present(detailInfo, animated: true)
+        guard let cell = collectionView.cellForItem(at: indexPath) as? DetailGoalCollectionViewCell else { return }
+        if cell.isSet.value {
+            let detailInfo = DetailGoalInfoViewController()
+            detailInfo.delegate = self
+            detailInfo.modalPresentationStyle = .overFullScreen
+            detailInfo.modalTransitionStyle = .crossDissolve
+            self.present(detailInfo, animated: true)
+        } else {
+            let addDetailGoalVC = AddDetailGoalViewController()
+            addDetailGoalVC.modalPresentationStyle = .pageSheet
+            
+            guard let sheet = addDetailGoalVC.sheetPresentationController else { return }
+            let fraction = UISheetPresentationController.Detent.custom { _ in 500.0 }
+            sheet.detents = [fraction]
+            present(addDetailGoalVC, animated: true)
+        }
     }
 }
 
@@ -258,5 +300,15 @@ extension DetailParentViewController: UITableViewDataSource, UITableViewDelegate
         
         goalData[selectedGoalId].isCompleted.toggle() // 원본 배열의 isCompleted 값 변경
         self.detailGoalCollectionView.reloadData()
+    }
+}
+
+// MARK: - PresentDelegate
+
+extension DetailParentViewController: PresentDelegate {
+    func present(_ viewController: UIViewController) {
+        viewController.modalTransitionStyle = .crossDissolve
+        viewController.modalPresentationStyle = .overFullScreen
+        present(viewController, animated: true)
     }
 }

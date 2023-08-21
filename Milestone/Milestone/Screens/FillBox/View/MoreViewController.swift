@@ -7,6 +7,7 @@
 
 import UIKit
 
+import SnapKit
 import Then
 
 // MARK: - 상위 목표 상세 더보기 화면
@@ -27,15 +28,16 @@ class MoreViewController: BaseViewController {
             $0.backgroundColor = .gray02
             $0.layer.cornerRadius = 5 / 2
         }
-    public var modifyOptionView = MoreOptionView()
+    var modifyOptionView = MoreOptionView()
         .then {
             $0.optionLabel.text = "수정하기"
         }
-    public var removeOptionView = MoreOptionView()
+    lazy var tapRemoveGesture = UITapGestureRecognizer(target: self, action: #selector(presentDeleteGoalViewController))
+    lazy var removeOptionView = MoreOptionView()
         .then {
             $0.optionLabel.text = "삭제하기"
+            $0.addGestureRecognizer(tapRemoveGesture)
         }
-    
     // MARK: - Properties
     
     let viewHeight = 173.0
@@ -68,5 +70,18 @@ class MoreViewController: BaseViewController {
 
     override func configUI() {
         containerView.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
+    }
+    
+    // MARK: - @objc Functions
+    
+    @objc
+    private func presentDeleteGoalViewController() {
+        Logger.debugDescription("삭제하기 클릭")
+        let deleteGoalPopUp = DeleteGoalViewController()
+            .then {
+                $0.modalTransitionStyle = .crossDissolve
+                $0.modalPresentationStyle = .overFullScreen
+            }
+        present(deleteGoalPopUp, animated: true)
     }
 }

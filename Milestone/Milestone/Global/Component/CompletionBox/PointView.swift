@@ -22,7 +22,8 @@ class PointView: UIView {
             $0.font = .pretendard(.semibold, ofSize: 12)
             $0.textColor = .gray02
         }
-
+    
+    // MARK: Life Cycles
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -30,15 +31,16 @@ class PointView: UIView {
         configUI()
     }
     
-    // MARK: Properties
-    var image = PublishSubject<UIImage>()
-    var pointText = PublishSubject<String>()
-    var disposeBag = DisposeBag()
-    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: Properties
+    
+    var image = PublishSubject<UIImage>()
+    var pointText = PublishSubject<String>()
+    var disposeBag = DisposeBag()
     
     func render() {
         self.addSubViews([pointButton, pointLabel])

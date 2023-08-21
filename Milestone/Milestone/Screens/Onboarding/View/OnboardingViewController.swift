@@ -43,6 +43,7 @@ class OnboardingViewController: BaseViewController {
     
     lazy var completeButton = RoundedDarkButton()
         .then {
+            $0.titleString = "목표 만들기 완료"
             $0.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
         }
     
@@ -83,8 +84,6 @@ class OnboardingViewController: BaseViewController {
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.layer.cornerRadius = 20
         view.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
-        
-        completeButton.titleString = "목표 만들기 완료"
     }
     
     // MARK: Objc functions
@@ -101,9 +100,12 @@ class OnboardingViewController: BaseViewController {
 
 // MARK: - PresentAlertDelegate
 
-extension OnboardingViewController: PresentAlertDelegate {
+extension OnboardingViewController: PresentDelegate {
     func present(alert: UIAlertController) {
         self.present(alert, animated: true)
+    }
+    func present(_ viewController: UIViewController) {
+        self.present(viewController, animated: true)
     }
 }
 
