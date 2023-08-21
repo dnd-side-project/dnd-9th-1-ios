@@ -30,11 +30,13 @@ class MoreViewController: BaseViewController {
         }
     var modifyOptionView = MoreOptionView()
         .then {
+            $0.iconImageView.image = ImageLiteral.imgModify
             $0.optionLabel.text = "수정하기"
         }
     lazy var tapRemoveGesture = UITapGestureRecognizer(target: self, action: #selector(presentDeleteGoalViewController))
     lazy var removeOptionView = MoreOptionView()
         .then {
+            $0.iconImageView.image = ImageLiteral.imgRemove
             $0.optionLabel.text = "삭제하기"
             $0.addGestureRecognizer(tapRemoveGesture)
         }
