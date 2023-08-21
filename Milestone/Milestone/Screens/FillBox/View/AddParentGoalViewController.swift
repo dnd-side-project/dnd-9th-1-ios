@@ -37,8 +37,9 @@ class AddParentGoalViewController: BaseViewController {
             $0.buttonStateDelegate = self
         }
     var reminderAlarmView = ReminderAlarmView()
-    lazy var completeButton = RoundedDarkButton()
+    lazy var completeButton = RoundedButton()
         .then {
+            $0.buttonComponentStyle = .primary_l
             $0.addTarget(self, action: #selector(completeAddParentGoal), for: .touchUpInside)
         }
     
