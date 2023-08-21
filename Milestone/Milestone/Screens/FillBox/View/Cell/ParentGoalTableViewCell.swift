@@ -24,9 +24,13 @@ class ParentGoalTableViewCell: BaseTableViewCell {
             $0.layer.cornerRadius = 20
         }
     
-    let goalStatusImageView = UIImageView()
+    // MARK: 데이터 바인딩 필요!
+    /// 반드시 인스턴스 생성 시점에 초기화 진행해야됨.
+    /// 나중에 바인딩하면 draw메서드가 다시 호출되지 않아 원을 그릴 수 없음
+    lazy var goalAchievementRateView = GoalAchievementRateView()
         .then {
-            $0.image = ImageLiteral.imgTempGoal
+            $0.totalCount = 9
+            $0.completedCount = 6
         }
     
     public var titleLabel = UILabel()
@@ -62,7 +66,7 @@ class ParentGoalTableViewCell: BaseTableViewCell {
     
     override func render() {
         contentView.addSubview(containerView)
-        containerView.addSubViews([goalStatusImageView, titleLabel,
+        containerView.addSubViews([goalAchievementRateView, titleLabel,
                                       calendarImageView, termLabel])
         
         containerView.snp.makeConstraints { make in
@@ -71,15 +75,15 @@ class ParentGoalTableViewCell: BaseTableViewCell {
             make.left.right.equalToSuperview().inset(4)
         }
         
-        goalStatusImageView.snp.makeConstraints { make in
+        goalAchievementRateView.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(24)
             make.centerY.equalToSuperview()
             make.width.height.equalTo(50)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.left.equalTo(goalStatusImageView.snp.right).offset(16)
-            $0.top.equalTo(goalStatusImageView).offset(3)
+            $0.left.equalTo(goalAchievementRateView.snp.right).offset(16)
+            $0.top.equalTo(goalAchievementRateView).offset(3)
             $0.right.equalToSuperview().inset(52)
         }
         
@@ -93,5 +97,8 @@ class ParentGoalTableViewCell: BaseTableViewCell {
             $0.left.equalTo(calendarImageView.snp.right).offset(8)
             $0.centerY.equalTo(calendarImageView)
         }
+    }
+    
+    override func bind() {
     }
 }

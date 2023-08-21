@@ -16,12 +16,8 @@ class MoreOptionView: UIView {
     
     // MARK: - Subviews
     
-    public var circleView = UIView()
-        .then {
-            $0.backgroundColor = .gray02
-            $0.layer.cornerRadius = 24 / 2
-        }
-    public var optionLabel = UILabel()
+    var iconImageView = UIImageView()
+    var optionLabel = UILabel()
         .then {
             $0.font = .pretendard(.semibold, ofSize: 16)
             $0.textColor = .black
@@ -44,19 +40,19 @@ class MoreOptionView: UIView {
     // MARK: - Functions
     
     private func render() {
-        addSubViews([circleView, optionLabel])
+        addSubViews([iconImageView, optionLabel])
         
         self.snp.makeConstraints { make in
             make.width.equalTo(143)
             make.height.equalTo(24)
         }
-        circleView.snp.makeConstraints { make in
+        iconImageView.snp.makeConstraints { make in
             make.top.left.bottom.equalToSuperview()
             make.width.height.equalTo(24)
         }
         optionLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(circleView)
-            make.left.equalTo(circleView.snp.right).offset(12)
+            make.centerY.equalTo(iconImageView)
+            make.left.equalTo(iconImageView.snp.right).offset(12)
         }
     }
     

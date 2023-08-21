@@ -15,8 +15,14 @@ import Then
 class ParentGoalHeaderView: UITableViewHeaderFooterView {
     
     let ongoingGoalView = GoalStatusView()
+        .then {
+            $0.titleLabel.text = "진행 중 목표"
+            $0.goalNumberLabel.text = "4"
+            $0.stoneImageView.image = ImageLiteral.imgOngoingGoal
+        }
     let completedGoalView = GoalStatusView()
         .then {
+            $0.stoneImageView.image = ImageLiteral.imgCompletedGoal
             $0.titleLabel.text = "완료한 목표"
             $0.goalNumberLabel.text = "12"
         }
