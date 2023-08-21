@@ -22,7 +22,7 @@ class CompletionTableViewCell: BaseTableViewCell, ViewModelBindableType {
     
     let calendarImageView = UIImageView()
         .then {
-            $0.image = #imageLiteral(resourceName: "calendar")
+            $0.image = ImageLiteral.imgCalendar
         }
     
     let dateLabel = UILabel()
