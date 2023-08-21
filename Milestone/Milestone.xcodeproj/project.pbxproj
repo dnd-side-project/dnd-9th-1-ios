@@ -41,9 +41,6 @@
 		A27C9A0D2A8E4258002C6F44 /* AddDetailGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */; };
 		A27C9A0E2A8E4258002C6F44 /* AddDetailGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */; };
 		A27C9A102A8E42B5002C6F44 /* EnterGoalAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C9A0F2A8E42B5002C6F44 /* EnterGoalAlarmView.swift */; };
-		A289D9642A922950005B7F00 /* RecommendGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */; };
-		A289D9652A922950005B7F00 /* RecommendGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */; };
-		A289D9662A922950005B7F00 /* RecommendGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */; };
 		A289D93E2A91223C005B7F00 /* ButtonStateStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D93D2A91223C005B7F00 /* ButtonStateStyle.swift */; };
 		A289D93F2A912241005B7F00 /* ButtonStateStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D93D2A91223C005B7F00 /* ButtonStateStyle.swift */; };
 		A289D9402A912241005B7F00 /* ButtonStateStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D93D2A91223C005B7F00 /* ButtonStateStyle.swift */; };
@@ -68,6 +65,9 @@
 		A289D9602A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D95F2A913400005B7F00 /* UpdateButtonStateDelegate.swift */; };
 		A289D9612A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D95F2A913400005B7F00 /* UpdateButtonStateDelegate.swift */; };
 		A289D9622A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D95F2A913400005B7F00 /* UpdateButtonStateDelegate.swift */; };
+		A289D9642A922950005B7F00 /* RecommendGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */; };
+		A289D9652A922950005B7F00 /* RecommendGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */; };
+		A289D9662A922950005B7F00 /* RecommendGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */; };
 		A28EDA112A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
 		A28EDA122A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
 		A28EDA132A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
@@ -204,6 +204,8 @@
 		A2FA592D2A7FD433006ACA2E /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA592C2A7FD433006ACA2E /* NSObject+.swift */; };
 		A2FA592E2A7FD433006ACA2E /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA592C2A7FD433006ACA2E /* NSObject+.swift */; };
 		A2FA592F2A7FD433006ACA2E /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA592C2A7FD433006ACA2E /* NSObject+.swift */; };
+		C90C48EF2A93777900E7E8B0 /* RxKakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = C90C48EE2A93777900E7E8B0 /* RxKakaoSDK */; };
+		C90C48F12A93853D00E7E8B0 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90C48F02A93853D00E7E8B0 /* OnboardingViewModel.swift */; };
 		C90DC9272A81FF2000241B7C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C90DC9262A81FF2000241B7C /* .swiftlint.yml */; };
 		C90DC9762A876F5D00241B7C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9752A876F5D00241B7C /* AppCoordinator.swift */; };
 		C90DC97A2A88814700241B7C /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9792A88814700241B7C /* Coordinator.swift */; };
@@ -230,8 +232,8 @@
 		C9B2CE032A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */; };
 		C9B2CE052A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */; };
 		C9B2CE072A8E69E5006289A8 /* IndexViewAfterSaved.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE062A8E69E5006289A8 /* IndexViewAfterSaved.swift */; };
-		C9B2CE452A91D796006289A8 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE442A91D796006289A8 /* KeychainManager.swift */; };
 		C9B2CE432A90E76B006289A8 /* GoalAchievementRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE422A90E76B006289A8 /* GoalAchievementRateView.swift */; };
+		C9B2CE452A91D796006289A8 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE442A91D796006289A8 /* KeychainManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -276,7 +278,6 @@
 		A26509132A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailGoalStoneView.swift; sourceTree = "<group>"; };
 		A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailGoalViewController.swift; sourceTree = "<group>"; };
 		A27C9A0F2A8E42B5002C6F44 /* EnterGoalAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterGoalAlarmView.swift; sourceTree = "<group>"; };
-		A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendGoalViewController.swift; sourceTree = "<group>"; };
 		A289D93D2A91223C005B7F00 /* ButtonStateStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStateStyle.swift; sourceTree = "<group>"; };
 		A289D9412A91241C005B7F00 /* UserDefaultsKeyStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeyStyle.swift; sourceTree = "<group>"; };
 		A289D9452A91246B005B7F00 /* DayStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayStyle.swift; sourceTree = "<group>"; };
@@ -285,6 +286,7 @@
 		A289D9512A912864005B7F00 /* PointTextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointTextStyle.swift; sourceTree = "<group>"; };
 		A289D95B2A9133C7005B7F00 /* PresentDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentDelegate.swift; sourceTree = "<group>"; };
 		A289D95F2A913400005B7F00 /* UpdateButtonStateDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateButtonStateDelegate.swift; sourceTree = "<group>"; };
+		A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendGoalViewController.swift; sourceTree = "<group>"; };
 		A28EDA102A87808A001A021A /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		A28EDA142A8791F7001A021A /* DetailGoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		A28EDA182A879565001A021A /* DetailParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailParentViewController.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 		A2FA59242A7FD3B1006ACA2E /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		A2FA59282A7FD3BA006ACA2E /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		A2FA592C2A7FD433006ACA2E /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
+		C90C48F02A93853D00E7E8B0 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		C90DC9262A81FF2000241B7C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C90DC9752A876F5D00241B7C /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		C90DC9792A88814700241B7C /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -357,8 +360,8 @@
 		C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSavedReviewWithGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSavedReviewWithoutGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CE062A8E69E5006289A8 /* IndexViewAfterSaved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewAfterSaved.swift; sourceTree = "<group>"; };
-		C9B2CE442A91D796006289A8 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		C9B2CE422A90E76B006289A8 /* GoalAchievementRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAchievementRateView.swift; sourceTree = "<group>"; };
+		C9B2CE442A91D796006289A8 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,6 +379,7 @@
 				A2B20D4C2A7E3EE1001ED73C /* RxCocoa in Frameworks */,
 				C9B2CDE12A8B5E9D006289A8 /* Differentiator in Frameworks */,
 				A2B20D442A7E3EA1001ED73C /* Moya in Frameworks */,
+				C90C48EF2A93777900E7E8B0 /* RxKakaoSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,7 +696,6 @@
 				A265090F2A8D604100E9A2D7 /* CouchMarkViewController.swift */,
 				A2C98F012A8B6117009B5579 /* AddParentGoalViewController.swift */,
 				A28EDA182A879565001A021A /* DetailParentViewController.swift */,
-				A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */,
 				A2EC47CB2A8A962600401B03 /* DetailGoalInfoViewController.swift */,
 				A23E8B9F2A900EEC0051D135 /* DeleteGoalViewController.swift */,
 				A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */,
@@ -816,6 +819,7 @@
 		A2FA59332A7FD710006ACA2E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C90C48F02A93853D00E7E8B0 /* OnboardingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -882,6 +886,7 @@
 				A2B20D552A7E3F05001ED73C /* Alamofire */,
 				C9B2CDE02A8B5E9D006289A8 /* Differentiator */,
 				C9B2CDE22A8B5E9D006289A8 /* RxDataSources */,
+				C90C48EE2A93777900E7E8B0 /* RxKakaoSDK */,
 			);
 			productName = Milestone;
 			productReference = A22736652A7CE53700D7B3B2 /* Milestone.app */;
@@ -962,6 +967,7 @@
 				A2B20D512A7E3EF0001ED73C /* XCRemoteSwiftPackageReference "SnapKit" */,
 				A2B20D542A7E3F05001ED73C /* XCRemoteSwiftPackageReference "Alamofire" */,
 				C9B2CDDF2A8B5E9D006289A8 /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				C90C48ED2A93777900E7E8B0 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
 			);
 			productRefGroup = A22736662A7CE53700D7B3B2 /* Products */;
 			projectDirPath = "";
@@ -1087,6 +1093,7 @@
 				A27C9A102A8E42B5002C6F44 /* EnterGoalAlarmView.swift in Sources */,
 				A289D94A2A912616005B7F00 /* WriteRetrospectStyle.swift in Sources */,
 				A2248E8B2A8A0C5400EB995A /* MoreOptionView.swift in Sources */,
+				C90C48F12A93853D00E7E8B0 /* OnboardingViewModel.swift in Sources */,
 				A265090C2A8D458300E9A2D7 /* BubbleView.swift in Sources */,
 				A289D94E2A912849005B7F00 /* IndexTextStyle.swift in Sources */,
 				A289D93E2A91223C005B7F00 /* ButtonStateStyle.swift in Sources */,
@@ -1170,7 +1177,6 @@
 				A2FA58D62A7F7A2A006ACA2E /* APIError.swift in Sources */,
 				A2B20D622A7E4FAD001ED73C /* UIView+.swift in Sources */,
 				A289D9652A922950005B7F00 /* RecommendGoalViewController.swift in Sources */,
-				A2248E8C2A8A0C5400EB995A /* MoreOptionView.swift in Sources */,
 				A2FA59112A7FCFB4006ACA2E /* Encodable+.swift in Sources */,
 				A2B969902A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */,
 				A2D304CA2A856B6B00A5BA92 /* StorageBoxViewController.swift in Sources */,
@@ -1621,6 +1627,14 @@
 				kind = branch;
 			};
 		};
+		C90C48ED2A93777900E7E8B0 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk-rx";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		C9B2CDDF2A8B5E9D006289A8 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
@@ -1671,6 +1685,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A2B20D542A7E3F05001ED73C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		C90C48EE2A93777900E7E8B0 /* RxKakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C90C48ED2A93777900E7E8B0 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
+			productName = RxKakaoSDK;
 		};
 		C9B2CDE02A8B5E9D006289A8 /* Differentiator */ = {
 			isa = XCSwiftPackageProductDependency;
