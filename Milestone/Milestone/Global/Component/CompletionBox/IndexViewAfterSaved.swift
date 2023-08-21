@@ -79,7 +79,7 @@ class IndexViewAfterSaved: UIView {
             .compactMap { $0 }
             .map { str -> NSAttributedString in
                 let style = NSMutableParagraphStyle()
-                style.lineHeightMultiple = 1.4
+                style.lineHeightMultiple = 1.2
                 let attributes = [NSMutableAttributedString.Key.paragraphStyle: style, NSMutableAttributedString.Key.font: UIFont.pretendard(.regular, ofSize: 14), NSMutableAttributedString.Key.foregroundColor: UIColor.black]
                 return NSAttributedString(string: str, attributes: attributes)
             }
