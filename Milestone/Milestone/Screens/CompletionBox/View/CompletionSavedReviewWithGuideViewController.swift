@@ -73,7 +73,7 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
     
     let fillImageView = UIImageView()
         .then {
-            $0.image = ImageLiteral.imgPlaceholder
+            $0.image = ImageLiteral.imgRetrospectView1
         }
     
     // MARK: Properties
@@ -159,9 +159,9 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
         
         fillImageView.snp.makeConstraints { make in
             make.top.equalTo(fillLabel.snp.bottom).offset(24)
-            make.leading.equalTo(view.snp.leading).offset(24)
-            make.trailing.equalTo(view.snp.trailing).offset(-24)
-            make.height.equalTo(190)
+            make.centerX.equalTo(scrollView)
+            make.width.equalTo(342)
+            make.height.equalTo(342)
             make.bottom.equalTo(scrollView.snp.bottom).offset(-16)
         }
     }
@@ -180,33 +180,33 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
             .bind(to: titleLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.goalObservable
-            .element(at: goalIndex)
-            .map { [unowned self] goal -> String in
-                return "\(self.dateFormatter.string(from: goal.startDate))" + " - " + "\(self.dateFormatter.string(from: goal.endDate))"
-            }
-            .bind(to: dateLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel.goalObservable
-            .element(at: goalIndex)
-            .flatMap { Observable.from($0.contents.enumerated()) }
-            .subscribe(onNext: { [unowned self] in
-                switch $0.offset {
-                case 0:
-                    
-                    self.firstQuestionView.textView.text = $0.element
-                case 1:
-                    self.secondQuestionView.textView.text = $0.element
-                case 2:
-                    self.thirdQuestionView.textView.text = $0.element
-                case 3:
-                    self.fourthQuestionView.textView.text = $0.element
-                default:
-                    break
-                }
-            })
-            .disposed(by: disposeBag)
+//        viewModel.goalObservable
+//            .element(at: goalIndex)
+//            .map { [unowned self] goal -> String in
+//                return "\(self.dateFormatter.string(from: goal.startDate))" + " - " + "\(self.dateFormatter.string(from: goal.endDate))"
+//            }
+//            .bind(to: dateLabel.rx.text)
+//            .disposed(by: disposeBag)
+//        
+//        viewModel.goalObservable
+//            .element(at: goalIndex)
+//            .flatMap { Observable.from($0.contents.enumerated()) }
+//            .subscribe(onNext: { [unowned self] in
+//                switch $0.offset {
+//                case 0:
+//                    
+//                    self.firstQuestionView.textView.text = $0.element
+//                case 1:
+//                    self.secondQuestionView.textView.text = $0.element
+//                case 2:
+//                    self.thirdQuestionView.textView.text = $0.element
+//                case 3:
+//                    self.fourthQuestionView.textView.text = $0.element
+//                default:
+//                    break
+//                }
+//            })
+//            .disposed(by: disposeBag)
             
         scrollView.rx.didScroll
             .asDriver()

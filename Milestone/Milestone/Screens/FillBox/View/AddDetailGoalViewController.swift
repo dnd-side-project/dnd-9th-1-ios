@@ -35,8 +35,9 @@ class AddDetailGoalViewController: BaseViewController {
         .then {
             $0.delegate = self
         }
-    lazy var completeButton = RoundedDarkButton()
+    lazy var completeButton = RoundedButton()
         .then {
+            $0.buttonComponentStyle = .primary_l
             $0.titleString = "목표 만들기 완료"
             $0.addTarget(self, action: #selector(completeAddDetailGoal), for: .touchUpInside)
         }

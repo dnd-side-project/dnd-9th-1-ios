@@ -77,7 +77,7 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
     
     let fillImageView = UIImageView()
         .then {
-            $0.image = ImageLiteral.imgPlaceholder
+            $0.image = ImageLiteral.imgRetrospectView1
         }
     
     // MARK: Properties
@@ -149,9 +149,9 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
         
         fillImageView.snp.makeConstraints { make in
             make.top.equalTo(fillLabel.snp.bottom).offset(24)
-            make.leading.equalTo(view.snp.leading).offset(24)
-            make.trailing.equalTo(view.snp.trailing).offset(-24)
-            make.height.equalTo(190)
+            make.centerX.equalTo(scrollView)
+            make.width.equalTo(342)
+            make.height.equalTo(342)
             make.bottom.equalTo(scrollView.snp.bottom).offset(-16)
         }
     }
@@ -180,20 +180,6 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
             .element(at: goalIndex)
             .map { $0.title }
             .bind(to: titleLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel.goalObservable
-            .element(at: goalIndex)
-            .map { [unowned self] goal -> String in
-                return "\(self.dateFormatter.string(from: goal.startDate))" + " - " + "\(self.dateFormatter.string(from: goal.endDate))"
-            }
-            .bind(to: dateLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel.goalObservable
-            .element(at: goalIndex)
-            .map { $0.contents.first ?? "" }
-            .bind(to: textView.rx.text)
             .disposed(by: disposeBag)
     }
     

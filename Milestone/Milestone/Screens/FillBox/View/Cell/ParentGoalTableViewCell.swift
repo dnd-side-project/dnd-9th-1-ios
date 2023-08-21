@@ -35,7 +35,6 @@ class ParentGoalTableViewCell: BaseTableViewCell {
     
     public var titleLabel = UILabel()
         .then {
-            $0.text = "토익 900점 넘기기"
             $0.font = .pretendard(.semibold, ofSize: 18)
             $0.textColor = .black
             $0.textAlignment = .left
@@ -48,7 +47,6 @@ class ParentGoalTableViewCell: BaseTableViewCell {
     
     public var termLabel = UILabel()
         .then {
-            $0.text = "2023.09.08 - 2023.12.02"
             $0.font = .pretendard(.regular, ofSize: 12)
             $0.textColor = .gray03
             $0.textAlignment = .left
@@ -61,10 +59,7 @@ class ParentGoalTableViewCell: BaseTableViewCell {
         self.selectionStyle = .none
         
         // 그림자 설정
-        self.containerView.layer.shadowColor = UIColor.init(hex: "#DCDCDC").cgColor
-        self.containerView.layer.shadowOpacity = 1.0
-        self.containerView.layer.shadowOffset = CGSize.zero
-        self.containerView.layer.shadowRadius = 7 / 2.0
+        self.containerView.makeShadow(color: .init(hex: "#DCDCDC"), alpha: 1.0, x: 0, y: 0, blur: 7, spread: 0)
     }
     
     override func render() {
@@ -100,8 +95,5 @@ class ParentGoalTableViewCell: BaseTableViewCell {
             $0.left.equalTo(calendarImageView.snp.right).offset(8)
             $0.centerY.equalTo(calendarImageView)
         }
-    }
-    
-    override func bind() {
     }
 }
