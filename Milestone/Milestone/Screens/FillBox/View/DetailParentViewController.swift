@@ -12,6 +12,13 @@ import RxSwift
 import SnapKit
 import Then
 
+struct DetailGoalTemp: Codable {
+    var id: Int = 0 // 작성순을 위해 임시로 넣어놓은 값
+    var isSet: Bool = true
+    var isCompleted: Bool = false
+    var title: String = ""
+}
+
 // MARK: - 상위 목표 상세 보기 화면
 
 class DetailParentViewController: BaseViewController {
@@ -100,18 +107,18 @@ class DetailParentViewController: BaseViewController {
     
     // MARK: - Properties
     
-    private var goalData: [DetailGoal] = [
-//        DetailGoal(id: 0, isCompleted: true, title: "해커스 1000 LC 2 풀기"), DetailGoal(id: 1, isCompleted: true, title: "영단기 1000 RC 풀기"), DetailGoal(id: 2, isCompleted: true, title: "동사, 전치사 어휘 외우기"),
-//        DetailGoal(id: 3, isCompleted: true, title: "오답 지문 해석하기"), DetailGoal(id: 4, title: "기출 문제 3회독 하기"), DetailGoal(id: 5, title: "단어 500개 외우기"),
-//        DetailGoal(id: 6, title: "문법 문장 20개 외우기"), DetailGoal(id: 7, title: "모르는 단어 정리해두기")
+    private var goalData: [DetailGoalTemp] = [
+        DetailGoalTemp(id: 0, isCompleted: true, title: "해커스 1000 LC 2 풀기"), DetailGoalTemp(id: 1, isCompleted: true, title: "영단기 1000 RC 풀기"), DetailGoalTemp(id: 2, isCompleted: true, title: "동사, 전치사 어휘 외우기"),
+        DetailGoalTemp(id: 3, isCompleted: true, title: "오답 지문 해석하기"), DetailGoalTemp(id: 4, title: "기출 문제 3회독 하기"), DetailGoalTemp(id: 5, title: "단어 500개 외우기"),
+        DetailGoalTemp(id: 6, title: "문법 문장 20개 외우기"), DetailGoalTemp(id: 7, title: "모르는 단어 정리해두기")
     ]
     
     // goalData를 정렬한, 테이블뷰에 보여줄 데이터
-//    lazy var sortedGoalData: [DetailGoal] = {
-//        return sortGoalForCheckList(goalArray: goalData)
-//    }()
+    lazy var sortedGoalData: [DetailGoalTemp] = {
+        return sortGoalForCheckList(goalArray: goalData)
+    }()
     // 세부 목표를 추가해주세요! 데이터
-    private var emptyGoal: DetailGoal?
+    private var emptyGoal: DetailGoalTemp?
     private var couchMarkKey: String = UserDefaultsKeyStyle.couchMark.rawValue
     
     // MARK: - Life Cycle
@@ -181,7 +188,7 @@ class DetailParentViewController: BaseViewController {
     /// 세부 목표를 추가해주세요! 뷰가 필요한 경우를 위해 설정하는 코드
     private func setEmptyGoalForCollectionView() {
         if goalData.count < 9 {
-//            self.emptyGoal = DetailGoal(isSet: false)
+            self.emptyGoal = DetailGoalTemp(isSet: false)
         }
     }
     
@@ -206,20 +213,20 @@ class DetailParentViewController: BaseViewController {
     /// 체크리스트(TableView)를 위해 goalData를 정렬하는 함수
     /// 리스트는 id순(작성순)으로 정렬되어야 한다
     /// 또한 완료된 목표는 완료되지 않은 목표들보다 뒤에 위치해야 한다
-//    private func sortGoalForCheckList(goalArray: [DetailGoal]) -> [DetailGoal] {
-//        return goalArray.sorted {
-//            if $0.isCompleted == $1.isCompleted {
-//                return $0.id < $1.id
-//            } else {
-//                return !$0.isCompleted && $1.isCompleted
-//            }
-//        }
-//    }
+    private func sortGoalForCheckList(goalArray: [DetailGoalTemp]) -> [DetailGoalTemp] {
+        return goalArray.sorted {
+            if $0.isCompleted == $1.isCompleted {
+                return $0.id < $1.id
+            } else {
+                return !$0.isCompleted && $1.isCompleted
+            }
+        }
+    }
     
     /// 파라미터로 받은 id가 배열에서 몇 번째 인덱스에 위치해 있는지 반환
-//    private func findIndex(id: Int, goalArray: [DetailGoal]) -> Int? {
-//        return goalArray.firstIndex { $0.id == id }
-//    }
+    private func findIndex(id: Int, goalArray: [DetailGoalTemp]) -> Int? {
+        return goalArray.firstIndex { $0.id == id }
+    }
     
     // MARK: - @objc Functions
     
@@ -270,31 +277,30 @@ extension DetailParentViewController: UICollectionViewDataSource, UICollectionVi
 
 extension DetailParentViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-//        sortedGoalData.count
+        sortedGoalData.count
     }
                          
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailGoalTableViewCell.identifier, for: indexPath) as? DetailGoalTableViewCell else { return UITableViewCell() }
-//        cell.update(content: sortedGoalData[indexPath.row])
+        cell.update(content: sortedGoalData[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = indexPath.row
-//        let selectedGoalId = sortedGoalData[row].id
-//
-//        sortedGoalData[row].isCompleted.toggle() // 원본 배열의 isCompleted 값 변경
-//        sortedGoalData = sortGoalForCheckList(goalArray: sortedGoalData) // 원본 배열 재정렬
+        let selectedGoalId = sortedGoalData[row].id
+
+        sortedGoalData[row].isCompleted.toggle() // 원본 배열의 isCompleted 값 변경
+        sortedGoalData = sortGoalForCheckList(goalArray: sortedGoalData) // 원본 배열 재정렬
         
-//        let newIndex = findIndex(id: selectedGoalId, goalArray: sortedGoalData) // 재정렬된 배열과 비교하여 완료도가 업데이트된 목표가 들어가야할 인덱스를 찾는다
-//        let destIndexPath = IndexPath(row: newIndex ?? 0, section: 0) // 목적지 indexPath
-//        tableView.moveRow(at: indexPath, to: destIndexPath) // 해당 인덱스로 셀 이동
-//        
-//        guard let movedCell = tableView.cellForRow(at: destIndexPath) as? DetailGoalTableViewCell else { return } // 이동한 셀
-//        movedCell.update(content: sortedGoalData[newIndex ?? 0]) // 이동한 셀 UI 업데이트
+        let newIndex = findIndex(id: selectedGoalId, goalArray: sortedGoalData) // 재정렬된 배열과 비교하여 완료도가 업데이트된 목표가 들어가야할 인덱스를 찾는다
+        let destIndexPath = IndexPath(row: newIndex ?? 0, section: 0) // 목적지 indexPath
+        tableView.moveRow(at: indexPath, to: destIndexPath) // 해당 인덱스로 셀 이동
         
-//        goalData[selectedGoalId].isCompleted.toggle() // 원본 배열의 isCompleted 값 변경
+        guard let movedCell = tableView.cellForRow(at: destIndexPath) as? DetailGoalTableViewCell else { return } // 이동한 셀
+        movedCell.update(content: sortedGoalData[newIndex ?? 0]) // 이동한 셀 UI 업데이트
+        
+        goalData[selectedGoalId].isCompleted.toggle() // 원본 배열의 isCompleted 값 변경
         self.detailGoalCollectionView.reloadData()
     }
 }

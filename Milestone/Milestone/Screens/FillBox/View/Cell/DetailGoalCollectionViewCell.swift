@@ -103,12 +103,12 @@ class DetailGoalCollectionViewCell: BaseCollectionViewCell {
     }
     
     /// 셀 내용 업데이트
-    func update(content: DetailGoal, index: Int) {
-//        self.index = index
-//        titleLabel.rx.text.onNext(content.title)
-//        isSet.accept(content.isSet)
-//        if content.isSet { // 세팅되지 않은 값은 완료를 고려 안함
-//            isCompleted.accept(content.isCompleted)
-//        }
+    func update(content: DetailGoalTemp, index: Int) {
+        self.index = index
+        titleLabel.rx.text.onNext(content.title)
+        isSet.accept(content.isSet)
+        if content.isSet { // 세팅되지 않은 값은 완료를 고려 안함
+            isCompleted.accept(content.isCompleted)
+        }
     }
 }

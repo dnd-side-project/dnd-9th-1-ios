@@ -159,8 +159,9 @@ extension StorageBoxViewController: UITableViewDelegate, UITableViewDataSource {
     }
     // 보관함 빈 화면 잘 나오는지 테스트하기 위한 용도입니다!!!
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        goalsValue.remove(at: indexPath.row) // 삭제
-        goals.accept(goalsValue) // 변경된 배열로 업데이트
-        tableView.reloadData() // 테이블뷰 UI 업데이트
+//        goalsValue.remove(at: indexPath.row) // 삭제
+//        goals.accept(goalsValue) // 변경된 배열로 업데이트
+//        tableView.reloadData() // 테이블뷰 UI 업데이트
+        push(viewController: DetailParentViewController())
     }
 }

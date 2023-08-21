@@ -89,7 +89,8 @@ class DetailGoalTableViewCell: BaseTableViewCell {
     }
     
     /// 셀 내용 업데이트
-    func update(content: DetailGoal) {
+    func update(content: DetailGoalTemp) {
         titleLabel.rx.text.onNext(content.title)
+        isCompleted.accept(content.isCompleted)
     }
 }
