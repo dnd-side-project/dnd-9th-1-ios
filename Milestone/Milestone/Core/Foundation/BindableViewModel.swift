@@ -9,7 +9,7 @@ import Foundation
 
 import RxSwift
 
-protocol BindableViewModel: Input, Output {
+protocol BindableViewModel {
     var apiSession: APIService { get }
     
     var bag: DisposeBag { get }

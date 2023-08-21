@@ -9,11 +9,9 @@ import Foundation
 import RxSwift
 
 protocol ServicesUser: Service {
-    func getPost() -> Observable<Result<Post, APIError>>
+    
 }
 
 extension ServicesUser {
-    func getPost() -> Observable<Result<Post, APIError>> {
-        return apiSession.request(.getPosts(id: 0))
-    }
+    
 }

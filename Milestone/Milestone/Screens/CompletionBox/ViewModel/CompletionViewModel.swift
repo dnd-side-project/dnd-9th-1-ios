@@ -16,10 +16,6 @@ enum Style {
 }
 
 // FIXME: 지우기
-protocol PostModelOutput: Lodable {
-    var _posts: BehaviorRelay<[Post]> { get }
-    var onError: PublishSubject<APIError?> { get }
-}
 
 struct Goal: IdentifiableType, Equatable {
     let title: String
@@ -39,22 +35,6 @@ class CompletionViewModel: BindableViewModel {
     var apiSession: APIService = APISession()
     
     var bag = DisposeBag()
-    var input = Input()
-    var output = Output()
-    var utilityQueue = OperationQueue()
-    
-    struct Input { }
-    struct Output: PostModelOutput{
-        var _posts: BehaviorRelay<[Post]> = .init(value: [])
-        var onError: PublishSubject<APIError?> = .init()
-        var loading: BehaviorRelay<Bool> = .init(value: false)
-    }
-    
-    init() {
-        bindInput()
-        bindOutput()
-    }
-    
     
     // MARK: Properties
     private var goalList = [
@@ -83,37 +63,3 @@ class CompletionViewModel: BindableViewModel {
         bag = DisposeBag()
     }
 }
-
-extension CompletionViewModel {
-    func bindInput() {
-        createPost()
-            .subscribe(onNext: { result in
-                switch result {
-                case .success(let post):
-                    print(post)
-                case .failure(let error):
-                    print(error)
-                }
-            })
-            .disposed(by: bag)
-    }
-}
-
-extension CompletionViewModel {
-    func bindOutput() {
-        getPost()
-            .subscribe(onNext: { result in
-                switch result {
-                case .success(let post):
-                    print(post)
-                    // self.post = post
-                case .failure(let error):
-                    print(error)
-                    //
-                }
-            })
-            .disposed(by: bag)
-    }
-}
-
-extension CompletionViewModel: ServicesPost { }

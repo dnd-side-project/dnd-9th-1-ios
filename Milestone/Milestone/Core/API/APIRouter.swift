@@ -12,17 +12,14 @@ import Alamofire
 enum APIRouter: URLRequestConvertible {
     
     /// 엔드포인트 리스트
-    case getPosts(id: Int)
-    case createPost(post: Post)
+    case retrieveAllGoals
     
     // MARK: - HttpMethod
     /// switch - self 구문으로 각 엔드포인트별 메서드 지정
     private var method: HTTPMethod {
         switch self {
-        case .getPosts:
+        case .retrieveAllGoals:
             return .get
-        case .createPost:
-            return .post
         }
     }
     
@@ -30,10 +27,8 @@ enum APIRouter: URLRequestConvertible {
     /// switch - self 구문으로 각 엔드포인트별 URL Path 지정
     private var path: String {
         switch self {
-        case .getPosts:
-            return "/posts"
-        case .createPost:
-            return "/posts"
+        case .retrieveAllGoals:
+            return "/goals"
         }
     }
     
@@ -42,15 +37,8 @@ enum APIRouter: URLRequestConvertible {
     /// 빈 body를 보낼때는 nil값 전달
     private var parameters: Parameters? {
         switch self {
-        case .getPosts:
+        case .retrieveAllGoals:
             return nil
-        case .createPost(let post):
-            return [
-                K.Parameters.id: post.id,
-                K.Parameters.title: post.title,
-                K.Parameters.body: post.body,
-                K.Parameters.userId: post.userId
-            ]
         }
     }
     

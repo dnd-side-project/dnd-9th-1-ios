@@ -188,7 +188,6 @@
 		C9B2CE132A8F5142006289A8 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE122A8F5142006289A8 /* APIError.swift */; };
 		C9B2CE152A8F514A006289A8 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE142A8F514A006289A8 /* APIService.swift */; };
 		C9B2CE172A8F5267006289A8 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE162A8F5267006289A8 /* APIRouter.swift */; };
-		C9B2CE1B2A8F5355006289A8 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE1A2A8F5355006289A8 /* Post.swift */; };
 		C9B2CE1D2A8F5783006289A8 /* APISession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE1C2A8F5783006289A8 /* APISession.swift */; };
 		C9B2CE202A8F62B2006289A8 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE1F2A8F62B2006289A8 /* Service.swift */; };
 		C9B2CE222A8F672C006289A8 /* ServicesUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE212A8F672C006289A8 /* ServicesUser.swift */; };
@@ -197,8 +196,6 @@
 		C9B2CE322A8F9B9F006289A8 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE312A8F9B9F006289A8 /* Input.swift */; };
 		C9B2CE342A8F9BBC006289A8 /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE332A8F9BBC006289A8 /* Output.swift */; };
 		C9B2CE362A8F9BC9006289A8 /* Lodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE352A8F9BC9006289A8 /* Lodable.swift */; };
-		C9B2CE3D2A8FA892006289A8 /* ServicesPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE3C2A8FA892006289A8 /* ServicesPost.swift */; };
-		C9B2CE402A8FAE77006289A8 /* PostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE3F2A8FAE77006289A8 /* PostResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -304,7 +301,6 @@
 		C9B2CE122A8F5142006289A8 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		C9B2CE142A8F514A006289A8 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		C9B2CE162A8F5267006289A8 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
-		C9B2CE1A2A8F5355006289A8 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		C9B2CE1C2A8F5783006289A8 /* APISession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APISession.swift; sourceTree = "<group>"; };
 		C9B2CE1F2A8F62B2006289A8 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		C9B2CE212A8F672C006289A8 /* ServicesUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesUser.swift; sourceTree = "<group>"; };
@@ -313,8 +309,6 @@
 		C9B2CE312A8F9B9F006289A8 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		C9B2CE332A8F9BBC006289A8 /* Output.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
 		C9B2CE352A8F9BC9006289A8 /* Lodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lodable.swift; sourceTree = "<group>"; };
-		C9B2CE3C2A8FA892006289A8 /* ServicesPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesPost.swift; sourceTree = "<group>"; };
-		C9B2CE3F2A8FAE77006289A8 /* PostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -698,7 +692,6 @@
 		C9B2CE192A8F533C006289A8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C9B2CE3E2A8FAE6C006289A8 /* Post */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -709,7 +702,6 @@
 				C9B2CE1F2A8F62B2006289A8 /* Service.swift */,
 				C9B2CE212A8F672C006289A8 /* ServicesUser.swift */,
 				C9B2CE232A8F673C006289A8 /* ServicesGoalList.swift */,
-				C9B2CE3C2A8FA892006289A8 /* ServicesPost.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -723,15 +715,6 @@
 				C9B2CE352A8F9BC9006289A8 /* Lodable.swift */,
 			);
 			path = Foundation;
-			sourceTree = "<group>";
-		};
-		C9B2CE3E2A8FAE6C006289A8 /* Post */ = {
-			isa = PBXGroup;
-			children = (
-				C9B2CE1A2A8F5355006289A8 /* Post.swift */,
-				C9B2CE3F2A8FAE77006289A8 /* PostResponse.swift */,
-			);
-			path = Post;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -947,14 +930,12 @@
 				C9B2CE362A8F9BC9006289A8 /* Lodable.swift in Sources */,
 				A28EDA112A87808A001A021A /* UIViewController+.swift in Sources */,
 				A2B9698F2A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */,
-				C9B2CE1B2A8F5355006289A8 /* Post.swift in Sources */,
 				C90DC9882A891A8500241B7C /* OnboardingViewControllerLast.swift in Sources */,
 				A2D304BD2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
 				A2FA592D2A7FD433006ACA2E /* NSObject+.swift in Sources */,
 				A28EDA192A879565001A021A /* DetailParentViewController.swift in Sources */,
 				C9B2CDEF2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift in Sources */,
 				C9B2CDE92A8BCBE0006289A8 /* CompletionBoxCoordinator.swift in Sources */,
-				C9B2CE402A8FAE77006289A8 /* PostResponse.swift in Sources */,
 				A2248E872A8A076D00EB995A /* MoreViewController.swift in Sources */,
 				A2C98F0E2A8B7A99009B5579 /* EnterGoalDateView.swift in Sources */,
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
@@ -969,7 +950,6 @@
 				A2248E832A8818AD00EB995A /* DetailGoalTableViewCell.swift in Sources */,
 				A2EC47D02A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */,
 				C90DC97A2A88814700241B7C /* Coordinator.swift in Sources */,
-				C9B2CE3D2A8FA892006289A8 /* ServicesPost.swift in Sources */,
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
 				C9B2CE052A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift in Sources */,
 				A2C98F022A8B6117009B5579 /* AddParentGoalViewController.swift in Sources */,
