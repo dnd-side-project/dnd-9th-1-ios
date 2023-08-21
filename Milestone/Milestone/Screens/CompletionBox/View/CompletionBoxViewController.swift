@@ -99,31 +99,31 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                 .subscribe(onNext: { [weak self] _ in
                     guard let self = self else { return }
                     
-                    self.viewModel.goalObservable
-                        .element(at: index)
-                        .subscribe(onNext: {
-                            
-                            if $0.isCompleted {
-                                switch $0.style {
-                                case .guide:
-                                    var savedReviewViewWithGuide = CompletionSavedReviewWithGuideViewController()
-                                    savedReviewViewWithGuide.goalIndex = index
-                                    savedReviewViewWithGuide.bind(viewModel: self.viewModel)
-                                    self.push(viewController: savedReviewViewWithGuide)
-                                case .free:
-                                    var savedReviewViewWithoutGuide = CompletionSavedReviewWithoutGuideViewController()
-                                    savedReviewViewWithoutGuide.goalIndex = index
-                                    savedReviewViewWithoutGuide.bind(viewModel: self.viewModel)
-                                    self.push(viewController: savedReviewViewWithoutGuide)
-                                }
-                            } else {
-                                var reviewVC = CompletionReviewViewController()
-                                reviewVC.goalIndex = index
-                                reviewVC.bind(viewModel: self.viewModel)
-                                self.push(viewController: reviewVC)
-                            }
-                        })
-                        .disposed(by: self.disposeBag)
+//                    self.viewModel.goalObservable
+//                        .element(at: index)
+//                        .subscribe(onNext: {
+//
+//                            if $0.isCompleted {
+//                                switch $0.style {
+//                                case .guide:
+//                                    var savedReviewViewWithGuide = CompletionSavedReviewWithGuideViewController()
+//                                    savedReviewViewWithGuide.goalIndex = index
+//                                    savedReviewViewWithGuide.bind(viewModel: self.viewModel)
+//                                    self.push(viewController: savedReviewViewWithGuide)
+//                                case .free:
+//                                    var savedReviewViewWithoutGuide = CompletionSavedReviewWithoutGuideViewController()
+//                                    savedReviewViewWithoutGuide.goalIndex = index
+//                                    savedReviewViewWithoutGuide.bind(viewModel: self.viewModel)
+//                                    self.push(viewController: savedReviewViewWithoutGuide)
+//                                }
+//                            } else {
+//                                var reviewVC = CompletionReviewViewController()
+//                                reviewVC.goalIndex = index
+//                                reviewVC.bind(viewModel: self.viewModel)
+//                                self.push(viewController: reviewVC)
+//                            }
+//                        })
+//                        .disposed(by: self.disposeBag)
                 }))
         }
 
@@ -172,9 +172,9 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     }
     
     func bindViewModel() {
-        viewModel.completionList
-            .bind(to: tableView.rx.items(dataSource: dataSource()))
-            .disposed(by: disposeBag)
+//        viewModel.completionList
+//            .bind(to: tableView.rx.items(dataSource: dataSource()))
+//            .disposed(by: disposeBag)
         
         viewModel.completionList
             .map { !$0.isEmpty }
@@ -238,43 +238,43 @@ extension CompletionBoxViewController {
     private func dataSource() -> RxTableViewSectionedAnimatedDataSource<CompletionSectionModel> {
         return RxTableViewSectionedAnimatedDataSource<CompletionSectionModel> { dataSource, tableView, indexPath, goal in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CompletionTableViewCell.identifier, for: indexPath) as? CompletionTableViewCell else { return UITableViewCell() }
-            
-            if indexPath.section == 0 {
-                let completionView = CompletionAlertView()
-                
-                cell.contentView.addSubview(completionView)
-                completionView.snp.makeConstraints { make in
-                    make.margins.equalTo(cell.contentView.snp.margins)
-                }
-                cell.calendarImageView.isHidden = true
-                cell.button.isHidden = true
-                cell.completionImageView.isHidden = true
-                cell.dateLabel.isHidden = true
-                cell.label.isHidden = true
-                
-                return cell
-            }
-            
-            cell.label.text = goal.title
-            
-            let dateFormatter = DateFormatter().then { $0.dateFormat = "yyyy.MM.dd" }
-            let startDateString = dateFormatter.string(from: goal.startDate)
-            let endDateString = dateFormatter.string(from: goal.endDate)
-            
-            cell.dateLabel.text = startDateString + " - " + endDateString
-            
-            if goal.isCompleted {
-                cell.button.setTitle("회고 보기", for: .normal)
-                cell.button.setTitleColor(.primary, for: .normal)
-                cell.button.backgroundColor = .white
-                cell.button.layer.borderColor = UIColor.secondary01.cgColor
-                cell.button.layer.borderWidth = 1
-            } else {
-                cell.button.setTitle("회고 작성하기", for: .normal)
-                cell.button.setTitleColor(.primary, for: .normal)
-                cell.backgroundColor = .secondary03
-                cell.layer.borderColor = UIColor.clear.cgColor
-            }
+//            
+//            if indexPath.section == 0 {
+//                let completionView = CompletionAlertView()
+//                
+//                cell.contentView.addSubview(completionView)
+//                completionView.snp.makeConstraints { make in
+//                    make.margins.equalTo(cell.contentView.snp.margins)
+//                }
+//                cell.calendarImageView.isHidden = true
+//                cell.button.isHidden = true
+//                cell.completionImageView.isHidden = true
+//                cell.dateLabel.isHidden = true
+//                cell.label.isHidden = true
+//                
+//                return cell
+//            }
+//            
+//            cell.label.text = goal.title
+//            
+//            let dateFormatter = DateFormatter().then { $0.dateFormat = "yyyy.MM.dd" }
+//            let startDateString = dateFormatter.string(from: goal.startDate)
+//            let endDateString = dateFormatter.string(from: goal.endDate)
+//            
+//            cell.dateLabel.text = startDateString + " - " + endDateString
+//            
+//            if goal.isCompleted {
+//                cell.button.setTitle("회고 보기", for: .normal)
+//                cell.button.setTitleColor(.primary, for: .normal)
+//                cell.button.backgroundColor = .white
+//                cell.button.layer.borderColor = UIColor.secondary01.cgColor
+//                cell.button.layer.borderWidth = 1
+//            } else {
+//                cell.button.setTitle("회고 작성하기", for: .normal)
+//                cell.button.setTitleColor(.primary, for: .normal)
+//                cell.backgroundColor = .secondary03
+//                cell.layer.borderColor = UIColor.clear.cgColor
+//            }
             
             return cell
         }

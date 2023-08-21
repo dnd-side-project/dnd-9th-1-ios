@@ -208,14 +208,6 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
             .bind(to: titleLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.goalObservable
-            .element(at: goalIndex!)
-            .map { [unowned self] in
-                self.dateFormatter.string(from: $0.startDate) + " - " + self.dateFormatter.string(from: $0.endDate)
-            }
-            .bind(to: dateLabel.rx.text)
-            .disposed(by: disposeBag)
-        
         segmentedControl.rx.value.changed
             .asDriver()
             .drive(onNext: { [unowned self] value in

@@ -44,8 +44,8 @@ class StorageBoxViewController: BaseViewController {
             $0.separatorStyle = .none
             $0.showsVerticalScrollIndicator = false
             $0.register(cell: ParentGoalTableViewCell.self, forCellReuseIdentifier: ParentGoalTableViewCell.identifier)
-            $0.dataSource = self
-            $0.delegate = self
+//            $0.dataSource = self
+//            $0.delegate = self
         }
     let headerContainerView = UIView()
     lazy var alertView = CompletionAlertView()
@@ -56,8 +56,8 @@ class StorageBoxViewController: BaseViewController {
     
     // MARK: - Properties
     
-    var goals = BehaviorRelay<[ParentGoal]>(value: [ParentGoal()])
-    lazy var goalsValue = goals.value
+//    var goals = BehaviorRelay<[ParentGoal]>(value: [ParentGoal()])
+//    lazy var goalsValue = goals.value
     
     // MARK: - Life Cycle
     
@@ -65,7 +65,7 @@ class StorageBoxViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         // 보관함의 빈 화면과 보관함 채워져있는 화면 간의 전환하는 테스트를 위해 화면 보일 때마다 계속 1개씩 추가해줌
-        goalsValue.append(ParentGoal())
+//        goalsValue.append(ParentGoal())
         updateStorageVisibility()
     }
     
@@ -100,67 +100,68 @@ class StorageBoxViewController: BaseViewController {
     }
     
     override func bindUI() {
-        goals
-            .subscribe { [unowned self] _ in
-                updateStorageVisibility()
-            }
-            .disposed(by: disposeBag)
+//        goals
+//            .subscribe { [unowned self] _ in
+//                updateStorageVisibility()
+//            }
+//            .disposed(by: disposeBag)
     }
     
     /// goals의 개수에 따라 보관함의 뷰의 isHidden 상태와 label에 적히는 목표 개수를 업데이트 한다
     private func updateStorageVisibility() {
-        [emptyStorageImageView, firstEmptyGuideLabel, secondEmptyGuideLabel]
-            .forEach { $0.isHidden = !goalsValue.isEmpty }
-        storageGoalTableView.isHidden = goalsValue.isEmpty
-        storageGoalTableView.reloadData()
-        updateStorageBoxTopLabel()
+//        [emptyStorageImageView, firstEmptyGuideLabel, secondEmptyGuideLabel]
+//            .forEach { $0.isHidden = !goalsValue.isEmpty }
+//        storageGoalTableView.isHidden = goalsValue.isEmpty
+//        storageGoalTableView.reloadData()
+//        updateStorageBoxTopLabel()
     }
     
     /// 보관함 맨 위 label에 들어가는 목표 개수 정보와 스타일을 업데이트 해줌
     private func updateStorageBoxTopLabel() {
-        let stringValue = "총 \(goalsValue.count)개의 목표가 보관되어있어요!"
-        alertView.label.text = stringValue
-        alertView.label.textColor = .black
-        let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
-        attributedString.setColorForText(textForAttribute: "총 \(goalsValue.count)개의 목표", withColor: .pointPurple)
-        alertView.label.attributedText = attributedString
+//        let stringValue = "총 \(goalsValue.count)개의 목표가 보관되어있어요!"
+//        alertView.label.text = stringValue
+//        alertView.label.textColor = .black
+//        let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
+//        attributedString.setColorForText(textForAttribute: "총 \(goalsValue.count)개의 목표", withColor: .pointPurple)
+//        alertView.label.attributedText = attributedString
     }
 }
 
-extension StorageBoxViewController: UITableViewDelegate, UITableViewDataSource {
-    // alert 뷰를 헤더뷰로 설정
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        headerContainerView.addSubview(alertView)
-        alertView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.left.right.equalToSuperview().inset(4)
-            make.height.equalTo(60)
-        } // 컨테이너 안에서 레이아웃 조정
-        return headerContainerView
-    }
-    // 헤더뷰 높이 설정
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        60 + 8
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        goalsValue.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ParentGoalTableViewCell.identifier, for: indexPath) as? ParentGoalTableViewCell else { return UITableViewCell() }
-        let goal = goalsValue[indexPath.row]
-        cell.titleLabel.text = goal.title
-        cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
-        return cell
-    }
-    // 셀 높이 설정
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        96 + 16
-    }
-    // 보관함 빈 화면 잘 나오는지 테스트하기 위한 용도입니다!!!
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        goalsValue.remove(at: indexPath.row) // 삭제
-        goals.accept(goalsValue) // 변경된 배열로 업데이트
-        tableView.reloadData() // 테이블뷰 UI 업데이트
-    }
-}
+//extension StorageBoxViewController: UITableViewDelegate, UITableViewDataSource {
+//    // alert 뷰를 헤더뷰로 설정
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        headerContainerView.addSubview(alertView)
+//        alertView.snp.makeConstraints { make in
+//            make.top.equalToSuperview()
+//            make.left.right.equalToSuperview().inset(4)
+//            make.height.equalTo(60)
+//        } // 컨테이너 안에서 레이아웃 조정
+//        return headerContainerView
+//    }
+//    // 헤더뷰 높이 설정
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        60 + 8
+//    }
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 0
+////        goalsValue.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: ParentGoalTableViewCell.identifier, for: indexPath) as? ParentGoalTableViewCell else { return UITableViewCell() }
+//        let goal = goalsValue[indexPath.row]
+//        cell.titleLabel.text = goal.title
+//        cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
+//        return cell
+//    }
+//    // 셀 높이 설정
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        96 + 16
+//    }
+//    // 보관함 빈 화면 잘 나오는지 테스트하기 위한 용도입니다!!!
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        goalsValue.remove(at: indexPath.row) // 삭제
+//        goals.accept(goalsValue) // 변경된 배열로 업데이트
+//        tableView.reloadData() // 테이블뷰 UI 업데이트
+//    }
+//}

@@ -26,8 +26,8 @@ class FillBoxViewController: BaseViewController {
             $0.separatorStyle = .none
             $0.showsVerticalScrollIndicator = false
             $0.register(cell: ParentGoalTableViewCell.self, forCellReuseIdentifier: ParentGoalTableViewCell.identifier)
-            $0.dataSource = self
-            $0.delegate = self
+//            $0.dataSource = self
+//            $0.delegate = self
         }
     
     lazy var addGoalButton = UIButton()
@@ -48,7 +48,7 @@ class FillBoxViewController: BaseViewController {
     // MARK: - Properties
     
     var bubbleKey = UserDefaultsKeyStyle.bubbleInFillBox.rawValue
-    var goals = [ParentGoal()]
+//    var goals = [ParentGoal()]
     
     // MARK: - Life Cycle
     
@@ -97,7 +97,7 @@ class FillBoxViewController: BaseViewController {
     private func addBubbleView() {
         view.addSubview(bubbleView)
         bubbleView.snp.makeConstraints { make in
-            Logger.debugDescription(parentGoalTableView.visibleCells)
+//            Logger.debugDescription(parentGoalTableView.visibleCells)
             make.top.equalTo(parentGoalTableView.visibleCells[0].snp.bottom).offset(8)
             make.centerX.equalToSuperview()
             make.width.equalTo(268)
@@ -106,11 +106,11 @@ class FillBoxViewController: BaseViewController {
     }
     
     private func didScrollTableView() {
-        parentGoalTableView.rx.didScroll
-            .subscribe { [weak self] _ in
-                self?.removeBubbleView()
-            }
-            .disposed(by: disposeBag)
+//        parentGoalTableView.rx.didScroll
+//            .subscribe { [weak self] _ in
+//                self?.removeBubbleView()
+//            }
+//            .disposed(by: disposeBag)
     }
     
     private func removeBubbleView() {
@@ -139,34 +139,34 @@ class FillBoxViewController: BaseViewController {
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
 
-extension FillBoxViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    // 헤더뷰로 설정해서 같이 스크롤 되게 함
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        parentGoalHeaderView
-    }
-    // 헤더뷰 높이 설정
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        80 + 8
-    }
-    // 셀 높이 설정
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        96 + 16
-    }
-    // 셀(상위 목표) 개수
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        goals.count
-    }
-    // 셀 내용 구성
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ParentGoalTableViewCell.identifier, for: indexPath) as? ParentGoalTableViewCell else { return UITableViewCell() }
-        let goal = goals[indexPath.row]
-        cell.titleLabel.text = goal.title
-        cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
-        return cell
-    }
-    // 셀 클릭 시 실행
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        push(viewController: DetailParentViewController())
-    }
-}
+//extension FillBoxViewController: UITableViewDataSource, UITableViewDelegate {
+//
+//    // 헤더뷰로 설정해서 같이 스크롤 되게 함
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        parentGoalHeaderView
+//    }
+//    // 헤더뷰 높이 설정
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        80 + 8
+//    }
+//    // 셀 높이 설정
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        96 + 16
+//    }
+//    // 셀(상위 목표) 개수
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        goals.count
+//    }
+//    // 셀 내용 구성
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: ParentGoalTableViewCell.identifier, for: indexPath) as? ParentGoalTableViewCell else { return UITableViewCell() }
+//        let goal = goals[indexPath.row]
+//        cell.titleLabel.text = goal.title
+//        cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
+//        return cell
+//    }
+//    // 셀 클릭 시 실행
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        push(viewController: DetailParentViewController())
+//    }
+//}
