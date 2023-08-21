@@ -44,9 +44,6 @@
 		A27C9A0D2A8E4258002C6F44 /* AddDetailGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */; };
 		A27C9A0E2A8E4258002C6F44 /* AddDetailGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */; };
 		A27C9A102A8E42B5002C6F44 /* EnterGoalAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C9A0F2A8E42B5002C6F44 /* EnterGoalAlarmView.swift */; };
-		A289D9642A922950005B7F00 /* RecommendGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */; };
-		A289D9652A922950005B7F00 /* RecommendGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */; };
-		A289D9662A922950005B7F00 /* RecommendGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */; };
 		A289D93E2A91223C005B7F00 /* ButtonStateStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D93D2A91223C005B7F00 /* ButtonStateStyle.swift */; };
 		A289D93F2A912241005B7F00 /* ButtonStateStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D93D2A91223C005B7F00 /* ButtonStateStyle.swift */; };
 		A289D9402A912241005B7F00 /* ButtonStateStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D93D2A91223C005B7F00 /* ButtonStateStyle.swift */; };
@@ -71,6 +68,9 @@
 		A289D9602A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D95F2A913400005B7F00 /* UpdateButtonStateDelegate.swift */; };
 		A289D9612A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D95F2A913400005B7F00 /* UpdateButtonStateDelegate.swift */; };
 		A289D9622A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D95F2A913400005B7F00 /* UpdateButtonStateDelegate.swift */; };
+		A289D9642A922950005B7F00 /* RecommendGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */; };
+		A289D9652A922950005B7F00 /* RecommendGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */; };
+		A289D9662A922950005B7F00 /* RecommendGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */; };
 		A28EDA112A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
 		A28EDA122A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
 		A28EDA132A87808A001A021A /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA102A87808A001A021A /* UIViewController+.swift */; };
@@ -153,7 +153,7 @@
 		A2C98F062A8B6122009B5579 /* EnterGoalTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C98F052A8B6122009B5579 /* EnterGoalTitleView.swift */; };
 		A2C98F0E2A8B7A99009B5579 /* EnterGoalDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C98F0D2A8B7A99009B5579 /* EnterGoalDateView.swift */; };
 		A2C98F122A8B9A8E009B5579 /* ReminderAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C98F112A8B9A8E009B5579 /* ReminderAlarmView.swift */; };
-		A2C98F162A8BA6F0009B5579 /* RoundedDarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C98F152A8BA6F0009B5579 /* RoundedDarkButton.swift */; };
+		A2C98F162A8BA6F0009B5579 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C98F152A8BA6F0009B5579 /* RoundedButton.swift */; };
 		A2D304BD2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */; };
 		A2D304BE2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */; };
 		A2D304BF2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */; };
@@ -207,6 +207,7 @@
 		A2FA592D2A7FD433006ACA2E /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA592C2A7FD433006ACA2E /* NSObject+.swift */; };
 		A2FA592E2A7FD433006ACA2E /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA592C2A7FD433006ACA2E /* NSObject+.swift */; };
 		A2FA592F2A7FD433006ACA2E /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FA592C2A7FD433006ACA2E /* NSObject+.swift */; };
+		C90C48E92A936C1D00E7E8B0 /* ButtonComponentStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90C48E82A936C1D00E7E8B0 /* ButtonComponentStyle.swift */; };
 		C90DC9272A81FF2000241B7C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C90DC9262A81FF2000241B7C /* .swiftlint.yml */; };
 		C90DC9762A876F5D00241B7C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9752A876F5D00241B7C /* AppCoordinator.swift */; };
 		C90DC97A2A88814700241B7C /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9792A88814700241B7C /* Coordinator.swift */; };
@@ -233,8 +234,8 @@
 		C9B2CE032A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */; };
 		C9B2CE052A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */; };
 		C9B2CE072A8E69E5006289A8 /* IndexViewAfterSaved.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE062A8E69E5006289A8 /* IndexViewAfterSaved.swift */; };
-		C9B2CE452A91D796006289A8 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE442A91D796006289A8 /* KeychainManager.swift */; };
 		C9B2CE432A90E76B006289A8 /* GoalAchievementRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE422A90E76B006289A8 /* GoalAchievementRateView.swift */; };
+		C9B2CE452A91D796006289A8 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE442A91D796006289A8 /* KeychainManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -280,7 +281,6 @@
 		A26509132A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailGoalStoneView.swift; sourceTree = "<group>"; };
 		A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailGoalViewController.swift; sourceTree = "<group>"; };
 		A27C9A0F2A8E42B5002C6F44 /* EnterGoalAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterGoalAlarmView.swift; sourceTree = "<group>"; };
-		A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendGoalViewController.swift; sourceTree = "<group>"; };
 		A289D93D2A91223C005B7F00 /* ButtonStateStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStateStyle.swift; sourceTree = "<group>"; };
 		A289D9412A91241C005B7F00 /* UserDefaultsKeyStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeyStyle.swift; sourceTree = "<group>"; };
 		A289D9452A91246B005B7F00 /* DayStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayStyle.swift; sourceTree = "<group>"; };
@@ -289,6 +289,7 @@
 		A289D9512A912864005B7F00 /* PointTextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointTextStyle.swift; sourceTree = "<group>"; };
 		A289D95B2A9133C7005B7F00 /* PresentDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentDelegate.swift; sourceTree = "<group>"; };
 		A289D95F2A913400005B7F00 /* UpdateButtonStateDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateButtonStateDelegate.swift; sourceTree = "<group>"; };
+		A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendGoalViewController.swift; sourceTree = "<group>"; };
 		A28EDA102A87808A001A021A /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		A28EDA142A8791F7001A021A /* DetailGoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		A28EDA182A879565001A021A /* DetailParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailParentViewController.swift; sourceTree = "<group>"; };
@@ -317,7 +318,7 @@
 		A2C98F052A8B6122009B5579 /* EnterGoalTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterGoalTitleView.swift; sourceTree = "<group>"; };
 		A2C98F0D2A8B7A99009B5579 /* EnterGoalDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterGoalDateView.swift; sourceTree = "<group>"; };
 		A2C98F112A8B9A8E009B5579 /* ReminderAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderAlarmView.swift; sourceTree = "<group>"; };
-		A2C98F152A8BA6F0009B5579 /* RoundedDarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedDarkButton.swift; sourceTree = "<group>"; };
+		A2C98F152A8BA6F0009B5579 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		A2D304BC2A854E4000A5BA92 /* FillBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBoxViewController.swift; sourceTree = "<group>"; };
 		A2D304C02A854EDE00A5BA92 /* MainSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSegmentedControl.swift; sourceTree = "<group>"; };
 		A2D304C82A856B6B00A5BA92 /* StorageBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageBoxViewController.swift; sourceTree = "<group>"; };
@@ -337,6 +338,7 @@
 		A2FA59242A7FD3B1006ACA2E /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		A2FA59282A7FD3BA006ACA2E /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		A2FA592C2A7FD433006ACA2E /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
+		C90C48E82A936C1D00E7E8B0 /* ButtonComponentStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonComponentStyle.swift; sourceTree = "<group>"; };
 		C90DC9262A81FF2000241B7C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C90DC9752A876F5D00241B7C /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		C90DC9792A88814700241B7C /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -361,8 +363,8 @@
 		C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSavedReviewWithGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSavedReviewWithoutGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CE062A8E69E5006289A8 /* IndexViewAfterSaved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewAfterSaved.swift; sourceTree = "<group>"; };
-		C9B2CE442A91D796006289A8 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		C9B2CE422A90E76B006289A8 /* GoalAchievementRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAchievementRateView.swift; sourceTree = "<group>"; };
+		C9B2CE442A91D796006289A8 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -495,6 +497,7 @@
 			isa = PBXGroup;
 			children = (
 				A289D93D2A91223C005B7F00 /* ButtonStateStyle.swift */,
+				C90C48E82A936C1D00E7E8B0 /* ButtonComponentStyle.swift */,
 				A289D9412A91241C005B7F00 /* UserDefaultsKeyStyle.swift */,
 				A289D9452A91246B005B7F00 /* DayStyle.swift */,
 				A289D9492A912616005B7F00 /* WriteRetrospectStyle.swift */,
@@ -541,7 +544,7 @@
 				A2C98F052A8B6122009B5579 /* EnterGoalTitleView.swift */,
 				A2C98F0D2A8B7A99009B5579 /* EnterGoalDateView.swift */,
 				A2C98F112A8B9A8E009B5579 /* ReminderAlarmView.swift */,
-				A2C98F152A8BA6F0009B5579 /* RoundedDarkButton.swift */,
+				A2C98F152A8BA6F0009B5579 /* RoundedButton.swift */,
 				A265090B2A8D458300E9A2D7 /* BubbleView.swift */,
 				A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */,
 				C9B2CDFE2A8DE365006289A8 /* CompleteView.swift */,
@@ -697,7 +700,6 @@
 				A265090F2A8D604100E9A2D7 /* CouchMarkViewController.swift */,
 				A2C98F012A8B6117009B5579 /* AddParentGoalViewController.swift */,
 				A28EDA182A879565001A021A /* DetailParentViewController.swift */,
-				A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */,
 				A2EC47CB2A8A962600401B03 /* DetailGoalInfoViewController.swift */,
 				A23E8B9F2A900EEC0051D135 /* DeleteGoalViewController.swift */,
 				A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */,
@@ -1070,7 +1072,7 @@
 				88216FC02A85328900FE3A77 /* LoginViewController.swift in Sources */,
 				A2C98F062A8B6122009B5579 /* EnterGoalTitleView.swift in Sources */,
 				A2B969872A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
-				A2C98F162A8BA6F0009B5579 /* RoundedDarkButton.swift in Sources */,
+				A2C98F162A8BA6F0009B5579 /* RoundedButton.swift in Sources */,
 				A289D9462A91246C005B7F00 /* DayStyle.swift in Sources */,
 				A2FA58D12A7F7A1F006ACA2E /* APIEnvironment.swift in Sources */,
 				A28EDA112A87808A001A021A /* UIViewController+.swift in Sources */,
@@ -1127,6 +1129,7 @@
 				A252C4B42A92B5AB0067B89C /* ParentGoal.swift in Sources */,
 				A289D9642A922950005B7F00 /* RecommendGoalViewController.swift in Sources */,
 				A2FA59292A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
+				C90C48E92A936C1D00E7E8B0 /* ButtonComponentStyle.swift in Sources */,
 				A23E8BA22A9013610051D135 /* AskOneOfTwoView.swift in Sources */,
 				C9B2CDE72A8BBCCC006289A8 /* TriangleView.swift in Sources */,
 				C9B2CE012A8DEBE0006289A8 /* ReviewCompleteViewController.swift in Sources */,
@@ -1176,7 +1179,6 @@
 				A2FA58D62A7F7A2A006ACA2E /* APIError.swift in Sources */,
 				A2B20D622A7E4FAD001ED73C /* UIView+.swift in Sources */,
 				A289D9652A922950005B7F00 /* RecommendGoalViewController.swift in Sources */,
-				A2248E8C2A8A0C5400EB995A /* MoreOptionView.swift in Sources */,
 				A2FA59112A7FCFB4006ACA2E /* Encodable+.swift in Sources */,
 				A2B969902A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */,
 				A2D304CA2A856B6B00A5BA92 /* StorageBoxViewController.swift in Sources */,

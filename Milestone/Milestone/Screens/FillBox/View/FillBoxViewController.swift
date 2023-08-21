@@ -119,12 +119,7 @@ class FillBoxViewController: BaseViewController {
     
     private func presentAddParentGoal() {
         let addParentGoalVC = AddParentGoalViewController()
-        addParentGoalVC.modalPresentationStyle = .pageSheet
-        
-        guard let sheet = addParentGoalVC.sheetPresentationController else { return }
-        let fraction = UISheetPresentationController.Detent.custom { _ in addParentGoalVC.viewHeight }
-        sheet.detents = [fraction]
-        self.present(addParentGoalVC, animated: true)
+        presentCustomModal(addParentGoalVC, height: addParentGoalVC.viewHeight)
     }
     
     // MARK: - @objc Functions

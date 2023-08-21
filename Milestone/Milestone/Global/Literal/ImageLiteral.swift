@@ -61,6 +61,8 @@ enum ImageLiteral {
     static var imgAppleLogo: UIImage { .load(named: "appleLogoBlack") }
     static var imgKakaoLogo: UIImage { .load(named: "kakaoLogo") }
     static var imgEmptyStorage: UIImage { .load(named: "emptyStorage") }
+    static var imgRetrospectComplete: UIImage { .load(named: "retrospectComplete") }
+    static var imgRetrospectView1: UIImage { .load(named: "retrospectView1") }
     static var imgCompleteGoal: UIImage { .load(named: "completedStonePopUp") }
     static var imgBlueStoneVer1: UIImage { .load(named: "blueStoneVer1")}
     static var imgBlueStoneVer2: UIImage { .load(named: "blueStoneVer2")}

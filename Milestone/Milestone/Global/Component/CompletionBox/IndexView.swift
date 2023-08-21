@@ -31,7 +31,7 @@ class IndexView: UIView {
             $0.backgroundColor = .gray01
             
             let style = NSMutableParagraphStyle()
-            style.lineHeightMultiple = 1.3
+            style.lineHeightMultiple = 1.2
             let attributes = [NSMutableAttributedString.Key.paragraphStyle: style, NSMutableAttributedString.Key.font: UIFont.pretendard(.regular, ofSize: 14), NSMutableAttributedString.Key.foregroundColor: UIColor.gray02]
             $0.attributedText = NSAttributedString(string: $0.text, attributes: attributes)
         }
