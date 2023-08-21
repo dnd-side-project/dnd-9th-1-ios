@@ -57,10 +57,7 @@ class ParentGoalTableViewCell: BaseTableViewCell {
         self.selectionStyle = .none
         
         // 그림자 설정
-        self.containerView.layer.shadowColor = UIColor.init(hex: "#DCDCDC").cgColor
-        self.containerView.layer.shadowOpacity = 1.0
-        self.containerView.layer.shadowOffset = CGSize.zero
-        self.containerView.layer.shadowRadius = 7 / 2.0
+        self.containerView.makeShadow(color: .init(hex: "#DCDCDC"), alpha: 1.0, x: 0, y: 0, blur: 7, spread: 0)
     }
     
     override func render() {
