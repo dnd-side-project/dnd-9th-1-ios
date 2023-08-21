@@ -19,6 +19,7 @@ class MainViewController: BaseViewController {
     private let settingButton = UIButton()
         .then {
             $0.setImage(ImageLiteral.imgSetting, for: .normal)
+            $0.configuration = .plain()
         }
     
     lazy var segmentedControl = UnderlineSegmentedControl(items: ["보관함", "채움함", "완료함"])
@@ -37,6 +38,12 @@ class MainViewController: BaseViewController {
             $0.setViewControllers([self.viewControllers[0]], direction: .forward, animated: true)
             $0.delegate = self
             $0.dataSource = self
+        }
+    
+    let recommendGoalVC = RecommendGoalViewController()
+        .then {
+            $0.modalTransitionStyle = .crossDissolve
+            $0.modalPresentationStyle = .overFullScreen
         }
     
     // MARK: - Properties
@@ -66,6 +73,13 @@ class MainViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        
+        // 현재 떠있는 VC가 채움함일 때
+        if let currentViewController = pageViewController.viewControllers?.first {
+            if currentViewController == fillBoxVC {
+                checkAfterCompleteGoal()
+            }
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -74,6 +88,16 @@ class MainViewController: BaseViewController {
     }
     
     // MARK: - Functions
+    
+    /// 목표를 완료한 후인지 확인
+    /// 목표를 완료한 후라면 목표 권유 팝업 뷰를 띄운다
+    private func checkAfterCompleteGoal() {
+        if UserDefaults.standard.bool(forKey: UserDefaultsKeyStyle.recommendGoalView.rawValue) {
+            self.present(recommendGoalVC, animated: true)
+            // 저장된 값을 false로 원상 복구
+            UserDefaults.standard.set(false, forKey: UserDefaultsKeyStyle.recommendGoalView.rawValue)
+        }
+    }
     
     override func render() {
         view.addSubViews([settingButton, segmentedControl, pageViewController.view])
@@ -128,24 +152,12 @@ class MainViewController: BaseViewController {
 // MARK: - UIPageViewControllerDataSource
 
 extension MainViewController: UIPageViewControllerDataSource {
-    func pageViewController(
-        _ pageViewController: UIPageViewController,
-        viewControllerBefore viewController: UIViewController
-    ) -> UIViewController? {
-        guard
-            let index = self.viewControllers.firstIndex(of: viewController),
-            index - 1 >= 0
-        else { return nil }
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let index = self.viewControllers.firstIndex(of: viewController), index - 1 >= 0 else { return nil }
         return self.viewControllers[index - 1]
     }
-    func pageViewController(
-        _ pageViewController: UIPageViewController,
-        viewControllerAfter viewController: UIViewController
-    ) -> UIViewController? {
-        guard
-            let index = self.viewControllers.firstIndex(of: viewController),
-            index + 1 < self.viewControllers.count
-        else { return nil }
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let index = self.viewControllers.firstIndex(of: viewController), index + 1 < self.viewControllers.count else { return nil }
         return self.viewControllers[index + 1]
     }
 }
@@ -159,10 +171,8 @@ extension MainViewController: UIPageViewControllerDelegate {
         previousViewControllers: [UIViewController],
         transitionCompleted completed: Bool
     ) {
-        guard
-            let viewController = pageViewController.viewControllers?[0],
-            let index = self.viewControllers.firstIndex(of: viewController)
-        else { return }
+        guard let viewController = pageViewController.viewControllers?[0],
+              let index = self.viewControllers.firstIndex(of: viewController) else { return }
         self.currentPage = index
         self.segmentedControl.selectedSegmentIndex = index
     }
