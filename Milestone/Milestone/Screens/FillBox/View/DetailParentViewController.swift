@@ -187,7 +187,7 @@ class DetailParentViewController: BaseViewController {
     
     /// 여기 들어온 게 처음이 맞는지 확인 -> 맞으면 코치 마크 뷰 띄우기
     private func checkFirstDetailView() {
-        if UserDefaults.standard.string(forKey: couchMarkKey) == nil {
+        if !UserDefaults.standard.bool(forKey: couchMarkKey) {
             presentCouchMark()
         }
     }
@@ -200,7 +200,7 @@ class DetailParentViewController: BaseViewController {
                 $0.modalTransitionStyle = .crossDissolve
             }
         present(couchMarkVC, animated: true)
-        UserDefaults.standard.set("", forKey: couchMarkKey)
+        UserDefaults.standard.set(true, forKey: couchMarkKey)
     }
     
     /// 체크리스트(TableView)를 위해 goalData를 정렬하는 함수
@@ -226,12 +226,7 @@ class DetailParentViewController: BaseViewController {
     @objc
     func showMore() {
         let moreVC = MoreViewController()
-        moreVC.modalPresentationStyle = .pageSheet
-        
-        guard let sheet = moreVC.sheetPresentationController else { return }
-        let fraction = UISheetPresentationController.Detent.custom { _ in moreVC.viewHeight }
-        sheet.detents = [fraction]
-        present(moreVC, animated: true)
+        presentCustomModal(moreVC, height: moreVC.viewHeight)
     }
 }
 
@@ -256,7 +251,6 @@ extension DetailParentViewController: UICollectionViewDataSource, UICollectionVi
         guard let cell = collectionView.cellForItem(at: indexPath) as? DetailGoalCollectionViewCell else { return }
         if cell.isSet.value {
             let detailInfo = DetailGoalInfoViewController()
-            detailInfo.delegate = self
             detailInfo.modalPresentationStyle = .overFullScreen
             detailInfo.modalTransitionStyle = .crossDissolve
             self.present(detailInfo, animated: true)
@@ -302,15 +296,5 @@ extension DetailParentViewController: UITableViewDataSource, UITableViewDelegate
         
 //        goalData[selectedGoalId].isCompleted.toggle() // 원본 배열의 isCompleted 값 변경
         self.detailGoalCollectionView.reloadData()
-    }
-}
-
-// MARK: - PresentDelegate
-
-extension DetailParentViewController: PresentDelegate {
-    func present(_ viewController: UIViewController) {
-        viewController.modalTransitionStyle = .crossDissolve
-        viewController.modalPresentationStyle = .overFullScreen
-        present(viewController, animated: true)
     }
 }

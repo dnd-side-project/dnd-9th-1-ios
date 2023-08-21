@@ -14,7 +14,8 @@ import Then
 
 class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
-    // MARK: subviews
+    // MARK: - Subviews
+    
     private let emptyImageView = UIImageView()
         .then {
             $0.image = ImageLiteral.imgcompletionEmpty
@@ -45,19 +46,9 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             $0.register(cell: CompletionTableViewCell.self, forCellReuseIdentifier: CompletionTableViewCell.identifier)
         }
     
-    private let bubbleView = UIView()
+    private let bubbleView = BubbleView()
         .then {
-            $0.layer.cornerRadius = 20
-            $0.backgroundColor = .gray05
-        }
-    
-    private let triangle = TriangleView()
-    
-    private let bubbleLabel = UILabel()
-        .then {
-            $0.font = UIFont.pretendard(.semibold, ofSize: 14)
-            $0.textColor = .white
-            $0.text = "이룬 목표에 대한 회고를 자세히 기록해보세요!"
+            $0.guideLabel.text = "이룬 목표에 대한 회고를 자세히 기록해보세요!"
         }
     
     var tapDisposable: [Disposable] = []
@@ -65,10 +56,13 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     var nsAttributedStringDisposable: Disposable?
     var tableViewScrollDisposable: Disposable?
     
-    // MARK: Properties
-    var viewModel: CompletionViewModel!
+    // MARK: - Properties
     
-    // MARK: Life Cycle
+    var viewModel: CompletionViewModel!
+    var bubbleKey = UserDefaultsKeyStyle.bubbleInCompletionBox.rawValue
+    
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -148,10 +142,10 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         nsAttributedStringDisposable?.dispose()
     }
     
-    // MARK: functions
+    // MARK: - Functions
     
     override func render() {
-        view.addSubViews([emptyImageView, label, tableView, bubbleView, triangle])
+        view.addSubViews([emptyImageView, label, tableView])
         
         emptyImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(100)
@@ -190,51 +184,34 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         tableViewScrollDisposable = tableView.rx.didScroll
             .subscribe { [weak self] _ in
                 self?.bubbleView.isHidden = true
-                self?.bubbleLabel.isHidden = true
-                self?.triangle.isHidden = true
             }
     }
     
     /// 테이블뷰 레이아웃 세팅 완료 후 정의해야할 레이아웃 대상들을 분리
     func setAdditionalLayout() {
-        triangle.backgroundColor = .clear
-        triangle.setNeedsDisplay()
-
-        triangle.snp.makeConstraints { make in
-            make.top.equalTo(tableView.visibleCells[1].snp.bottom).offset(16)
-            make.centerX.equalTo(view.snp.centerX)
-            make.width.equalTo(18)
-            make.height.equalTo(16)
-        }
-        
-        bubbleView.addSubview(bubbleLabel)
-
+        view.addSubview(bubbleView)
         bubbleView.snp.makeConstraints { make in
-            make.top.equalTo(triangle.snp.bottom).offset(-4)
-            make.centerX.equalTo(view.snp.centerX)
-            make.trailing.equalTo(view.snp.trailing).offset(-54)
-            make.leading.equalTo(view.snp.leading).offset(54)
-            make.height.equalTo(36)
-        }
-        
-        bubbleLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(bubbleView.snp.centerY)
-            make.centerX.equalTo(bubbleView.snp.centerX)
+            make.top.equalTo(tableView.visibleCells[1].snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-54)
+            make.leading.equalToSuperview().offset(54)
+            make.height.equalTo(45)
         }
     }
     
     /// 처음이 맞는지 확인 -> 맞으면 말풍선 뷰 띄우기
     private func checkFirstCompletionBox() {
-        if UserDefaults.standard.string(forKey: "showBubbleInCompleteBox") == nil {
+        if !UserDefaults.standard.bool(forKey: bubbleKey) {
             bubbleView.isHidden = false
-            UserDefaults.standard.set("", forKey: "showBubbleInCompleteBox")
+            UserDefaults.standard.set(true, forKey: bubbleKey)
         } else {
             bubbleView.isHidden = true
-            triangle.isHidden = true
             tableViewScrollDisposable?.dispose()
         }
     }
 }
+
+// MARK: - UITableViewDelegate
 
 extension CompletionBoxViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -254,6 +231,8 @@ extension CompletionBoxViewController: UITableViewDelegate {
         return headerView
     }
 }
+
+// MARK: - RxTableViewSectionedAnimatedDataSource
 
 extension CompletionBoxViewController {
     private func dataSource() -> RxTableViewSectionedAnimatedDataSource<CompletionSectionModel> {

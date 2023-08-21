@@ -23,7 +23,7 @@ class ReviewCompleteViewController: BaseViewController {
     let alertImageView = UIImageView()
         .then {
             $0.layer.cornerRadius = 20
-            $0.image = ImageLiteral.imgPlaceholder
+            $0.image = ImageLiteral.imgRetrospectComplete
         }
     
     let closeButton = UIButton(type: .system)

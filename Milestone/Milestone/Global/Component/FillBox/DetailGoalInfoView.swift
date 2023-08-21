@@ -19,22 +19,13 @@ class DetailGoalInfoView: UIView {
     var stoneImageView = UIImageView()
     var titleLabel = UILabel()
         .then {
-            $0.text = "기출 문제 다시 풀기"
             $0.textAlignment = .left
-            $0.font = .pretendard(.semibold, ofSize: 20)
+            $0.font = .pretendard(.semibold, ofSize: 16)
             $0.textColor = .black
-        }
-    var startDateLabel = UILabel()
-        .then {
-            $0.text = "2023.11.23 시작"
-            $0.textAlignment = .left
-            $0.font = .pretendard(.regular, ofSize: 16)
-            $0.textColor = .gray03
         }
     let alarmImageView = UIImageView()
         .then {
             $0.image = ImageLiteral.imgAlarm
-            $0.layer.cornerRadius = 24 / 2
         }
     var alarmInfoLabel = UILabel()
         .then {
@@ -58,7 +49,6 @@ class DetailGoalInfoView: UIView {
                 .foregroundColor: UIColor.gray04
             ]
             $0.setAttributedTitle(NSAttributedString(string: "삭제하기", attributes: attributes), for: .normal)
-//            $0.addTarget(self, action: #selector(removeDetailGoal), for: .touchUpInside)
         }
     lazy var modifyButton = UIButton()
         .then {
@@ -70,7 +60,6 @@ class DetailGoalInfoView: UIView {
                 .foregroundColor: UIColor.primary
             ]
             $0.setAttributedTitle(NSAttributedString(string: "수정하기", attributes: attributes), for: .normal)
-            $0.addTarget(self, action: #selector(modifyDetailGoal), for: .touchUpInside)
         }
     
     // MARK: - Initialization
@@ -90,43 +79,37 @@ class DetailGoalInfoView: UIView {
     // MARK: - Functions
     
     private func render() {
-        addSubViews([stoneImageView, titleLabel, startDateLabel, alarmImageView, alarmInfoLabel, xButton, removeButton, modifyButton])
+        addSubViews([stoneImageView, titleLabel, alarmImageView, alarmInfoLabel, xButton, removeButton, modifyButton])
         
         self.snp.makeConstraints { make in
             make.width.equalTo(342)
             make.height.equalTo(230)
         }
         stoneImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(50)
-            make.left.equalToSuperview().inset(35)
+            make.top.equalToSuperview().inset(48)
+            make.left.equalToSuperview().inset(17)
             make.width.height.equalTo(81)
         }
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(47)
+            make.top.equalTo(stoneImageView).offset(16.5)
             make.left.equalTo(stoneImageView.snp.right).offset(16)
-            make.right.equalToSuperview()
-        }
-        startDateLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
-            make.left.equalTo(titleLabel)
-            make.right.equalToSuperview()
+            make.right.equalToSuperview().inset(17)
         }
         alarmImageView.snp.makeConstraints { make in
-            make.top.equalTo(startDateLabel.snp.bottom).offset(21.17)
-            make.left.equalTo(startDateLabel).offset(2.67)
-            make.height.equalTo(11)
+            make.top.equalTo(titleLabel.snp.bottom).offset(13.17)
+            make.left.equalTo(stoneImageView.snp.right).offset(18.67)
+            make.width.height.equalTo(11)
         }
         alarmInfoLabel.snp.makeConstraints { make in
             make.centerY.equalTo(alarmImageView)
             make.left.equalTo(alarmImageView.snp.right).offset(4.67)
         }
         xButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(15)
-            make.right.equalToSuperview().inset(24)
+            make.top.right.equalToSuperview().inset(16)
             make.width.height.equalTo(24)
         }
         removeButton.snp.makeConstraints { make in
-            make.top.equalTo(stoneImageView.snp.bottom).offset(21)
+            make.top.equalTo(stoneImageView.snp.bottom).offset(24)
             make.left.equalToSuperview().inset(43)
             make.width.equalTo(120)
             make.height.equalTo(54)
@@ -142,17 +125,5 @@ class DetailGoalInfoView: UIView {
     private func configUI() {
         backgroundColor = .white
         layer.cornerRadius = 20
-    }
-//
-//    @objc
-//    func removeDetailGoal() {
-//        // TODO: - 세부 목표 삭제하기 모달 연결
-//        Logger.debugDescription("removeDetailGoal")
-//    }
-//
-    @objc
-    func modifyDetailGoal() {
-        // TODO: - 세부 목표 수정하기 모달 연결
-        Logger.debugDescription("modifyDetailGoal")
     }
 }

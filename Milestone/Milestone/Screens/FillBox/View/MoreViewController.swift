@@ -28,14 +28,18 @@ class MoreViewController: BaseViewController {
             $0.backgroundColor = .gray02
             $0.layer.cornerRadius = 5 / 2
         }
-    var modifyOptionView = MoreOptionView()
+    lazy var modifyOptionView = MoreOptionView()
         .then {
+            $0.iconImageView.image = ImageLiteral.imgModify
             $0.optionLabel.text = "수정하기"
+            var tapModifyGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentModifyGoalViewController))
+            $0.addGestureRecognizer(tapModifyGesture)
         }
-    lazy var tapRemoveGesture = UITapGestureRecognizer(target: self, action: #selector(presentDeleteGoalViewController))
     lazy var removeOptionView = MoreOptionView()
         .then {
+            $0.iconImageView.image = ImageLiteral.imgRemove
             $0.optionLabel.text = "삭제하기"
+            var tapRemoveGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentDeleteGoalViewController))
             $0.addGestureRecognizer(tapRemoveGesture)
         }
     // MARK: - Properties
@@ -73,7 +77,19 @@ class MoreViewController: BaseViewController {
     }
     
     // MARK: - @objc Functions
-    
+
+    @objc
+    private func presentModifyGoalViewController() {
+        lazy var addParentGoalVC = AddParentGoalViewController()
+            .then {
+                $0.completeButton.titleString = "목표 수정 완료"
+                $0.enterGoalTitleView.titleTextField.text = "토익 900점 넘기기"
+                $0.enterGoalTitleView.updateNowNumOfCharaters()
+            }
+        dismiss(animated: true)
+        self.presentingViewController?.presentCustomModal(addParentGoalVC, height: addParentGoalVC.viewHeight)
+    }
+
     @objc
     private func presentDeleteGoalViewController() {
         Logger.debugDescription("삭제하기 클릭")
@@ -82,6 +98,7 @@ class MoreViewController: BaseViewController {
                 $0.modalTransitionStyle = .crossDissolve
                 $0.modalPresentationStyle = .overFullScreen
             }
-        present(deleteGoalPopUp, animated: true)
+        dismiss(animated: true)
+        self.presentingViewController?.present(deleteGoalPopUp, animated: true)
     }
 }

@@ -73,7 +73,7 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
     
     let fillImageView = UIImageView()
         .then {
-            $0.image = ImageLiteral.imgPlaceholder
+            $0.image = ImageLiteral.imgRetrospectView1
         }
     
     // MARK: Properties
@@ -159,9 +159,9 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
         
         fillImageView.snp.makeConstraints { make in
             make.top.equalTo(fillLabel.snp.bottom).offset(24)
-            make.leading.equalTo(view.snp.leading).offset(24)
-            make.trailing.equalTo(view.snp.trailing).offset(-24)
-            make.height.equalTo(190)
+            make.centerX.equalTo(scrollView)
+            make.width.equalTo(342)
+            make.height.equalTo(342)
             make.bottom.equalTo(scrollView.snp.bottom).offset(-16)
         }
     }
