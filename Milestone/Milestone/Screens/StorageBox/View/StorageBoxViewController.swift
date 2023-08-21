@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
 
@@ -50,7 +52,7 @@ class StorageBoxViewController: BaseViewController {
         .then {
             $0.backgroundColor = .white
             $0.layer.cornerRadius = 20
-            let stringValue = "총 \(goals.count)개의 목표가 보관되어있어요!"
+            let stringValue = "총 \(goalsValue.count)개의 목표가 보관되어있어요!"
             $0.label.text = stringValue
             $0.label.textColor = .black
             let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
@@ -60,15 +62,17 @@ class StorageBoxViewController: BaseViewController {
     
     // MARK: - Properties
     
-    var goals = [DetailGoal(), DetailGoal(), DetailGoal()]
+    var goals = BehaviorRelay<[DetailGoal]>(value: [DetailGoal()])
+    lazy var goalsValue = goals.value
     
     // MARK: - Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-                
-        [emptyStorageImageView, firstEmptyGuideLabel, secondEmptyGuideLabel]
-            .forEach { $0.isHidden = !goals.isEmpty }
+        
+        // 보관함의 빈 화면과 보관함 채워져있는 화면 간의 전환하는 테스트를 위해 화면 보일 때마다 계속 1개씩 추가해줌
+        goalsValue.append(DetailGoal())
+        updateStorageVisibility()
     }
     
     // MARK: - Functions
@@ -100,6 +104,28 @@ class StorageBoxViewController: BaseViewController {
             storageGoalTableView.sectionHeaderTopPadding = 12
         }
     }
+    
+    override func bindUI() {
+        goals
+            .subscribe { [unowned self] _ in
+                updateStorageVisibility()
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    /// goals의 개수에 따라 보관함의 뷰의 isHidden 상태와 label에 적히는 목표 개수를 업데이트 한다
+    private func updateStorageVisibility() {
+        [emptyStorageImageView, firstEmptyGuideLabel, secondEmptyGuideLabel]
+            .forEach { $0.isHidden = !goalsValue.isEmpty }
+        storageGoalTableView.isHidden = goalsValue.isEmpty
+        storageGoalTableView.reloadData()
+        updateStorageBoxCountLabel()
+    }
+    
+    /// label에 들어가는 목표 개수 정보를 업데이트 해줌
+    private func updateStorageBoxCountLabel() {
+        alertView.label.text = "총 \(goalsValue.count)개의 목표가 보관되어있어요!"
+    }
 }
 
 extension StorageBoxViewController: UITableViewDelegate, UITableViewDataSource {
@@ -118,7 +144,7 @@ extension StorageBoxViewController: UITableViewDelegate, UITableViewDataSource {
         60 + 8
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        goals.count
+        goalsValue.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -128,5 +154,11 @@ extension StorageBoxViewController: UITableViewDelegate, UITableViewDataSource {
     // 셀 높이 설정
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         96 + 16
+    }
+    // 보관함 빈 화면 잘 나오는지 테스트하기 위한 용도입니다!!!
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        goalsValue.remove(at: indexPath.row) // 삭제
+        goals.accept(goalsValue) // 변경된 배열로 업데이트
+        tableView.reloadData() // 테이블뷰 UI 업데이트
     }
 }
