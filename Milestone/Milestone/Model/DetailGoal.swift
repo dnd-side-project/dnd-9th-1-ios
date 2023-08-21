@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct DetailGoal: Codable {
+    let title: String
+    let alarmEnabled: Bool
+    let alarmTime: String
+    let alarmDays: [String]
+}
