@@ -48,6 +48,7 @@ class FillBoxViewController: BaseViewController {
     // MARK: - Properties
     
     var bubbleKey = UserDefaultsKeyStyle.bubbleInFillBox.rawValue
+    var goals = [ParentGoal()]
     
     // MARK: - Life Cycle
     
@@ -159,11 +160,14 @@ extension FillBoxViewController: UITableViewDataSource, UITableViewDelegate {
     }
     // 셀(상위 목표) 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        goals.count
     }
     // 셀 내용 구성
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ParentGoalTableViewCell.identifier, for: indexPath) as? ParentGoalTableViewCell else { return UITableViewCell() }
+        let goal = goals[indexPath.row]
+        cell.titleLabel.text = goal.title
+        cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
         return cell
     }
     // 셀 클릭 시 실행

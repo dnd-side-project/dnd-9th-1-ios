@@ -35,7 +35,6 @@ class ParentGoalTableViewCell: BaseTableViewCell {
     
     public var titleLabel = UILabel()
         .then {
-            $0.text = "토익 900점 넘기기"
             $0.font = .pretendard(.semibold, ofSize: 18)
             $0.textColor = .black
             $0.textAlignment = .left
@@ -48,7 +47,6 @@ class ParentGoalTableViewCell: BaseTableViewCell {
     
     public var termLabel = UILabel()
         .then {
-            $0.text = "2023.09.08 - 2023.12.02"
             $0.font = .pretendard(.regular, ofSize: 12)
             $0.textColor = .gray03
             $0.textAlignment = .left
@@ -97,8 +95,5 @@ class ParentGoalTableViewCell: BaseTableViewCell {
             $0.left.equalTo(calendarImageView.snp.right).offset(8)
             $0.centerY.equalTo(calendarImageView)
         }
-    }
-    
-    override func bind() {
     }
 }

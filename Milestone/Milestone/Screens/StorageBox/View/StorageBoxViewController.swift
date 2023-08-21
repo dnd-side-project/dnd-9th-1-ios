@@ -62,7 +62,7 @@ class StorageBoxViewController: BaseViewController {
     
     // MARK: - Properties
     
-    var goals = BehaviorRelay<[DetailGoal]>(value: [DetailGoal()])
+    var goals = BehaviorRelay<[ParentGoal]>(value: [ParentGoal()])
     lazy var goalsValue = goals.value
     
     // MARK: - Life Cycle
@@ -71,7 +71,7 @@ class StorageBoxViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         // 보관함의 빈 화면과 보관함 채워져있는 화면 간의 전환하는 테스트를 위해 화면 보일 때마다 계속 1개씩 추가해줌
-        goalsValue.append(DetailGoal())
+        goalsValue.append(ParentGoal())
         updateStorageVisibility()
     }
     
@@ -149,6 +149,9 @@ extension StorageBoxViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ParentGoalTableViewCell.identifier, for: indexPath) as? ParentGoalTableViewCell else { return UITableViewCell() }
+        let goal = goalsValue[indexPath.row]
+        cell.titleLabel.text = goal.title
+        cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
         return cell
     }
     // 셀 높이 설정
