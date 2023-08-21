@@ -84,7 +84,8 @@ class MoreViewController: BaseViewController {
                 $0.enterGoalTitleView.titleTextField.text = "토익 900점 넘기기"
                 $0.enterGoalTitleView.updateNowNumOfCharaters()
             }
-        presentCustomModal(addParentGoalVC, height: addParentGoalVC.viewHeight)
+        dismiss(animated: true)
+        self.presentingViewController?.presentCustomModal(addParentGoalVC, height: addParentGoalVC.viewHeight)
     }
 
     @objc
@@ -95,6 +96,7 @@ class MoreViewController: BaseViewController {
                 $0.modalTransitionStyle = .crossDissolve
                 $0.modalPresentationStyle = .overFullScreen
             }
-        present(deleteGoalPopUp, animated: true)
+        dismiss(animated: true)
+        self.presentingViewController?.present(deleteGoalPopUp, animated: true)
     }
 }
