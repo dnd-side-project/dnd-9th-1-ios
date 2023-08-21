@@ -181,20 +181,6 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
             .map { $0.title }
             .bind(to: titleLabel.rx.text)
             .disposed(by: disposeBag)
-        
-        viewModel.goalObservable
-            .element(at: goalIndex)
-            .map { [unowned self] goal -> String in
-                return "\(self.dateFormatter.string(from: goal.startDate))" + " - " + "\(self.dateFormatter.string(from: goal.endDate))"
-            }
-            .bind(to: dateLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel.goalObservable
-            .element(at: goalIndex)
-            .map { $0.contents.first ?? "" }
-            .bind(to: textView.rx.text)
-            .disposed(by: disposeBag)
     }
     
     // MARK: Objc functions
