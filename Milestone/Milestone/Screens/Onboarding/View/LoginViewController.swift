@@ -6,6 +6,9 @@
 //
 
 import UIKit
+
+import KakaoSDKUser
+import RxKakaoSDKUser
 import SnapKit
 
 protocol LoginFlow {
@@ -26,8 +29,8 @@ class LoginCoordinator: Coordinator, LoginFlow {
     }
     
     func coordinateToOnboarding() {
-        let onboardingCoordinator = OnboardingCoordinator(navigationController: navigationController)
-        coordinate(to: onboardingCoordinator)
+//        let onboardingCoordinator = OnboardingCoordinator(navigationController: navigationController)
+//        coordinate(to: onboardingCoordinator)
     }
 }
 
@@ -150,5 +153,25 @@ class LoginViewController: BaseViewController {
             make.centerY.equalTo(kakaoLoginButton.snp.centerY)
             make.centerX.equalTo(appleLogo.snp.centerX)
         }
+    }
+    
+    override func bindUI() {
+        kakaoLoginButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                if UserApi.isKakaoTalkLoginAvailable() {
+                    UserApi.shared.rx.loginWithKakaoTalk()
+                        .subscribe(onNext: { (oauthToken) in
+                            print("loginWithKakaoTalk() success.")
+                        
+                            print(oauthToken)
+                            _ = oauthToken
+                        }, onError: {error in
+                            print(error)
+                        })
+                        .disposed(by: self.disposeBag)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
