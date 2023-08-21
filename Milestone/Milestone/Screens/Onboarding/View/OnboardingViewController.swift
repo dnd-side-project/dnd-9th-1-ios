@@ -86,6 +86,10 @@ class OnboardingViewController: BaseViewController {
         view.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        enterGoalTitleView.titleTextField.endEditing(true)
+    }
+    
     // MARK: Objc functions
     @objc func completeButtonTapped(_ sender: UIButton) {
         updateButtonState(.press)
