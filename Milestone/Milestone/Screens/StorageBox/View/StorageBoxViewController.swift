@@ -52,12 +52,6 @@ class StorageBoxViewController: BaseViewController {
         .then {
             $0.backgroundColor = .white
             $0.layer.cornerRadius = 20
-            let stringValue = "총 \(goalsValue.count)개의 목표가 보관되어있어요!"
-            $0.label.text = stringValue
-            $0.label.textColor = .black
-            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
-            attributedString.setColorForText(textForAttribute: "총 3개의 목표", withColor: .pointPurple)
-            $0.label.attributedText = attributedString
         }
     
     // MARK: - Properties
@@ -119,12 +113,17 @@ class StorageBoxViewController: BaseViewController {
             .forEach { $0.isHidden = !goalsValue.isEmpty }
         storageGoalTableView.isHidden = goalsValue.isEmpty
         storageGoalTableView.reloadData()
-        updateStorageBoxCountLabel()
+        updateStorageBoxTopLabel()
     }
     
-    /// label에 들어가는 목표 개수 정보를 업데이트 해줌
-    private func updateStorageBoxCountLabel() {
-        alertView.label.text = "총 \(goalsValue.count)개의 목표가 보관되어있어요!"
+    /// 보관함 맨 위 label에 들어가는 목표 개수 정보와 스타일을 업데이트 해줌
+    private func updateStorageBoxTopLabel() {
+        let stringValue = "총 \(goalsValue.count)개의 목표가 보관되어있어요!"
+        alertView.label.text = stringValue
+        alertView.label.textColor = .black
+        let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
+        attributedString.setColorForText(textForAttribute: "총 \(goalsValue.count)개의 목표", withColor: .pointPurple)
+        alertView.label.attributedText = attributedString
     }
 }
 
