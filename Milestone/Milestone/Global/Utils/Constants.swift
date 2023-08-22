@@ -24,6 +24,7 @@ struct K {
         static let alarmDays = "alarmDays"
         static let userId = "userId"
         static let fcmToken = "fcmToken"
+        static let goalStatus = "goalStatus"
     }
     
     /// 헤더 필드
