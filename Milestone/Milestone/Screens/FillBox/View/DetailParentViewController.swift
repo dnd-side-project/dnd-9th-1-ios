@@ -289,7 +289,6 @@ extension DetailParentViewController: UITableViewDataSource, UITableViewDelegate
         if isFromStorage {
             cell.isUserInteractionEnabled = false
             cell.makeCellBlurry()
-            cell.isFromStorage = isFromStorage
         }
         cell.update(content: sortedGoalData[indexPath.row])
         return cell

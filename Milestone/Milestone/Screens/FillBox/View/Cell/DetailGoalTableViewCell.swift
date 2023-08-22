@@ -41,7 +41,6 @@ class DetailGoalTableViewCell: BaseTableViewCell {
     
     static let identifier = "DetailGoalTableViewCell"
     var isCompleted = BehaviorRelay(value: false) // 목표가 완료되었는지 아닌지
-    var isFromStorage: Bool?
     
     // MARK: - Functions
     
@@ -85,15 +84,9 @@ class DetailGoalTableViewCell: BaseTableViewCell {
         isCompleted
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: { [unowned self] isCompleted in
-                if isFromStorage != nil { // 보관함일 때
-                    containerView.backgroundColor = .white
-                    titleLabel.textColor = .black
-                    checkImageView.image = ImageLiteral.imgGrayCheck
-                } else {
-                    containerView.backgroundColor = isCompleted ? .secondary03 : .white
-                    titleLabel.textColor = isCompleted ? .primary : .black
-                    checkImageView.image = isCompleted ? ImageLiteral.imgBlueCheck : ImageLiteral.imgWhiteCheck
-                }
+                containerView.backgroundColor = isCompleted ? .secondary03 : .white
+                titleLabel.textColor = isCompleted ? .primary : .black
+                checkImageView.image = isCompleted ? ImageLiteral.imgBlueCheck : ImageLiteral.imgWhiteCheck
             })
             .disposed(by: disposeBag)
     }
