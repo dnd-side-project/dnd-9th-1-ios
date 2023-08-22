@@ -7,6 +7,7 @@
 
 import UIKit
 
+import AuthenticationServices
 import KakaoSDKUser
 import RxKakaoSDKUser
 import SnapKit
@@ -169,7 +170,7 @@ class LoginViewController: BaseViewController {
                 if UserApi.isKakaoTalkLoginAvailable() {
                     UserApi.shared.rx.loginWithKakaoTalk()
                         .subscribe(onNext: { [weak self] _ in
-                            self?.viewModel.login()
+                            self?.viewModel.kakaoLogin()
                         }, onError: {error in
                             print(error)
                         })
@@ -177,5 +178,60 @@ class LoginViewController: BaseViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
+        appleLoginButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.performExistingAccountSetupFlows()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func performExistingAccountSetupFlows() {
+        // Prepare requests for both Apple ID and password providers.
+        let request = ASAuthorizationAppleIDProvider().createRequest()
+        
+        // Create an authorization controller with the given requests.
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+    
+    func handleAppleLogin() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+}
+
+extension LoginViewController: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        switch authorization.credential {
+        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+            
+            viewModel.appleUserIdSubject
+                .onNext(appleIDCredential.user)
+            viewModel.appleLogin()
+            
+        case let passwordCredential as ASPasswordCredential:
+            print(passwordCredential)
+            // Sign in using an existing iCloud Keychain credential.
+            print("password credential .. ")
+            let username = passwordCredential.user
+            let password = passwordCredential.password
+        default:
+            break
+        }
+    }
+}
+
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
     }
 }
