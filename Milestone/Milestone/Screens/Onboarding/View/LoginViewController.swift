@@ -6,6 +6,9 @@
 //
 
 import UIKit
+
+import KakaoSDKUser
+import RxKakaoSDKUser
 import SnapKit
 import RxSwift
 
@@ -33,13 +36,6 @@ class LoginCoordinator: Coordinator, LoginFlow {
 }
 
 class LoginViewController: BaseViewController {
-    
-    var coordinator: LoginFlow?
-    
-    @objc func kakaoButtonTapped(_ sender: UIButton) {
-        coordinator?.coordinateToOnboarding()
-    }
-    
     let label: UILabel = {
         let label = UILabel()
         label.text = "나를 갈고 닦아\n빛나는 보석이 되기 위한 여정,"
@@ -93,7 +89,7 @@ class LoginViewController: BaseViewController {
         btn.setTitleColor(.black, for: .normal)
         btn.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 19)
         btn.layer.cornerRadius = 8
-        btn.addTarget(self, action: #selector(kakaoButtonTapped), for: .touchUpInside)
+//        btn.addTarget(self, action: #selector(kakaoButtonTapped), for: .touchUpInside)
         return btn
     }()
     
@@ -102,6 +98,19 @@ class LoginViewController: BaseViewController {
         iv.image = ImageLiteral.imgKakaoLogo
         return iv
     }()
+    
+    // MARK: - Properties
+    var coordinator: LoginFlow?
+    var viewModel: OnboardingViewModel!
+    
+    // MARK: - Life Cycles
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewModel = OnboardingViewModel()
+        viewModel.loginCoordinator = self.coordinator
+    }
+    
+    // MARK: - Functions
     
     override func render() {
         view.addSubViews([label, logoImageView, labelWithLogo, backgroundImageView, appleLoginButton, appleLogo, kakaoLoginButton, kakaoLogo])
@@ -151,5 +160,22 @@ class LoginViewController: BaseViewController {
             make.centerY.equalTo(kakaoLoginButton.snp.centerY)
             make.centerX.equalTo(appleLogo.snp.centerX)
         }
+    }
+    
+    override func bindUI() {
+        kakaoLoginButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                if UserApi.isKakaoTalkLoginAvailable() {
+                    UserApi.shared.rx.loginWithKakaoTalk()
+                        .subscribe(onNext: { [weak self] _ in
+                            self?.viewModel.login()
+                        }, onError: {error in
+                            print(error)
+                        })
+                        .disposed(by: self.disposeBag)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }

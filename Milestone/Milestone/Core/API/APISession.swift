@@ -10,6 +10,14 @@ import Foundation
 import Alamofire
 import RxSwift
 
+class API {
+    static let session: Session = {
+        let configuration = URLSessionConfiguration.af.default
+        let apiLogger = APIEventLogger()
+        return Session(configuration: configuration, eventMonitors: [apiLogger])
+    }()
+}
+
 struct APISession: APIService {
     
     /// 네트워크 요청 함수 - 제네릭 옵저버블을 리턴
@@ -17,7 +25,7 @@ struct APISession: APIService {
         return Observable<Result<T, APIError>>.create { observer in
             
             /// Alamofire 네트워크 요청함수 호출
-            let request = AF.request(request).responseDecodable { (response: DataResponse<T, AFError>) in
+            let request = API.session.request(request).responseDecodable { (response: DataResponse<T, AFError>) in
                 
                 guard let statusCode = response.response?.statusCode else {
                   observer.onNext(.failure(.unknown))

@@ -23,7 +23,7 @@ enum APIRouter: URLRequestConvertible {
     
     /// 유저 관련 API 리스트
     case reissue
-    case login(provider: String, userId: String)
+    case login(provider: String, userId: String, fcmToken: String)
     
     /// 하위목표 관련 API 리스트
     case deleteDetailGoal(lowerLevelGoalId: Int)
@@ -94,8 +94,8 @@ enum APIRouter: URLRequestConvertible {
             return "/goals"
         case .reissue:
             return "/reissue"
-        case .login(let provider, let userId):
-            return "/auth/\(provider)?userId=\(userId)"
+        case .login(let provider, _, _):
+            return "/auth/\(provider)"
         case .deleteDetailGoal(let id):
             return "/detail-goals/\(id)"
         case .requestAllDetailGoal(let id):
@@ -151,8 +151,11 @@ enum APIRouter: URLRequestConvertible {
             ]
         case .reissue:
             return nil
-        case .login:
-            return nil
+        case .login(_, let userId, let fcmToken):
+            return [
+                K.Parameters.userId: userId,
+                K.Parameters.fcmToken: fcmToken
+            ]
         case .deleteDetailGoal:
             return nil
         case .requestAllDetailGoal:
