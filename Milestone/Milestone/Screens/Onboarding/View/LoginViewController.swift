@@ -30,19 +30,12 @@ class LoginCoordinator: Coordinator, LoginFlow {
     }
     
     func coordinateToOnboarding() {
-//        let onboardingCoordinator = OnboardingCoordinator(navigationController: navigationController)
-//        coordinate(to: onboardingCoordinator)
+        let onboardingCoordinator = OnboardingCoordinator(navigationController: navigationController)
+        coordinate(to: onboardingCoordinator)
     }
 }
 
 class LoginViewController: BaseViewController {
-    
-    var coordinator: LoginFlow?
-    
-    @objc func kakaoButtonTapped(_ sender: UIButton) {
-        coordinator?.coordinateToOnboarding()
-    }
-    
     let label: UILabel = {
         let label = UILabel()
         label.text = "나를 갈고 닦아\n빛나는 보석이 되기 위한 여정,"
@@ -96,7 +89,7 @@ class LoginViewController: BaseViewController {
         btn.setTitleColor(.black, for: .normal)
         btn.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 19)
         btn.layer.cornerRadius = 8
-        btn.addTarget(self, action: #selector(kakaoButtonTapped), for: .touchUpInside)
+//        btn.addTarget(self, action: #selector(kakaoButtonTapped), for: .touchUpInside)
         return btn
     }()
     
@@ -105,6 +98,19 @@ class LoginViewController: BaseViewController {
         iv.image = ImageLiteral.imgKakaoLogo
         return iv
     }()
+    
+    // MARK: - Properties
+    var coordinator: LoginFlow?
+    var viewModel: OnboardingViewModel!
+    
+    // MARK: - Life Cycles
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewModel = OnboardingViewModel()
+        viewModel.loginCoordinator = self.coordinator
+    }
+    
+    // MARK: - Functions
     
     override func render() {
         view.addSubViews([label, logoImageView, labelWithLogo, backgroundImageView, appleLoginButton, appleLogo, kakaoLoginButton, kakaoLogo])
@@ -162,11 +168,8 @@ class LoginViewController: BaseViewController {
                 guard let self = self else { return }
                 if UserApi.isKakaoTalkLoginAvailable() {
                     UserApi.shared.rx.loginWithKakaoTalk()
-                        .subscribe(onNext: { (oauthToken) in
-                            print("loginWithKakaoTalk() success.")
-                        
-                            print(oauthToken)
-                            _ = oauthToken
+                        .subscribe(onNext: { [weak self] _ in
+                            self?.viewModel.login()
                         }, onError: {error in
                             print(error)
                         })
@@ -175,4 +178,9 @@ class LoginViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
     }
+    
+//    // MARK: - Objc Functions
+//    @objc func kakaoButtonTapped(_ sender: UIButton) {
+//        coordinator?.coordinateToOnboarding()
+//    }
 }
