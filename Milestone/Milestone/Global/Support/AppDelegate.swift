@@ -58,6 +58,28 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         UIApplication.shared.registerForRemoteNotifications()
     }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification) async
+    -> UNNotificationPresentationOptions {
+        let userInfo = notification.request.content.userInfo
+        
+        return [[.sound, .banner, .badge]]
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse) async {
+        let userInfo = response.notification.request.content.userInfo
+        
+        print(userInfo)
+    }
+    
+    /// 백그라운드 데이터 핸들링 메서드 - 필요한 경우 추가 구현
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable: Any]) async
+    -> UIBackgroundFetchResult {
+        return UIBackgroundFetchResult.newData
+    }
 }
 
 extension AppDelegate: MessagingDelegate {
