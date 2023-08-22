@@ -8,6 +8,11 @@
 import Foundation
 import RxDataSources
 
+struct GoalResponse<T: Codable>: Codable {
+    let contents: [T]
+    let next: Bool
+}
+
 struct Goal: Codable, IdentifiableType, Equatable {
     let identity: Int
     let title: String
