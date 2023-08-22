@@ -91,6 +91,7 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
                 cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
             }
             .disposed(by: disposeBag)
+        Logger.debugDescription("bye")
     }
     
     /// 처음이 맞는지 확인 -> 맞으면 말풍선 뷰 띄우기
@@ -161,6 +162,8 @@ extension FillBoxViewController: UITableViewDelegate {
     }
     // 셀 클릭 시 실행
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        push(viewController: DetailParentViewController())
+        var nextVC = DetailParentViewController()
+        nextVC.bind(viewModel: DetailParentViewModel())
+        push(viewController: nextVC)
     }
 }

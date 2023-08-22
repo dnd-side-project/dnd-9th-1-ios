@@ -80,23 +80,6 @@ class DetailGoalTableViewCell: BaseTableViewCell {
         }
     }
     
-    override func bind() {
-        isCompleted
-            .asDriver(onErrorJustReturn: false)
-            .drive(onNext: { [unowned self] isCompleted in
-                containerView.backgroundColor = isCompleted ? .secondary03 : .white
-                titleLabel.textColor = isCompleted ? .primary : .black
-                checkImageView.image = isCompleted ? ImageLiteral.imgBlueCheck : ImageLiteral.imgWhiteCheck
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    /// 셀 내용 업데이트
-    func update(content: DetailGoalTemp) {
-        titleLabel.rx.text.onNext(content.title)
-        isCompleted.accept(content.isCompleted)
-    }
-    
     /// 보관함일 때 셀을 흐리게 설정
     func makeCellBlurry() {
         containerView.addSubView(blurryView)
