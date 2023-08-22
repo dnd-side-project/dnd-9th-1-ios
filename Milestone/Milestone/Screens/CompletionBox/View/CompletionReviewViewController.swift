@@ -90,10 +90,11 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
         }
     
     // MARK: Functions
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         coordinator = CompletionBoxCoordinator(navigationController: self.navigationController!)
+        
+        bindViewModel()
     }
     
     override func render() {
@@ -202,10 +203,18 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
     }
     
     func bindViewModel() {
-        viewModel.goalObservable
-            .element(at: goalIndex!)
+        viewModel.retrieveGoalDataAtIndex(index: goalIndex)
             .map { $0.title }
             .bind(to: titleLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.retrieveGoalDataAtIndex(index: goalIndex)
+            .map { [unowned self] goal -> String in
+                let startDate = dateFormatter.date(from: goal.startDate)!
+                let endDate = dateFormatter.date(from: goal.endDate)!
+                return "\(dateFormatter.string(from: startDate)) - \(dateFormatter.string(from: endDate))"
+            }
+            .bind(to: dateLabel.rx.text)
             .disposed(by: disposeBag)
         
         segmentedControl.rx.value.changed
