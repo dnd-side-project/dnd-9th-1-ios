@@ -32,7 +32,7 @@ class DetailGoalCollectionViewCell: BaseCollectionViewCell {
         }
     lazy var blurryView = UIView()
         .then {
-            $0.backgroundColor = .white.withAlphaComponent(0.5)
+            $0.backgroundColor = .white.withAlphaComponent(0.6)
             $0.layer.cornerRadius = 30
         }
     
