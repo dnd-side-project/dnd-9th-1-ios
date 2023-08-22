@@ -141,6 +141,11 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         setPointViews()
         selectPointView()
         validateInput()
+        
+        firstQuestionView.indexImage.image = ImageLiteral.imgGood
+        secondQuestionView.indexImage.image = ImageLiteral.imgBad
+        thirdQuestionView.indexImage.image = ImageLiteral.imgBook
+        fourthQuestionView.indexImage.image = ImageLiteral.imgGift
     }
     
     func setAttributedIndexLabel() {
