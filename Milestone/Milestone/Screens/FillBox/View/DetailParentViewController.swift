@@ -226,7 +226,10 @@ class DetailParentViewController: BaseViewController {
     
     @objc
     func showMore() {
-        let moreVC = MoreViewController()
+        lazy var moreVC = MoreViewController()
+            .then {
+                $0.isFromStorage = isFromStorage
+            }
         presentCustomModal(moreVC, height: moreVC.viewHeight)
     }
 }
