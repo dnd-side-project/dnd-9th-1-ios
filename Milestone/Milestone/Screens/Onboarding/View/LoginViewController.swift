@@ -178,9 +178,4 @@ class LoginViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
     }
-    
-//    // MARK: - Objc Functions
-//    @objc func kakaoButtonTapped(_ sender: UIButton) {
-//        coordinator?.coordinateToOnboarding()
-//    }
 }
