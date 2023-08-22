@@ -42,9 +42,26 @@ class MoreViewController: BaseViewController {
             var tapRemoveGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentDeleteGoalViewController))
             $0.addGestureRecognizer(tapRemoveGesture)
         }
+    lazy var restoreOptionView = MoreOptionView()
+        .then {
+            $0.iconImageView.image = ImageLiteral.imgRestore
+            $0.optionLabel.text = "복구하기"
+//            var tapRestorGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentDeleteGoalViewController))
+//            $0.addGestureRecognizer(tapRestorGesture)
+        }
+    
     // MARK: - Properties
     
+    var isFromStorage = false
     let viewHeight = 173.0
+    
+    // MARK: - Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if isFromStorage { setRestoreOption() }
+    }
     
     // MARK: - Functions
     
@@ -74,6 +91,19 @@ class MoreViewController: BaseViewController {
 
     override func configUI() {
         containerView.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
+    }
+    
+    func setRestoreOption() {
+        modifyOptionView.removeFromSuperview()
+        view.addSubView(restoreOptionView)
+        restoreOptionView.snp.makeConstraints { make in
+            make.top.equalTo(barView.snp.bottom).offset(32)
+            make.left.equalToSuperview().inset(24)
+        }
+        removeOptionView.snp.remakeConstraints { make in
+            make.top.equalTo(restoreOptionView.snp.bottom).offset(32)
+            make.left.equalTo(restoreOptionView)
+        }
     }
     
     // MARK: - @objc Functions

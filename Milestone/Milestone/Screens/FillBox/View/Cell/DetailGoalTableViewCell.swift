@@ -31,6 +31,11 @@ class DetailGoalTableViewCell: BaseTableViewCell {
             $0.font = .pretendard(.semibold, ofSize: 16)
             $0.textAlignment = .left
         }
+    lazy var blurryView = UIView()
+        .then {
+            $0.backgroundColor = .white.withAlphaComponent(0.6)
+            $0.layer.cornerRadius = 56 / 2
+        }
     
     // MARK: - Properties
     
@@ -76,20 +81,27 @@ class DetailGoalTableViewCell: BaseTableViewCell {
     }
     
     override func bind() {
-//        Logger.debugDescription(isCompleted)
         isCompleted
             .asDriver(onErrorJustReturn: false)
-            .drive(onNext: { [weak self] isCompleted in
-                guard let self = self else { return }
-                self.containerView.backgroundColor = isCompleted ? .secondary03 : .white
-                self.titleLabel.textColor = isCompleted ? .primary : .black
-                self.checkImageView.image = isCompleted ? ImageLiteral.imgBlueCheck : ImageLiteral.imgWhiteCheck
+            .drive(onNext: { [unowned self] isCompleted in
+                containerView.backgroundColor = isCompleted ? .secondary03 : .white
+                titleLabel.textColor = isCompleted ? .primary : .black
+                checkImageView.image = isCompleted ? ImageLiteral.imgBlueCheck : ImageLiteral.imgWhiteCheck
             })
             .disposed(by: disposeBag)
     }
     
     /// 셀 내용 업데이트
-    func update(content: DetailGoal) {
+    func update(content: DetailGoalTemp) {
         titleLabel.rx.text.onNext(content.title)
+        isCompleted.accept(content.isCompleted)
+    }
+    
+    /// 보관함일 때 셀을 흐리게 설정
+    func makeCellBlurry() {
+        containerView.addSubView(blurryView)
+        blurryView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 }
