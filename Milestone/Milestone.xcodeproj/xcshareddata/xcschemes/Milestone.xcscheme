@@ -49,6 +49,13 @@
             ReferencedContainer = "container:Milestone.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "KAKAO_NATIVE_KEY"
+            value = "ac8871ba508432e08d5ba9c380e4fe64"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
