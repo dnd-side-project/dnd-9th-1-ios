@@ -7,8 +7,15 @@
 
 import UIKit
 
-class CompletionTableViewCell: BaseTableViewCell, ViewModelBindableType {
+class CompletionTableViewCell: BaseTableViewCell {
     // MARK: Subviews
+    
+    let containerView = UIView()
+        .then {
+            $0.layer.cornerRadius = 20
+            $0.backgroundColor = .white
+        }
+    
     let label = UILabel()
         .then {
             $0.font = UIFont.pretendard(.semibold, ofSize: 18)
@@ -17,9 +24,9 @@ class CompletionTableViewCell: BaseTableViewCell, ViewModelBindableType {
     
     let completionImageView = UIImageView()
         .then {
-            $0.image = #imageLiteral(resourceName: "placeholder")
+            $0.image = ImageLiteral.imgPlaceholder
         }
-    
+     
     let calendarImageView = UIImageView()
         .then {
             $0.image = ImageLiteral.imgCalendar
@@ -31,28 +38,32 @@ class CompletionTableViewCell: BaseTableViewCell, ViewModelBindableType {
             $0.textColor = .gray03
         }
     
-    let button = UIButton(type: .system)
+    let button = RoundedButton(type: .system)
         .then {
             $0.clipsToBounds = true
             $0.layer.cornerRadius = 20
             $0.setTitleColor(.primary, for: .normal)
             $0.titleLabel?.font = UIFont.pretendard(.semibold, ofSize: 16)
-            $0.backgroundColor = .secondary03
             $0.setTitle("회고 작성하기", for: .normal)
         }
     
     // MARK: Properties
     static let identifier = "CompletionBoxCell"
-    var viewModel: CompletionViewModel!
-    var coordinator = CompletionBoxCoordinator(navigationController: UINavigationController())
     
     // MARK: Functions
     override func render() {
-        contentView.addSubViews([completionImageView, label, calendarImageView, dateLabel, button])
+        contentView.addSubview(containerView)
+        containerView.addSubViews([completionImageView, label, calendarImageView, dateLabel, button])
+        
+        containerView.snp.makeConstraints { make in
+            make.height.equalTo(150)
+            make.top.bottom.equalToSuperview().inset(8)
+            make.leading.trailing.equalToSuperview().inset(4)
+        }
         
         completionImageView.snp.makeConstraints { make in
-            make.leading.equalTo(contentView.snp.leading).offset(24)
-            make.top.equalTo(contentView.snp.top).offset(24)
+            make.leading.equalToSuperview().offset(24)
+            make.top.equalToSuperview().offset(24)
             make.width.height.equalTo(48)
         }
         
@@ -72,20 +83,16 @@ class CompletionTableViewCell: BaseTableViewCell, ViewModelBindableType {
         }
         
         button.snp.makeConstraints { make in
-            make.leading.equalTo(contentView.snp.leading).offset(24)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-24)
+            make.leading.equalTo(containerView.snp.leading).offset(24)
+            make.trailing.equalTo(containerView.snp.trailing).offset(-24)
             make.height.equalTo(46)
             make.top.equalTo(completionImageView.snp.bottom).offset(16)
         }
     }
     
     override func configUI() {
-        contentView.backgroundColor = .white
-        self.layer.cornerRadius = 20
-        self.clipsToBounds = true
-    }
-    
-    func bindViewModel() {
-        
+        self.backgroundColor = .gray01
+        self.selectionStyle = .none
+        self.containerView.makeShadow(color: .init(hex: "#DCDCDC"), alpha: 1.0, x: 0, y: 0, blur: 7, spread: 0)
     }
 }
