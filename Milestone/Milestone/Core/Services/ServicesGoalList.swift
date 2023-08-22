@@ -10,11 +10,11 @@ import Foundation
 import RxSwift
 
 protocol ServicesGoalList: Service {
-    func requestAllGoals() -> Observable<Result<BaseModel<[Goal]>, APIError>>
+    func requestAllGoals<T>(goalStatusParameter: GoalStatusParameter) -> Observable<Result<BaseModel<GoalResponse<T>>, APIError>>
 }
 
 extension ServicesGoalList {
-    func requestAllGoals(goalStatusParameter: GoalStatusParameter) -> Observable<Result<BaseModel<[Goal]>, APIError>> {
+    func requestAllGoals<T>(goalStatusParameter: GoalStatusParameter) -> Observable<Result<BaseModel<GoalResponse<T>>, APIError>> {
         return apiSession.request(.requestAllGoals(goalStatus: goalStatusParameter))
     }
 }
