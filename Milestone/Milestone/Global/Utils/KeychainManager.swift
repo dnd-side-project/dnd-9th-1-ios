@@ -235,7 +235,13 @@ extension Reactive where Base: KeychainManager {
                 try self.base.saveItem(item, itemClass: itemClass, key: key)
                 observer.onCompleted()
             } catch {
-                observer.onError(error)
+                if let error = error as? KeychainError,
+                   error.localizedDescription == "Duplicate Item" {
+                    try! self.base.updateItem(with: item, ofClass: itemClass, key: key)
+                    observer.onCompleted()
+                } else {
+                    observer.onError(error)
+                }
             }
             
             return Disposables.create { }
