@@ -49,9 +49,9 @@ class RoundedButton: UIButton {
     // MARK: - Functions
     
     private func render() {
-        self.snp.makeConstraints { make in
-            make.height.equalTo(54)
-        }
+//        self.snp.makeConstraints { make in
+//            make.height.equalTo(54)
+//        }
     }
     private func configUI() {
         layer.cornerRadius = 20
