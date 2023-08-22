@@ -78,8 +78,8 @@ enum APIRouter: URLRequestConvertible {
     /// switch - self 구문으로 각 엔드포인트별 URL Path 지정
     private var path: String {
         switch self {
-        case .requestAllGoals(let goalStatus):
-            return "/goals?goalStatus=\(goalStatus.rawValue)"
+        case .requestAllGoals:
+            return "/goals"
         case .deleteGoal(let id):
             return "/goals/\(id)"
         case .requestEnabledRetrospectCount:
@@ -119,8 +119,10 @@ enum APIRouter: URLRequestConvertible {
     /// 빈 body를 보낼때는 nil값 전달
     private var parameters: Parameters? {
         switch self {
-        case .requestAllGoals:
-            return nil
+        case .requestAllGoals(let goalStatus):
+            return [
+                K.Parameters.goalStatus: goalStatus.rawValue
+            ]
         case .deleteGoal:
             return nil
         case .requestEnabledRetrospectCount:
