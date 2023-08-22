@@ -174,11 +174,11 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
     }
     
     func bindViewModel() {
-        viewModel.goalObservable
-            .element(at: goalIndex)
-            .map { $0.title }
-            .bind(to: titleLabel.rx.text)
-            .disposed(by: disposeBag)
+//        viewModel.goalObservable
+//            .element(at: goalIndex)
+//            .map { $0.title }
+//            .bind(to: titleLabel.rx.text)
+//            .disposed(by: disposeBag)
         
 //        viewModel.goalObservable
 //            .element(at: goalIndex)
