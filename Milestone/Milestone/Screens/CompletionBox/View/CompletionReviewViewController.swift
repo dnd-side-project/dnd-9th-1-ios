@@ -78,6 +78,10 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
     lazy var reviewVCWithoutGuide = CompletionReviewWithoutGuideViewController()
     
     let reviewCompleteVC = ReviewCompleteViewController()
+        .then {
+            $0.modalTransitionStyle = .crossDissolve
+            $0.modalPresentationStyle = .overFullScreen
+        }
     
     // MARK: Properties
     
@@ -170,22 +174,6 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
             .disposed(by: disposeBag)
         
         navigationItem.leftBarButtonItem = leftBarButton
-
-        reviewVCWithGuide.registerButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
-                reviewCompleteVC.modalTransitionStyle = .crossDissolve
-                reviewCompleteVC.modalPresentationStyle = .overFullScreen
-                self.present(reviewCompleteVC, animated: true)
-            })
-            .disposed(by: disposeBag)
-        
-        reviewVCWithoutGuide.registerButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
-                reviewCompleteVC.modalTransitionStyle = .crossDissolve
-                reviewCompleteVC.modalPresentationStyle = .overFullScreen
-                self.present(reviewCompleteVC, animated: true)
-            })
-            .disposed(by: disposeBag)
         
         reviewCompleteVC.closeButton.rx.tap
             .subscribe(onNext: { [unowned self] in
@@ -197,6 +185,22 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
             .subscribe(onNext: { [unowned self] in
                 self.dismiss(animated: true) {
                     self.pop()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reviewVCWithGuide.goalIndex = goalIndex
+        reviewVCWithoutGuide.goalIndex = goalIndex
+        
+        reviewVCWithGuide.bind(viewModel: self.viewModel)
+        reviewVCWithoutGuide.bind(viewModel: self.viewModel)
+        
+        viewModel.presentModal
+            .subscribe(onNext: { [unowned self] in
+                if $0 {
+                    self.present(self.reviewCompleteVC, animated: true) {
+                        self.viewModel.presentModal.accept(false)
+                    }
                 }
             })
             .disposed(by: disposeBag)
