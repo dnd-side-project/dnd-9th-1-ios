@@ -86,7 +86,7 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
     
     func bindViewModel() {
         // 상위 목표 조회 API 호출
-        viewModel.retrieveGoalData()
+        viewModel.retrieveParentGoalList()
         
         viewModel.progressGoals
             .bind(to: parentGoalTableView.rx.items(cellIdentifier: ParentGoalTableViewCell.identifier, cellType: ParentGoalTableViewCell.self)) { _, goal, cell in
