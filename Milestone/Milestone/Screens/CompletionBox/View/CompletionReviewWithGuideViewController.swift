@@ -137,6 +137,8 @@ class CompletionReviewWithGuideViewController: BaseViewController {
     }
     
     override func configUI() {
+        self.view.backgroundColor = .init(hex: "#F3F3FF")
+        
         setAttributedIndexLabel()
         setPointViews()
         selectPointView()
