@@ -24,6 +24,7 @@ class CompletionViewModel: BindableViewModel {
     
     var goalData = BehaviorRelay<[CompletedGoal]>(value: [])
     var goalDataCount = PublishRelay<Int>()
+    var isLoading = BehaviorRelay<Bool>(value: false)
     
     deinit {
         bag = DisposeBag()
@@ -32,14 +33,17 @@ class CompletionViewModel: BindableViewModel {
 
 extension CompletionViewModel: ServicesGoalList {
     func retrieveGoalData() {
+        isLoading.accept(true)
         goalResponse
             .subscribe(onNext: { [unowned self] result in
                 switch result {
                 case .success(let response):
                     self.goalData.accept(response.data.contents)
                     self.goalDataCount.accept(response.data.contents.count)
+                    self.isLoading.accept(false)
                 case .failure(let error):
                     print(error)
+                    self.isLoading.accept(false)
                 }
             })
             .disposed(by: bag)
