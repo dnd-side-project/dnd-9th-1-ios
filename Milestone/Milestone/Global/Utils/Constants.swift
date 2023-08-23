@@ -25,6 +25,9 @@ struct K {
         static let userId = "userId"
         static let fcmToken = "fcmToken"
         static let goalStatus = "goalStatus"
+        static let hasGuide = "has_guide"
+        static let contents = "contents"
+        static let successLevel = "success_level"
     }
     
     /// 헤더 필드
