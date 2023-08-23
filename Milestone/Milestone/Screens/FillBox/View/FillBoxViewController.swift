@@ -14,7 +14,7 @@ import Then
 
 // MARK: - 채움함
 
-class FillBoxViewController: BaseViewController {
+class FillBoxViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Subviews
     
@@ -26,7 +26,6 @@ class FillBoxViewController: BaseViewController {
             $0.separatorStyle = .none
             $0.showsVerticalScrollIndicator = false
             $0.register(cell: ParentGoalTableViewCell.self, forCellReuseIdentifier: ParentGoalTableViewCell.identifier)
-            $0.dataSource = self
             $0.delegate = self
         }
     
@@ -47,8 +46,8 @@ class FillBoxViewController: BaseViewController {
     
     // MARK: - Properties
     
+    var viewModel: FillBoxViewModel!
     var bubbleKey = UserDefaultsKeyStyle.bubbleInFillBox.rawValue
-    var goals = [Goal(identity: 0, title: "DND 9기 활동", startDate: "2023.07.01", endDate: "2023.08.26", reminderEnabled: true)]
     
     // MARK: - Life Cycle
     
@@ -85,6 +84,16 @@ class FillBoxViewController: BaseViewController {
         }
     }
     
+    func bindViewModel() {
+        viewModel.goalObservable
+            .bind(to: parentGoalTableView.rx.items(cellIdentifier: ParentGoalTableViewCell.identifier, cellType: ParentGoalTableViewCell.self)) { _, goal, cell in
+                cell.titleLabel.text = goal.title
+                cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
+            }
+            .disposed(by: disposeBag)
+        Logger.debugDescription("bye")
+    }
+    
     /// 처음이 맞는지 확인 -> 맞으면 말풍선 뷰 띄우기
     private func checkFirstFillBox() {
         if !UserDefaults.standard.bool(forKey: bubbleKey) { // 처음이면 무조건 false 반환함
@@ -97,7 +106,6 @@ class FillBoxViewController: BaseViewController {
     private func addBubbleView() {
         view.addSubview(bubbleView)
         bubbleView.snp.makeConstraints { make in
-//            Logger.debugDescription(parentGoalTableView.visibleCells)
             make.top.equalTo(parentGoalTableView.visibleCells[0].snp.bottom).offset(8)
             make.centerX.equalToSuperview()
             make.width.equalTo(268)
@@ -139,8 +147,7 @@ class FillBoxViewController: BaseViewController {
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
 
-extension FillBoxViewController: UITableViewDataSource, UITableViewDelegate {
-
+extension FillBoxViewController: UITableViewDelegate {
     // 헤더뷰로 설정해서 같이 스크롤 되게 함
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         parentGoalHeaderView
@@ -153,20 +160,10 @@ extension FillBoxViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         96 + 16
     }
-    // 셀(상위 목표) 개수
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        goals.count
-    }
-    // 셀 내용 구성
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ParentGoalTableViewCell.identifier, for: indexPath) as? ParentGoalTableViewCell else { return UITableViewCell() }
-        let goal = goals[indexPath.row]
-        cell.titleLabel.text = goal.title
-        cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
-        return cell
-    }
     // 셀 클릭 시 실행
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        push(viewController: DetailParentViewController())
+        var nextVC = DetailParentViewController()
+        nextVC.bind(viewModel: DetailParentViewModel())
+        push(viewController: nextVC)
     }
 }
