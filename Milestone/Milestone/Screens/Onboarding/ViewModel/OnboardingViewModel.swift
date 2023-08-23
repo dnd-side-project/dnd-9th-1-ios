@@ -63,7 +63,7 @@ class OnboardingViewModel: BindableViewModel {
         Observable.merge(mergedObservable)
             .subscribe(onCompleted: { [weak self] in
                 guard let self = self else { return }
-                loginCoordinator?.coordinateToOnboarding()
+                self.loginCoordinator?.coordinateToOnboarding()
             })
             .disposed(by: bag)
     }
@@ -102,7 +102,7 @@ class OnboardingViewModel: BindableViewModel {
         Observable.merge(mergedObservable)
             .subscribe(onCompleted: { [weak self] in
                 guard let self = self else { return }
-                loginCoordinator?.coordinateToOnboarding()
+                self.loginCoordinator?.coordinateToOnboarding()
             })
             .disposed(by: bag)
     }
