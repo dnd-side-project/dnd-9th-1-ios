@@ -10,8 +10,6 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
-typealias CompletionSectionModel = AnimatableSectionModel<Int, Goal>
-
 class CompletionViewModel: BindableViewModel {
     
     // MARK: BindableViewModel Properties
@@ -19,26 +17,35 @@ class CompletionViewModel: BindableViewModel {
     
     var bag = DisposeBag()
     
-    // MARK: Properties
-    private var goalList = [Goal(identity: 0, title: "", startDate: "", endDate: "", reminderEnabled: true)]
-    
-    //    private var goalList: [Goal] = []
-    
-    private lazy var sectionModel = goalList.enumerated().map { index, goal in
-        CompletionSectionModel(model: index, items: [goal])
+    // MARK: - Output
+    var goalResponse: Observable<Result<BaseModel<GoalResponse<CompletedGoal>>, APIError>> {
+        requestAllGoals(goalStatusParameter: .complete)
     }
     
-    private lazy var store = BehaviorSubject<[CompletionSectionModel]>(value: sectionModel)
-    
-    var completionList: Observable<[CompletionSectionModel]> {
-        return store
-    }
-    
-    var goalObservable: Observable<Goal> {
-        return Observable.from(goalList)
-    }
+    var goalData = BehaviorRelay<[CompletedGoal]>(value: [])
+    var goalDataCount = PublishRelay<Int>()
     
     deinit {
         bag = DisposeBag()
+    }
+}
+
+extension CompletionViewModel: ServicesGoalList {
+    func retrieveGoalData() {
+        goalResponse
+            .subscribe(onNext: { [unowned self] result in
+                switch result {
+                case .success(let response):
+                    self.goalData.accept(response.data.contents)
+                    self.goalDataCount.accept(response.data.contents.count)
+                case .failure(let error):
+                    print(error)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+    func retrieveGoalDataAtIndex(index: Int) -> Observable<CompletedGoal> {
+        return goalData.map { $0[index] }
     }
 }

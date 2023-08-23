@@ -64,26 +64,26 @@ enum ImageLiteral {
     static var imgRetrospectComplete: UIImage { .load(named: "retrospectComplete") }
     static var imgRetrospectView1: UIImage { .load(named: "retrospectView1") }
     static var imgCompleteGoal: UIImage { .load(named: "completedStonePopUp") }
-    static var imgBlueStoneVer1: UIImage { .load(named: "blueStoneVer1")}
-    static var imgBlueStoneVer2: UIImage { .load(named: "blueStoneVer2")}
-    static var imgBlueStoneVer3: UIImage { .load(named: "blueStoneVer3")}
-    static var imgBlueStoneVer4: UIImage { .load(named: "blueStoneVer4")}
-    static var imgBlueStoneVer5: UIImage { .load(named: "blueStoneVer5")}
-    static var imgPurpleStoneVer1: UIImage { .load(named: "purpleStoneVer1")}
-    static var imgPurpleStoneVer2: UIImage { .load(named: "purpleStoneVer2")}
-    static var imgPurpleStoneVer3: UIImage { .load(named: "purpleStoneVer3")}
-    static var imgPurpleStoneVer4: UIImage { .load(named: "purpleStoneVer4")}
-    static var imgPurpleStoneVer5: UIImage { .load(named: "purpleStoneVer5")}
-    static var imgPinkStoneVer1: UIImage { .load(named: "pinkStoneVer1")}
-    static var imgPinkStoneVer2: UIImage { .load(named: "pinkStoneVer2")}
-    static var imgPinkStoneVer3: UIImage { .load(named: "pinkStoneVer3")}
-    static var imgPinkStoneVer4: UIImage { .load(named: "pinkStoneVer4")}
-    static var imgPinkStoneVer5: UIImage { .load(named: "pinkStoneVer5")}
-    static var imgGreenStoneVer1: UIImage { .load(named: "greenStoneVer1")}
-    static var imgGreenStoneVer2: UIImage { .load(named: "greenStoneVer2")}
-    static var imgGreenStoneVer3: UIImage { .load(named: "greenStoneVer3")}
-    static var imgGreenStoneVer4: UIImage { .load(named: "greenStoneVer4")}
-    static var imgGreenStoneVer5: UIImage { .load(named: "greenStoneVer5")}
+    static var imgBlueStoneVer1: UIImage { .load(named: "BLUE_JEWEL_1")}
+    static var imgBlueStoneVer2: UIImage { .load(named: "BLUE_JEWEL_2")}
+    static var imgBlueStoneVer3: UIImage { .load(named: "BLUE_JEWEL_3")}
+    static var imgBlueStoneVer4: UIImage { .load(named: "BLUE_JEWEL_4")}
+    static var imgBlueStoneVer5: UIImage { .load(named: "BLUE_JEWEL_5")}
+    static var imgPurpleStoneVer1: UIImage { .load(named: "PURPLE_JEWEL_1")}
+    static var imgPurpleStoneVer2: UIImage { .load(named: "PURPLE_JEWEL_2")}
+    static var imgPurpleStoneVer3: UIImage { .load(named: "PURPLE_JEWEL_3")}
+    static var imgPurpleStoneVer4: UIImage { .load(named: "PURPLE_JEWEL_4")}
+    static var imgPurpleStoneVer5: UIImage { .load(named: "PURPLE_JEWEL_5")}
+    static var imgPinkStoneVer1: UIImage { .load(named: "PINK_JEWEL_1")}
+    static var imgPinkStoneVer2: UIImage { .load(named: "PINK_JEWEL_2")}
+    static var imgPinkStoneVer3: UIImage { .load(named: "PINK_JEWEL_3")}
+    static var imgPinkStoneVer4: UIImage { .load(named: "PINK_JEWEL_4")}
+    static var imgPinkStoneVer5: UIImage { .load(named: "PINK_JEWEL_5")}
+    static var imgGreenStoneVer1: UIImage { .load(named: "GREEN_JEWEL_1")}
+    static var imgGreenStoneVer2: UIImage { .load(named: "GREEN_JEWEL_2")}
+    static var imgGreenStoneVer3: UIImage { .load(named: "GREEN_JEWEL_3")}
+    static var imgGreenStoneVer4: UIImage { .load(named: "GREEN_JEWEL_4")}
+    static var imgGreenStoneVer5: UIImage { .load(named: "GREEN_JEWEL_5")}
     static var imgBlueStonePopUpVer1: UIImage { .load(named: "blueStonePopUpVer1")}
     static var imgBlueStonePopUpVer2: UIImage { .load(named: "blueStonePopUpVer2")}
     static var imgBlueStonePopUpVer3: UIImage { .load(named: "blueStonePopUpVer3")}
@@ -109,4 +109,9 @@ enum ImageLiteral {
     static var imgModify: UIImage { .load(named: "modify")}
     static var imgOngoingGoal: UIImage { .load(named: "ongoingGoalIcon")}
     static var imgCompletedGoal: UIImage { .load(named: "completedGoalIcon")}
+    static var imgGood: UIImage { .load(named: "good") }
+    static var imgBad: UIImage { .load(named: "bad") }
+    static var imgGift: UIImage { .load(named: "gift") }
+    static var imgBook: UIImage { .load(named: "book") }
+    static var imgPen: UIImage { .load(named: "pen") }
 }

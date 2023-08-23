@@ -34,9 +34,12 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     private let alertBox = CompletionAlertView()
         .then {
-            $0.isHidden = true
+            $0.backgroundColor = .white
+            $0.isHidden = false
             $0.layer.cornerRadius = 20
         }
+    
+    let headerContainerView = UIView()
     
     private let tableView = UITableView()
         .then {
@@ -51,15 +54,15 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             $0.guideLabel.text = "이룬 목표에 대한 회고를 자세히 기록해보세요!"
         }
     
-    var tapDisposable: [Disposable] = []
-    var cellHideDisposable: Disposable?
-    var nsAttributedStringDisposable: Disposable?
-    var tableViewScrollDisposable: Disposable?
-    
     // MARK: - Properties
     
     var viewModel: CompletionViewModel!
     var bubbleKey = UserDefaultsKeyStyle.bubbleInCompletionBox.rawValue
+    
+    let dateFormatter = DateFormatter()
+        .then {
+            $0.dateFormat = "yyyy.MM.dd"
+        }
     
     // MARK: - Life Cycle
     
@@ -71,75 +74,9 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         tableView.dataSource = nil
         tableView.rx.setDelegate(self)
             .disposed(by: disposeBag)
-        checkFirstCompletionBox()
-    }
-    
-    /// 뷰 사라질때 등록해둔 구독자들을 클래스 속성에 추가한 뒤 viewWillDisappear에서 커스텀 디스포즈
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.layoutIfNeeded()
-        guard let cell = tableView.visibleCells.first else { return }
-        let alertView = cell.contentView.subviews.last as! CompletionAlertView
-
-        cellHideDisposable = viewModel.completionList
-            .map { $0.isEmpty }
-            .bind(to: cell.rx.isHidden)
-
-        nsAttributedStringDisposable = viewModel.completionList
-            .map {
-                let string = NSMutableAttributedString(string: "총 \($0.count - 1)개의 목표 회고를 작성할 수 있어요!")
-                string.setColorForText(textForAttribute: "총 \($0.count - 1)개의 목표 회고", withColor: .pointPurple)
-                return string
-            }
-            .bind(to: alertView.label.rx.attributedText)
-
-        tableView.visibleCells.enumerated().forEach { index, cell in
-            guard let cell = cell as? CompletionTableViewCell else { return }
-            tapDisposable.append(cell.button.rx.tap
-                .subscribe(onNext: { [weak self] _ in
-                    guard let self = self else { return }
-                    
-//                    self.viewModel.goalObservable
-//                        .element(at: index)
-//                        .subscribe(onNext: {
-//
-//                            if $0.isCompleted {
-//                                switch $0.style {
-//                                case .guide:
-//                                    var savedReviewViewWithGuide = CompletionSavedReviewWithGuideViewController()
-//                                    savedReviewViewWithGuide.goalIndex = index
-//                                    savedReviewViewWithGuide.bind(viewModel: self.viewModel)
-//                                    self.push(viewController: savedReviewViewWithGuide)
-//                                case .free:
-//                                    var savedReviewViewWithoutGuide = CompletionSavedReviewWithoutGuideViewController()
-//                                    savedReviewViewWithoutGuide.goalIndex = index
-//                                    savedReviewViewWithoutGuide.bind(viewModel: self.viewModel)
-//                                    self.push(viewController: savedReviewViewWithoutGuide)
-//                                }
-//                            } else {
-//                                var reviewVC = CompletionReviewViewController()
-//                                reviewVC.goalIndex = index
-//                                reviewVC.bind(viewModel: self.viewModel)
-//                                self.push(viewController: reviewVC)
-//                            }
-//                        })
-//                        .disposed(by: self.disposeBag)
-                }))
-        }
-
-        setAdditionalLayout()
-    }
-    
-    /// 뷰 전환에 따른 Dispose 커스텀 로직
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        tapDisposable.forEach { disposable in
-            disposable.dispose()
-        }
-        tapDisposable = []
         
-        cellHideDisposable?.dispose()
-        nsAttributedStringDisposable?.dispose()
+        checkFirstCompletionBox()
+        viewModel.retrieveGoalData()
     }
     
     // MARK: - Functions
@@ -172,19 +109,48 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     }
     
     func bindViewModel() {
-//        viewModel.completionList
-//            .bind(to: tableView.rx.items(dataSource: dataSource()))
-//            .disposed(by: disposeBag)
-        
-        viewModel.completionList
-            .map { !$0.isEmpty }
-            .bind(to: emptyImageView.rx.isHidden, label.rx.isHidden)
+        viewModel.goalData
+            .bind(to: tableView.rx.items(cellIdentifier: CompletionTableViewCell.identifier, cellType: CompletionTableViewCell.self)) { [unowned self] row, element, cell in
+                let startDate = dateFormatter.date(from: element.startDate)!
+                let endDate = dateFormatter.date(from: element.endDate)!
+                cell.dateLabel.text = dateFormatter.string(from: startDate) + " - " + dateFormatter.string(from: endDate)
+                cell.label.text = element.title
+                cell.completionImageView.image = UIImage(named: RewardToImage(rawValue: element.reward)!.rawValue)
+                
+                if element.hasRetrospect {
+                    cell.button.buttonComponentStyle = .secondary_m_line
+                    cell.button.buttonState = .original
+                } else {
+                    cell.button.buttonComponentStyle = .secondary_m
+                    cell.button.buttonState = .original
+                    
+                    cell.button.rx.tap
+                        .subscribe(onNext: {
+                            let reviewVC = CompletionReviewViewController()
+                            reviewVC.goalIndex = row
+                            reviewVC.viewModel = self.viewModel
+                            self.push(viewController: reviewVC)
+                        })
+                        .disposed(by: disposeBag)
+                }
+            }
             .disposed(by: disposeBag)
         
-        tableViewScrollDisposable = tableView.rx.didScroll
-            .subscribe { [weak self] _ in
-                self?.bubbleView.isHidden = true
+        viewModel.goalDataCount
+            .map { count -> NSAttributedString in
+                
+                let stringValue = "총 \(count)개의 목표가 보관되어있어요!"
+                let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
+                attributedString.setColorForText(textForAttribute: "총 \(count)개의 목표", withColor: .pointPurple)
+                return attributedString
             }
+            .bind(to: alertBox.label.rx.attributedText)
+            .disposed(by: disposeBag)
+        
+        viewModel.goalDataCount
+            .map { $0 > 0}
+            .bind(to: emptyImageView.rx.isHidden, label.rx.isHidden)
+            .disposed(by: disposeBag)
     }
     
     /// 테이블뷰 레이아웃 세팅 완료 후 정의해야할 레이아웃 대상들을 분리
@@ -206,7 +172,6 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             UserDefaults.standard.set(true, forKey: bubbleKey)
         } else {
             bubbleView.isHidden = true
-            tableViewScrollDisposable?.dispose()
         }
     }
 }
@@ -214,70 +179,29 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
 // MARK: - UITableViewDelegate
 
 extension CompletionBoxViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
-    }
-
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return 60
-        }
-        return 150
+        return 150 + 16
     }
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = UIColor.clear
-        return headerView
+        headerContainerView.addSubview(alertBox)
+        
+        alertBox.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(4)
+            make.height.equalTo(60)
+        }
+    
+        return headerContainerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60 + 8
     }
 }
 
 // MARK: - RxTableViewSectionedAnimatedDataSource
 
 extension CompletionBoxViewController {
-    private func dataSource() -> RxTableViewSectionedAnimatedDataSource<CompletionSectionModel> {
-        return RxTableViewSectionedAnimatedDataSource<CompletionSectionModel> { dataSource, tableView, indexPath, goal in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CompletionTableViewCell.identifier, for: indexPath) as? CompletionTableViewCell else { return UITableViewCell() }
-//            
-//            if indexPath.section == 0 {
-//                let completionView = CompletionAlertView()
-//                
-//                cell.contentView.addSubview(completionView)
-//                completionView.snp.makeConstraints { make in
-//                    make.margins.equalTo(cell.contentView.snp.margins)
-//                }
-//                cell.calendarImageView.isHidden = true
-//                cell.button.isHidden = true
-//                cell.completionImageView.isHidden = true
-//                cell.dateLabel.isHidden = true
-//                cell.label.isHidden = true
-//                
-//                return cell
-//            }
-//            
-//            cell.label.text = goal.title
-//            
-//            let dateFormatter = DateFormatter().then { $0.dateFormat = "yyyy.MM.dd" }
-//            let startDateString = dateFormatter.string(from: goal.startDate)
-//            let endDateString = dateFormatter.string(from: goal.endDate)
-//            
-//            cell.dateLabel.text = startDateString + " - " + endDateString
-//            
-//            if goal.isCompleted {
-//                cell.button.setTitle("회고 보기", for: .normal)
-//                cell.button.setTitleColor(.primary, for: .normal)
-//                cell.button.backgroundColor = .white
-//                cell.button.layer.borderColor = UIColor.secondary01.cgColor
-//                cell.button.layer.borderWidth = 1
-//            } else {
-//                cell.button.setTitle("회고 작성하기", for: .normal)
-//                cell.button.setTitleColor(.primary, for: .normal)
-//                cell.backgroundColor = .secondary03
-//                cell.layer.borderColor = UIColor.clear.cgColor
-//            }
-            
-            return cell
-        }
-        
-    }
+    
 }

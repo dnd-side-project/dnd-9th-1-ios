@@ -12,10 +12,7 @@ import RxCocoa
 class IndexView: UIView {
     
     // MARK: Subviews
-    private let indexView = UIView()
-        .then {
-            $0.backgroundColor = .gray01
-        }
+    let indexImage = UIImageView()
     
     private let indexLabel = UILabel()
         .then {
@@ -58,23 +55,23 @@ class IndexView: UIView {
     }
     
     func render() {
-        self.addSubViews([indexView, indexLabel, textView, textCountLabel])
+        self.addSubViews([indexImage, indexLabel, textView, textCountLabel])
         
-        indexView.snp.makeConstraints { make in
+        indexImage.snp.makeConstraints { make in
             make.leading.equalTo(self.snp.leading).offset(24)
             make.top.equalTo(self.snp.top)
             make.width.height.equalTo(24)
         }
         
         indexLabel.snp.makeConstraints { make in
-            make.leading.equalTo(indexView.snp.trailing).offset(8)
-            make.centerY.equalTo(indexView.snp.centerY)
+            make.leading.equalTo(indexImage.snp.trailing).offset(8)
+            make.centerY.equalTo(indexImage.snp.centerY)
         }
         
         textView.snp.makeConstraints { make in
             make.leading.equalTo(self.snp.leading).offset(24)
             make.trailing.equalTo(self.snp.trailing).offset(-24)
-            make.top.equalTo(indexView.snp.bottom).offset(16)
+            make.top.equalTo(indexImage.snp.bottom).offset(16)
             make.height.equalTo(220)
         }
         

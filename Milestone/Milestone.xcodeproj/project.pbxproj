@@ -218,6 +218,9 @@
 		C90DC9862A88F0B100241B7C /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9852A88F0B100241B7C /* UITextField+.swift */; };
 		C90DC9882A891A8500241B7C /* OnboardingViewControllerLast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9872A891A8500241B7C /* OnboardingViewControllerLast.swift */; };
 		C90DC98A2A8922D300241B7C /* NSMutableAttributedString+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9892A8922D300241B7C /* NSMutableAttributedString+.swift */; };
+		C95A3C9B2A94D08D0028B4ED /* CompletedGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9A2A94D08D0028B4ED /* CompletedGoal.swift */; };
+		C95A3C9F2A94E0AC0028B4ED /* CompletionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */; };
+		C95A3CA12A94EB580028B4ED /* RewardToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA02A94EB580028B4ED /* RewardToImage.swift */; };
 		C9798ACA2A939F9600B5CC4A /* BindableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9798AC92A939F9600B5CC4A /* BindableViewModel.swift */; };
 		C9798ACC2A939F9E00B5CC4A /* Lodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9798ACB2A939F9E00B5CC4A /* Lodable.swift */; };
 		C9B2CDD62A8A77F1006289A8 /* CompletionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDD52A8A77F1006289A8 /* CompletionViewModel.swift */; };
@@ -366,6 +369,9 @@
 		C90DC9852A88F0B100241B7C /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		C90DC9872A891A8500241B7C /* OnboardingViewControllerLast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerLast.swift; sourceTree = "<group>"; };
 		C90DC9892A8922D300241B7C /* NSMutableAttributedString+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+.swift"; sourceTree = "<group>"; };
+		C95A3C9A2A94D08D0028B4ED /* CompletedGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedGoal.swift; sourceTree = "<group>"; };
+		C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionHeaderView.swift; sourceTree = "<group>"; };
+		C95A3CA02A94EB580028B4ED /* RewardToImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardToImage.swift; sourceTree = "<group>"; };
 		C9798AC92A939F9600B5CC4A /* BindableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BindableViewModel.swift; path = Foundation/BindableViewModel.swift; sourceTree = "<group>"; };
 		C9798ACB2A939F9E00B5CC4A /* Lodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lodable.swift; path = Foundation/Lodable.swift; sourceTree = "<group>"; };
 		C9B2CDD52A8A77F1006289A8 /* CompletionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewModel.swift; sourceTree = "<group>"; };
@@ -534,6 +540,7 @@
 				A289D9512A912864005B7F00 /* PointTextStyle.swift */,
 				C9B2CE462A92F61D006289A8 /* GoalStatusParameter.swift */,
 				C9040FD72A93CE7D00270E94 /* KeychainKeyList.swift */,
+				C95A3CA02A94EB580028B4ED /* RewardToImage.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -849,6 +856,7 @@
 			isa = PBXGroup;
 			children = (
 				C9B2CDDD2A8B42CA006289A8 /* CompletionTableViewCell.swift */,
+				C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -883,6 +891,7 @@
 				C9B2CE4A2A92F95E006289A8 /* DetailGoal.swift */,
 				A282DA552A94C20300A0D0BF /* DetailGoalInfo.swift */,
 				C9040FCB2A93B64A00270E94 /* Token.swift */,
+				C95A3C9A2A94D08D0028B4ED /* CompletedGoal.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1111,6 +1120,7 @@
 				88216FC02A85328900FE3A77 /* LoginViewController.swift in Sources */,
 				A2C98F062A8B6122009B5579 /* EnterGoalTitleView.swift in Sources */,
 				A2B969872A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
+				C95A3C9B2A94D08D0028B4ED /* CompletedGoal.swift in Sources */,
 				C9B2CE172A8F5267006289A8 /* APIRouter.swift in Sources */,
 				A2C98F162A8BA6F0009B5579 /* RoundedButton.swift in Sources */,
 				A289D9462A91246C005B7F00 /* DayStyle.swift in Sources */,
@@ -1172,8 +1182,10 @@
 				A2FA59142A7FCFC8006ACA2E /* Data+.swift in Sources */,
 				C9B2CDD82A8A7B26006289A8 /* ViewModelBindableType.swift in Sources */,
 				A2FA591D2A7FD2DD006ACA2E /* BaseCollectionViewCell.swift in Sources */,
+				C95A3C9F2A94E0AC0028B4ED /* CompletionHeaderView.swift in Sources */,
 				A2B20D902A7ED14C001ED73C /* ImageLiteral.swift in Sources */,
 				C9B2CE472A92F61D006289A8 /* GoalStatusParameter.swift in Sources */,
+				C95A3CA12A94EB580028B4ED /* RewardToImage.swift in Sources */,
 				C9B2CDED2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift in Sources */,
 				C9B2CDF72A8CC26E006289A8 /* PointView.swift in Sources */,
 				C9B2CE242A8F673C006289A8 /* ServicesGoalList.swift in Sources */,
