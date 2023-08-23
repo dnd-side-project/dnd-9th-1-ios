@@ -9,7 +9,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class CompletionReviewWithGuideViewController: BaseViewController {
+class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: Subviews
     
@@ -59,7 +59,10 @@ class CompletionReviewWithGuideViewController: BaseViewController {
     
     // MARK: Properties
     
+    var viewModel: CompletionViewModel!
     private var fillSelected = PublishSubject<Bool>()
+    var goalIndex = 0
+    let selectedPoint = BehaviorRelay<String>(value: "")
     
     // MARK: Life Cycles
     override func viewDidAppear(_ animated: Bool) {
@@ -147,6 +150,32 @@ class CompletionReviewWithGuideViewController: BaseViewController {
         thirdQuestionView.indexImage.image = ImageLiteral.imgBook
         fourthQuestionView.indexImage.image = ImageLiteral.imgGift
     }
+
+    func bindViewModel() {
+        let combinedObservable = Observable.combineLatest(viewModel.retrieveGoalDataAtIndex(index: goalIndex), selectedPoint.asObservable()) { goalData, selectedPoint in
+            return [
+                "id": goalData.identity,
+                "selected": selectedPoint
+            ] as [String: Any]
+        }
+        
+        registerButton.rx.tap
+            .flatMap { combinedObservable }
+            .map { [unowned self] in
+                self.viewModel.saveRetrospect(goalId: $0["id"] as! Int, retrospect: Retrospect(hasGuide: true, contents: ["LIKED": firstQuestionView.textView.text, "LACKED": secondQuestionView.textView.text, "LEARNED": thirdQuestionView.textView.text, "LONGED_FOR": fourthQuestionView.textView.text], successLevel: $0["selected"] as! String))
+            }
+            .subscribe(onNext: { [unowned self] in
+                self.viewModel.handlingPostResponse(result: $0)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.isLoading
+            .asDriver()
+            .drive(onNext: { [unowned self] in
+                self.registerButton.isHidden = $0
+            })
+            .disposed(by: disposeBag)
+    }
     
     func setAttributedIndexLabel() {
         setAttributedText(originString: .first, targetView: firstQuestionView, "좋았던 점")
@@ -197,6 +226,7 @@ class CompletionReviewWithGuideViewController: BaseViewController {
     func selectPointView() {
         lowestPointView.pointButton.rx.tap
             .subscribe(onNext: { [unowned self] in
+                selectedPoint.accept("LEVEL1")
                 self.fillSelected.onNext(true)
                 
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgAfterSelected1, for: .normal)
@@ -217,7 +247,8 @@ class CompletionReviewWithGuideViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         lowerPointView.pointButton.rx.tap
-            .subscribe(onNext: {
+            .subscribe(onNext: { [unowned self] in
+                self.selectedPoint.accept("LEVEL2")
                 self.fillSelected.onNext(true)
                 
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected1, for: .normal)
@@ -239,7 +270,8 @@ class CompletionReviewWithGuideViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         middlePointView.pointButton.rx.tap
-            .subscribe(onNext: {
+            .subscribe(onNext: { [unowned self] in
+                self.selectedPoint.accept("LEVEL3")
                 self.fillSelected.onNext(true)
                 
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected1, for: .normal)
@@ -261,7 +293,8 @@ class CompletionReviewWithGuideViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         higherPointView.pointButton.rx.tap
-            .subscribe(onNext: {
+            .subscribe(onNext: { [unowned self] in
+                self.selectedPoint.accept("LEVEL4")
                 self.fillSelected.onNext(true)
                 
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected1, for: .normal)
@@ -283,7 +316,8 @@ class CompletionReviewWithGuideViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         highestPointView.pointButton.rx.tap
-            .subscribe(onNext: {
+            .subscribe(onNext: { [unowned self] in
+                self.selectedPoint.accept("LEVEL5")
                 self.fillSelected.onNext(true)
                 
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected1, for: .normal)
