@@ -35,7 +35,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     private let alertBox = CompletionAlertView()
         .then {
             $0.backgroundColor = .white
-            $0.isHidden = false
+            $0.isHidden = true
             $0.layer.cornerRadius = 20
         }
     
@@ -145,6 +145,18 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                 return attributedString
             }
             .bind(to: alertBox.label.rx.attributedText)
+            .disposed(by: disposeBag)
+        
+        viewModel.goalDataCount
+            .map { $0 == 0 }
+            .bind(to: alertBox.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        viewModel.isLoading
+            .asDriver()
+            .drive(onNext: { [weak self] loading in
+                self?.loading(loading: loading)
+            })
             .disposed(by: disposeBag)
         
         viewModel.goalDataCount
