@@ -174,9 +174,15 @@ extension FillBoxViewController: UITableViewDelegate {
     }
     // 셀 클릭 시 실행
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var nextVC = DetailParentViewController()
+        let selectedGoalData = self.viewModel.progressGoals.value[indexPath.row]
+        lazy var nextVC = DetailParentViewController()
+            .then {
+                $0.goalTitleLabel.text = selectedGoalData.title
+                $0.dDayLabel.text = "D - \(selectedGoalData.dDay)"
+                $0.termLabel.text = "\(selectedGoalData.startDate) - \(selectedGoalData.endDate)"
+            }
         lazy var viewModel = DetailParentViewModel()
-        viewModel.parentGoalId = self.viewModel.progressGoals.value[indexPath.row].identity
+        viewModel.parentGoalId = selectedGoalData.identity
         nextVC.bind(viewModel: viewModel)
         push(viewController: nextVC)
     }
