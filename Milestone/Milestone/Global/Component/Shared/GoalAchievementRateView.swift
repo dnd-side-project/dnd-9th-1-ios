@@ -37,7 +37,7 @@ class GoalAchievementRateView: UIView {
     
     override func draw(_ rect: CGRect) {
         
-        let radian = 270 - 360 * (completedCount / totalCount)
+        let radian = totalCount == 0 ? 270 : 270 - 360 * (completedCount / totalCount)
         
         self.countLabel.text = "\(Int(completedCount))/\(Int(totalCount))"
         
