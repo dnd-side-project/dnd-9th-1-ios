@@ -31,4 +31,16 @@ extension UIViewController {
         sheet.detents = [fraction]
         present(viewController, animated: true)
     }
+    
+    /// 로딩뷰 띄울때 사용
+    func loading(loading: Bool) {
+        if loading {
+            let loadingView = LoadingView(frame: view.frame)
+            view.addSubview(loadingView)
+            return
+        }
+        
+        guard let loadingView = view.subviews.compactMap({ $0 as? LoadingView }).first else { return }
+        loadingView.removeFromSuperview()
+    }
 }
