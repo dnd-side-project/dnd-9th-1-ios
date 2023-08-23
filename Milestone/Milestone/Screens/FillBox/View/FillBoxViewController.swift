@@ -46,7 +46,7 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Properties
     
-    var viewModel: FillBoxViewModel!
+    var viewModel: FillBoxViewModel! = FillBoxViewModel()
     var bubbleKey = UserDefaultsKeyStyle.bubbleInFillBox.rawValue
     
     // MARK: - Life Cycle
@@ -54,9 +54,16 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bindViewModel()
         parentGoalTableView.layoutIfNeeded()
         checkFirstFillBox()
         didScrollTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        updateParentGoalList()
     }
     
     // MARK: - Functions
@@ -85,8 +92,6 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
     }
     
     func bindViewModel() {
-        // 상위 목표 조회 API 호출
-        viewModel.retrieveParentGoalList()
         viewModel.progressGoals
             .bind(to: parentGoalTableView.rx.items(cellIdentifier: ParentGoalTableViewCell.identifier, cellType: ParentGoalTableViewCell.self)) { _, goal, cell in
                 cell.goalAchievementRateView.completedCount = CGFloat(goal.completedDetailGoalCnt)
@@ -96,8 +101,6 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
             }
             .disposed(by: disposeBag)
         
-        // 상위 목표 상태별 개수 조회 API 호출
-        viewModel.retrieveGoalCountByStatus()
         viewModel.progressGoalCount
             .bind(to: parentGoalHeaderView.ongoingGoalView.goalNumberLabel.rx.text)
             .disposed(by: disposeBag)
@@ -139,6 +142,9 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
     
     private func presentAddParentGoal() {
         var addParentGoalVC = AddParentGoalViewController()
+            .then {
+                $0.delegate = self
+            }
         addParentGoalVC.bind(viewModel: AddParentGoalViewModel())
         presentCustomModal(addParentGoalVC, height: addParentGoalVC.viewHeight)
     }
@@ -178,5 +184,14 @@ extension FillBoxViewController: UITableViewDelegate {
         var nextVC = DetailParentViewController()
         nextVC.bind(viewModel: DetailParentViewModel())
         push(viewController: nextVC)
+    }
+}
+
+extension FillBoxViewController: UpdateParentGoalListDelegate {
+    func updateParentGoalList() {
+        // 상위 목표 조회 API 호출
+        viewModel.retrieveParentGoalList()
+        // 상위 목표 상태별 개수 조회 API 호출
+        viewModel.retrieveGoalCountByStatus()
     }
 }

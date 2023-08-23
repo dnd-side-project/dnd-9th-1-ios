@@ -48,6 +48,7 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
     
     var viewModel: AddParentGoalViewModel!
     let viewHeight = 549.0
+    var delegate: UpdateParentGoalListDelegate?
     
     // MARK: - Functions
     
@@ -110,7 +111,10 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
         updateButtonState(.press)
         // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.dismiss(animated: true)
+            self.dismiss(animated: true) {
+                // 목표 추가 모달 dismiss 하면서 상위 목표 목록 업데이트
+                self.delegate?.updateParentGoalList()
+            }
         }
     }
 }
