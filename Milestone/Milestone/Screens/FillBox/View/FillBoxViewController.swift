@@ -175,7 +175,9 @@ extension FillBoxViewController: UITableViewDelegate {
     // 셀 클릭 시 실행
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var nextVC = DetailParentViewController()
-        nextVC.bind(viewModel: DetailParentViewModel())
+        lazy var viewModel = DetailParentViewModel()
+        viewModel.parentGoalId = self.viewModel.progressGoals.value[indexPath.row].identity
+        nextVC.bind(viewModel: viewModel)
         push(viewController: nextVC)
     }
 }

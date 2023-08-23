@@ -163,7 +163,8 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     }
     
     func bindViewModel() {
-        viewModel.detailGoalObservableForCollectionView
+        viewModel.retrieveDetailGoalList()
+        viewModel.detailGoalList
             .bind(to: detailGoalCollectionView.rx.items(cellIdentifier: DetailGoalCollectionViewCell.identifier, cellType: DetailGoalCollectionViewCell.self)) { row, goal, cell in
                 // 보관함일 때
                 if self.isFromStorage {
@@ -175,7 +176,7 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
             }
             .disposed(by: disposeBag)
         
-        viewModel.detailGoalObservableForTableView
+        viewModel.detailGoalList
             .bind(to: detailGoalTableView.rx.items(cellIdentifier: DetailGoalTableViewCell.identifier, cellType: DetailGoalTableViewCell.self)) { _, goal, cell in
                 if self.isFromStorage {
                     cell.isUserInteractionEnabled = false
