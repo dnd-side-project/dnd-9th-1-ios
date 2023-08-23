@@ -16,7 +16,6 @@ class FillBoxViewModel: BindableViewModel, ServicesGoalList {
     
     var apiSession: APIService = APISession()
     var bag = DisposeBag()
-    var test = CreateParentGoal(title: "test", startDate: "2023-08-08", endDate: "2023-08-26", reminderEnabled: true)
     
     // MARK: - Output
     
@@ -25,9 +24,6 @@ class FillBoxViewModel: BindableViewModel, ServicesGoalList {
     }
     var parentGoalListResponse: Observable<Result<BaseModel<GoalResponse>, APIError>> {
         requestAllGoals(goalStatusParameter: .process)
-    }
-    var createParentGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
-        requestPostParentGoal(reqBody: test)
     }
     
     var progressGoalCount = BehaviorRelay<String>(value: "0")
@@ -61,20 +57,6 @@ extension FillBoxViewModel {
                 switch result {
                 case .success(let response):
                     progressGoals.accept(response.data.contents)
-                case .failure(let error):
-                    Logger.debugDescription(error)
-                }
-            })
-            .disposed(by: bag)
-    }
-    
-    func createParentGoal() {
-        createParentGoalResponse
-            .subscribe(onNext: { result in
-                switch result {
-                case .success(let response):
-                    Logger.debugDescription(response)
-//                    progressGoals.accept(response.data.contents)
                 case .failure(let error):
                     Logger.debugDescription(error)
                 }
