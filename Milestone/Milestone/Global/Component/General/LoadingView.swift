@@ -35,7 +35,7 @@ class LoadingView: UIView {
 
 extension LoadingView {
     private func configureView() {
-        backgroundColor = .black.withAlphaComponent(0.6)
+//        backgroundColor = .black.withAlphaComponent(0.6)
         addSubview(indicator)
     }
 }
