@@ -8,10 +8,12 @@
 import Foundation
 import RxDataSources
 
-struct GoalResponse<T: Codable>: Codable {
-    let contents: [T]
+struct GoalResponse: Codable {
+    let contents: [ParentGoal]
     let next: Bool
 }
+
+// TODO: - 상위 목표 수정 req 모델
 
 struct Goal: Codable, IdentifiableType, Equatable {
     let identity: Int

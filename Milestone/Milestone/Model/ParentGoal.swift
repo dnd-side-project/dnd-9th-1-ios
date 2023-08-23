@@ -8,7 +8,9 @@
 import Foundation
 import RxDataSources
 
-struct CompletedGoal: Codable, IdentifiableType, Equatable {
+// MARK: - 상위 목표 모델 (채움함, 완료함, 보관함에 사용)
+
+struct ParentGoal: Codable, IdentifiableType, Equatable {
     let identity: Int
     let reward: String
     let endDate: String
