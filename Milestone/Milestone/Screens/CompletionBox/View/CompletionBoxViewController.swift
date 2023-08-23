@@ -9,6 +9,7 @@ import UIKit
 
 import RxDataSources
 import RxSwift
+import RxCocoa
 import SnapKit
 import Then
 
@@ -54,10 +55,16 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             $0.guideLabel.text = "이룬 목표에 대한 회고를 자세히 기록해보세요!"
         }
     
+    private let refreshControl = UIRefreshControl()
+        .then {
+            $0.attributedTitle = NSAttributedString(string: "당겨서 새로고침")
+        }
+    
     // MARK: - Properties
     
     var viewModel: CompletionViewModel!
     var bubbleKey = UserDefaultsKeyStyle.bubbleInCompletionBox.rawValue
+    var pushViewDisposable = Disposables.create()
     
     let dateFormatter = DateFormatter()
         .then {
@@ -79,10 +86,17 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         viewModel.retrieveGoalData()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        pushViewDisposable.dispose()
+    }
+    
     // MARK: - Functions
     
     override func render() {
         view.addSubViews([emptyImageView, label, tableView])
+        
+        tableView.addSubview(refreshControl)
         
         emptyImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(100)
@@ -124,14 +138,13 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                     cell.button.buttonComponentStyle = .secondary_m
                     cell.button.buttonState = .original
                     
-                    cell.button.rx.tap
+                    self.pushViewDisposable = cell.button.rx.tap
                         .subscribe(onNext: {
                             let reviewVC = CompletionReviewViewController()
                             reviewVC.goalIndex = row
                             reviewVC.viewModel = self.viewModel
                             self.push(viewController: reviewVC)
                         })
-                        .disposed(by: disposeBag)
                 }
             }
             .disposed(by: disposeBag)
@@ -139,9 +152,9 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         viewModel.goalDataCount
             .map { count -> NSAttributedString in
                 
-                let stringValue = "총 \(count)개의 목표가 보관되어있어요!"
+                let stringValue = "총 \(count)개의 목표 회고를 작성할 수 있어요!"
                 let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
-                attributedString.setColorForText(textForAttribute: "총 \(count)개의 목표", withColor: .pointPurple)
+                attributedString.setColorForText(textForAttribute: "총 \(count)개의 목표 회고", withColor: .pointPurple)
                 return attributedString
             }
             .bind(to: alertBox.label.rx.attributedText)
@@ -162,6 +175,23 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         viewModel.goalDataCount
             .map { $0 > 0}
             .bind(to: emptyImageView.rx.isHidden, label.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        refreshControl.rx.valueChanged
+            .subscribe(onNext: { [weak self] in
+                self?.viewModel.retrieveGoalData()
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.isLoading
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                if $0 {
+                    self?.refreshControl.beginRefreshing()
+                } else {
+                    self?.refreshControl.endRefreshing()
+                }
+            })
             .disposed(by: disposeBag)
     }
     
@@ -216,4 +246,11 @@ extension CompletionBoxViewController: UITableViewDelegate {
 
 extension CompletionBoxViewController {
     
+}
+
+// MARK: - Refresh Control Extension
+extension Reactive where Base: UIRefreshControl {
+    var valueChanged: ControlEvent<Void> {
+        return controlEvent(.valueChanged)
+    }
 }
