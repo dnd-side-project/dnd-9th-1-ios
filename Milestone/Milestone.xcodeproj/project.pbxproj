@@ -212,6 +212,8 @@
 		C95A3C9B2A94D08D0028B4ED /* CompletedGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9A2A94D08D0028B4ED /* CompletedGoal.swift */; };
 		C95A3C9F2A94E0AC0028B4ED /* CompletionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */; };
 		C95A3CA12A94EB580028B4ED /* RewardToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA02A94EB580028B4ED /* RewardToImage.swift */; };
+		C95A3CA32A95973B0028B4ED /* Retrospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA22A95973B0028B4ED /* Retrospect.swift */; };
+		C95A3CA52A959A090028B4ED /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA42A959A090028B4ED /* LoadingView.swift */; };
 		C9798ACA2A939F9600B5CC4A /* BindableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9798AC92A939F9600B5CC4A /* BindableViewModel.swift */; };
 		C9798ACC2A939F9E00B5CC4A /* Lodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9798ACB2A939F9E00B5CC4A /* Lodable.swift */; };
 		C9B2CDD62A8A77F1006289A8 /* CompletionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDD52A8A77F1006289A8 /* CompletionViewModel.swift */; };
@@ -360,6 +362,8 @@
 		C95A3C9A2A94D08D0028B4ED /* CompletedGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedGoal.swift; sourceTree = "<group>"; };
 		C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionHeaderView.swift; sourceTree = "<group>"; };
 		C95A3CA02A94EB580028B4ED /* RewardToImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardToImage.swift; sourceTree = "<group>"; };
+		C95A3CA22A95973B0028B4ED /* Retrospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Retrospect.swift; sourceTree = "<group>"; };
+		C95A3CA42A959A090028B4ED /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		C9798AC92A939F9600B5CC4A /* BindableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BindableViewModel.swift; path = Foundation/BindableViewModel.swift; sourceTree = "<group>"; };
 		C9798ACB2A939F9E00B5CC4A /* Lodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lodable.swift; path = Foundation/Lodable.swift; sourceTree = "<group>"; };
 		C9B2CDD52A8A77F1006289A8 /* CompletionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewModel.swift; sourceTree = "<group>"; };
@@ -575,6 +579,7 @@
 				A265090B2A8D458300E9A2D7 /* BubbleView.swift */,
 				A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */,
 				C9B2CDFE2A8DE365006289A8 /* CompleteView.swift */,
+				C95A3CA42A959A090028B4ED /* LoadingView.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -877,6 +882,7 @@
 				C9B2CE4A2A92F95E006289A8 /* DetailGoal.swift */,
 				C9040FCB2A93B64A00270E94 /* Token.swift */,
 				C95A3C9A2A94D08D0028B4ED /* CompletedGoal.swift */,
+				C95A3CA22A95973B0028B4ED /* Retrospect.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1142,6 +1148,7 @@
 				A289D94A2A912616005B7F00 /* WriteRetrospectStyle.swift in Sources */,
 				A2248E8B2A8A0C5400EB995A /* MoreOptionView.swift in Sources */,
 				C90C48F12A93853D00E7E8B0 /* OnboardingViewModel.swift in Sources */,
+				C95A3CA52A959A090028B4ED /* LoadingView.swift in Sources */,
 				A265090C2A8D458300E9A2D7 /* BubbleView.swift in Sources */,
 				A289D94E2A912849005B7F00 /* IndexTextStyle.swift in Sources */,
 				A289D93E2A91223C005B7F00 /* ButtonStateStyle.swift in Sources */,
@@ -1177,6 +1184,7 @@
 				C9B2CE472A92F61D006289A8 /* GoalStatusParameter.swift in Sources */,
 				C95A3CA12A94EB580028B4ED /* RewardToImage.swift in Sources */,
 				C9B2CDED2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift in Sources */,
+				C95A3CA32A95973B0028B4ED /* Retrospect.swift in Sources */,
 				C9B2CDF72A8CC26E006289A8 /* PointView.swift in Sources */,
 				C9B2CE242A8F673C006289A8 /* ServicesGoalList.swift in Sources */,
 				C9B2CDF12A8CA397006289A8 /* IndexView.swift in Sources */,
