@@ -93,7 +93,7 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
                 cell.goalAchievementRateView.completedCount = CGFloat(goal.completedDetailGoalCnt ?? 0)
                 cell.goalAchievementRateView.totalCount = CGFloat(goal.entireDetailGoalCnt ?? 0)
                 cell.titleLabel.text = goal.title
-                cell.termLabel.text = "\(goal.startDate!) - \(goal.endDate!)"
+                cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
             }
             .disposed(by: disposeBag)
     }

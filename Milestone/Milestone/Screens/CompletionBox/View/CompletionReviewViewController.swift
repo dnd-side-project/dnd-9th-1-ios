@@ -210,8 +210,8 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
         
         viewModel.retrieveGoalDataAtIndex(index: goalIndex)
             .map { [unowned self] goal -> String in
-                let startDate = dateFormatter.date(from: goal.startDate!)!
-                let endDate = dateFormatter.date(from: goal.endDate!)!
+                let startDate = dateFormatter.date(from: goal.startDate)!
+                let endDate = dateFormatter.date(from: goal.endDate)!
                 return "\(dateFormatter.string(from: startDate)) - \(dateFormatter.string(from: endDate))"
             }
             .bind(to: dateLabel.rx.text)
