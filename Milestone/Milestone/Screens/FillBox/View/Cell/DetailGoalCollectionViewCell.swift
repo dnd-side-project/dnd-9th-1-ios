@@ -28,7 +28,13 @@ class DetailGoalCollectionViewCell: BaseCollectionViewCell {
         .then {
             $0.numberOfLines = 2
             $0.font = .pretendard(.semibold, ofSize: 14)
+            $0.textColor = .gray05
             $0.textAlignment = .center
+        }
+    lazy var blurryView = UIView()
+        .then {
+            $0.backgroundColor = .white.withAlphaComponent(0.6)
+            $0.layer.cornerRadius = 30
         }
     
     // MARK: - Properties
@@ -38,12 +44,6 @@ class DetailGoalCollectionViewCell: BaseCollectionViewCell {
     var index = 0 // 셀 인덱스
     var isSet = BehaviorRelay(value: false) // 목표가 설정되어 있는지 안 되어 있는지
     var isCompleted = BehaviorRelay(value: false) // 목표가 설정되어 있는지 안 되어 있는지
-    let stoneImageArray = [ImageLiteral.imgDetailStoneVer1, ImageLiteral.imgDetailStoneVer2, ImageLiteral.imgDetailStoneVer3,
-                           ImageLiteral.imgDetailStoneVer4, ImageLiteral.imgDetailStoneVer5, ImageLiteral.imgDetailStoneVer6,
-                           ImageLiteral.imgDetailStoneVer7, ImageLiteral.imgDetailStoneVer8, ImageLiteral.imgDetailStoneVer9]
-    let completedImageArray = [ImageLiteral.imgCompletedStoneVer1, ImageLiteral.imgCompletedStoneVer2, ImageLiteral.imgCompletedStoneVer3,
-                           ImageLiteral.imgCompletedStoneVer4, ImageLiteral.imgCompletedStoneVer5, ImageLiteral.imgCompletedStoneVer6,
-                           ImageLiteral.imgCompletedStoneVer7, ImageLiteral.imgCompletedStoneVer8, ImageLiteral.imgCompletedStoneVer9]
     
     // MARK: - Functions
     
@@ -80,35 +80,11 @@ class DetailGoalCollectionViewCell: BaseCollectionViewCell {
         self.containerView.layer.shadowOffset = CGSize.zero
         self.containerView.layer.shadowRadius = 7 / 2.0
     }
-    
-    override func bind() {
-        isSet
-            .asDriver(onErrorJustReturn: false)
-            .drive(onNext: { [weak self] isSet in
-                guard let self = self else { return }
-                if self.titleLabel.text?.isEmpty ?? true { self.titleLabel.text = "세부 목표를 추가해주세요!" }
-                self.titleLabel.textColor = isSet ? .gray05 : .gray02
-                if !isSet { self.stoneImageView.image = ImageLiteral.imgAddStone }
-            })
-            .disposed(by: disposeBag)
-        
-        // 완료되었으면 깨진 돌 이미지로 설정
-        isCompleted
-            .asDriver(onErrorJustReturn: false)
-            .drive(onNext: { [weak self] isCompleted in
-                guard let self = self else { return }
-                self.stoneImageView.image = isCompleted ? self.completedImageArray[self.index] : self.stoneImageArray[self.index]
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    /// 셀 내용 업데이트
-    func update(content: DetailGoal, index: Int) {
-//        self.index = index
-//        titleLabel.rx.text.onNext(content.title)
-//        isSet.accept(content.isSet)
-//        if content.isSet { // 세팅되지 않은 값은 완료를 고려 안함
-//            isCompleted.accept(content.isCompleted)
-//        }
+   
+    func makeCellBlurry() {
+        containerView.addSubView(blurryView)
+        blurryView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 }
