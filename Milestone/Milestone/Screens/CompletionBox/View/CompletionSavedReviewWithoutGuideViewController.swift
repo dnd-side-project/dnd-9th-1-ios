@@ -22,7 +22,7 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
     
     let titleBox = UIView()
         .then {
-            $0.backgroundColor = .systemBackground
+            $0.backgroundColor = .init(hex: "#F3F3FF")
         }
 
     let titleLabel = UILabel()
@@ -41,16 +41,12 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
             $0.font = UIFont.pretendard(.regular, ofSize: 14)
         }
     
-    let textViewWrapper = UIView()
-        .then {
-            $0.layer.cornerRadius = 20
-            $0.backgroundColor = .systemBackground
-        }
-    
     let textView = UITextView()
         .then {
+            $0.backgroundColor = .init(hex: "#F3F3FF")
+            $0.isScrollEnabled = false
             $0.isEditable = false
-            $0.textContainerInset = UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
+            $0.textContainerInset = UIEdgeInsets(top: 0, left: 24, bottom: 24, right: 24)
         }
     
     let scrollView = UIScrollView()
@@ -67,12 +63,6 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
                 $0.trailing.equalTo(sv.frameLayoutGuide.snp.trailing)
                 $0.height.equalTo(sv.frameLayoutGuide.snp.height).priority(.low)
             }
-        }
-    
-    let fillLabel = UILabel()
-        .then {
-            $0.font = .pretendard(.semibold, ofSize: 16)
-            $0.text = "마음 채움도"
         }
     
     let fillImageView = UIImageView()
@@ -96,7 +86,7 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
         view.addSubViews([titleBox, scrollView])
         titleBox.addSubViews([titleLabel, calendarImageView, dateLabel])
         
-        scrollView.subviews.first!.addSubViews([textViewWrapper, textView, fillLabel, fillImageView])
+        scrollView.subviews.first!.addSubViews([textView, fillImageView])
         
         titleBox.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -128,36 +118,26 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
             make.bottom.equalTo(view.snp.bottom)
         }
         
-        textViewWrapper.snp.makeConstraints { make in
-            make.top.equalTo(scrollView.snp.top).offset(2)
-            make.leading.equalTo(view.snp.leading).offset(24)
-            make.trailing.equalTo(view.snp.trailing).offset(-24)
-            make.height.equalTo(320)
-        }
-        
         textView.snp.makeConstraints { make in
-            make.top.equalTo(textViewWrapper.snp.top)
-            make.leading.equalTo(textViewWrapper.snp.leading).offset(24)
-            make.trailing.equalTo(textViewWrapper.snp.trailing).offset(-24)
-            make.bottom.equalTo(textViewWrapper.snp.bottom).offset(-48)
+            make.top.equalTo(scrollView.snp.top)
+            make.leading.equalToSuperview().offset(24)
+            make.trailing.equalToSuperview().offset(-24)
         }
-        
-        fillLabel.snp.makeConstraints { make in
-            make.top.equalTo(textViewWrapper.snp.bottom).offset(32)
-            make.leading.equalTo(view.snp.leading).offset(24)
-        }
-        
+
         fillImageView.snp.makeConstraints { make in
-            make.top.equalTo(fillLabel.snp.bottom).offset(24)
+            make.top.equalTo(textView.snp.bottom).offset(24)
             make.centerX.equalTo(scrollView)
-            make.width.equalTo(342)
-            make.height.equalTo(342)
-            make.bottom.equalTo(scrollView.snp.bottom).offset(-16)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(fillImageView.snp.width)
+            make.bottom.equalTo(scrollView.snp.bottom).offset(-1)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide).priority(.low)
         }
     }
     
     override func configUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .init(hex: "#F3F3FF")
+        
+        textView.text = "큰 목표만 세웠을 때는 못 이룰까봐 괜히 부담이 됐었는데, "
         
         textView.rx.text
             .compactMap { $0 }
@@ -169,8 +149,6 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
             }
             .bind(to: textView.rx.attributedText)
             .disposed(by: disposeBag)
-        
-        textViewWrapper.makeShadow(color: .init(hex: "#DCDCDC"), alpha: 1, x: 0, y: 0, blur: 7, spread: 0)
         
         navigationItem.leftBarButtonItem = leftBarButton
     }

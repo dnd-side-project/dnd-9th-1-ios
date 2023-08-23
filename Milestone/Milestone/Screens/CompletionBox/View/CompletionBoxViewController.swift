@@ -126,10 +126,18 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                     
                     cell.button.rx.tap
                         .subscribe(onNext: {
-                            let reviewVC = CompletionReviewViewController()
-                            reviewVC.goalIndex = row
-                            reviewVC.viewModel = self.viewModel
-                            self.push(viewController: reviewVC)
+//                            let reviewVC = CompletionReviewViewController()
+//                            reviewVC.goalIndex = row
+//                            reviewVC.viewModel = self.viewModel
+//                            self.push(viewController: reviewVC)
+                            
+//                            let savedReviewVC = CompletionSavedReviewWithGuideViewController()
+//                            savedReviewVC.viewModel = self.viewModel
+//                            self.push(viewController: savedReviewVC)
+                            
+                            let savedReviewVC = CompletionSavedReviewWithoutGuideViewController()
+                            savedReviewVC.viewModel = self.viewModel
+                            self.push(viewController: savedReviewVC)
                         })
                         .disposed(by: disposeBag)
                 }

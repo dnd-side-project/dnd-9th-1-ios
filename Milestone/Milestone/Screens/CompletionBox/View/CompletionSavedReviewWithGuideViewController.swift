@@ -25,7 +25,7 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
     
     let titleBox = UIView()
         .then {
-            $0.backgroundColor = .systemBackground
+            $0.backgroundColor = .init(hex: "#F3F3FF")
         }
 
     let titleLabel = UILabel()
@@ -132,45 +132,50 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
         }
         
         secondQuestionView.snp.makeConstraints { make in
-            make.top.equalTo(firstQuestionView.snp.bottom).offset(24)
+            make.top.equalTo(firstQuestionView.textView.snp.bottom).offset(24)
             make.leading.equalTo(scrollView.snp.leading)
             make.trailing.equalTo(scrollView.snp.trailing)
             make.height.equalTo(260)
         }
         
         thirdQuestionView.snp.makeConstraints { make in
-            make.top.equalTo(secondQuestionView.snp.bottom).offset(24)
+            make.top.equalTo(secondQuestionView.textView.snp.bottom).offset(24)
             make.leading.equalTo(scrollView.snp.leading)
             make.trailing.equalTo(scrollView.snp.trailing)
             make.height.equalTo(260)
         }
         
         fourthQuestionView.snp.makeConstraints { make in
-            make.top.equalTo(thirdQuestionView.snp.bottom).offset(24)
+            make.top.equalTo(thirdQuestionView.textView.snp.bottom).offset(24)
             make.leading.equalTo(scrollView.snp.leading)
             make.trailing.equalTo(scrollView.snp.trailing)
             make.height.equalTo(260)
         }
         
-        fillLabel.snp.makeConstraints { make in
-            make.top.equalTo(fourthQuestionView.snp.bottom).offset(32)
-            make.leading.equalTo(view.snp.leading).offset(24)
-        }
+//        fillLabel.snp.makeConstraints { make in
+//            make.top.equalTo(fourthQuestionView.textView.snp.bottom).offset(32)
+//            make.leading.equalTo(view.snp.leading).offset(24)
+//        }
         
         fillImageView.snp.makeConstraints { make in
-            make.top.equalTo(fillLabel.snp.bottom).offset(24)
+            make.top.equalTo(fourthQuestionView.textView.snp.bottom).offset(24)
             make.centerX.equalTo(scrollView)
-            make.width.equalTo(342)
-            make.height.equalTo(342)
-            make.bottom.equalTo(scrollView.snp.bottom).offset(-16)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(fillImageView.snp.width)
+            make.bottom.equalTo(scrollView.snp.bottom).offset(-1)
         }
     }
     
     override func configUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .init(hex: "#F3F3FF")
         setAttributedIndexLabel()
         
         navigationItem.leftBarButtonItem = leftBarButton
+        
+        firstQuestionView.indexView.image = ImageLiteral.imgGood
+        secondQuestionView.indexView.image = ImageLiteral.imgBad
+        thirdQuestionView.indexView.image = ImageLiteral.imgBook
+        fourthQuestionView.indexView.image = ImageLiteral.imgGift
     }
     
     func bindViewModel() {
