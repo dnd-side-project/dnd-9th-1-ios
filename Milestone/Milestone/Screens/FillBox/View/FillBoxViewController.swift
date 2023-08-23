@@ -104,6 +104,7 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
         viewModel.completedGoalCount
             .bind(to: parentGoalHeaderView.completedGoalView.goalNumberLabel.rx.text)
             .disposed(by: disposeBag)
+        viewModel.createParentGoal()
     }
     
     /// 처음이 맞는지 확인 -> 맞으면 말풍선 뷰 띄우기

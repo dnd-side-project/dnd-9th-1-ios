@@ -19,7 +19,7 @@ enum APIRouter: URLRequestConvertible {
     case requestGoalCountByStatus
     case editGoal(id: Int, goal: Goal)
     case recoverGoal(id: Int, startDate: String, endDate: String, reminderEnabled: Bool)
-    case postGoal(goal: Goal)
+    case postGoal(goal: CreateParentGoal)
     
     /// 유저 관련 API 리스트
     case reissue

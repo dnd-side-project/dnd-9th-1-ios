@@ -12,6 +12,7 @@ import RxSwift
 protocol ServicesGoalList: Service {
     func requestAllGoals(goalStatusParameter: GoalStatusParameter) -> Observable<Result<BaseModel<GoalResponse>, APIError>>
     func requestGoalCountByStatus() -> Observable<Result<BaseModel<ParentGoalCount>, APIError>>
+    func requestPostParentGoal(reqBody: CreateParentGoal) -> Observable<Result<EmptyDataModel, APIError>>
 }
 
 extension ServicesGoalList {
@@ -20,5 +21,8 @@ extension ServicesGoalList {
     }
     func requestGoalCountByStatus() -> Observable<Result<BaseModel<ParentGoalCount>, APIError>> {
         return apiSession.request(.requestGoalCountByStatus)
+    }
+    func requestPostParentGoal(reqBody: CreateParentGoal) -> Observable<Result<EmptyDataModel, APIError>> {
+        return apiSession.request(.postGoal(goal: reqBody))
     }
 }
