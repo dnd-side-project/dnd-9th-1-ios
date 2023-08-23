@@ -17,29 +17,29 @@ class FillBoxViewModel: BindableViewModel {
     var apiSession: APIService = APISession()
     var bag = DisposeBag()
     
-    // MARK: - Properties
+    // MARK: - Output
     
-    private var goalList = [
-        Goal(identity: 0, title: "하이1", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true),
-        Goal(identity: 0, title: "하이2", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true),
-        Goal(identity: 0, title: "하이3", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true),
-        Goal(identity: 0, title: "하이4", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true),
-        Goal(identity: 0, title: "하이5", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true),
-        Goal(identity: 0, title: "하이6", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true),
-        Goal(identity: 0, title: "하이7", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true),
-        Goal(identity: 0, title: "하이8", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true),
-        Goal(identity: 0, title: "하이9", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true),
-        Goal(identity: 0, title: "하이10", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true),
-        Goal(identity: 0, title: "하이11", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true),
-        Goal(identity: 0, title: "하이12", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true)
-    ]
-    private lazy var store = BehaviorSubject<[Goal]>(value: goalList)
-    
-    var goalObservable: Observable<[Goal]> {
-        return store
+    var goalResponse: Observable<Result<BaseModel<GoalResponse>, APIError>> {
+        requestAllGoals(goalStatusParameter: .process)
     }
+    var progressGoals = BehaviorRelay<[ParentGoal]>(value: [])
     
     deinit {
         bag = DisposeBag()
+    }
+}
+
+extension FillBoxViewModel: ServicesGoalList {
+    func retrieveGoalData() {
+        goalResponse
+            .subscribe(onNext: { [unowned self] result in
+                switch result {
+                case .success(let response):
+                    progressGoals.accept(response.data.contents)
+                case .failure(let error):
+                    print(error)
+                }
+            })
+            .disposed(by: bag)
     }
 }

@@ -85,13 +85,17 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
     }
     
     func bindViewModel() {
-        viewModel.goalObservable
+        // 상위 목표 조회 API 호출
+        viewModel.retrieveGoalData()
+        
+        viewModel.progressGoals
             .bind(to: parentGoalTableView.rx.items(cellIdentifier: ParentGoalTableViewCell.identifier, cellType: ParentGoalTableViewCell.self)) { _, goal, cell in
+                cell.goalAchievementRateView.completedCount = CGFloat(goal.completedDetailGoalCnt ?? 0)
+                cell.goalAchievementRateView.totalCount = CGFloat(goal.entireDetailGoalCnt ?? 0)
                 cell.titleLabel.text = goal.title
                 cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
             }
             .disposed(by: disposeBag)
-        Logger.debugDescription("bye")
     }
     
     /// 처음이 맞는지 확인 -> 맞으면 말풍선 뷰 띄우기
