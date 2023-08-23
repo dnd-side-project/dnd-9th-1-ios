@@ -131,7 +131,11 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
 //                            reviewVC.viewModel = self.viewModel
 //                            self.push(viewController: reviewVC)
                             
-                            let savedReviewVC = CompletionSavedReviewWithGuideViewController()
+//                            let savedReviewVC = CompletionSavedReviewWithGuideViewController()
+//                            savedReviewVC.viewModel = self.viewModel
+//                            self.push(viewController: savedReviewVC)
+                            
+                            let savedReviewVC = CompletionSavedReviewWithoutGuideViewController()
                             savedReviewVC.viewModel = self.viewModel
                             self.push(viewController: savedReviewVC)
                         })
