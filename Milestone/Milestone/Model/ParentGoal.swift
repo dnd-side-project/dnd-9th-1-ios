@@ -33,3 +33,15 @@ struct ParentGoal: Codable, IdentifiableType, Equatable {
         case dDay = "dDay"
     }
 }
+
+// MARK: - 상위 목표 개수 모델
+
+struct ParentGoalCount: Codable {
+    var counts: Count
+}
+
+struct Count: Codable {
+    var STORE: Int
+    var PROCESS: Int
+    var COMPLETE: Int
+}
