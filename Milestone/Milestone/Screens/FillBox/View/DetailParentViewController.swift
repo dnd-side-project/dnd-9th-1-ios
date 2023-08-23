@@ -102,7 +102,7 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     var viewModel: DetailParentViewModel!
     
     // 세부 목표를 추가해주세요! 데이터
-//    private var emptyGoal: DetailGoalTemp?
+    private var emptyGoal: DetailGoal?
     private var couchMarkKey: String = UserDefaultsKeyStyle.couchMark.rawValue
     
     // MARK: - Life Cycle
@@ -110,8 +110,15 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        bindViewModel()
         setEmptyGoalForCollectionView()
         checkFirstDetailView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        updateTableViewHeightForFit()
     }
     
     // MARK: - Functions
@@ -151,7 +158,7 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         detailGoalTableView.snp.makeConstraints { make in
             make.top.equalTo(detailGoalCollectionView.snp.bottom).offset(36)
             make.left.right.equalToSuperview().inset(20)
-            make.height.equalTo(10 * (56 + 8))
+            make.height.equalTo(9 * (56 + 8)) // 최대 높이
         }
     }
     
@@ -160,6 +167,14 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         
         self.navigationItem.leftBarButtonItem = leftBarButton
         self.navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    private func updateTableViewHeightForFit() {
+        detailGoalTableView.snp.updateConstraints { make in
+            make.top.equalTo(detailGoalCollectionView.snp.bottom).offset(36)
+            make.left.right.equalToSuperview().inset(20)
+            make.height.equalTo(viewModel.detailGoalList.value.count * (56 + 8)) // 상세 목표 개수에 맞게 높이를 업데이트
+        }
     }
     
     func bindViewModel() {
@@ -214,8 +229,6 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         present(couchMarkVC, animated: true)
         UserDefaults.standard.set(true, forKey: couchMarkKey)
     }
-    
-    
     
 //    /// 파라미터로 받은 id가 배열에서 몇 번째 인덱스에 위치해 있는지 반환
 //    private func findIndex(id: Int, goalArray: [DetailGoalTemp]) -> Int? {

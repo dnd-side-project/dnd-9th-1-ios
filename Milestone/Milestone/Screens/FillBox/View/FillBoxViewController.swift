@@ -183,7 +183,7 @@ extension FillBoxViewController: UITableViewDelegate {
             }
         lazy var viewModel = DetailParentViewModel()
         viewModel.parentGoalId = selectedGoalData.identity
-        nextVC.bind(viewModel: viewModel)
+        nextVC.viewModel = viewModel
         push(viewController: nextVC)
     }
 }
