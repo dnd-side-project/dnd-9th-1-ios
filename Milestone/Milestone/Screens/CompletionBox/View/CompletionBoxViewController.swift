@@ -105,19 +105,19 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     override func configUI() {
         view.backgroundColor = .gray01
         
-        bindViewModel()
+//        bindViewModel()
     }
     
     func bindViewModel() {
         viewModel.goalData
             .bind(to: tableView.rx.items(cellIdentifier: CompletionTableViewCell.identifier, cellType: CompletionTableViewCell.self)) { [unowned self] row, element, cell in
-                let startDate = dateFormatter.date(from: element.startDate)!
-                let endDate = dateFormatter.date(from: element.endDate)!
+                let startDate = dateFormatter.date(from: element.startDate!)!
+                let endDate = dateFormatter.date(from: element.endDate!)!
                 cell.dateLabel.text = dateFormatter.string(from: startDate) + " - " + dateFormatter.string(from: endDate)
                 cell.label.text = element.title
-                cell.completionImageView.image = UIImage(named: RewardToImage(rawValue: element.reward)!.rawValue)
+                cell.completionImageView.image = UIImage(named: RewardToImage(rawValue: element.reward!)!.rawValue)
                 
-                if element.hasRetrospect {
+                if element.hasRetrospect! {
                     cell.button.buttonComponentStyle = .secondary_m_line
                     cell.button.buttonState = .original
                 } else {
