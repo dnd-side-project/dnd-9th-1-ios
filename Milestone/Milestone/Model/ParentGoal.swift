@@ -45,3 +45,12 @@ struct Count: Codable {
     var PROCESS: Int
     var COMPLETE: Int
 }
+
+// MARK: - 상위 목표 생성 모델
+
+struct CreateParentGoal: Codable {
+    var title: String
+    var startDate: String
+    var endDate: String
+    var reminderEnabled: Bool
+}
