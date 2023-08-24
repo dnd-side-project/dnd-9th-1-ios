@@ -13,6 +13,8 @@ protocol ServicesGoalList: Service {
     func requestAllGoals<T>(goalStatusParameter: GoalStatusParameter) -> Observable<Result<BaseModel<GoalResponse<T>>, APIError>>
     
     func postReview(higherLevelGoalId: Int, retrospect: Retrospect) -> Observable<Result<BaseModel<Int>, APIError>>
+    
+    func requestRetrospect(goalId: Int) -> Observable<Result<BaseModel<Retrospect>, APIError>>
 }
 
 extension ServicesGoalList {
@@ -22,5 +24,9 @@ extension ServicesGoalList {
     
     func postReview(higherLevelGoalId: Int, retrospect: Retrospect) -> Observable<Result<BaseModel<Int>, APIError>> {
         return apiSession.request(.postRetrospect(higherLevelGoalId: higherLevelGoalId, retrospect: retrospect))
+    }
+    
+    func requestRetrospect(goalId: Int) -> Observable<Result<BaseModel<Retrospect>, APIError>> {
+        return apiSession.request(.requestRetrospect(higherLevelGoalId: goalId))
     }
 }
