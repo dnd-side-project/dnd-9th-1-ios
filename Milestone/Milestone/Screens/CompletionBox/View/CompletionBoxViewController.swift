@@ -150,30 +150,36 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                 cell.button.rx.tap
                     .asDriver()
                     .drive(onNext: { [weak self] in
+                        guard let self = self else { return }
                         if element.hasRetrospect {
-                            self?.viewModel.retrieveGoalDataAtIndex(index: row)
+                            let outerDisposable = self.viewModel.retrieveGoalDataAtIndex(index: row)
                                 .map { $0.identity }
                                 .subscribe(onNext: {
-                                    self?.viewModel.retrieveRetrospectWithId(goalId: $0)
+                                    self.viewModel.retrieveRetrospectWithId(goalId: $0)
                                     
-                                    self?.viewModel.retrospect
+                                    let disposable = self.viewModel.retrospect
                                         .subscribe(onNext: {
                                             if $0.hasGuide {
-                                                let savedVCWithGuide = CompletionSavedReviewWithGuideViewController()
-                                                self?.push(viewController: savedVCWithGuide)
+                                                var savedVCWithGuide = CompletionSavedReviewWithGuideViewController()
+                                                savedVCWithGuide.goalIndex = row
+                                                savedVCWithGuide.bind(viewModel: self.viewModel)
+                                                self.push(viewController: savedVCWithGuide)
                                             } else {
-                                                let savedVCWithoutGuide = CompletionSavedReviewWithoutGuideViewController()
-                                                self?.push(viewController: savedVCWithoutGuide)
+                                                var savedVCWithoutGuide = CompletionSavedReviewWithoutGuideViewController()
+                                                savedVCWithoutGuide.goalIndex = row
+                                                savedVCWithoutGuide.bind(viewModel: self.viewModel)
+                                                self.push(viewController: savedVCWithoutGuide)
                                             }
                                         })
-                                        .disposed(by: cell.disposeBag)
+                                    self.pushViewDisposables.append(disposable)
                                 })
-                                .disposed(by: cell.disposeBag)
+                            
+                            self.pushViewDisposables.append(outerDisposable)
                         } else {
                             let reviewVC = CompletionReviewViewController()
                             reviewVC.goalIndex = row
-                            reviewVC.viewModel = self?.viewModel
-                            self?.push(viewController: reviewVC)
+                            reviewVC.viewModel = self.viewModel
+                            self.push(viewController: reviewVC)
                         }
                     })
                     .disposed(by: cell.disposeBag)
