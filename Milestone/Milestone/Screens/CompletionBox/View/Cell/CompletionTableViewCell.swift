@@ -49,6 +49,7 @@ class CompletionTableViewCell: BaseTableViewCell {
     
     // MARK: Properties
     static let identifier = "CompletionBoxCell"
+    var hasRetrospect = false
     
     // MARK: Functions
     override func render() {
