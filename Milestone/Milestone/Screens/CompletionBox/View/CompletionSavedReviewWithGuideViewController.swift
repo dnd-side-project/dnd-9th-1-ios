@@ -179,48 +179,35 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
     }
     
     func bindViewModel() {
-//        viewModel.goalObservable
-//            .element(at: goalIndex)
-//            .map { $0.title }
-//            .bind(to: titleLabel.rx.text)
-//            .disposed(by: disposeBag)
+        viewModel.retrieveGoalDataAtIndex(index: goalIndex)
+            .map { $0.title }
+            .bind(to: titleLabel.rx.text)
+            .disposed(by: disposeBag)
         
-//        viewModel.goalObservable
-//            .element(at: goalIndex)
-//            .map { [unowned self] goal -> String in
-//                return "\(self.dateFormatter.string(from: goal.startDate))" + " - " + "\(self.dateFormatter.string(from: goal.endDate))"
-//            }
-//            .bind(to: dateLabel.rx.text)
-//            .disposed(by: disposeBag)
-//        
-//        viewModel.goalObservable
-//            .element(at: goalIndex)
-//            .flatMap { Observable.from($0.contents.enumerated()) }
-//            .subscribe(onNext: { [unowned self] in
-//                switch $0.offset {
-//                case 0:
-//                    
-//                    self.firstQuestionView.textView.text = $0.element
-//                case 1:
-//                    self.secondQuestionView.textView.text = $0.element
-//                case 2:
-//                    self.thirdQuestionView.textView.text = $0.element
-//                case 3:
-//                    self.fourthQuestionView.textView.text = $0.element
-//                default:
-//                    break
-//                }
-//            })
-//            .disposed(by: disposeBag)
-            
-        scrollView.rx.didScroll
-            .asDriver()
-            .drive(onNext: { [unowned self] _ in
-                if self.scrollView.contentOffset.y <= 0 {
-                    self.titleBox.makeShadow(alpha: 0, x: 0, y: 0, blur: 0, spread: 0)
-                } else {
-                    self.titleBox.makeShadow(color: .init(hex: "#464646", alpha: 0.1), alpha: 1, x: 0, y: 10, blur: 10, spread: 0)
-                }
+        viewModel.retrieveGoalDataAtIndex(index: goalIndex)
+            .map { [unowned self] goal -> String in
+                let startDate = dateFormatter.date(from: goal.startDate)!
+                let endDate = dateFormatter.date(from: goal.endDate)!
+                return "\(dateFormatter.string(from: startDate))" + " - " + "\(dateFormatter.string(from: endDate))"
+            }
+            .bind(to: dateLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.retrieveGoalDataAtIndex(index: goalIndex)
+            .map { $0.identity }
+            .subscribe(onNext: { [unowned self] in
+                self.viewModel.retrieveRetrospectWithId(goalId: $0)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.retrospect
+            .subscribe(onNext: { [unowned self] retro in
+                self.firstQuestionView.textView.text = retro.contents["LIKED"]
+                self.secondQuestionView.textView.text = retro.contents["LACKED"]
+                self.thirdQuestionView.textView.text = retro.contents["LEARNED"]
+                self.fourthQuestionView.textView.text = retro.contents["LONGED_FOR"]
+                
+                fillImageView.image = UIImage(named: retro.successLevel)
             })
             .disposed(by: disposeBag)
     }
@@ -242,6 +229,4 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
         targetView.indexLabel.attributedText = attributedText
             
     }
-    
-    // MARK: Objc functions
 }
