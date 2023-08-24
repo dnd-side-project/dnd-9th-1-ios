@@ -32,7 +32,7 @@ class MoreViewController: BaseViewController {
         .then {
             $0.iconImageView.image = ImageLiteral.imgModify
             $0.optionLabel.text = "수정하기"
-            var tapModifyGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentModifyGoalViewController))
+            var tapModifyGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentRestoreGoalViewController))
             $0.addGestureRecognizer(tapModifyGesture)
         }
     lazy var removeOptionView = MoreOptionView()
@@ -41,13 +41,6 @@ class MoreViewController: BaseViewController {
             $0.optionLabel.text = "삭제하기"
             var tapRemoveGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentDeleteGoalViewController))
             $0.addGestureRecognizer(tapRemoveGesture)
-        }
-    lazy var restoreOptionView = MoreOptionView()
-        .then {
-            $0.iconImageView.image = ImageLiteral.imgRestore
-            $0.optionLabel.text = "복구하기"
-//            var tapRestorGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentDeleteGoalViewController))
-//            $0.addGestureRecognizer(tapRestorGesture)
         }
     
     // MARK: - Properties
@@ -60,7 +53,9 @@ class MoreViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if isFromStorage { setRestoreOption() }
+        if isFromStorage {
+            changeModifyToRestore()
+        }
     }
     
     // MARK: - Functions
@@ -93,19 +88,14 @@ class MoreViewController: BaseViewController {
         containerView.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
     }
     
-    func setRestoreOption() {
-        modifyOptionView.removeFromSuperview()
-        view.addSubView(restoreOptionView)
-        restoreOptionView.snp.makeConstraints { make in
-            make.top.equalTo(barView.snp.bottom).offset(32)
-            make.left.equalToSuperview().inset(24)
-        }
-        removeOptionView.snp.remakeConstraints { make in
-            make.top.equalTo(restoreOptionView.snp.bottom).offset(32)
-            make.left.equalTo(restoreOptionView)
-        }
+    /// 수정하기 버튼을 복구하기 버튼으로 바꿔치기 -> 뷰와 제스처 함수 변경
+    func changeModifyToRestore() {
+        modifyOptionView.optionLabel.text = "복구하기"
+        modifyOptionView.iconImageView.image = ImageLiteral.imgRestore
+        var tapRestorGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentRestoreGoalViewController))
+        modifyOptionView.addGestureRecognizer(tapRestorGesture)
     }
-    
+
     // MARK: - @objc Functions
 
     @objc
@@ -130,5 +120,17 @@ class MoreViewController: BaseViewController {
             }
         dismiss(animated: true)
         self.presentingViewController?.present(deleteGoalPopUp, animated: true)
+    }
+    
+    @objc
+    private func presentRestoreGoalViewController() {
+        Logger.debugDescription("복구하기 클릭")
+//        let deleteGoalPopUp = DeleteGoalViewController()
+//            .then {
+//                $0.modalTransitionStyle = .crossDissolve
+//                $0.modalPresentationStyle = .overFullScreen
+//            }
+//        dismiss(animated: true)
+//        self.presentingViewController?.present(deleteGoalPopUp, animated: true)
     }
 }
