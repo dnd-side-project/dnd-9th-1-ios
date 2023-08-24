@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-struct DayData: Equatable { // TEMP
+struct DayData: Equatable {
     var day: String
     var isSelected: Bool = false
 }
@@ -50,7 +50,7 @@ class EnterGoalAlarmView: UIView {
                         $0.clipsToBounds = true
                         $0.layer.cornerRadius = 10
                         $0.addTarget(self, action: #selector(selectAlarmDay(_:)), for: .touchUpInside)
-                        if i.day == Days.MONDAY.rawValue {
+                        if i.day == DayStyle.MONDAY.rawValue {
                             selectAlarmDay($0)
                         }
                     }
@@ -92,11 +92,11 @@ class EnterGoalAlarmView: UIView {
     // MARK: - Properties
     
     weak var delegate: (PresentDelegate)?
-    private var timePickerData = [["오전", "오후"], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"], ["00", "30"]]
-    private var dayList = [DayData(day: Days.MONDAY.rawValue), DayData(day: Days.TUEDAY.rawValue), DayData(day: Days.WEDDAY.rawValue), DayData(day: Days.THUDAY.rawValue), DayData(day: Days.FRIDAY.rawValue), DayData(day: Days.SATDAY.rawValue), DayData(day: Days.SUNDAY.rawValue)]
-    private var selectedAmOrPm = "오후"
-    private var selectedHour = "01"
-    private var selectedMin = "00"
+    private var timePickerData = [[AMPMStyle.AM.rawValue, AMPMStyle.PM.rawValue], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"], ["00", "30"]]
+    private var dayList = [DayData(day: DayStyle.MONDAY.rawValue), DayData(day: DayStyle.TUESDAY.rawValue), DayData(day: DayStyle.WEDNESDAY.rawValue), DayData(day: DayStyle.THURSDAY.rawValue), DayData(day: DayStyle.FRIDAY.rawValue), DayData(day: DayStyle.SATURDAY.rawValue), DayData(day: DayStyle.SUNDAY.rawValue)]
+    var selectedAmOrPm = "PM"
+    var selectedHour = "01"
+    var selectedMin = "00"
     
     // MARK: - Initialization
     
@@ -173,13 +173,13 @@ class EnterGoalAlarmView: UIView {
     }
     
     /// 최종 선택된 요일 배열을 반환
-    private func getSelectedDay() -> [String] {
+    func getSelectedDay() -> [String] {
         return dayList
             .filter { day in // 선택된 값들만 필터링 하고
                 day.isSelected
             }
             .map { day in // 그 중 String만 가지고 배열을 구성
-                day.day
+                DayStyle(rawValue: day.day)!.caseString // MONDAY
             }
     }
     
@@ -198,11 +198,6 @@ class EnterGoalAlarmView: UIView {
         let selectedIndex = getIndexOf(sender.titleLabel?.text ?? "") ?? 0
         dayList[selectedIndex].isSelected.toggle()
         updateStyleOf(sender, index: selectedIndex)
-        
-        // TODO: - 서버에 값 전달 시 사용할 듯
-//        if let day = Days(rawValue: dayList[selectedIndex].day) {
-//            Logger.debugDescription(day)
-//        }
     }
     
     /// 시간 선택할 수 있는 피커뷰가 들어있는 액션시트를 present
@@ -227,7 +222,7 @@ extension EnterGoalAlarmView: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0:
-            selectedAmOrPm = timePickerData[component][row]
+            selectedAmOrPm = AMPMStyle(rawValue: timePickerData[component][row])!.caseString // 오전, 오후
         case 1:
             selectedHour = timePickerData[component][row]
         case 2:
