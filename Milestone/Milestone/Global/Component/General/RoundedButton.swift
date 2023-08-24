@@ -107,7 +107,7 @@ class RoundedButton: UIButton {
                 backgroundColor = .white
                 layer.borderColor = UIColor.secondary01.cgColor
                 layer.borderWidth = 1
-                setTitleColor(.secondary01, for: .normal)
+                setTitleColor(.primary, for: .normal)
             case .press:
                 isEnabled = true
                 backgroundColor = .secondary01
