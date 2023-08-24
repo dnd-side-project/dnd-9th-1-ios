@@ -26,10 +26,12 @@ class DetailParentViewModel: BindableViewModel, ServicesDetailGoal {
     let completedImageArray = [ImageLiteral.imgCompletedStoneVer1, ImageLiteral.imgCompletedStoneVer2, ImageLiteral.imgCompletedStoneVer3,
                                ImageLiteral.imgCompletedStoneVer4, ImageLiteral.imgCompletedStoneVer5, ImageLiteral.imgCompletedStoneVer6,
                                ImageLiteral.imgCompletedStoneVer7, ImageLiteral.imgCompletedStoneVer8, ImageLiteral.imgCompletedStoneVer9]
+    var isFull = false // 목표 9개가 꽉 찼는지
     
     // MARK: - Output
     
     var detailGoalList = BehaviorRelay<[DetailGoal]>(value: [])
+    var test = BehaviorRelay<[DetailGoal]>(value: [])
     // detailGoalList를 정렬한, 테이블뷰에 보여줄 데이터
 //    lazy var sortedGoalData: [DetailGoal] = {
 //        return sortGoalForCheckList()
@@ -65,7 +67,14 @@ extension DetailParentViewModel {
             .subscribe(onNext: { [unowned self] result in
                 switch result {
                 case .success(let response):
+                    isFull = response.data.count > 9
                     detailGoalList.accept(response.data)
+                    if !isFull {
+                        // 9개가 다 차지 않았다면 세부 목표 생성 셀 추가
+                        var arr = response.data
+                        arr.append(DetailGoal(detailGoalId: -1, title: "세부 목표를 추가해주세요!", isCompleted: false))
+                        test.accept(arr)
+                    }
                 case .failure(let error):
                     Logger.debugDescription(error)
                 }

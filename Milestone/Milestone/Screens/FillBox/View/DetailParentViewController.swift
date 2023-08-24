@@ -111,7 +111,6 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         super.viewDidLoad()
 
         bindViewModel()
-        setEmptyGoalForCollectionView()
         checkFirstDetailView()
     }
     
@@ -173,23 +172,46 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         detailGoalTableView.snp.updateConstraints { make in
             make.top.equalTo(detailGoalCollectionView.snp.bottom).offset(36)
             make.left.right.equalToSuperview().inset(20)
-            make.height.equalTo(viewModel.detailGoalList.value.count * (56 + 8)) // 상세 목표 개수에 맞게 높이를 업데이트
+            make.height.equalTo(viewModel.test.value.count * (56 + 8)) // 상세 목표 개수에 맞게 높이를 업데이트
         }
     }
     
     func bindViewModel() {
         viewModel.retrieveDetailGoalList()
-        viewModel.detailGoalList
-            .bind(to: detailGoalCollectionView.rx.items(cellIdentifier: DetailGoalCollectionViewCell.identifier, cellType: DetailGoalCollectionViewCell.self)) { row, goal, cell in
-                // 보관함일 때
-                if self.isFromStorage {
-                    cell.isUserInteractionEnabled = false
-                    cell.makeCellBlurry()
+        if viewModel.isFull {
+            viewModel.detailGoalList
+                .bind(to: detailGoalCollectionView.rx.items(cellIdentifier: DetailGoalCollectionViewCell.identifier, cellType: DetailGoalCollectionViewCell.self)) { [unowned self] row, goal, cell in
+                    // 보관함일 때
+                    if self.isFromStorage {
+                        cell.isUserInteractionEnabled = false
+                        cell.makeCellBlurry()
+                    }
+                    
+                    cell.titleLabel.text = goal.title
+                    cell.stoneImageView.image = goal.isCompleted ? self.viewModel.completedImageArray[row] : self.viewModel.stoneImageArray[row]
                 }
-                cell.titleLabel.text = goal.title
-                cell.stoneImageView.image = goal.isCompleted ? self.viewModel.completedImageArray[row] : self.viewModel.stoneImageArray[row]
-            }
-            .disposed(by: disposeBag)
+                .disposed(by: disposeBag)
+        } else {
+            viewModel.test
+                .bind(to: detailGoalCollectionView.rx.items(cellIdentifier: DetailGoalCollectionViewCell.identifier, cellType: DetailGoalCollectionViewCell.self)) { [unowned self] row, goal, cell in
+                    // 보관함일 때
+                    if self.isFromStorage {
+                        cell.isUserInteractionEnabled = false
+                        cell.makeCellBlurry()
+                    }
+                    
+                    Logger.debugDescription(viewModel.detailGoalList.value.count)
+                    if row < viewModel.test.value.count - 1 {
+                        cell.titleLabel.text = goal.title
+                        cell.stoneImageView.image = goal.isCompleted ? self.viewModel.completedImageArray[row] : self.viewModel.stoneImageArray[row]
+                    } else {
+                        cell.titleLabel.text = goal.title
+                        cell.titleLabel.textColor = .gray02
+                        cell.stoneImageView.image = ImageLiteral.imgAddStone
+                    }
+                }
+                .disposed(by: disposeBag)
+        }
         
         viewModel.detailGoalList
             .bind(to: detailGoalTableView.rx.items(cellIdentifier: DetailGoalTableViewCell.identifier, cellType: DetailGoalTableViewCell.self)) { _, goal, cell in
@@ -203,13 +225,6 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
                 cell.checkImageView.image = goal.isCompleted ? ImageLiteral.imgBlueCheck : ImageLiteral.imgWhiteCheck
             }
             .disposed(by: disposeBag)
-    }
-    
-    /// 세부 목표를 추가해주세요! 뷰가 필요한 경우를 위해 설정하는 코드
-    private func setEmptyGoalForCollectionView() {
-//        if goalData.count < 9 {
-////            self.emptyGoal = DetailGoalTemp(isSet: false)
-//        }
     }
     
     /// 여기 들어온 게 처음이 맞는지 확인 -> 맞으면 코치 마크 뷰 띄우기
@@ -254,21 +269,6 @@ extension DetailParentViewController: UICollectionViewDelegate {
         return 9
     }
 
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailGoalCollectionViewCell.identifier, for: indexPath) as? DetailGoalCollectionViewCell else { return UICollectionViewCell() }
-//        if let goal = indexPath.row < goalData.count ? goalData[indexPath.row] : emptyGoal {
-//            cell.update(content: goal, index: indexPath.row)
-//        }
-//        // 보관함일 때
-//        if isFromStorage {
-//            cell.isUserInteractionEnabled = false
-//            cell.makeCellBlurry()
-//        }
-//        return cell
-//    }
-
-    // MARK: - @objc Functions
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? DetailGoalCollectionViewCell else { return }
         if cell.isSet.value {
@@ -294,18 +294,6 @@ extension DetailParentViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         9
     }
-
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailGoalTableViewCell.identifier, for: indexPath) as? DetailGoalTableViewCell else { return UITableViewCell() }
-//
-//        // 보관함일 때
-//        if isFromStorage {
-//            cell.isUserInteractionEnabled = false
-//            cell.makeCellBlurry()
-//        }
-//        cell.update(content: sortedGoalData[indexPath.row])
-//        return cell
-//    }
 
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let row = indexPath.row
