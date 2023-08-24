@@ -14,3 +14,11 @@ struct DetailGoal: Codable {
     let title: String
     var isCompleted: Bool
 }
+
+// MARK: - 세부 목표 완료 시 res 모델
+
+struct CompletedDetailGoal: Codable {
+    var isGoalCompleted: Bool
+    var rewardType: String?
+    var completedGoalCount: Int
+}

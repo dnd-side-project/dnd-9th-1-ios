@@ -16,6 +16,8 @@ protocol ServicesDetailGoal: Service {
     func requestDetailGoalList(id: Int) -> Observable<Result<BaseModel<[DetailGoal]>, APIError>>
     // 세부 목표 생성 API 요청
     func requestPostDetailGoal(id: Int, reqBody: DetailGoalInfo) -> Observable<Result<EmptyDataModel, APIError>>
+    // 세부 목표 달성 API 요청
+    func requestCompleteDetailGoal(id: Int) -> Observable<Result<BaseModel<CompletedDetailGoal>, APIError>>
 }
 
 extension ServicesDetailGoal {
@@ -24,5 +26,8 @@ extension ServicesDetailGoal {
     }
     func requestPostDetailGoal(id: Int, reqBody: DetailGoalInfo) -> Observable<Result<EmptyDataModel, APIError>> {
         return apiSession.request(.postDetailGoal(higherLevelGoalId: id, detailGoal: reqBody))
+    }
+    func requestCompleteDetailGoal(id: Int) -> Observable<Result<BaseModel<CompletedDetailGoal>, APIError>> {
+        return apiSession.request(.completeDetailGoal(lowerLevelGoalId: id))
     }
 }

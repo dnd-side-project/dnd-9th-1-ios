@@ -87,4 +87,22 @@ class DetailGoalTableViewCell: BaseTableViewCell {
             make.edges.equalToSuperview()
         }
     }
+    
+    override func bindUI() {
+        isCompleted
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] isCompleted in
+                guard let self = self else { return }
+                self.containerView.backgroundColor = isCompleted ? .secondary03 : .white
+                self.titleLabel.textColor = isCompleted ? .primary : .black
+                self.checkImageView.image = isCompleted ? ImageLiteral.imgBlueCheck : ImageLiteral.imgWhiteCheck
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// 셀 내용 업데이트
+    func update(content: DetailGoal) {
+        titleLabel.rx.text.onNext(content.title)
+        isCompleted.accept(content.isCompleted)
+    }
 }
