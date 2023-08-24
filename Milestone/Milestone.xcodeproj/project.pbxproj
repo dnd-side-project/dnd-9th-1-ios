@@ -31,6 +31,9 @@
 		A23E8BA22A9013610051D135 /* AskOneOfTwoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */; };
 		A252C4B52A92B5AB0067B89C /* ParentGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A252C4B32A92B5AB0067B89C /* ParentGoal.swift */; };
 		A252C4B62A92B5AB0067B89C /* ParentGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A252C4B32A92B5AB0067B89C /* ParentGoal.swift */; };
+		A25988FE2A96915F00C6BDE0 /* ServicesDetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988FD2A96915E00C6BDE0 /* ServicesDetailGoal.swift */; };
+		A25988FF2A96915F00C6BDE0 /* ServicesDetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988FD2A96915E00C6BDE0 /* ServicesDetailGoal.swift */; };
+		A25989002A96915F00C6BDE0 /* ServicesDetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988FD2A96915E00C6BDE0 /* ServicesDetailGoal.swift */; };
 		A25988F62A965E9700C6BDE0 /* AddParentGoalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988F52A965E9700C6BDE0 /* AddParentGoalViewModel.swift */; };
 		A25988F72A965E9700C6BDE0 /* AddParentGoalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988F52A965E9700C6BDE0 /* AddParentGoalViewModel.swift */; };
 		A25988F82A965E9700C6BDE0 /* AddParentGoalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988F52A965E9700C6BDE0 /* AddParentGoalViewModel.swift */; };
@@ -300,6 +303,7 @@
 		A23E8B9F2A900EEC0051D135 /* DeleteGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGoalViewController.swift; sourceTree = "<group>"; };
 		A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskOneOfTwoView.swift; sourceTree = "<group>"; };
 		A252C4B32A92B5AB0067B89C /* ParentGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentGoal.swift; sourceTree = "<group>"; };
+		A25988FD2A96915E00C6BDE0 /* ServicesDetailGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesDetailGoal.swift; sourceTree = "<group>"; };
 		A25988F52A965E9700C6BDE0 /* AddParentGoalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddParentGoalViewModel.swift; sourceTree = "<group>"; };
 		A25988F92A967C3000C6BDE0 /* UpdateParentGoalListDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateParentGoalListDelegate.swift; sourceTree = "<group>"; };
 		A265090B2A8D458300E9A2D7 /* BubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
@@ -912,6 +916,7 @@
 				C9B2CE1F2A8F62B2006289A8 /* Service.swift */,
 				C9B2CE212A8F672C006289A8 /* ServicesUser.swift */,
 				C9B2CE232A8F673C006289A8 /* ServicesGoalList.swift */,
+				A25988FD2A96915E00C6BDE0 /* ServicesDetailGoal.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1166,6 +1171,7 @@
 				C9040FCC2A93B64A00270E94 /* Token.swift in Sources */,
 				C9040FCE2A93BDB400270E94 /* APIInterceptor.swift in Sources */,
 				A2248E832A8818AD00EB995A /* DetailGoalTableViewCell.swift in Sources */,
+				A25988FE2A96915F00C6BDE0 /* ServicesDetailGoal.swift in Sources */,
 				A282DA562A94C20300A0D0BF /* DetailGoalInfo.swift in Sources */,
 				A2EC47D02A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */,
 				A289D95C2A9133C7005B7F00 /* PresentDelegate.swift in Sources */,
@@ -1252,6 +1258,7 @@
 				A289D9432A91241C005B7F00 /* UserDefaultsKeyStyle.swift in Sources */,
 				A2FA59222A7FD2EC006ACA2E /* BaseTableViewCell.swift in Sources */,
 				A2EC47CD2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */,
+				A25988FF2A96915F00C6BDE0 /* ServicesDetailGoal.swift in Sources */,
 				A289D9612A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */,
 				A282DA532A94BB2400A0D0BF /* DetailParentViewModel.swift in Sources */,
 				A282DA572A94C20300A0D0BF /* DetailGoalInfo.swift in Sources */,
@@ -1299,6 +1306,7 @@
 			files = (
 				A2248E892A8A076D00EB995A /* MoreViewController.swift in Sources */,
 				A27C9A0E2A8E4258002C6F44 /* AddDetailGoalViewController.swift in Sources */,
+				A25989002A96915F00C6BDE0 /* ServicesDetailGoal.swift in Sources */,
 				A289D9502A912849005B7F00 /* IndexTextStyle.swift in Sources */,
 				A2FA58DF2A7F7A3E006ACA2E /* (null) in Sources */,
 				A2B20D672A7E5077001ED73C /* UILabel+.swift in Sources */,
