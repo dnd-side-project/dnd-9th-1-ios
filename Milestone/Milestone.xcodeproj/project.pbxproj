@@ -917,11 +917,10 @@
 			isa = PBXGroup;
 			children = (
 				C9B2CE482A92F957006289A8 /* Goal.swift */,
-				C95A3C9A2A94D08D0028B4ED /* ParentGoal.swift */,
 				C9B2CE4A2A92F95E006289A8 /* DetailGoal.swift */,
 				A282DA552A94C20300A0D0BF /* DetailGoalInfo.swift */,
 				C9040FCB2A93B64A00270E94 /* Token.swift */,
-				C95A3C9A2A94D08D0028B4ED /* CompletedGoal.swift */,
+				C95A3C9A2A94D08D0028B4ED /* ParentGoal.swift */,
 				C95A3CA22A95973B0028B4ED /* Retrospect.swift */,
 			);
 			path = Model;
