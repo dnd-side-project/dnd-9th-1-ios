@@ -64,7 +64,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     var viewModel: CompletionViewModel!
     var bubbleKey = UserDefaultsKeyStyle.bubbleInCompletionBox.rawValue
-    var pushViewDisposable = Disposables.create()
+    var pushViewDisposables: [Disposable] = []
     
     let dateFormatter = DateFormatter()
         .then {
@@ -88,7 +88,35 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        pushViewDisposable.dispose()
+        pushViewDisposables.forEach { disposable in
+            disposable.dispose()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.visibleCells.enumerated().forEach { index, cell in
+            guard let cell = cell as? CompletionTableViewCell else { return }
+            let disposable = cell.button.rx.tap
+                .subscribe(onNext: { [weak self] in
+                    guard let self  = self else { return }
+                    
+                    if cell.hasRetrospect {
+                        self.viewModel.retrieveGoalDataAtIndex(index: index)
+                            .map { $0.identity }
+                            .subscribe(onNext: { goalId in
+                                self.viewModel.retrieveRetrospectWithId(goalId: goalId)
+                            })
+                            .disposed(by: self.disposeBag)
+                    } else {
+                        let reviewVC = CompletionReviewViewController()
+                        reviewVC.goalIndex = index
+                        reviewVC.viewModel = self.viewModel
+                        self.push(viewController: reviewVC)
+                    }
+                })
+            pushViewDisposables.append(disposable)
+        }
     }
     
     // MARK: - Functions
@@ -118,11 +146,11 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     override func configUI() {
         view.backgroundColor = .gray01
-        
         bindViewModel()
     }
     
     func bindViewModel() {
+        print(#function)
         viewModel.goalData
             .bind(to: tableView.rx.items(cellIdentifier: CompletionTableViewCell.identifier, cellType: CompletionTableViewCell.self)) { [unowned self] row, element, cell in
                 let startDate = dateFormatter.date(from: element.startDate)!
@@ -132,19 +160,15 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                 cell.completionImageView.image = UIImage(named: RewardToImage(rawValue: element.reward)!.rawValue)
                 
                 if element.hasRetrospect {
+                    cell.button.setTitle("회고 보기", for: .normal)
                     cell.button.buttonComponentStyle = .secondary_m_line
                     cell.button.buttonState = .original
+                    cell.hasRetrospect = true
                 } else {
+                    cell.button.setTitle("회고 작성", for: .normal)
                     cell.button.buttonComponentStyle = .secondary_m
                     cell.button.buttonState = .original
-                    
-                    self.pushViewDisposable = cell.button.rx.tap
-                        .subscribe(onNext: {
-                            let reviewVC = CompletionReviewViewController()
-                            reviewVC.goalIndex = row
-                            reviewVC.viewModel = self.viewModel
-                            self.push(viewController: reviewVC)
-                        })
+                    cell.hasRetrospect = false
                 }
             }
             .disposed(by: disposeBag)
@@ -191,6 +215,21 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                 } else {
                     self?.refreshControl.endRefreshing()
                 }
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.retrospect
+            .subscribe(onNext: { [unowned self] retrospect in
+                print("SUBSCRIBED")
+                print(retrospect)
+                /// guide false일때
+//                if retrospect.contents.count == 1 {
+//                    let reviewSavedVCWithoutGuide = CompletionSavedReviewWithoutGuideViewController()
+//                    self.push(viewController: reviewSavedVCWithoutGuide)
+//                } else {
+//                    let reviewSavedVCWithGuide = CompletionSavedReviewWithGuideViewController()
+//                    self.push(viewController: reviewSavedVCWithGuide)
+//                }
             })
             .disposed(by: disposeBag)
     }
