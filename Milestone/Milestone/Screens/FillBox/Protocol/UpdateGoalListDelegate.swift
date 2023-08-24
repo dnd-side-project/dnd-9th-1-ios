@@ -11,3 +11,9 @@ import Foundation
 protocol UpdateParentGoalListDelegate: AnyObject {
     func updateParentGoalList()
 }
+
+/// 채움함이 아닌 다른 뷰에서 세부 목표 리스트를 업데이트 할 때 사용
+protocol UpdateDetailGoalListDelegate: AnyObject {
+    func updateDetailGoalList()
+}
+
