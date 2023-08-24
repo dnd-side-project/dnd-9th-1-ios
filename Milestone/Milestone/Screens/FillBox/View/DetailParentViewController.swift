@@ -215,7 +215,7 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
                 .disposed(by: disposeBag)
         }
         
-        viewModel.detailGoalList
+        viewModel.sortedGoalData
             .bind(to: detailGoalTableView.rx.items(cellIdentifier: DetailGoalTableViewCell.identifier, cellType: DetailGoalTableViewCell.self)) { _, goal, cell in
                 Logger.debugDescription("여기 \(cell.titleLabel.text)")
                 if self.isFromStorage {
@@ -247,11 +247,6 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         present(couchMarkVC, animated: true)
         UserDefaults.standard.set(true, forKey: couchMarkKey)
     }
-    
-//    /// 파라미터로 받은 id가 배열에서 몇 번째 인덱스에 위치해 있는지 반환
-//    private func findIndex(id: Int, goalArray: [DetailGoalTemp]) -> Int? {
-//        return goalArray.firstIndex { $0.id == id }
-//    }
     
     // MARK: - @objc Functions
     
@@ -301,23 +296,21 @@ extension DetailParentViewController: UITableViewDelegate {
         9
     }
 
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let row = indexPath.row
-//        let selectedGoalId = sortedGoalData[row].id
-//
-//        sortedGoalData[row].isCompleted.toggle() // 원본 배열의 isCompleted 값 변경
-//        sortedGoalData = sortGoalForCheckList(goalArray: sortedGoalData) // 원본 배열 재정렬
-//
-//        let newIndex = findIndex(id: selectedGoalId, goalArray: sortedGoalData) // 재정렬된 배열과 비교하여 완료도가 업데이트된 목표가 들어가야할 인덱스를 찾는다
-//        let destIndexPath = IndexPath(row: newIndex ?? 0, section: 0) // 목적지 indexPath
-//        tableView.moveRow(at: indexPath, to: destIndexPath) // 해당 인덱스로 셀 이동
-//
-//        guard let movedCell = tableView.cellForRow(at: destIndexPath) as? DetailGoalTableViewCell else { return } // 이동한 셀
-//        movedCell.update(content: sortedGoalData[newIndex ?? 0]) // 이동한 셀 UI 업데이트
-//
-//        goalData[selectedGoalId].isCompleted.toggle() // 원본 배열의 isCompleted 값 변경
-//        self.detailGoalCollectionView.reloadData()
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? DetailGoalTableViewCell else { return }
+        let sortedGoalData = viewModel.sortedGoalData.value
+        let row = indexPath.row
+        let selectedGoalId = sortedGoalData[row].detailGoalId
+        
+        if cell.containerView.backgroundColor == .white {
+            // 세부 목표 달성
+            viewModel.detailGoalId = selectedGoalId
+            viewModel.completeDetailGoal()
+            cell.update(content: sortedGoalData[row])
+        } else {
+            // 세부 목표 달성 취소
+        }
+    }
 }
 
 // MARK: - UpdateDetailGoalListDelegate
