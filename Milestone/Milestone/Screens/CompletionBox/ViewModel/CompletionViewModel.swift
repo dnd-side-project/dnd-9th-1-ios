@@ -27,6 +27,8 @@ class CompletionViewModel: BindableViewModel {
     var isLoading = BehaviorRelay<Bool>(value: false)
     var presentModal = BehaviorRelay<Bool>(value: false)
     
+    let retrospect = PublishRelay<Retrospect>()
+    
     deinit {
         bag = DisposeBag()
     }
@@ -55,6 +57,19 @@ extension CompletionViewModel {
     
     func retrieveGoalDataAtIndex(index: Int) -> Observable<CompletedGoal> {
         return goalData.map { $0[index] }
+    }
+    
+    func retrieveRetrospectWithId(goalId: Int) {
+        requestRetrospect(goalId: goalId)
+            .subscribe(onNext: { [unowned self] result in
+                switch result {
+                case .success(let response):
+                    self.retrospect.accept(response.data)
+                case .failure(let error):
+                    print(error)
+                }
+            })
+            .disposed(by: bag)
     }
 }
 
