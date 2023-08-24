@@ -759,7 +759,6 @@
 				A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */,
 				A289D9632A922950005B7F00 /* RecommendGoalViewController.swift */,
 				A2248E862A8A076D00EB995A /* MoreViewController.swift */,
-				A2FC49522A97981D0045FE59 /* RestoreGoalViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -786,6 +785,7 @@
 			isa = PBXGroup;
 			children = (
 				A2D304C82A856B6B00A5BA92 /* StorageBoxViewController.swift */,
+				A2FC49522A97981D0045FE59 /* RestoreGoalViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
