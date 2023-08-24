@@ -121,7 +121,7 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
     private func addBubbleView() {
         view.addSubview(bubbleView)
         bubbleView.snp.makeConstraints { make in
-            make.top.equalTo(parentGoalTableView.visibleCells[0].snp.bottom).offset(8)
+            make.top.equalTo(parentGoalTableView).offset(16 + 88 + 96 + 16)
             make.centerX.equalToSuperview()
             make.width.equalTo(268)
             make.height.equalTo(45)

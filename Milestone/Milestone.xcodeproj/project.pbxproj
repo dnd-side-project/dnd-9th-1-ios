@@ -216,6 +216,9 @@
 		A2FC49532A97981D0045FE59 /* RestoreGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FC49522A97981D0045FE59 /* RestoreGoalViewController.swift */; };
 		A2FC49542A97981D0045FE59 /* RestoreGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FC49522A97981D0045FE59 /* RestoreGoalViewController.swift */; };
 		A2FC49552A97981D0045FE59 /* RestoreGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FC49522A97981D0045FE59 /* RestoreGoalViewController.swift */; };
+		A2FC49572A979F850045FE59 /* ResetGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FC49562A979F850045FE59 /* ResetGoalViewController.swift */; };
+		A2FC49582A979F850045FE59 /* ResetGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FC49562A979F850045FE59 /* ResetGoalViewController.swift */; };
+		A2FC49592A979F850045FE59 /* ResetGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FC49562A979F850045FE59 /* ResetGoalViewController.swift */; };
 		A2FFBC8F2A94986200039919 /* FillBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FFBC8E2A94986200039919 /* FillBoxViewModel.swift */; };
 		A2FFBC902A94986200039919 /* FillBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FFBC8E2A94986200039919 /* FillBoxViewModel.swift */; };
 		A2FFBC912A94986200039919 /* FillBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FFBC8E2A94986200039919 /* FillBoxViewModel.swift */; };
@@ -376,6 +379,7 @@
 		A2FA59282A7FD3BA006ACA2E /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		A2FA592C2A7FD433006ACA2E /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 		A2FC49522A97981D0045FE59 /* RestoreGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreGoalViewController.swift; sourceTree = "<group>"; };
+		A2FC49562A979F850045FE59 /* ResetGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetGoalViewController.swift; sourceTree = "<group>"; };
 		A2FFBC8E2A94986200039919 /* FillBoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBoxViewModel.swift; sourceTree = "<group>"; };
 		C9040FCB2A93B64A00270E94 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		C9040FCD2A93BDB400270E94 /* APIInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIInterceptor.swift; sourceTree = "<group>"; };
@@ -786,6 +790,7 @@
 			children = (
 				A2D304C82A856B6B00A5BA92 /* StorageBoxViewController.swift */,
 				A2FC49522A97981D0045FE59 /* RestoreGoalViewController.swift */,
+				A2FC49562A979F850045FE59 /* ResetGoalViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1242,6 +1247,7 @@
 				A2D304C12A854EDE00A5BA92 /* MainSegmentedControl.swift in Sources */,
 				C9B2CE032A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift in Sources */,
 				C9798ACA2A939F9600B5CC4A /* BindableViewModel.swift in Sources */,
+				A2FC49572A979F850045FE59 /* ResetGoalViewController.swift in Sources */,
 				A2B20D9A2A7ED40D001ED73C /* Logger.swift in Sources */,
 				A2B20D592A7E4E5C001ED73C /* UIFont+.swift in Sources */,
 				A25988FA2A967C3000C6BDE0 /* UpdateGoalListDelegate.swift in Sources */,
@@ -1276,6 +1282,7 @@
 				A289D9432A91241C005B7F00 /* UserDefaultsKeyStyle.swift in Sources */,
 				A2FA59222A7FD2EC006ACA2E /* BaseTableViewCell.swift in Sources */,
 				A2EC47CD2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */,
+				A2FC49582A979F850045FE59 /* ResetGoalViewController.swift in Sources */,
 				A25988FF2A96915F00C6BDE0 /* ServicesDetailGoal.swift in Sources */,
 				A289D9612A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */,
 				A282DA532A94BB2400A0D0BF /* DetailParentViewModel.swift in Sources */,
@@ -1337,6 +1344,7 @@
 				A227368A2A7CE53800D7B3B2 /* MilestoneUITests.swift in Sources */,
 				A289D95E2A9133C7005B7F00 /* PresentDelegate.swift in Sources */,
 				A282DA542A94BB2400A0D0BF /* DetailParentViewModel.swift in Sources */,
+				A2FC49592A979F850045FE59 /* ResetGoalViewController.swift in Sources */,
 				A22774AF2A977438004AE5D7 /* AMPMStyle.swift in Sources */,
 				A2FA58E72A7F7A55006ACA2E /* (null) in Sources */,
 				A2B969892A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,

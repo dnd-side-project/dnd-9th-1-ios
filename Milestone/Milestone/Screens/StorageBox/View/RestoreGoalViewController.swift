@@ -21,7 +21,7 @@ class RestoreGoalViewController: BaseViewController {
             $0.askLabel.text = "복구 하시겠어요?"
             $0.guideLabel.text = "다시 한번 힘내봐요!"
             $0.yesButton.titleString = "다시 도전 할게요"
-            $0.yesButton.addTarget(self, action: #selector(restoreGoal), for: .touchUpInside)
+            $0.yesButton.addTarget(self, action: #selector(presentRestoreGoalPopUp), for: .touchUpInside)
             $0.noButton.setTitle("지금 안할래요", for: .normal)
             $0.noButton.setTitleColor(.gray04, for: .normal)
             $0.noButton.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
@@ -57,13 +57,12 @@ class RestoreGoalViewController: BaseViewController {
     }
     
     @objc
-    private func restoreGoal() {
+    private func presentRestoreGoalPopUp() {
         self.askPopUpView.yesButton.buttonState = .press
-        // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.dismiss(animated: true) {
-                // TODO: - 목표 복구 API 연동
-            }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            self.dismiss(animated: true)
+            let resetGoalVC = ResetGoalViewController()
+            self.presentingViewController?.presentCustomModal(resetGoalVC, height: resetGoalVC.viewHeight)
         }
     }
 }
