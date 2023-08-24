@@ -22,4 +22,7 @@ extension ViewModelBindableType where Self: UIViewController {
         loadViewIfNeeded()
         bindViewModel()
     }
+    func bindViewModel() {
+        // bind가 필요없는 경우 ViewModelBindableType 채택 시 굳이 이 함수를 작성하지 않아도 돌아가게끔 하려고
+    }
 }
