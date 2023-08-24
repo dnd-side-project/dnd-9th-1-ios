@@ -21,17 +21,15 @@ class AddDetailGoalViewModel: BindableViewModel, ServicesDetailGoal {
         
     // MARK: - Properties
     
-    var parentGoalId: Int = 0
-    
     deinit {
         bag = DisposeBag()
     }
 }
 
 extension AddDetailGoalViewModel {
-    func createDetailGoal(reqBody: DetailGoalInfo) {
+    func createDetailGoal(id: Int, reqBody: DetailGoalInfo) {
         var createDetailGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
-            requestPostDetailGoal(id: parentGoalId, reqBody: reqBody)
+            requestPostDetailGoal(id: id, reqBody: reqBody)
         }
         
         createDetailGoalResponse
