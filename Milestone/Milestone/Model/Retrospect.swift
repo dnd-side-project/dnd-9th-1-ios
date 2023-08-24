@@ -31,3 +31,7 @@ struct Retrospect: Codable {
         self.successLevel = try container.decode(String.self, forKey: .successLevel)
     }
 }
+
+struct RetrospectCount: Codable {
+    let count: Int
+}
