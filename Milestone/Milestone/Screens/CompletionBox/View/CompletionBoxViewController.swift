@@ -9,6 +9,7 @@ import UIKit
 
 import RxDataSources
 import RxSwift
+import RxCocoa
 import SnapKit
 import Then
 
@@ -35,7 +36,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     private let alertBox = CompletionAlertView()
         .then {
             $0.backgroundColor = .white
-            $0.isHidden = false
+            $0.isHidden = true
             $0.layer.cornerRadius = 20
         }
     
@@ -54,10 +55,16 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             $0.guideLabel.text = "이룬 목표에 대한 회고를 자세히 기록해보세요!"
         }
     
+    private let refreshControl = UIRefreshControl()
+        .then {
+            $0.attributedTitle = NSAttributedString(string: "당겨서 새로고침")
+        }
+    
     // MARK: - Properties
     
     var viewModel: CompletionViewModel!
     var bubbleKey = UserDefaultsKeyStyle.bubbleInCompletionBox.rawValue
+    var pushViewDisposables: [Disposable] = []
     
     let dateFormatter = DateFormatter()
         .then {
@@ -76,13 +83,25 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             .disposed(by: disposeBag)
         
         checkFirstCompletionBox()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        disposeAll()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         viewModel.retrieveGoalData()
+        viewModel.retrieveRetrospectCount()
     }
     
     // MARK: - Functions
     
     override func render() {
         view.addSubViews([emptyImageView, label, tableView])
+        
+        tableView.addSubview(refreshControl)
         
         emptyImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(100)
@@ -104,8 +123,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     override func configUI() {
         view.backgroundColor = .gray01
-        
-//        bindViewModel()
+        bindViewModel()
     }
     
     func bindViewModel() {
@@ -118,46 +136,99 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                 cell.completionImageView.image = UIImage(named: RewardToImage(rawValue: element.reward ?? "BLUE_JEWEL_1")!.rawValue)
                 
                 if element.hasRetrospect {
+                    cell.button.setTitle("회고 보기", for: .normal)
                     cell.button.buttonComponentStyle = .secondary_m_line
                     cell.button.buttonState = .original
+                    cell.hasRetrospect = true
                 } else {
+                    cell.button.setTitle("회고 작성", for: .normal)
                     cell.button.buttonComponentStyle = .secondary_m
                     cell.button.buttonState = .original
-                    
-                    cell.button.rx.tap
-                        .subscribe(onNext: {
-//                            let reviewVC = CompletionReviewViewController()
-//                            reviewVC.goalIndex = row
-//                            reviewVC.viewModel = self.viewModel
-//                            self.push(viewController: reviewVC)
-                            
-//                            let savedReviewVC = CompletionSavedReviewWithGuideViewController()
-//                            savedReviewVC.viewModel = self.viewModel
-//                            self.push(viewController: savedReviewVC)
-                            
-                            let savedReviewVC = CompletionSavedReviewWithoutGuideViewController()
-                            savedReviewVC.viewModel = self.viewModel
-                            self.push(viewController: savedReviewVC)
-                        })
-                        .disposed(by: disposeBag)
+                    cell.hasRetrospect = false
                 }
+                
+                cell.button.rx.tap
+                    .asDriver()
+                    .drive(onNext: { [weak self] in
+                        guard let self = self else { return }
+                        if element.hasRetrospect {
+                            let outerDisposable = self.viewModel.retrieveGoalDataAtIndex(index: row)
+                                .map { $0.identity }
+                                .subscribe(onNext: {
+                                    self.viewModel.retrieveRetrospectWithId(goalId: $0)
+                                    
+                                    let disposable = self.viewModel.retrospect
+                                        .subscribe(onNext: {
+                                            if $0.hasGuide {
+                                                var savedVCWithGuide = CompletionSavedReviewWithGuideViewController()
+                                                savedVCWithGuide.goalIndex = row
+                                                savedVCWithGuide.bind(viewModel: self.viewModel)
+                                                self.push(viewController: savedVCWithGuide)
+                                            } else {
+                                                var savedVCWithoutGuide = CompletionSavedReviewWithoutGuideViewController()
+                                                savedVCWithoutGuide.goalIndex = row
+                                                savedVCWithoutGuide.bind(viewModel: self.viewModel)
+                                                self.push(viewController: savedVCWithoutGuide)
+                                            }
+                                        })
+                                    self.pushViewDisposables.append(disposable)
+                                })
+                            
+                            self.pushViewDisposables.append(outerDisposable)
+                        } else {
+                            let reviewVC = CompletionReviewViewController()
+                            reviewVC.goalIndex = row
+                            reviewVC.viewModel = self.viewModel
+                            self.push(viewController: reviewVC)
+                        }
+                    })
+                    .disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)
         
         viewModel.goalDataCount
-            .map { count -> NSAttributedString in
-                
-                let stringValue = "총 \(count)개의 목표가 보관되어있어요!"
-                let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
-                attributedString.setColorForText(textForAttribute: "총 \(count)개의 목표", withColor: .pointPurple)
-                return attributedString
-            }
-            .bind(to: alertBox.label.rx.attributedText)
+            .map { $0 == 0 }
+            .bind(to: alertBox.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        viewModel.isLoading
+            .asDriver()
+            .drive(onNext: { [weak self] loading in
+                self?.loading(loading: loading)
+            })
             .disposed(by: disposeBag)
         
         viewModel.goalDataCount
             .map { $0 > 0}
             .bind(to: emptyImageView.rx.isHidden, label.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        refreshControl.rx.valueChanged
+            .subscribe(onNext: { [weak self] in
+                self?.viewModel.retrieveGoalData()
+                self?.viewModel.retrieveRetrospectCount()
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.isLoading
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                if $0 {
+                    self?.refreshControl.beginRefreshing()
+                } else {
+                    self?.refreshControl.endRefreshing()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.enabledRetrospectCount
+            .map { count -> NSAttributedString in
+                let stringValue = "총 \(count)개의 목표 회고를 작성할 수 있어요!"
+                let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
+                attributedString.setColorForText(textForAttribute: "총 \(count)개의 목표 회고", withColor: .pointPurple)
+                return attributedString
+            }
+            .bind(to: alertBox.label.rx.attributedText)
             .disposed(by: disposeBag)
     }
     
@@ -180,6 +251,12 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             UserDefaults.standard.set(true, forKey: bubbleKey)
         } else {
             bubbleView.isHidden = true
+        }
+    }
+    
+    private func disposeAll() {
+        pushViewDisposables.forEach { disposable in
+            disposable.dispose()
         }
     }
 }
@@ -212,4 +289,11 @@ extension CompletionBoxViewController: UITableViewDelegate {
 
 extension CompletionBoxViewController {
     
+}
+
+// MARK: - Refresh Control Extension
+extension Reactive where Base: UIRefreshControl {
+    var valueChanged: ControlEvent<Void> {
+        return controlEvent(.valueChanged)
+    }
 }

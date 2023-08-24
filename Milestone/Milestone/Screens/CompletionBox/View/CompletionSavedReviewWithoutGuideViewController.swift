@@ -137,7 +137,7 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
     override func configUI() {
         view.backgroundColor = .init(hex: "#F3F3FF")
         
-        textView.text = "큰 목표만 세웠을 때는 못 이룰까봐 괜히 부담이 됐었는데, "
+        textView.text = ""
         
         textView.rx.text
             .compactMap { $0 }
@@ -154,13 +154,32 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
     }
     
     func bindViewModel() {
-//        viewModel.goalObservable
-//            .element(at: goalIndex)
-//            .map { $0.title }
-//            .bind(to: titleLabel.rx.text)
-//            .disposed(by: disposeBag)
+        viewModel.retrieveGoalDataAtIndex(index: goalIndex)
+            .map { $0.title }
+            .bind(to: titleLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.retrieveGoalDataAtIndex(index: goalIndex)
+            .map { [unowned self] goal -> String in
+                let startDate = dateFormatter.date(from: goal.startDate)!
+                let endDate = dateFormatter.date(from: goal.endDate)!
+                return "\(dateFormatter.string(from: startDate))" + " - " + "\(dateFormatter.string(from: endDate))"
+            }
+            .bind(to: dateLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.retrieveGoalDataAtIndex(index: goalIndex)
+            .map { $0.identity }
+            .subscribe(onNext: { [unowned self] in
+                self.viewModel.retrieveRetrospectWithId(goalId: $0)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.retrospect
+            .subscribe(onNext: { [unowned self] retro in
+                self.textView.text = retro.contents["NONE"]
+                self.fillImageView.image = UIImage(named: retro.successLevel)
+            })
+            .disposed(by: disposeBag)
     }
-    
-    // MARK: Objc functions
-    
 }
