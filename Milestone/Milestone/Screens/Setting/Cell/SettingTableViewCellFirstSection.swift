@@ -12,12 +12,10 @@ class SettingTableViewCellFirstSection: BaseTableViewCell {
     // MARK: - Subviews
     
     let containerView = UIView()
-        .then {
-            $0.backgroundColor = .white
-        }
     
     let label = UILabel()
         .then {
+            $0.textColor = .black
             $0.font = .pretendard(.semibold, ofSize: 16)
         }
     
@@ -39,6 +37,8 @@ class SettingTableViewCellFirstSection: BaseTableViewCell {
         
         containerView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+            make.top.equalToSuperview().offset(4)
+            make.bottom.equalToSuperview().offset(4)
         }
         
         label.snp.makeConstraints { make in
@@ -50,5 +50,9 @@ class SettingTableViewCellFirstSection: BaseTableViewCell {
             make.trailing.equalTo(containerView.snp.trailing).offset(-24)
             make.centerY.equalTo(containerView.snp.centerY)
         }
+    }
+    
+    override func configUI() {
+        self.contentView.backgroundColor = .gray03
     }
 }
