@@ -10,7 +10,8 @@ import Foundation
 struct K {
     
     /// API base URL
-    static let baseUrl = "https://dnd9th.site"
+//    static let baseUrl = "https://dnd9th.site"
+    static let baseUrl = "http://192.168.1.190:8080"
     
     /// 리퀘스트 바디 파라미터의 키값을 문자열로 사용할때 직접 추가
     struct Parameters {
