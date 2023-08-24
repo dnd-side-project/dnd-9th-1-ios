@@ -105,9 +105,9 @@ enum APIRouter: URLRequestConvertible {
         case .login(let provider, _, _):
             return "/auth/\(provider)"
         case .requestRetrospect(let id):
-            return "/retrospect/\(id)"
+            return "/goals/\(id)/retrospects"
         case .postRetrospect(let id, _):
-            return "/retrospect/\(id)"
+            return "/goals/\(id)/retrospects"
         case .deleteDetailGoal(let id):
             return "/detail-goals/\(id)"
         case .requestAllDetailGoal(let id):
