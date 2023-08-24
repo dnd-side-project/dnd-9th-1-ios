@@ -140,6 +140,7 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
     }
     
     override func configUI() {
+        
         setAttributedIndexLabel()
         setPointViews()
         selectPointView()

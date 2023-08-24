@@ -152,7 +152,7 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
     }
     
     override func configUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .white
         setFontSize()
         
         let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(resignKeyboardAction))

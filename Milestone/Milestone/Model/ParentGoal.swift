@@ -8,9 +8,11 @@
 import Foundation
 import RxDataSources
 
-struct CompletedGoal: Codable, IdentifiableType, Equatable {
+// MARK: - 상위 목표 모델 (채움함, 완료함, 보관함에 사용)
+
+struct ParentGoal: Codable, IdentifiableType, Equatable {
     let identity: Int
-    let reward: String
+    let reward: String?
     let endDate: String
     let startDate: String
     let title: String
@@ -30,4 +32,25 @@ struct CompletedGoal: Codable, IdentifiableType, Equatable {
         case hasRetrospect = "hasRetrospect"
         case dDay = "dDay"
     }
+}
+
+// MARK: - 상위 목표 개수 모델
+
+struct ParentGoalCount: Codable {
+    var counts: Count
+}
+
+struct Count: Codable {
+    var STORE: Int
+    var PROCESS: Int
+    var COMPLETE: Int
+}
+
+// MARK: - 상위 목표 생성 모델
+
+struct CreateParentGoal: Codable {
+    var title: String
+    var startDate: String
+    var endDate: String
+    var reminderEnabled: Bool
 }

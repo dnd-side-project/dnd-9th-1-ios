@@ -12,7 +12,7 @@ import Then
 
 // MARK: - 하위 목표 추가 모달뷰
 
-class AddDetailGoalViewController: BaseViewController {
+class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - SubViews
     
@@ -44,7 +44,10 @@ class AddDetailGoalViewController: BaseViewController {
     
     // MARK: - Properties
     
+    var parentGoalId: Int = 0
+    var viewModel: AddDetailGoalViewModel!
     let viewHeight = 549.0
+    var delegate: UpdateDetailGoalListDelegate?
     
     // MARK: - Functions
     
@@ -97,10 +100,18 @@ class AddDetailGoalViewController: BaseViewController {
     @objc
     private func completeAddDetailGoal() {
         updateButtonState(.press)
+        // 세부 목표 생성 API 호출
+        let detailGoalInfo = DetailGoalInfo(title: self.enterGoalTitleView.titleTextField.text!,
+                                            alarmEnabled: self.enterGoalAlarmView.onOffSwitch.isOn,
+                                            alarmTime: "\(self.enterGoalAlarmView.selectedAmOrPm) \(self.enterGoalAlarmView.selectedHour):\(self.enterGoalAlarmView.selectedMin)",
+                                            alarmDays: self.enterGoalAlarmView.getSelectedDay())
+        viewModel.createDetailGoal(id: parentGoalId, reqBody: detailGoalInfo)
         
         // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.dismiss(animated: true)
+            self.dismiss(animated: true) {
+                self.delegate?.updateDetailGoalList()
+            }
         }
     }
 }

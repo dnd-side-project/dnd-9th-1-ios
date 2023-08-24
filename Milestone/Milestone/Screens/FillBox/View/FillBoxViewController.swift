@@ -14,7 +14,7 @@ import Then
 
 // MARK: - 채움함
 
-class FillBoxViewController: BaseViewController {
+class FillBoxViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Subviews
     
@@ -26,8 +26,7 @@ class FillBoxViewController: BaseViewController {
             $0.separatorStyle = .none
             $0.showsVerticalScrollIndicator = false
             $0.register(cell: ParentGoalTableViewCell.self, forCellReuseIdentifier: ParentGoalTableViewCell.identifier)
-//            $0.dataSource = self
-//            $0.delegate = self
+            $0.delegate = self
         }
     
     lazy var addGoalButton = UIButton()
@@ -47,17 +46,24 @@ class FillBoxViewController: BaseViewController {
     
     // MARK: - Properties
     
+    var viewModel: FillBoxViewModel! = FillBoxViewModel()
     var bubbleKey = UserDefaultsKeyStyle.bubbleInFillBox.rawValue
-//    var goals = [ParentGoal()]
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bindViewModel()
         parentGoalTableView.layoutIfNeeded()
         checkFirstFillBox()
         didScrollTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        updateParentGoalList()
     }
     
     // MARK: - Functions
@@ -85,6 +91,24 @@ class FillBoxViewController: BaseViewController {
         }
     }
     
+    func bindViewModel() {
+        viewModel.progressGoals
+            .bind(to: parentGoalTableView.rx.items(cellIdentifier: ParentGoalTableViewCell.identifier, cellType: ParentGoalTableViewCell.self)) { _, goal, cell in
+                cell.goalAchievementRateView.completedCount = CGFloat(goal.completedDetailGoalCnt)
+                cell.goalAchievementRateView.totalCount = CGFloat(goal.entireDetailGoalCnt)
+                cell.titleLabel.text = goal.title
+                cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.progressGoalCount
+            .bind(to: parentGoalHeaderView.ongoingGoalView.goalNumberLabel.rx.text)
+            .disposed(by: disposeBag)
+        viewModel.completedGoalCount
+            .bind(to: parentGoalHeaderView.completedGoalView.goalNumberLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
     /// 처음이 맞는지 확인 -> 맞으면 말풍선 뷰 띄우기
     private func checkFirstFillBox() {
         if !UserDefaults.standard.bool(forKey: bubbleKey) { // 처음이면 무조건 false 반환함
@@ -97,7 +121,6 @@ class FillBoxViewController: BaseViewController {
     private func addBubbleView() {
         view.addSubview(bubbleView)
         bubbleView.snp.makeConstraints { make in
-//            Logger.debugDescription(parentGoalTableView.visibleCells)
             make.top.equalTo(parentGoalTableView.visibleCells[0].snp.bottom).offset(8)
             make.centerX.equalToSuperview()
             make.width.equalTo(268)
@@ -106,11 +129,11 @@ class FillBoxViewController: BaseViewController {
     }
     
     private func didScrollTableView() {
-//        parentGoalTableView.rx.didScroll
-//            .subscribe { [weak self] _ in
-//                self?.removeBubbleView()
-//            }
-//            .disposed(by: disposeBag)
+        parentGoalTableView.rx.didScroll
+            .subscribe { [weak self] _ in
+                self?.removeBubbleView()
+            }
+            .disposed(by: disposeBag)
     }
     
     private func removeBubbleView() {
@@ -118,7 +141,11 @@ class FillBoxViewController: BaseViewController {
     }
     
     private func presentAddParentGoal() {
-        let addParentGoalVC = AddParentGoalViewController()
+        var addParentGoalVC = AddParentGoalViewController()
+            .then {
+                $0.delegate = self
+            }
+        addParentGoalVC.bind(viewModel: AddParentGoalViewModel())
         presentCustomModal(addParentGoalVC, height: addParentGoalVC.viewHeight)
     }
     
@@ -139,34 +166,40 @@ class FillBoxViewController: BaseViewController {
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
 
-//extension FillBoxViewController: UITableViewDataSource, UITableViewDelegate {
-//
-//    // 헤더뷰로 설정해서 같이 스크롤 되게 함
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        parentGoalHeaderView
-//    }
-//    // 헤더뷰 높이 설정
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        80 + 8
-//    }
-//    // 셀 높이 설정
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        96 + 16
-//    }
-//    // 셀(상위 목표) 개수
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        goals.count
-//    }
-//    // 셀 내용 구성
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: ParentGoalTableViewCell.identifier, for: indexPath) as? ParentGoalTableViewCell else { return UITableViewCell() }
-//        let goal = goals[indexPath.row]
-//        cell.titleLabel.text = goal.title
-//        cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
-//        return cell
-//    }
-//    // 셀 클릭 시 실행
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        push(viewController: DetailParentViewController())
-//    }
-//}
+extension FillBoxViewController: UITableViewDelegate {
+    // 헤더뷰로 설정해서 같이 스크롤 되게 함
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        parentGoalHeaderView
+    }
+    // 헤더뷰 높이 설정
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        80 + 8
+    }
+    // 셀 높이 설정
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        96 + 16
+    }
+    // 셀 클릭 시 실행
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedGoalData = self.viewModel.progressGoals.value[indexPath.row]
+        lazy var nextVC = DetailParentViewController()
+            .then {
+                $0.goalTitleLabel.text = selectedGoalData.title
+                $0.dDayLabel.text = "D - \(selectedGoalData.dDay)"
+                $0.termLabel.text = "\(selectedGoalData.startDate) - \(selectedGoalData.endDate)"
+            }
+        lazy var viewModel = DetailParentViewModel()
+        viewModel.parentGoalId = selectedGoalData.identity
+        nextVC.viewModel = viewModel
+        push(viewController: nextVC)
+    }
+}
+
+extension FillBoxViewController: UpdateParentGoalListDelegate {
+    func updateParentGoalList() {
+        // 상위 목표 조회 API 호출
+        viewModel.retrieveParentGoalList()
+        // 상위 목표 상태별 개수 조회 API 호출
+        viewModel.retrieveGoalCountByStatus()
+    }
+}

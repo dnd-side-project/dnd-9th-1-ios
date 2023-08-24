@@ -28,8 +28,8 @@ class MainViewController: BaseViewController {
             $0.selectedSegmentIndex = 1
         }
     
-    private let storageBoxVC = StorageBoxViewController()
-    private let fillBoxVC = FillBoxViewController()
+    private var storageBoxVC = StorageBoxViewController()
+    private var fillBoxVC = FillBoxViewController()
     private var completionVC = CompletionBoxViewController()
     var viewControllers: [UIViewController] { [self.storageBoxVC, self.fillBoxVC, self.completionVC] }
     
@@ -138,6 +138,7 @@ class MainViewController: BaseViewController {
     
     /// 세 개의 섹션들에 대해 뷰모델 바인딩
     func bindingModels() {
+//        fillBoxVC.bind(viewModel: FillBoxViewModel())
         completionVC.bind(viewModel: CompletionViewModel())
     }
     

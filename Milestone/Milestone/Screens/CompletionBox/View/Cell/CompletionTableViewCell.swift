@@ -82,12 +82,13 @@ class CompletionTableViewCell: BaseTableViewCell {
         
         calendarImageView.snp.makeConstraints { make in
             make.top.equalTo(label.snp.bottom).offset(4)
+            make.height.width.equalTo(16)
             make.leading.equalTo(label.snp.leading)
         }
         
         dateLabel.snp.makeConstraints { make in
             make.leading.equalTo(calendarImageView.snp.trailing).offset(8)
-            make.top.equalTo(calendarImageView.snp.top)
+            make.centerY.equalTo(calendarImageView.snp.centerY)
         }
         
         button.snp.makeConstraints { make in

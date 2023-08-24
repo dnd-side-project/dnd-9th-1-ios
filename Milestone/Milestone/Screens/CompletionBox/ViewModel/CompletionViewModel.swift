@@ -18,7 +18,7 @@ class CompletionViewModel: BindableViewModel {
     var bag = DisposeBag()
     
     // MARK: - Output
-    var goalResponse: Observable<Result<BaseModel<GoalResponse<CompletedGoal>>, APIError>> {
+    var goalResponse: Observable<Result<BaseModel<GoalResponse>, APIError>> {
         requestAllGoals(goalStatusParameter: .complete)
     }
     
@@ -26,7 +26,8 @@ class CompletionViewModel: BindableViewModel {
         requestEnabledRetrospectCount()
     }
     
-    var goalData = BehaviorRelay<[CompletedGoal]>(value: [])
+    var goalData = BehaviorRelay<[ParentGoal]>(value: [])
+
     var goalDataCount = PublishRelay<Int>()
     var enabledRetrospectCount = BehaviorRelay<Int>(value: 0)
     let isTableviewUpdated = BehaviorRelay<Bool>(value: false)
@@ -63,7 +64,7 @@ extension CompletionViewModel {
             .disposed(by: bag)
     }
     
-    func retrieveGoalDataAtIndex(index: Int) -> Observable<CompletedGoal> {
+    func retrieveGoalDataAtIndex(index: Int) -> Observable<ParentGoal> {
         return goalData.map { $0[index] }
     }
     

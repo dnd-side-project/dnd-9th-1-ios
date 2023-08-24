@@ -19,7 +19,7 @@ enum APIRouter: URLRequestConvertible {
     case requestGoalCountByStatus
     case editGoal(id: Int, goal: Goal)
     case recoverGoal(id: Int, startDate: String, endDate: String, reminderEnabled: Bool)
-    case postGoal(goal: Goal)
+    case postGoal(goal: CreateParentGoal)
     
     /// 유저 관련 API 리스트
     case reissue
@@ -33,10 +33,10 @@ enum APIRouter: URLRequestConvertible {
     case deleteDetailGoal(lowerLevelGoalId: Int)
     case requestAllDetailGoal(higherLevelGoalId: Int)
     case requestDetailGoalInformation(lowerLevelGoalId: Int)
-    case editDetailGoal(lowerLevelGoalId: Int, detailGoal: DetailGoal)
+    case editDetailGoal(lowerLevelGoalId: Int, detailGoal: DetailGoalInfo)
     case incompleteDetailGoal(lowerLevelGoalId: Int) // 하위목표 완료 취소
     case completeDetailGoal(lowerLevelGoalId: Int) // 하위목표 완료
-    case postDetailGoal(higherLevelGoalId: Int, detailGoal: DetailGoal)
+    case postDetailGoal(higherLevelGoalId: Int, detailGoal: DetailGoalInfo)
     
     // MARK: - HttpMethod
     /// switch - self 구문으로 각 엔드포인트별 메서드 지정
