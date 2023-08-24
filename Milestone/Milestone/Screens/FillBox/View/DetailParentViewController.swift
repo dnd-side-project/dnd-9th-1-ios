@@ -278,6 +278,8 @@ extension DetailParentViewController: UICollectionViewDelegate {
             self.present(detailInfo, animated: true)
         } else {
             let addDetailGoalVC = AddDetailGoalViewController()
+            addDetailGoalVC.viewModel = AddDetailGoalViewModel()
+            addDetailGoalVC.parentGoalId = self.viewModel.parentGoalId
             addDetailGoalVC.modalPresentationStyle = .pageSheet
 
             guard let sheet = addDetailGoalVC.sheetPresentationController else { return }
