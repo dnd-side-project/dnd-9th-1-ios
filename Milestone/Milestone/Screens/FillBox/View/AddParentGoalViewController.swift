@@ -12,7 +12,7 @@ import Then
 
 // MARK: - 상위 목표 추가 모달뷰
 
-class AddParentGoalViewController: BaseViewController {
+class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - SubViews
     
@@ -46,7 +46,9 @@ class AddParentGoalViewController: BaseViewController {
     
     // MARK: - Properties
     
+    var viewModel: AddParentGoalViewModel!
     let viewHeight = 549.0
+    var delegate: UpdateParentGoalListDelegate?
     
     // MARK: - Functions
     
@@ -102,11 +104,17 @@ class AddParentGoalViewController: BaseViewController {
     
     @objc
     private func completeAddParentGoal() {
-        updateButtonState(.press)
+        // 상위 목표 생성 API 호출
+        let reqBody = CreateParentGoal(title: self.enterGoalTitleView.titleTextField.text ?? " ", startDate: self.enterGoalDateView.startDateButton.titleLabel?.text ?? "", endDate: self.enterGoalDateView.endDateButton.titleLabel?.text ?? "", reminderEnabled: self.reminderAlarmView.onOffSwitch.isOn)
+        viewModel.createParentGoal(reqBody: reqBody)
         
+        updateButtonState(.press)
         // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.dismiss(animated: true)
+            self.dismiss(animated: true) {
+                // 목표 추가 모달 dismiss 하면서 상위 목표 목록 업데이트
+                self.delegate?.updateParentGoalList()
+            }
         }
     }
 }

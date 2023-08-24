@@ -138,7 +138,7 @@ class MainViewController: BaseViewController {
     
     /// 세 개의 섹션들에 대해 뷰모델 바인딩
     func bindingModels() {
-        fillBoxVC.bind(viewModel: FillBoxViewModel())
+//        fillBoxVC.bind(viewModel: FillBoxViewModel())
         completionVC.bind(viewModel: CompletionViewModel())
     }
     
