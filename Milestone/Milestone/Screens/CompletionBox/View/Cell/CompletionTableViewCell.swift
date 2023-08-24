@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RxSwift
+
 class CompletionTableViewCell: BaseTableViewCell {
     // MARK: Subviews
     
@@ -52,6 +54,11 @@ class CompletionTableViewCell: BaseTableViewCell {
     var hasRetrospect = false
     
     // MARK: Functions
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+    
     override func render() {
         contentView.addSubview(containerView)
         containerView.addSubViews([completionImageView, label, calendarImageView, dateLabel, button])
