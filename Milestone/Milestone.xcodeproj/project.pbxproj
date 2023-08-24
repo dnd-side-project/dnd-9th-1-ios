@@ -40,9 +40,9 @@
 		A25988F62A965E9700C6BDE0 /* AddParentGoalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988F52A965E9700C6BDE0 /* AddParentGoalViewModel.swift */; };
 		A25988F72A965E9700C6BDE0 /* AddParentGoalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988F52A965E9700C6BDE0 /* AddParentGoalViewModel.swift */; };
 		A25988F82A965E9700C6BDE0 /* AddParentGoalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988F52A965E9700C6BDE0 /* AddParentGoalViewModel.swift */; };
-		A25988FA2A967C3000C6BDE0 /* UpdateParentGoalListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988F92A967C3000C6BDE0 /* UpdateParentGoalListDelegate.swift */; };
-		A25988FB2A967C3000C6BDE0 /* UpdateParentGoalListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988F92A967C3000C6BDE0 /* UpdateParentGoalListDelegate.swift */; };
-		A25988FC2A967C3000C6BDE0 /* UpdateParentGoalListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988F92A967C3000C6BDE0 /* UpdateParentGoalListDelegate.swift */; };
+		A25988FA2A967C3000C6BDE0 /* UpdateGoalListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988F92A967C3000C6BDE0 /* UpdateGoalListDelegate.swift */; };
+		A25988FB2A967C3000C6BDE0 /* UpdateGoalListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988F92A967C3000C6BDE0 /* UpdateGoalListDelegate.swift */; };
+		A25988FC2A967C3000C6BDE0 /* UpdateGoalListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988F92A967C3000C6BDE0 /* UpdateGoalListDelegate.swift */; };
 		A25988FE2A96915F00C6BDE0 /* ServicesDetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988FD2A96915E00C6BDE0 /* ServicesDetailGoal.swift */; };
 		A25988FF2A96915F00C6BDE0 /* ServicesDetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988FD2A96915E00C6BDE0 /* ServicesDetailGoal.swift */; };
 		A25989002A96915F00C6BDE0 /* ServicesDetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988FD2A96915E00C6BDE0 /* ServicesDetailGoal.swift */; };
@@ -312,7 +312,7 @@
 		A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskOneOfTwoView.swift; sourceTree = "<group>"; };
 		A252C4B32A92B5AB0067B89C /* ParentGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentGoal.swift; sourceTree = "<group>"; };
 		A25988F52A965E9700C6BDE0 /* AddParentGoalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddParentGoalViewModel.swift; sourceTree = "<group>"; };
-		A25988F92A967C3000C6BDE0 /* UpdateParentGoalListDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateParentGoalListDelegate.swift; sourceTree = "<group>"; };
+		A25988F92A967C3000C6BDE0 /* UpdateGoalListDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGoalListDelegate.swift; sourceTree = "<group>"; };
 		A25988FD2A96915E00C6BDE0 /* ServicesDetailGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesDetailGoal.swift; sourceTree = "<group>"; };
 		A265090B2A8D458300E9A2D7 /* BubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		A265090F2A8D604100E9A2D7 /* CouchMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouchMarkViewController.swift; sourceTree = "<group>"; };
@@ -629,7 +629,7 @@
 			children = (
 				A289D95B2A9133C7005B7F00 /* PresentDelegate.swift */,
 				A289D95F2A913400005B7F00 /* UpdateButtonStateDelegate.swift */,
-				A25988F92A967C3000C6BDE0 /* UpdateParentGoalListDelegate.swift */,
+				A25988F92A967C3000C6BDE0 /* UpdateGoalListDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1238,7 +1238,7 @@
 				C9798ACA2A939F9600B5CC4A /* BindableViewModel.swift in Sources */,
 				A2B20D9A2A7ED40D001ED73C /* Logger.swift in Sources */,
 				A2B20D592A7E4E5C001ED73C /* UIFont+.swift in Sources */,
-				A25988FA2A967C3000C6BDE0 /* UpdateParentGoalListDelegate.swift in Sources */,
+				A25988FA2A967C3000C6BDE0 /* UpdateGoalListDelegate.swift in Sources */,
 				C9B2CE152A8F514A006289A8 /* APIService.swift in Sources */,
 				C9B2CDD62A8A77F1006289A8 /* CompletionViewModel.swift in Sources */,
 				C9B2CDFF2A8DE365006289A8 /* CompleteView.swift in Sources */,
@@ -1289,7 +1289,7 @@
 				A2FA592A2A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
 				A2C98F032A8B6117009B5579 /* AddParentGoalViewController.swift in Sources */,
 				A25988F72A965E9700C6BDE0 /* AddParentGoalViewModel.swift in Sources */,
-				A25988FB2A967C3000C6BDE0 /* UpdateParentGoalListDelegate.swift in Sources */,
+				A25988FB2A967C3000C6BDE0 /* UpdateGoalListDelegate.swift in Sources */,
 				A2B20D952A7ED174001ED73C /* UIImage+.swift in Sources */,
 				A2B20D912A7ED14C001ED73C /* ImageLiteral.swift in Sources */,
 				A28EDA1A2A879565001A021A /* DetailParentViewController.swift in Sources */,
@@ -1351,7 +1351,7 @@
 				A2248E852A8818AD00EB995A /* DetailGoalTableViewCell.swift in Sources */,
 				A289D9662A922950005B7F00 /* RecommendGoalViewController.swift in Sources */,
 				A2D304CB2A856B6B00A5BA92 /* StorageBoxViewController.swift in Sources */,
-				A25988FC2A967C3000C6BDE0 /* UpdateParentGoalListDelegate.swift in Sources */,
+				A25988FC2A967C3000C6BDE0 /* UpdateGoalListDelegate.swift in Sources */,
 				A28EDA1B2A879565001A021A /* DetailParentViewController.swift in Sources */,
 				A2FA59232A7FD2EC006ACA2E /* BaseTableViewCell.swift in Sources */,
 				A252C4B62A92B5AB0067B89C /* ParentGoal.swift in Sources */,

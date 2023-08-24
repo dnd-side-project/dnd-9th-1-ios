@@ -111,6 +111,7 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         super.viewDidLoad()
 
         bindViewModel()
+        updateDetailGoalList()
         checkFirstDetailView()
     }
     
@@ -177,7 +178,8 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     }
     
     func bindViewModel() {
-        viewModel.retrieveDetailGoalList()
+        updateDetailGoalList()
+        
         if viewModel.isFull {
             viewModel.detailGoalList
                 .bind(to: detailGoalCollectionView.rx.items(cellIdentifier: DetailGoalCollectionViewCell.identifier, cellType: DetailGoalCollectionViewCell.self)) { [unowned self] row, goal, cell in
@@ -215,6 +217,7 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         
         viewModel.detailGoalList
             .bind(to: detailGoalTableView.rx.items(cellIdentifier: DetailGoalTableViewCell.identifier, cellType: DetailGoalTableViewCell.self)) { _, goal, cell in
+                Logger.debugDescription("여기 \(cell.titleLabel.text)")
                 if self.isFromStorage {
                     cell.isUserInteractionEnabled = false
                     cell.makeCellBlurry()
@@ -279,6 +282,7 @@ extension DetailParentViewController: UICollectionViewDelegate {
         } else {
             let addDetailGoalVC = AddDetailGoalViewController()
             addDetailGoalVC.viewModel = AddDetailGoalViewModel()
+            addDetailGoalVC.delegate = self
             addDetailGoalVC.parentGoalId = self.viewModel.parentGoalId
             addDetailGoalVC.modalPresentationStyle = .pageSheet
 
@@ -314,4 +318,14 @@ extension DetailParentViewController: UITableViewDelegate {
 //        goalData[selectedGoalId].isCompleted.toggle() // 원본 배열의 isCompleted 값 변경
 //        self.detailGoalCollectionView.reloadData()
 //    }
+}
+
+// MARK: - UpdateDetailGoalListDelegate
+
+extension DetailParentViewController: UpdateDetailGoalListDelegate {
+    /// 세부 목표 리스트 업데이트
+    func updateDetailGoalList() {
+        viewModel.retrieveDetailGoalList()
+        updateTableViewHeightForFit()
+    }
 }

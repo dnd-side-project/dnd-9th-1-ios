@@ -47,6 +47,7 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
     var parentGoalId: Int = 0
     var viewModel: AddDetailGoalViewModel!
     let viewHeight = 549.0
+    var delegate: UpdateDetailGoalListDelegate?
     
     // MARK: - Functions
     
@@ -108,7 +109,9 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
         
         // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.dismiss(animated: true)
+            self.dismiss(animated: true) {
+                self.delegate?.updateDetailGoalList()
+            }
         }
     }
 }
