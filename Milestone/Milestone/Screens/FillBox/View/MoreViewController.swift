@@ -125,12 +125,12 @@ class MoreViewController: BaseViewController {
     @objc
     private func presentRestoreGoalViewController() {
         Logger.debugDescription("복구하기 클릭")
-//        let deleteGoalPopUp = DeleteGoalViewController()
-//            .then {
-//                $0.modalTransitionStyle = .crossDissolve
-//                $0.modalPresentationStyle = .overFullScreen
-//            }
-//        dismiss(animated: true)
-//        self.presentingViewController?.present(deleteGoalPopUp, animated: true)
+        let restoreGoalPopUp = RestoreGoalViewController()
+            .then {
+                $0.modalTransitionStyle = .crossDissolve
+                $0.modalPresentationStyle = .overFullScreen
+            }
+        dismiss(animated: true)
+        self.presentingViewController?.present(restoreGoalPopUp, animated: true)
     }
 }
