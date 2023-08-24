@@ -22,8 +22,15 @@ class CompletionViewModel: BindableViewModel {
         requestAllGoals(goalStatusParameter: .complete)
     }
     
+    var enabledRetrospectCountResponse: Observable<Result<BaseModel<RetrospectCount>, APIError>> {
+        requestEnabledRetrospectCount()
+    }
+    
     var goalData = BehaviorRelay<[CompletedGoal]>(value: [])
     var goalDataCount = PublishRelay<Int>()
+    var enabledRetrospectCount = BehaviorRelay<Int>(value: 0)
+    let isTableviewUpdated = BehaviorRelay<Bool>(value: false)
+    
     var isLoading = BehaviorRelay<Bool>(value: false)
     var presentModal = BehaviorRelay<Bool>(value: false)
     
@@ -47,6 +54,7 @@ extension CompletionViewModel {
                     self.goalData.accept(response.data.contents)
                     self.goalDataCount.accept(response.data.contents.count)
                     self.isLoading.accept(false)
+                    self.isTableviewUpdated.accept(true)
                 case .failure(let error):
                     print(error)
                     self.isLoading.accept(false)
@@ -65,6 +73,19 @@ extension CompletionViewModel {
                 switch result {
                 case .success(let response):
                     self.retrospect.accept(response.data)
+                case .failure(let error):
+                    print(error)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+    func retrieveRetrospectCount() {
+        enabledRetrospectCountResponse
+            .subscribe(onNext: { [unowned self] result in
+                switch result {
+                case .success(let countResponse):
+                    enabledRetrospectCount.accept(countResponse.data.count)
                 case .failure(let error):
                     print(error)
                 }
