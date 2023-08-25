@@ -24,6 +24,8 @@ protocol ServicesDetailGoal: Service {
     func requestDetailGoalInfo(id: Int) -> Observable<Result<BaseModel<DetailGoalInfo>, APIError>>
     /// 세부 목표 수정 API 요청
     func requestEditDetailGoal(id: Int, reqBody: NewDetailGoal) -> Observable<Result<EmptyDataModel, APIError>>
+    /// 세부 목표 삭제 API 요청
+    func requestDeleteDetailGoal(id: Int) -> Observable<Result<BaseModel<StateUpdatedDetailGoal>, APIError>>
 }
 
 extension ServicesDetailGoal {
@@ -44,5 +46,8 @@ extension ServicesDetailGoal {
     }
     func requestEditDetailGoal(id: Int, reqBody: NewDetailGoal) -> Observable<Result<EmptyDataModel, APIError>> {
         return apiSession.request(.editDetailGoal(lowerLevelGoalId: id, detailGoal: reqBody))
+    }
+    func requestDeleteDetailGoal(id: Int) -> Observable<Result<BaseModel<StateUpdatedDetailGoal>, APIError>> {
+        return apiSession.request(.deleteDetailGoal(lowerLevelGoalId: id))
     }
 }
