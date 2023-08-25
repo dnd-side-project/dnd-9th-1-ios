@@ -44,10 +44,9 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Properties
     
-    var parentGoalId: Int = 0
     var viewModel: AddDetailGoalViewModel!
-    let viewHeight = 549.0
     var delegate: UpdateDetailGoalListDelegate?
+    let viewHeight = 549.0
     
     // MARK: - Functions
     
@@ -105,7 +104,7 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
                                             alarmEnabled: self.enterGoalAlarmView.onOffSwitch.isOn,
                                             alarmTime: "\(self.enterGoalAlarmView.selectedAmOrPm) \(self.enterGoalAlarmView.selectedHour):\(self.enterGoalAlarmView.selectedMin)",
                                             alarmDays: self.enterGoalAlarmView.getSelectedDay())
-        viewModel.createDetailGoal(id: parentGoalId, reqBody: detailGoalInfo)
+        viewModel.createDetailGoal(id: viewModel.parentGoalId, reqBody: detailGoalInfo)
         
         // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
