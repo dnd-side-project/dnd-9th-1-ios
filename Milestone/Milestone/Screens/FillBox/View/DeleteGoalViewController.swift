@@ -30,6 +30,7 @@ class DeleteGoalViewController: BaseViewController, ViewModelBindableType {
     
     var viewModel: DetailParentViewModel!
     var fromParentGoal = true // 상위 목표 삭제인지 세부 목표 삭제인지
+    var delegate: UpdateDetailGoalListDelegate?
     
     // MARK: - Functions
     
@@ -53,6 +54,12 @@ class DeleteGoalViewController: BaseViewController, ViewModelBindableType {
         }
     }
     
+    /// 삭제 팝업 dismiss 하고 detailParentVC도 pop 시켜서 채움함 메인 화면으로 전환
+    private func goToFillBox() {
+        self.dismiss(animated: true)
+        self.viewModel?.popDetailParentVC.accept(true)
+    }
+    
     // MARK: - @objc Functions
     
     @objc
@@ -67,12 +74,15 @@ class DeleteGoalViewController: BaseViewController, ViewModelBindableType {
         // 상위 목표 삭제 API 호출
         if fromParentGoal {
             viewModel.deleteParentGoal()
+            goToFillBox()
         } else {
-            // TODO: - 하위 목표 삭제 API 호출
+            viewModel.deleteDetailGoal()
             
+            if viewModel.detailGoalList.value.count == 1 { // 여기선 삭제되기 전의 값이라서 1개일 때가 다 지워진 것
+                goToFillBox()
+            } else { // 세부 목표가 다 지워진 게 아닌 경우에는 pop 안 함
+                self.dismiss(animated: true)
+            }
         }
-        
-        self.dismiss(animated: true)
-        self.viewModel?.popDetailParentVC.accept(true)
     }
 }

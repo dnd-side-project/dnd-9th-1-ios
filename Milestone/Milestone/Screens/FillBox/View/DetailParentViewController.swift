@@ -299,12 +299,12 @@ extension DetailParentViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // 세부 목표 셀 클릭 시
         if viewModel.detailGoalList.value.count > indexPath.row {
-            var detailInfo = DetailGoalInfoViewController()
+            var detailInfoVC = DetailGoalInfoViewController()
             viewModel.detailGoalId = viewModel.detailGoalList.value[indexPath.row].detailGoalId
-            detailInfo.bind(viewModel: viewModel)
-            detailInfo.modalPresentationStyle = .overFullScreen
-            detailInfo.modalTransitionStyle = .crossDissolve
-            self.present(detailInfo, animated: true)
+            detailInfoVC.bind(viewModel: viewModel)
+            detailInfoVC.modalPresentationStyle = .overFullScreen
+            detailInfoVC.modalTransitionStyle = .crossDissolve
+            self.present(detailInfoVC, animated: true)
         } else { // 세부 목표를 추가해주세요! 셀 클릭 시
             let addDetailGoalVC = AddDetailGoalViewController()
             addDetailGoalVC.viewModel = viewModel

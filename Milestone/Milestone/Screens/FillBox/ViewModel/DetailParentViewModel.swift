@@ -206,7 +206,7 @@ extension DetailParentViewModel {
             .subscribe(onNext: { [unowned self] result in
                 switch result {
                 case .success(let response):
-                    thisDetailGoal.accept(response.data)
+                    thisDetailGoal.accept(response.data) // thisDetailGoal 값 설정
                     Logger.debugDescription(response)
                 case .failure(let error):
                     Logger.debugDescription(error)
@@ -239,9 +239,10 @@ extension DetailParentViewModel {
         }
         
         modifyDetailGoalResponse
-            .subscribe { result in
+            .subscribe { [unowned self] result in
                 switch result {
                 case .success(let response):
+                    retrieveDetailGoalList()
                     Logger.debugDescription(response)
                 case .failure(let error):
                     Logger.debugDescription(error)
