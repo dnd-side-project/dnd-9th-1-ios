@@ -122,6 +122,9 @@ class MoreViewController: BaseViewController, ViewModelBindableType {
     private func presentModifyGoalViewController() {
         lazy var addParentGoalVC = AddParentGoalViewController()
             .then {
+                $0.isModifyMode = true
+                $0.viewModel = AddParentGoalViewModel()
+                $0.viewModel.parentGoalId = viewModel.selectedParentGoal?.identity ?? 0
                 $0.completeButton.titleString = "목표 수정 완료"
                 $0.enterGoalDateView.isModifyMode = true
                 $0.enterGoalTitleView.titleTextField.text = viewModel.selectedParentGoal?.title
@@ -135,7 +138,6 @@ class MoreViewController: BaseViewController, ViewModelBindableType {
                     $0.enterGoalDateView.endDateToModify = endDate
                     $0.enterGoalDateView.setDatePicker()
                 }
-                
                 $0.enterGoalTitleView.updateNowNumOfCharaters()
             }
         dismiss(animated: true)

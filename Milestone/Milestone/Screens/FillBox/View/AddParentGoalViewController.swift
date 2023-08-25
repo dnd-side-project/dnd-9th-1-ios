@@ -41,14 +41,20 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
         .then {
             $0.buttonComponentStyle = .primary_l
             $0.titleString = "목표 만들기 완료"
-            $0.addTarget(self, action: #selector(completeAddParentGoal), for: .touchUpInside)
         }
     
     // MARK: - Properties
     
+    var isModifyMode = false
     var viewModel: AddParentGoalViewModel!
     let viewHeight = 549.0
     var delegate: UpdateParentGoalListDelegate?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setCompleteButtonAction()
+    }
     
     // MARK: - Functions
     
@@ -95,6 +101,15 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
         view.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
     }
     
+    /// 완료 버튼 액션 설정
+    private func setCompleteButtonAction() {
+        if isModifyMode {
+            completeButton.addTarget(self, action: #selector(completeModifyParentGoal), for: .touchUpInside)
+        } else {
+            completeButton.addTarget(self, action: #selector(completeAddParentGoal), for: .touchUpInside)
+        }
+    }
+    
     // MARK: - @objc Functions
     
     @objc
@@ -114,6 +129,26 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
             self.dismiss(animated: true) {
                 // 목표 추가 모달 dismiss 하면서 상위 목표 목록 업데이트
                 self.delegate?.updateParentGoalList()
+            }
+        }
+    }
+    
+    @objc
+    private func completeModifyParentGoal() {
+        let title = self.enterGoalTitleView.titleTextField.text ?? ""
+        let startDate = self.enterGoalDateView.startDateButton.titleLabel?.text ?? ""
+        let endDate = self.enterGoalDateView.endDateButton.titleLabel?.text ?? ""
+        let reminderEnabled = self.reminderAlarmView.onOffSwitch.isOn
+        // 상위 목표 수정 API 호출
+        let reqBody = Goal(identity: viewModel.parentGoalId, title: title, startDate: startDate, endDate: endDate, reminderEnabled: reminderEnabled)
+        viewModel.modifyParentGoal(reqBody: reqBody)
+        
+        updateButtonState(.press)
+        // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.dismiss(animated: true) {
+                // 목표 추가 모달 dismiss 하면서 상위 목표 목록 업데이트
+//                self.delegate?.updateParentGoalList()
             }
         }
     }
