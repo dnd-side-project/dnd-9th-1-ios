@@ -36,6 +36,14 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
     var viewModel: DetailParentViewModel!
     weak var delegate: (PresentDelegate)?
     
+    // MARK: - Life Cycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.retrieveDetailGoalInfo()
+    }
+    
     // MARK: - Functions
     
     override func render() {
@@ -62,6 +70,18 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func bindViewModel() {
+        viewModel.thisDetailGoal
+            .subscribe(onNext: { info in
+                self.infoView.titleLabel.text = info.title
+                let alarmDaysString = info.alarmDays.map {
+                    DayForResStyle(rawValue: $0)?.caseString ?? ""
+                }.joined(separator: ",") // ["MONDAY", "TUESDAY", "WEDNESDAY"]를 월,화,수" 형태로 변경
+                self.infoView.alarmInfoLabel.text = info.alarmEnabled ? "\(alarmDaysString) \(info.alarmTime)" : "알림 중단"
             })
             .disposed(by: disposeBag)
     }

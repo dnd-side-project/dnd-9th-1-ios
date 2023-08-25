@@ -197,7 +197,7 @@ extension DetailParentViewModel {
     }
     
     /// 세부 목표 상세 정보 조회
-    func retrieveDetailGoalInfo(reqBody: CreateDetailGoal) {
+    func retrieveDetailGoalInfo() {
         var retrieveDetailGoalInfoResponse: Observable<Result<BaseModel<DetailGoalInfo>, APIError>> {
             requestDetailGoalInfo(id: detailGoalId)
         }

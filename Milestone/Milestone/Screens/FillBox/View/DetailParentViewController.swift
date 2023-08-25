@@ -300,8 +300,8 @@ extension DetailParentViewController: UICollectionViewDelegate {
         // 세부 목표 셀 클릭 시
         if viewModel.detailGoalList.value.count > indexPath.row {
             var detailInfo = DetailGoalInfoViewController()
+            viewModel.detailGoalId = viewModel.detailGoalList.value[indexPath.row].detailGoalId
             detailInfo.bind(viewModel: viewModel)
-//            viewModel.accept
             detailInfo.modalPresentationStyle = .overFullScreen
             detailInfo.modalTransitionStyle = .crossDissolve
             self.present(detailInfo, animated: true)

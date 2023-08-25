@@ -21,3 +21,18 @@ enum DayStyle: String {
         String(describing: self)
     }
 }
+
+/// 요일 데이터를 나타내는 enum
+enum DayForResStyle: String {
+    case 월 = "MONDAY"
+    case 화 = "TUESDAY"
+    case 수 = "WEDNESDAY"
+    case 목 = "THURSDAY"
+    case 금 = "FRIDAY"
+    case 토 = "SATURDAY"
+    case 일 = "SUNDAY"
+    
+    var caseString: String {
+        String(describing: self)
+    }
+}
