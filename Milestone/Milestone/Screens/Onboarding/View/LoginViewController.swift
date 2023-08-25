@@ -68,10 +68,10 @@ class LoginViewController: BaseViewController {
     
     let appleLoginButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setTitle("Continue with Apple", for: .normal)
+        btn.setTitle("Apple로 로그인", for: .normal)
         btn.backgroundColor = UIColor(hex: "#050708")
         btn.setTitleColor(.white, for: .normal)
-        btn.titleLabel?.font = UIFont(name: "SFProDisplay-Medium", size: 19)
+        btn.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 19)
         btn.titleLabel?.textAlignment = .right
         btn.layer.cornerRadius = 8
         return btn
@@ -85,12 +85,11 @@ class LoginViewController: BaseViewController {
     
     let kakaoLoginButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setTitle("Login With Kakao", for: .normal)
+        btn.setTitle("카카오로 로그인", for: .normal)
         btn.backgroundColor = UIColor(hex: "#FEE500")
         btn.setTitleColor(.black, for: .normal)
         btn.titleLabel?.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 19)
         btn.layer.cornerRadius = 8
-//        btn.addTarget(self, action: #selector(kakaoButtonTapped), for: .touchUpInside)
         return btn
     }()
     
