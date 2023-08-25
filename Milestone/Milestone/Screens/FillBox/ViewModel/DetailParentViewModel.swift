@@ -217,15 +217,14 @@ extension DetailParentViewModel {
     
     /// 세부 목표 수정 API
     func modifyDetailGoal(reqBody: NewDetailGoal) {
-        var modifyDetailGoalResponse: Observable<Result<BaseModel<DetailGoalInfo>, APIError>> {
+        var modifyDetailGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
             requestEditDetailGoal(id: detailGoalId, reqBody: reqBody)
         }
         
         modifyDetailGoalResponse
-            .subscribe { [unowned self] result in
+            .subscribe { result in
                 switch result {
                 case .success(let response):
-                    thisDetailGoal.accept(response.data)
                     Logger.debugDescription(response)
                 case .failure(let error):
                     Logger.debugDescription(error)
