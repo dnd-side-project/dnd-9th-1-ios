@@ -51,7 +51,7 @@ class DetailParentViewModel: BindableViewModel, ServicesGoalList, ServicesDetail
     // 현재 상위 목표의 데이터
     var thisParentGoal: PublishRelay<ParentGoalInfo> = PublishRelay()
     // 현재 세부 목표의 데이터
-    var thisDetailGoal: PublishRelay<DetailGoalInfo> = PublishRelay()
+    var thisDetailGoal = BehaviorRelay<DetailGoalInfo>(value: DetailGoalInfo(detailGoalId: 0, title: "", alarmTime: "", alarmDays: [], alarmEnabled: true))
     
     deinit {
         bag = DisposeBag()

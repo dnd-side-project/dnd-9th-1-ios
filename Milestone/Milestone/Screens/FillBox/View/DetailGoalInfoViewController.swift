@@ -115,11 +115,10 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
         dismissViewController()
         lazy var addDetailGoalVC = AddDetailGoalViewController()
             .then {
-                $0.completeButton.titleString = "목표 수정 완료"
-                $0.enterGoalTitleView.titleTextField.text = "토익 900점 넘기기"
+                $0.viewModel = viewModel
+                $0.isModifyMode = true
                 $0.enterGoalTitleView.updateNowNumOfCharaters()
             }
         self.presentingViewController?.presentCustomModal(addDetailGoalVC, height: addDetailGoalVC.viewHeight)
-        // TODO: - 수정 API 연동
     }
 }

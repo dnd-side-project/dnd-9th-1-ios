@@ -44,9 +44,32 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Properties
     
+    var isModifyMode = false
     var viewModel: DetailParentViewModel!
     var delegate: UpdateDetailGoalListDelegate?
     let viewHeight = 549.0
+    
+    // MARK: - Life Cycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if isModifyMode {
+            let detailGoal = viewModel.thisDetailGoal.value
+            completeButton.titleString = "목표 수정 완료"
+            enterGoalTitleView.titleTextField.text = detailGoal.title
+            let arr = splitTimeStringToThree(timeString: detailGoal.alarmTime)
+            enterGoalAlarmView.selectedAmOrPm = arr?[0] ?? "오후"
+            enterGoalAlarmView.selectedHour = arr?[1] ?? "01"
+            enterGoalAlarmView.selectedMin = arr?[2] ?? "00"
+            enterGoalAlarmView.timeButton.setTitle("\(arr?[0] ?? "오후")   \(arr?[1] ?? "01") : \(arr?[2] ?? "00")", for: .normal)
+            enterGoalAlarmView.selectedDayList = detailGoal.alarmDays.map {
+                DayForResStyle(rawValue: $0)?.caseString ?? ""
+            }
+            enterGoalAlarmView.onOffSwitch.isOn = detailGoal.alarmEnabled
+            enterGoalAlarmView.toggleAlarmSwitch()
+        }
+    }
     
     // MARK: - Functions
     
@@ -89,6 +112,26 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
         view.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
     }
     
+    /// "오후 01:00"을 "오후", "01", "00" 3개로 split
+    private func splitTimeStringToThree(timeString: String) -> [String]? {
+        let components = timeString.split(separator: " ")
+        if components.count == 2 {
+            let timeComponents = components[1].split(separator: ":")
+            if timeComponents.count == 2 {
+                let period = String(components[0])
+                let hour = String(timeComponents[0])
+                let minute = String(timeComponents[1])
+                return [period, hour, minute]
+            } else {
+                print("Invalid time format")
+                return nil
+            }
+        } else {
+            print("Invalid input format")
+            return nil
+        }
+    }
+    
     // MARK: - @objc Functions
     
     @objc
@@ -101,9 +144,9 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
         updateButtonState(.press)
         // 세부 목표 생성 API 호출
         let detailGoalInfo = NewDetailGoal(title: self.enterGoalTitleView.titleTextField.text!,
-                                              alarmEnabled: self.enterGoalAlarmView.onOffSwitch.isOn,
-                                              alarmTime: "\(self.enterGoalAlarmView.selectedAmOrPm) \(self.enterGoalAlarmView.selectedHour):\(self.enterGoalAlarmView.selectedMin)",
-                                              alarmDays: self.enterGoalAlarmView.getSelectedDay())
+                                           alarmEnabled: self.enterGoalAlarmView.onOffSwitch.isOn,
+                                           alarmTime: "\(self.enterGoalAlarmView.selectedAmOrPm) \(self.enterGoalAlarmView.selectedHour):\(self.enterGoalAlarmView.selectedMin)",
+                                           alarmDays: self.enterGoalAlarmView.getSelectedDay())
         viewModel.createDetailGoal(reqBody: detailGoalInfo)
         
         // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
