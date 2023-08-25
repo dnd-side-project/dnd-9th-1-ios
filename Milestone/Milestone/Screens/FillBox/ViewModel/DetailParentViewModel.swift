@@ -41,7 +41,7 @@ class DetailParentViewModel: BindableViewModel, ServicesGoalList, ServicesDetail
     var detailGoalListResponse: Observable<Result<BaseModel<[DetailGoal]>, APIError>> {
         requestDetailGoalList(id: selectedParentGoal?.identity ?? 0)
     }
-    var detailGoalCompleteResponse: Observable<Result<BaseModel<CompletedDetailGoal>, APIError>> {
+    var detailGoalCompleteResponse: Observable<Result<BaseModel<StateUpdatedDetailGoal>, APIError>> {
         requestCompleteDetailGoal(id: detailGoalId)
     }
     var detailGoalIncompleteResponse: Observable<Result<EmptyDataModel, APIError>> {
@@ -206,7 +206,7 @@ extension DetailParentViewModel {
             .subscribe(onNext: { [unowned self] result in
                 switch result {
                 case .success(let response):
-                    thisDetailGoal.accept(response.data)
+                    thisDetailGoal.accept(response.data) // thisDetailGoal 값 설정
                     Logger.debugDescription(response)
                 case .failure(let error):
                     Logger.debugDescription(error)
@@ -225,6 +225,24 @@ extension DetailParentViewModel {
             .subscribe { result in
                 switch result {
                 case .success(let response):
+                    Logger.debugDescription(response)
+                case .failure(let error):
+                    Logger.debugDescription(error)
+                }
+            }
+            .disposed(by: bag)
+    }
+    /// 세부 목표 삭제 API
+    func deleteDetailGoal() {
+        var modifyDetailGoalResponse: Observable<Result<BaseModel<StateUpdatedDetailGoal>, APIError>> {
+            requestDeleteDetailGoal(id: detailGoalId)
+        }
+        
+        modifyDetailGoalResponse
+            .subscribe { [unowned self] result in
+                switch result {
+                case .success(let response):
+                    retrieveDetailGoalList()
                     Logger.debugDescription(response)
                 case .failure(let error):
                     Logger.debugDescription(error)

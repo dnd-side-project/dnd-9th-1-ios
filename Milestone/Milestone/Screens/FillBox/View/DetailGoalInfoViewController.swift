@@ -34,7 +34,6 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Properties
     
     var viewModel: DetailParentViewModel!
-    weak var delegate: (PresentDelegate)?
     
     // MARK: - Life Cycle
     
@@ -100,11 +99,12 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
         dismissViewController()
         let deleteGoalVC = DeleteGoalViewController()
             .then {
+                $0.viewModel = viewModel
+                $0.fromParentGoal = false
                 $0.modalPresentationStyle = .overFullScreen
                 $0.modalTransitionStyle = .crossDissolve
             }
         self.presentingViewController?.present(deleteGoalVC, animated: true)
-        // TODO: - 삭제 API 연동
     }
     
     /// 팝업 뷰 교체
