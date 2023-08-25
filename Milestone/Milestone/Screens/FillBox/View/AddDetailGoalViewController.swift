@@ -40,7 +40,7 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
         .then {
             $0.buttonComponentStyle = .primary_l
             $0.titleString = "목표 만들기 완료"
-            $0.addTarget(self, action: #selector(completeAddDetailGoal), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(completeAction), for: .touchUpInside)
         }
     
     // MARK: - Properties
@@ -55,21 +55,7 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if isModifyMode {
-            let detailGoal = viewModel.thisDetailGoal.value
-            completeButton.titleString = "목표 수정 완료"
-            enterGoalTitleView.titleTextField.text = detailGoal.title
-            let arr = splitTimeStringToThree(timeString: detailGoal.alarmTime)
-            enterGoalAlarmView.selectedAmOrPm = arr?[0] ?? "오후"
-            enterGoalAlarmView.selectedHour = arr?[1] ?? "01"
-            enterGoalAlarmView.selectedMin = arr?[2] ?? "00"
-            enterGoalAlarmView.timeButton.setTitle("\(arr?[0] ?? "오후")   \(arr?[1] ?? "01") : \(arr?[2] ?? "00")", for: .normal)
-            enterGoalAlarmView.selectedDayList = detailGoal.alarmDays.map {
-                DayForResStyle(rawValue: $0)?.caseString ?? ""
-            }
-            enterGoalAlarmView.onOffSwitch.isOn = detailGoal.alarmEnabled
-            enterGoalAlarmView.toggleAlarmSwitch()
-        }
+        if isModifyMode { setViewOnModifyMode() }
     }
     
     // MARK: - Functions
@@ -113,6 +99,23 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
         view.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
     }
     
+    /// 수정하기 모드일 때 뷰 설정
+    private func setViewOnModifyMode() {
+        let detailGoal = viewModel.thisDetailGoal.value
+        completeButton.titleString = "목표 수정 완료"
+        enterGoalTitleView.titleTextField.text = detailGoal.title
+        let arr = splitTimeStringToThree(timeString: detailGoal.alarmTime)
+        enterGoalAlarmView.selectedAmOrPm = arr?[0] ?? "오후"
+        enterGoalAlarmView.selectedHour = arr?[1] ?? "01"
+        enterGoalAlarmView.selectedMin = arr?[2] ?? "00"
+        enterGoalAlarmView.timeButton.setTitle("\(arr?[0] ?? "오후")   \(arr?[1] ?? "01") : \(arr?[2] ?? "00")", for: .normal)
+        enterGoalAlarmView.selectedDayList = detailGoal.alarmDays.map {
+            DayForResStyle(rawValue: $0)?.caseString ?? ""
+        }
+        enterGoalAlarmView.onOffSwitch.isOn = detailGoal.alarmEnabled
+        enterGoalAlarmView.toggleAlarmSwitch()
+    }
+    
     /// "오후 01:00"을 "오후", "01", "00" 3개로 split
     private func splitTimeStringToThree(timeString: String) -> [String]? {
         let components = timeString.split(separator: " ")
@@ -141,14 +144,20 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
     }
     
     @objc
-    private func completeAddDetailGoal() {
+    private func completeAction() {
         updateButtonState(.press)
-        // 세부 목표 생성 API 호출
+        Logger.debugDescription(self.enterGoalTitleView.titleTextField.text!)
+        // req body 생성
         let detailGoalInfo = NewDetailGoal(title: self.enterGoalTitleView.titleTextField.text!,
                                            alarmEnabled: self.enterGoalAlarmView.onOffSwitch.isOn,
                                            alarmTime: "\(self.enterGoalAlarmView.selectedAmOrPm) \(self.enterGoalAlarmView.selectedHour):\(self.enterGoalAlarmView.selectedMin)",
                                            alarmDays: self.enterGoalAlarmView.getSelectedDay())
-        viewModel.createDetailGoal(reqBody: detailGoalInfo)
+        /// 모드에 맞게 다른 API를 호출한다
+        if isModifyMode {
+            viewModel.modifyDetailGoal(reqBody: detailGoalInfo)
+        } else {
+            viewModel.createDetailGoal(reqBody: detailGoalInfo)
+        }
         
         // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
