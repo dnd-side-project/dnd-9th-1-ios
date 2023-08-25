@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class DetailParentViewModel: BindableViewModel, ServicesDetailGoal {
+class DetailParentViewModel: BindableViewModel, ServicesGoalList, ServicesDetailGoal {
     
     // MARK: - BindableViewModel Properties
     
@@ -47,6 +47,9 @@ class DetailParentViewModel: BindableViewModel, ServicesDetailGoal {
     var detailGoalIncompleteResponse: Observable<Result<EmptyDataModel, APIError>> {
         requestIncompleteDetailGoal(id: detailGoalId)
     }
+    
+    // 현재 상위 목표의 데이터
+    var thisParentGoal: PublishRelay<ParentGoalInfo> = PublishRelay()
     
     deinit {
         bag = DisposeBag()
@@ -115,6 +118,43 @@ extension DetailParentViewModel {
                     Logger.debugDescription(error)
                 }
             }
+            .disposed(by: bag)
+    }
+    
+    /// 상위 목표 생성
+    func createParentGoal(reqBody: CreateParentGoal) {
+        var createParentGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
+            requestPostParentGoal(reqBody: reqBody)
+        }
+        
+        createParentGoalResponse
+            .subscribe(onNext: { result in
+                switch result {
+                case .success(let response):
+                    Logger.debugDescription(response)
+                case .failure(let error):
+                    Logger.debugDescription(error)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+    /// 상위 목표 수정
+    func modifyParentGoal(reqBody: Goal) {
+        var modifyParentGoalResponse: Observable<Result<BaseModel<ParentGoalInfo>, APIError>> {
+            requestModifyParentGoal(id: parentGoalId, reqBody: reqBody)
+        }
+        
+        modifyParentGoalResponse
+            .subscribe(onNext: { [unowned self] result in
+                switch result {
+                case .success(let response):
+                    thisParentGoal.accept(response.data)
+                    Logger.debugDescription(response)
+                case .failure(let error):
+                    Logger.debugDescription(error)
+                }
+            })
             .disposed(by: bag)
     }
 }

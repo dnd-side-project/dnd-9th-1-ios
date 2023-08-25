@@ -109,10 +109,11 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         bindViewModel()
         updateDetailGoalList()
         checkFirstDetailView()
+        updateDetailParentView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -240,6 +241,15 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
                 cell.update(content: goal)
             }
             .disposed(by: disposeBag)
+        
+        // 현재 상위 목표의 정보를 업데이트
+        viewModel.thisParentGoal
+            .subscribe(onNext: { [unowned self] goal in
+                goalTitleLabel.text = goal.title
+                dDayLabel.text = "D - \(goal.dDay)"
+                termLabel.text = "\(goal.startDate) - \(goal.endDate)"
+            })
+            .disposed(by: disposeBag)
     }
     
     /// 여기 들어온 게 처음이 맞는지 확인 -> 맞으면 코치 마크 뷰 띄우기
@@ -258,6 +268,16 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
             }
         present(couchMarkVC, animated: true)
         UserDefaults.standard.set(true, forKey: couchMarkKey)
+    }
+    
+    /// 상위 목표 정보로 뷰 구성
+    private func updateDetailParentView() {
+        guard let selectedGoalData = viewModel.selectedParentGoal else { return }
+        viewModel.thisParentGoal.accept(ParentGoalInfo(goalId: selectedGoalData.identity,
+                                                       title: selectedGoalData.title,
+                                                       startDate: selectedGoalData.startDate,
+                                                       endDate: selectedGoalData.endDate,
+                                                       dDay: selectedGoalData.dDay))
     }
     
     // MARK: - @objc Functions
@@ -279,7 +299,7 @@ extension DetailParentViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 9
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? DetailGoalCollectionViewCell else { return }
         if cell.isSet.value {
@@ -293,7 +313,7 @@ extension DetailParentViewController: UICollectionViewDelegate {
             addDetailGoalVC.delegate = self
             addDetailGoalVC.viewModel.parentGoalId = self.viewModel.parentGoalId
             addDetailGoalVC.modalPresentationStyle = .pageSheet
-
+            
             guard let sheet = addDetailGoalVC.sheetPresentationController else { return }
             let fraction = UISheetPresentationController.Detent.custom { _ in 500.0 }
             sheet.detents = [fraction]
@@ -308,7 +328,7 @@ extension DetailParentViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         9
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? DetailGoalTableViewCell else { return }
         let sortedGoalData = viewModel.sortedGoalData.value

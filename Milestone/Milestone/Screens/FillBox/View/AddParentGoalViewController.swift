@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
 
@@ -46,7 +48,7 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Properties
     
     var isModifyMode = false
-    var viewModel: AddParentGoalViewModel!
+    var viewModel: DetailParentViewModel!
     let viewHeight = 549.0
     var delegate: UpdateParentGoalListDelegate?
     

@@ -54,3 +54,13 @@ struct CreateParentGoal: Codable {
     var endDate: String
     var reminderEnabled: Bool
 }
+
+// MARK: - 상위 목표 수정 res 모델
+
+struct ParentGoalInfo: Codable {
+    let goalId: Int
+    let title: String
+    let startDate: String
+    let endDate: String
+    let dDay: Int
+}

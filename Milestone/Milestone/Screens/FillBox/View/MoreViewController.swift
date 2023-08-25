@@ -123,7 +123,7 @@ class MoreViewController: BaseViewController, ViewModelBindableType {
         lazy var addParentGoalVC = AddParentGoalViewController()
             .then {
                 $0.isModifyMode = true
-                $0.viewModel = AddParentGoalViewModel()
+                $0.viewModel = viewModel
                 $0.viewModel.parentGoalId = viewModel.selectedParentGoal?.identity ?? 0
                 $0.completeButton.titleString = "목표 수정 완료"
                 $0.enterGoalDateView.isModifyMode = true

@@ -150,7 +150,7 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
                 $0.enterGoalDateView.setDatePicker()
                 $0.delegate = self
             }
-        addParentGoalVC.bind(viewModel: AddParentGoalViewModel())
+        addParentGoalVC.bind(viewModel: DetailParentViewModel())
         presentCustomModal(addParentGoalVC, height: addParentGoalVC.viewHeight)
     }
     
@@ -187,13 +187,8 @@ extension FillBoxViewController: UITableViewDelegate {
     // 셀 클릭 시 실행
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedGoalData = self.viewModel.progressGoals.value[indexPath.row]
-        lazy var nextVC = DetailParentViewController()
-            .then {
-                $0.goalTitleLabel.text = selectedGoalData.title
-                $0.dDayLabel.text = "D - \(selectedGoalData.dDay)"
-                $0.termLabel.text = "\(selectedGoalData.startDate) - \(selectedGoalData.endDate)"
-            }
-        lazy var viewModel = DetailParentViewModel()
+        let nextVC = DetailParentViewController()
+        let viewModel = DetailParentViewModel()
         viewModel.selectedParentGoal = selectedGoalData
         nextVC.viewModel = viewModel
         push(viewController: nextVC)

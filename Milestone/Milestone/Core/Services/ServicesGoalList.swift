@@ -23,7 +23,7 @@ protocol ServicesGoalList: Service {
     
     func requestPostParentGoal(reqBody: CreateParentGoal) -> Observable<Result<EmptyDataModel, APIError>>
 
-    func requestModifyParentGoal(id: Int, reqBody: Goal) -> Observable<Result<Goal, APIError>>
+    func requestModifyParentGoal(id: Int, reqBody: Goal) -> Observable<Result<BaseModel<ParentGoalInfo>, APIError>>
 }
 
 extension ServicesGoalList {
@@ -52,7 +52,7 @@ extension ServicesGoalList {
     }
     
     // 상위 목표 수정
-    func requestModifyParentGoal(id: Int, reqBody: Goal) -> Observable<Result<Goal, APIError>> {
+    func requestModifyParentGoal(id: Int, reqBody: Goal) -> Observable<Result<BaseModel<ParentGoalInfo>, APIError>> {
         return apiSession.request(.editGoal(id: id, goal: reqBody))
     }
 }
