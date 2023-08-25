@@ -34,9 +34,9 @@ struct DetailGoalInfo: Codable {
     var alarmEnabled: Bool
 }
 
-// MARK: - 세부 목표 완료 시 res 모델
+// MARK: - 세부 목표 완료 및 삭제 시 res 모델
 
-struct CompletedDetailGoal: Codable {
+struct StateUpdatedDetailGoal: Codable {
     var isGoalCompleted: Bool
     var rewardType: String?
     var completedGoalCount: Int

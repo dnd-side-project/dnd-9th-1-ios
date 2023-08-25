@@ -41,7 +41,7 @@ class DetailParentViewModel: BindableViewModel, ServicesGoalList, ServicesDetail
     var detailGoalListResponse: Observable<Result<BaseModel<[DetailGoal]>, APIError>> {
         requestDetailGoalList(id: selectedParentGoal?.identity ?? 0)
     }
-    var detailGoalCompleteResponse: Observable<Result<BaseModel<CompletedDetailGoal>, APIError>> {
+    var detailGoalCompleteResponse: Observable<Result<BaseModel<StateUpdatedDetailGoal>, APIError>> {
         requestCompleteDetailGoal(id: detailGoalId)
     }
     var detailGoalIncompleteResponse: Observable<Result<EmptyDataModel, APIError>> {
