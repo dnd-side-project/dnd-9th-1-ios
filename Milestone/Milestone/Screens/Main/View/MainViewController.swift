@@ -10,8 +10,6 @@ import UIKit
 import SnapKit
 import Then
 
-// TODO: - 온보딩 완료 후 이 VC로 전환해주시면 됩니다!
-
 class MainViewController: BaseViewController {
     
     // MARK: - Subviews
@@ -134,6 +132,13 @@ class MainViewController: BaseViewController {
             ],
             for: .selected
         )
+        
+        settingButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                let settingVC = SettingViewController()
+                self?.navigationController?.pushViewController(settingVC, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     /// 세 개의 섹션들에 대해 뷰모델 바인딩

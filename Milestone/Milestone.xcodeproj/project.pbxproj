@@ -278,6 +278,9 @@
 		C9B2CE492A92F957006289A8 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE482A92F957006289A8 /* Goal.swift */; };
 		C9B2CE4B2A92F95E006289A8 /* DetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE4A2A92F95E006289A8 /* DetailGoal.swift */; };
 		C9B2CE4D2A932E37006289A8 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE4C2A932E37006289A8 /* BaseModel.swift */; };
+		C9BF3FC72A97817C0074E781 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF3FC62A97817C0074E781 /* SettingViewController.swift */; };
+		C9BF3FCA2A97837C0074E781 /* SettingTableViewCellFirstSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF3FC92A97837C0074E781 /* SettingTableViewCellFirstSection.swift */; };
+		C9BF3FCC2A9783EA0074E781 /* SettingTableViewCellSecondSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF3FCB2A9783EA0074E781 /* SettingTableViewCellSecondSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -436,6 +439,9 @@
 		C9B2CE482A92F957006289A8 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		C9B2CE4A2A92F95E006289A8 /* DetailGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoal.swift; sourceTree = "<group>"; };
 		C9B2CE4C2A932E37006289A8 /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
+		C9BF3FC62A97817C0074E781 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		C9BF3FC92A97837C0074E781 /* SettingTableViewCellFirstSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellFirstSection.swift; sourceTree = "<group>"; };
+		C9BF3FCB2A9783EA0074E781 /* SettingTableViewCellSecondSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellSecondSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -546,6 +552,7 @@
 				A2D304C42A856AE900A5BA92 /* StorageBox */,
 				A2D304B92A854E1600A5BA92 /* FillBox */,
 				A2D304C52A856AF400A5BA92 /* CompletionBox */,
+				C9BF3FC52A9781510074E781 /* Setting */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -947,6 +954,24 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		C9BF3FC52A9781510074E781 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				C9BF3FC82A97836F0074E781 /* Cell */,
+				C9BF3FC62A97817C0074E781 /* SettingViewController.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		C9BF3FC82A97836F0074E781 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C9BF3FC92A97837C0074E781 /* SettingTableViewCellFirstSection.swift */,
+				C9BF3FCB2A9783EA0074E781 /* SettingTableViewCellSecondSection.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1167,6 +1192,7 @@
 				A289D9462A91246C005B7F00 /* DayStyle.swift in Sources */,
 				A2FA58D12A7F7A1F006ACA2E /* (null) in Sources */,
 				A28EDA112A87808A001A021A /* UIViewController+.swift in Sources */,
+				C9BF3FCC2A9783EA0074E781 /* SettingTableViewCellSecondSection.swift in Sources */,
 				A2B9698F2A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */,
 				C90DC9882A891A8500241B7C /* OnboardingViewControllerLast.swift in Sources */,
 				A2D304BD2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
@@ -1188,6 +1214,7 @@
 				C9B2CE102A8F4F9A006289A8 /* Constants.swift in Sources */,
 				A2FA59192A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
 				C9B2CE222A8F672C006289A8 /* ServicesUser.swift in Sources */,
+				C9BF3FC72A97817C0074E781 /* SettingViewController.swift in Sources */,
 				A27C9A102A8E42B5002C6F44 /* EnterGoalAlarmView.swift in Sources */,
 				A289D94A2A912616005B7F00 /* WriteRetrospectStyle.swift in Sources */,
 				A2248E8B2A8A0C5400EB995A /* MoreOptionView.swift in Sources */,
@@ -1204,6 +1231,7 @@
 				A282DA562A94C20300A0D0BF /* DetailGoalInfo.swift in Sources */,
 				A2EC47D02A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */,
 				A289D95C2A9133C7005B7F00 /* PresentDelegate.swift in Sources */,
+				C9BF3FCA2A97837C0074E781 /* SettingTableViewCellFirstSection.swift in Sources */,
 				C90DC97A2A88814700241B7C /* Coordinator.swift in Sources */,
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
 				A282DA522A94BB2400A0D0BF /* DetailParentViewModel.swift in Sources */,
