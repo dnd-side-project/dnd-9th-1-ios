@@ -101,9 +101,9 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
         updateButtonState(.press)
         // 세부 목표 생성 API 호출
         let detailGoalInfo = CreateDetailGoal(title: self.enterGoalTitleView.titleTextField.text!,
-                                            alarmEnabled: self.enterGoalAlarmView.onOffSwitch.isOn,
-                                            alarmTime: "\(self.enterGoalAlarmView.selectedAmOrPm) \(self.enterGoalAlarmView.selectedHour):\(self.enterGoalAlarmView.selectedMin)",
-                                            alarmDays: self.enterGoalAlarmView.getSelectedDay())
+                                              alarmEnabled: self.enterGoalAlarmView.onOffSwitch.isOn,
+                                              alarmTime: "\(self.enterGoalAlarmView.selectedAmOrPm) \(self.enterGoalAlarmView.selectedHour):\(self.enterGoalAlarmView.selectedMin)",
+                                              alarmDays: self.enterGoalAlarmView.getSelectedDay())
         viewModel.createDetailGoal(reqBody: detailGoalInfo)
         
         // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
