@@ -171,9 +171,9 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     }
     
     override func bindUI() {
-        viewModel.isTest
-            .subscribe { [self] isTest in
-                if isTest {
+        viewModel.popDetailParentVC
+            .subscribe { [self] popDetailParentVC in
+                if popDetailParentVC {
                     pop()
                     // 현재 스택에 있는 뷰 컨트롤러들을 가져오고, 가장 상위의 뷰 컨트롤러를 제거
 //                    if var viewControllers = navigationController?.viewControllers {

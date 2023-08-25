@@ -73,6 +73,6 @@ class DeleteGoalViewController: BaseViewController, ViewModelBindableType {
         dismiss(animated: true)
         
         // 상위 목표 상세 화면을 pop 시켜서 홈으로 나가게 함
-        self.viewModel?.isTest.accept(true)
+        self.viewModel?.popDetailParentVC.accept(true)
     }
 }
