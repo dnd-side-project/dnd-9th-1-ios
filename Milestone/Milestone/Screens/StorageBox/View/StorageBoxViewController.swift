@@ -161,9 +161,9 @@ extension StorageBoxViewController: UITableViewDelegate, UITableViewDataSource {
 //        goals.accept(goalsValue) // 변경된 배열로 업데이트
 //        tableView.reloadData() // 테이블뷰 UI 업데이트
         let detailParentVM = DetailParentViewModel()
-        var detailParentVC = DetailParentViewController()
+        let detailParentVC = DetailParentViewController()
         detailParentVC.isFromStorage = true
-        detailParentVC.bind(viewModel: detailParentVM)
+        detailParentVC.viewModel = detailParentVM
         push(viewController: detailParentVC)
     }
 }

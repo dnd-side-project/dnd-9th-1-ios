@@ -92,13 +92,15 @@ class RoundedButton: UIButton {
             case .original:
                 isEnabled = true
                 backgroundColor = .secondary03
+                setTitleColor(.primary, for: .normal)
             case .press:
                 isEnabled = true
                 backgroundColor = .secondary02
+                setTitleColor(.primary, for: .normal)
             case .disabled:
                 isEnabled = false
                 backgroundColor = .secondary03
-                setTitleColor(.gray02, for: .disabled)
+                setTitleColor(.gray02, for: .normal)
             }
         case .secondary_m_line:
             switch state {

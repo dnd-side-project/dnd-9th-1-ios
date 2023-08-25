@@ -28,11 +28,11 @@ class AskOneOfTwoView: UIView {
             $0.font = .pretendard(.regular, ofSize: 16)
             $0.textAlignment = .center
         }
-    var yesButton = UIButton()
+    var yesButton = RoundedButton()
         .then {
+            $0.buttonState = .original
+            $0.buttonComponentStyle = .secondary_m
             $0.layer.cornerRadius = 20
-            $0.backgroundColor = .gray01
-            $0.setTitleColor(.gray04, for: .normal)
             $0.titleLabel?.font = .pretendard(.semibold, ofSize: 16)
         }
     var noButton = UIButton()

@@ -32,6 +32,7 @@ class DetailParentViewModel: BindableViewModel, ServicesDetailGoal {
     
     // MARK: - Output
     
+    var isTest = BehaviorRelay(value: false)
     var detailGoalList = BehaviorRelay<[DetailGoal]>(value: [])
     var test = BehaviorRelay<[DetailGoal]>(value: [])
     // detailGoalList를 정렬한, 테이블뷰에 보여줄 데이터

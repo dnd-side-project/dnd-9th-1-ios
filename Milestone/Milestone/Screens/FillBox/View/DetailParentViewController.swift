@@ -169,6 +169,24 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
+    override func bindUI() {
+        viewModel.isTest
+            .subscribe { [self] isTest in
+                if isTest {
+                    pop()
+                    // 현재 스택에 있는 뷰 컨트롤러들을 가져오고, 가장 상위의 뷰 컨트롤러를 제거
+//                    if var viewControllers = navigationController?.viewControllers {
+//                        navigationController?.change
+//                        viewControllers.removeLast()
+//                        let text = DetailParentViewController()
+//                        text.viewModel = DetailParentViewModel()
+//                        viewControllers.append(text)
+//                        navigationController?.setViewControllers(viewControllers, animated: true)
+                    }
+                }
+            .disposed(by: disposeBag)
+    }
+    
     private func updateTableViewHeightForFit() {
         detailGoalTableView.snp.updateConstraints { make in
             make.top.equalTo(detailGoalCollectionView.snp.bottom).offset(36)
@@ -178,8 +196,6 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     }
     
     func bindViewModel() {
-        updateDetailGoalList()
-        
         if viewModel.isFull {
             viewModel.detailGoalList
                 .bind(to: detailGoalCollectionView.rx.items(cellIdentifier: DetailGoalCollectionViewCell.identifier, cellType: DetailGoalCollectionViewCell.self)) { [unowned self] row, goal, cell in
@@ -251,6 +267,7 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         lazy var moreVC = MoreViewController()
             .then {
                 $0.isFromStorage = isFromStorage
+                $0.viewModel = viewModel
             }
         presentCustomModal(moreVC, height: moreVC.viewHeight)
     }
