@@ -105,7 +105,7 @@ class ResetGoalViewController: BaseViewController {
         updateButtonState(.press)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.dismiss(animated: true)
-            self.viewModel?.isTest.accept(true)
+            self.viewModel?.popDetailParentVC.accept(true)
         }
     }
 }

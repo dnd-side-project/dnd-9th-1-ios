@@ -12,7 +12,7 @@ import Then
 
 // MARK: - 목표 삭제 팝업 뷰 (상위, 세부 목표 동일하게 사용)
 
-class DeleteGoalViewController: BaseViewController {
+class DeleteGoalViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Subviews
     
@@ -21,13 +21,15 @@ class DeleteGoalViewController: BaseViewController {
             $0.askLabel.text = "정말 삭제 하시겠어요?"
             $0.guideLabel.text = "삭제된 목표는 되돌릴 수 없어요 🥺"
             $0.yesButton.setTitle("삭제할게요", for: .normal)
+            $0.yesButton.addTarget(self, action: #selector(deleteGoal), for: .touchUpInside)
             $0.noButton.setTitle("지금 안할래요", for: .normal)
             $0.noButton.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
         }
     
     // MARK: - Properties
     
-    var fromParentGoal = true // 상위 목표 수정인지 세부 목표 수정인지
+    var viewModel: DetailParentViewModel!
+    var fromParentGoal = true // 상위 목표 삭제인지 세부 목표 삭제인지
     
     // MARK: - Functions
     
@@ -56,5 +58,21 @@ class DeleteGoalViewController: BaseViewController {
     @objc
     private func dismissViewController() {
         self.dismiss(animated: true)
+    }
+    
+    @objc
+    private func deleteGoal() {
+        askPopUpView.yesButton.updateButtonState(.press)
+        
+        // 상위 목표 삭제 API 호출
+        if fromParentGoal {
+            viewModel.deleteParentGoal()
+        } else {
+            // TODO: - 하위 목표 삭제 API 호출
+            
+        }
+        
+        self.dismiss(animated: true)
+        self.viewModel?.popDetailParentVC.accept(true)
     }
 }

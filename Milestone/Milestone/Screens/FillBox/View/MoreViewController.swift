@@ -149,6 +149,7 @@ class MoreViewController: BaseViewController, ViewModelBindableType {
         Logger.debugDescription("삭제하기 클릭")
         let deleteGoalPopUp = DeleteGoalViewController()
             .then {
+                $0.viewModel = viewModel
                 $0.modalTransitionStyle = .crossDissolve
                 $0.modalPresentationStyle = .overFullScreen
             }
