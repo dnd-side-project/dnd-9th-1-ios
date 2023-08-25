@@ -26,6 +26,11 @@ class CompletionViewModel: BindableViewModel {
         requestEnabledRetrospectCount()
     }
     
+    // FIXME: - 테스트코드
+    var authTestResponse: Observable<Result<String, APIError>> {
+        authTest()
+    }
+    
     var goalData = BehaviorRelay<[ParentGoal]>(value: [])
 
     var goalDataCount = PublishRelay<Int>()
@@ -43,7 +48,7 @@ class CompletionViewModel: BindableViewModel {
 }
 
 /// output
-extension CompletionViewModel: ServicesGoalList { }
+extension CompletionViewModel: ServicesGoalList, ServicesUser { }
 
 extension CompletionViewModel {
     func retrieveGoalData() {

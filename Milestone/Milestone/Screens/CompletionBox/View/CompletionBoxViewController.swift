@@ -83,6 +83,21 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             .disposed(by: disposeBag)
         
         checkFirstCompletionBox()
+        
+        
+        // FIXME: - 테스트코드
+//        viewModel.authTestResponse
+//            .subscribe(onNext: { result in
+//                switch result {
+//                case .success(let str):
+//                    print("SUCC!!")
+//                    print(str)
+//                case .failure(let error):
+//                    print("ERR!!")
+//                    print(error)
+//                }
+//            })
+//            .disposed(by: disposeBag)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -128,7 +143,8 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     func bindViewModel() {
         viewModel.goalData
-            .bind(to: tableView.rx.items(cellIdentifier: CompletionTableViewCell.identifier, cellType: CompletionTableViewCell.self)) { [unowned self] row, element, cell in
+            .bind(to: tableView.rx.items(cellIdentifier: CompletionTableViewCell.identifier, cellType: CompletionTableViewCell.self)) { [weak self] row, element, cell in
+                guard let self = self else { return }
                 let startDate = dateFormatter.date(from: element.startDate)!
                 let endDate = dateFormatter.date(from: element.endDate)!
                 cell.dateLabel.text = dateFormatter.string(from: startDate) + " - " + dateFormatter.string(from: endDate)
@@ -258,6 +274,10 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         pushViewDisposables.forEach { disposable in
             disposable.dispose()
         }
+    }
+    
+    deinit {
+        disposeBag = DisposeBag()
     }
 }
 
