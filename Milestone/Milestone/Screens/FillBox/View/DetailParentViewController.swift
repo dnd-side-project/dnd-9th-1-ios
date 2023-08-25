@@ -296,22 +296,19 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 
 extension DetailParentViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 9
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? DetailGoalCollectionViewCell else { return }
-        if cell.isSet.value {
-            let detailInfo = DetailGoalInfoViewController()
+        // 세부 목표 셀 클릭 시
+        if viewModel.detailGoalList.value.count > indexPath.row {
+            var detailInfo = DetailGoalInfoViewController()
+            viewModel.detailGoalId = viewModel.detailGoalList.value[indexPath.row].detailGoalId
+            detailInfo.bind(viewModel: viewModel)
             detailInfo.modalPresentationStyle = .overFullScreen
             detailInfo.modalTransitionStyle = .crossDissolve
             self.present(detailInfo, animated: true)
-        } else {
+        } else { // 세부 목표를 추가해주세요! 셀 클릭 시
             let addDetailGoalVC = AddDetailGoalViewController()
-            addDetailGoalVC.viewModel = AddDetailGoalViewModel()
+            addDetailGoalVC.viewModel = viewModel
             addDetailGoalVC.delegate = self
-            addDetailGoalVC.viewModel.parentGoalId = self.viewModel.parentGoalId
             addDetailGoalVC.modalPresentationStyle = .pageSheet
             
             guard let sheet = addDetailGoalVC.sheetPresentationController else { return }
