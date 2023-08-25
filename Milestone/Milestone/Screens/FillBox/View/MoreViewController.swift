@@ -12,7 +12,7 @@ import Then
 
 // MARK: - 상위 목표 상세 더보기 화면
 
-class MoreViewController: BaseViewController {
+class MoreViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - SubViews
     
@@ -32,7 +32,7 @@ class MoreViewController: BaseViewController {
         .then {
             $0.iconImageView.image = ImageLiteral.imgModify
             $0.optionLabel.text = "수정하기"
-            var tapModifyGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentRestoreGoalViewController))
+            var tapModifyGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentModifyGoalViewController))
             $0.addGestureRecognizer(tapModifyGesture)
         }
     lazy var removeOptionView = MoreOptionView()
@@ -45,7 +45,7 @@ class MoreViewController: BaseViewController {
     
     // MARK: - Properties
     
-    var viewModel: DetailParentViewModel?
+    var viewModel: DetailParentViewModel!
     var isFromStorage = false
     let viewHeight = 173.0
     
@@ -54,9 +54,7 @@ class MoreViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if isFromStorage {
-            changeModifyToRestore()
-        }
+        if isFromStorage { changeModifyToRestore() }
     }
     
     // MARK: - Functions
@@ -90,27 +88,48 @@ class MoreViewController: BaseViewController {
     }
     
     /// 수정하기 버튼을 복구하기 버튼으로 바꿔치기 -> 뷰와 제스처 함수 변경
-    func changeModifyToRestore() {
+    private func changeModifyToRestore() {
         modifyOptionView.optionLabel.text = "복구하기"
         modifyOptionView.iconImageView.image = ImageLiteral.imgRestore
-        var tapRestorGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentRestoreGoalViewController))
-        modifyOptionView.addGestureRecognizer(tapRestorGesture)
+        var tapRestoreGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentRestoreGoalViewController))
+        modifyOptionView.addGestureRecognizer(tapRestoreGesture)
     }
-
+    
+    /// "yyyy.MM.dd" 형식을 "yyyy / MM / dd" 형식으로 바꿔준다
+    private func changeDateFormat(_ inputDate: String) -> String? {
+        let inputFormat = "yyyy.MM.dd"
+        let outputFormat = "yyyy / MM / dd"
+        
+        let dateFormatterInput = DateFormatter()
+        dateFormatterInput.dateFormat = inputFormat
+        
+        if let date = dateFormatterInput.date(from: inputDate) {
+            let dateFormatterOutput = DateFormatter()
+            dateFormatterOutput.dateFormat = outputFormat
+            return dateFormatterOutput.string(from: date)
+        } else {
+            return nil
+        }
+    }
+    
     // MARK: - @objc Functions
-
+    
     @objc
     private func presentModifyGoalViewController() {
         lazy var addParentGoalVC = AddParentGoalViewController()
             .then {
                 $0.completeButton.titleString = "목표 수정 완료"
-                $0.enterGoalTitleView.titleTextField.text = "토익 900점 넘기기"
+                $0.enterGoalTitleView.titleTextField.text = viewModel.selectedParentGoal?.title
+                let startDate = changeDateFormat(viewModel.selectedParentGoal!.startDate)
+                let endDate = changeDateFormat(viewModel.selectedParentGoal!.endDate)
+                $0.enterGoalDateView.startDateButton.setTitle(startDate, for: .normal)
+                $0.enterGoalDateView.endDateButton.setTitle(endDate, for: .normal)
                 $0.enterGoalTitleView.updateNowNumOfCharaters()
             }
         dismiss(animated: true)
         self.presentingViewController?.presentCustomModal(addParentGoalVC, height: addParentGoalVC.viewHeight)
     }
-
+   
     @objc
     private func presentDeleteGoalViewController() {
         Logger.debugDescription("삭제하기 클릭")

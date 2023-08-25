@@ -189,7 +189,7 @@ extension FillBoxViewController: UITableViewDelegate {
                 $0.termLabel.text = "\(selectedGoalData.startDate) - \(selectedGoalData.endDate)"
             }
         lazy var viewModel = DetailParentViewModel()
-        viewModel.parentGoalId = selectedGoalData.identity
+        viewModel.selectedParentGoal = selectedGoalData
         nextVC.viewModel = viewModel
         push(viewController: nextVC)
     }
