@@ -33,6 +33,7 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
         }
     lazy var enterGoalAlarmView = EnterGoalAlarmView()
         .then {
+            $0.isModifyMode = isModifyMode
             $0.delegate = self
         }
     lazy var completeButton = RoundedButton()
