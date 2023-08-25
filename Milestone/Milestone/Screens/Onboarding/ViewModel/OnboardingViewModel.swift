@@ -53,14 +53,29 @@ class OnboardingViewModel: BindableViewModel {
                 .map {
                     KeychainManager.shared.rx
                         .saveItem($0.accessToken, itemClass: .password, key: KeychainKeyList.accessToken.rawValue)
-                },
+                }
+                .subscribe(onNext: {
+                    $0.subscribe(onCompleted: {
+                        print("completed")
+                    })
+                    .dispose()
+                })
+            ,
             tokenSubject
                 .map {
                     KeychainManager.shared.rx
                         .saveItem($0.refreshToken, itemClass: .password, key: KeychainKeyList.refreshToken.rawValue)
+                }
+                .subscribe(onNext: {
+                    $0.subscribe(onCompleted: {
+                        print("completed2")
+                    })
+                    .dispose()
                 })
+        )
         
-        Observable.merge(mergedObservable)
+        Observable<any Disposable>
+            .merge()
             .subscribe(onCompleted: { [weak self] in
                 guard let self = self else { return }
                 self.loginCoordinator?.coordinateToOnboarding()
