@@ -13,4 +13,5 @@ enum UserDefaultsKeyStyle: String {
     case bubbleInFillBox = "showBubbleInFillBox"
     case bubbleInCompletionBox = "showBubbleInCompletionBox"
     case recommendGoalView = "showRecommendGoalView"
+    case registerNotification = "isNotificationRegistered"
 }

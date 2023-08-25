@@ -87,14 +87,19 @@ extension SettingViewController: UITableViewDataSource {
                     }
                     
                     if settings.authorizationStatus == .authorized {
+                        DispatchQueue.main.async {
+                            cell.toggleButton.isOn = UserDefaults.standard.bool(forKey: UserDefaultsKeyStyle.registerNotification.rawValue)
+                        }
+                        
                         cell.toggleButton.rx.isOn
                             .subscribe(onNext: {
                                 if $0 {
+                                    UserDefaults.standard.set(true, forKey: UserDefaultsKeyStyle.registerNotification.rawValue)
                                     UIApplication.shared.registerForRemoteNotifications()
                                 } else {
+                                    UserDefaults.standard.set(false, forKey: UserDefaultsKeyStyle.registerNotification.rawValue)
                                     UIApplication.shared.unregisterForRemoteNotifications()
                                 }
-                                print("TAPPED")
                                 print($0)
                             })
                             .disposed(by: self.disposeBag)
@@ -132,6 +137,14 @@ extension SettingViewController: UITableViewDataSource {
             return cell
         default:
             return UITableViewCell()
+        }
+    }
+    
+    private func checkNotificationRegistered() {
+        if UserDefaults.standard.bool(forKey: UserDefaultsKeyStyle.registerNotification.rawValue) {
+            UIApplication.shared.registerForRemoteNotifications()
+        } else {
+            
         }
     }
 }
