@@ -232,4 +232,21 @@ extension DetailParentViewModel {
             }
             .disposed(by: bag)
     }
+    /// 세부 목표 삭제 API
+    func deleteDetailGoal() {
+        var modifyDetailGoalResponse: Observable<Result<BaseModel<StateUpdatedDetailGoal>, APIError>> {
+            requestDeleteDetailGoal(id: detailGoalId)
+        }
+        
+        modifyDetailGoalResponse
+            .subscribe { result in
+                switch result {
+                case .success(let response):
+                    Logger.debugDescription(response)
+                case .failure(let error):
+                    Logger.debugDescription(error)
+                }
+            }
+            .disposed(by: bag)
+    }
 }
