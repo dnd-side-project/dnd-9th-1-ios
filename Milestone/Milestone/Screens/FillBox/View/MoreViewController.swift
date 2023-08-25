@@ -45,6 +45,7 @@ class MoreViewController: BaseViewController {
     
     // MARK: - Properties
     
+    var viewModel: DetailParentViewModel?
     var isFromStorage = false
     let viewHeight = 173.0
     
@@ -127,6 +128,7 @@ class MoreViewController: BaseViewController {
         Logger.debugDescription("복구하기 클릭")
         let restoreGoalPopUp = RestoreGoalViewController()
             .then {
+                $0.viewModel = viewModel
                 $0.modalTransitionStyle = .crossDissolve
                 $0.modalPresentationStyle = .overFullScreen
             }

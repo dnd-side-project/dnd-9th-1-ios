@@ -87,6 +87,10 @@ class ResetGoalViewController: BaseViewController {
         view.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
     }
     
+    // MARK: - Properties
+    
+    var viewModel: DetailParentViewModel?
+    
     // MARK: - @objc Functions
     
     @objc
@@ -101,6 +105,7 @@ class ResetGoalViewController: BaseViewController {
         updateButtonState(.press)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.dismiss(animated: true)
+            self.viewModel?.isTest.accept(true)
         }
     }
 }

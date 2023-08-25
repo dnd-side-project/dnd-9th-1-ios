@@ -27,6 +27,8 @@ class RestoreGoalViewController: BaseViewController {
             $0.noButton.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
         }
     
+    var viewModel: DetailParentViewModel?
+    
     // MARK: - Functions
     
     override func render() {
@@ -62,6 +64,7 @@ class RestoreGoalViewController: BaseViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.dismiss(animated: true)
             let resetGoalVC = ResetGoalViewController()
+            resetGoalVC.viewModel = self.viewModel
             self.presentingViewController?.presentCustomModal(resetGoalVC, height: resetGoalVC.viewHeight)
         }
     }
