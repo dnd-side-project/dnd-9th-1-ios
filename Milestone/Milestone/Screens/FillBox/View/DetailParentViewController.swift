@@ -100,6 +100,7 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     
     var isFromStorage = false
     var viewModel: DetailParentViewModel!
+    var isParentCompleted: Bool!
     
     // 세부 목표를 추가해주세요! 데이터
     private var emptyGoal: DetailGoal?
@@ -248,6 +249,21 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
                 goalTitleLabel.text = goal.title
                 dDayLabel.text = "D - \(goal.dDay)"
                 termLabel.text = "\(goal.startDate) - \(goal.endDate)"
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.completedGoalResult
+            .subscribe(onNext: { [unowned self] res in
+                self.isParentCompleted = res.isGoalCompleted
+                if isParentCompleted {
+                    let vc = CompleteGoalViewController()
+                        .then {
+                            $0.viewModel = viewModel
+                            $0.modalPresentationStyle = .overFullScreen
+                            $0.modalTransitionStyle = .crossDissolve
+                        }
+                    self.present(vc, animated: true)
+                }
             })
             .disposed(by: disposeBag)
     }
