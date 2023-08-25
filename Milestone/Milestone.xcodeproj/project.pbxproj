@@ -52,9 +52,6 @@
 		A282DA522A94BB2400A0D0BF /* DetailParentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A282DA512A94BB2400A0D0BF /* DetailParentViewModel.swift */; };
 		A282DA532A94BB2400A0D0BF /* DetailParentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A282DA512A94BB2400A0D0BF /* DetailParentViewModel.swift */; };
 		A282DA542A94BB2400A0D0BF /* DetailParentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A282DA512A94BB2400A0D0BF /* DetailParentViewModel.swift */; };
-		A282DA562A94C20300A0D0BF /* CreateDetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A282DA552A94C20300A0D0BF /* CreateDetailGoal.swift */; };
-		A282DA572A94C20300A0D0BF /* CreateDetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A282DA552A94C20300A0D0BF /* CreateDetailGoal.swift */; };
-		A282DA582A94C20300A0D0BF /* CreateDetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A282DA552A94C20300A0D0BF /* CreateDetailGoal.swift */; };
 		A289D93E2A91223C005B7F00 /* ButtonStateStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D93D2A91223C005B7F00 /* ButtonStateStyle.swift */; };
 		A289D93F2A912241005B7F00 /* ButtonStateStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D93D2A91223C005B7F00 /* ButtonStateStyle.swift */; };
 		A289D9402A912241005B7F00 /* ButtonStateStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289D93D2A91223C005B7F00 /* ButtonStateStyle.swift */; };
@@ -323,7 +320,6 @@
 		A27C9A0B2A8E4258002C6F44 /* AddDetailGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailGoalViewController.swift; sourceTree = "<group>"; };
 		A27C9A0F2A8E42B5002C6F44 /* EnterGoalAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterGoalAlarmView.swift; sourceTree = "<group>"; };
 		A282DA512A94BB2400A0D0BF /* DetailParentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailParentViewModel.swift; sourceTree = "<group>"; };
-		A282DA552A94C20300A0D0BF /* CreateDetailGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDetailGoal.swift; sourceTree = "<group>"; };
 		A289D93D2A91223C005B7F00 /* ButtonStateStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStateStyle.swift; sourceTree = "<group>"; };
 		A289D9412A91241C005B7F00 /* UserDefaultsKeyStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeyStyle.swift; sourceTree = "<group>"; };
 		A289D9452A91246B005B7F00 /* DayStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayStyle.swift; sourceTree = "<group>"; };
@@ -925,7 +921,6 @@
 			children = (
 				C9B2CE482A92F957006289A8 /* Goal.swift */,
 				C9B2CE4A2A92F95E006289A8 /* DetailGoal.swift */,
-				A282DA552A94C20300A0D0BF /* CreateDetailGoal.swift */,
 				C9040FCB2A93B64A00270E94 /* Token.swift */,
 				C95A3C9A2A94D08D0028B4ED /* ParentGoal.swift */,
 				C95A3CA22A95973B0028B4ED /* Retrospect.swift */,
@@ -1217,7 +1212,6 @@
 				C9040FCE2A93BDB400270E94 /* APIInterceptor.swift in Sources */,
 				A2248E832A8818AD00EB995A /* DetailGoalTableViewCell.swift in Sources */,
 				A25988FE2A96915F00C6BDE0 /* ServicesDetailGoal.swift in Sources */,
-				A282DA562A94C20300A0D0BF /* CreateDetailGoal.swift in Sources */,
 				A2EC47D02A8A968A00401B03 /* DetailGoalInfoView.swift in Sources */,
 				A289D95C2A9133C7005B7F00 /* PresentDelegate.swift in Sources */,
 				C9BF3FCA2A97837C0074E781 /* SettingTableViewCellFirstSection.swift in Sources */,
@@ -1310,7 +1304,6 @@
 				A25988FF2A96915F00C6BDE0 /* ServicesDetailGoal.swift in Sources */,
 				A289D9612A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */,
 				A282DA532A94BB2400A0D0BF /* DetailParentViewModel.swift in Sources */,
-				A282DA572A94C20300A0D0BF /* CreateDetailGoal.swift in Sources */,
 				A2FFBC902A94986200039919 /* FillBoxViewModel.swift in Sources */,
 				A22774AE2A977438004AE5D7 /* AMPMStyle.swift in Sources */,
 				A2FA58D62A7F7A2A006ACA2E /* (null) in Sources */,
@@ -1374,7 +1367,6 @@
 				A289D9442A91241C005B7F00 /* UserDefaultsKeyStyle.swift in Sources */,
 				A2C98F042A8B6117009B5579 /* AddParentGoalViewController.swift in Sources */,
 				A2FA592F2A7FD433006ACA2E /* NSObject+.swift in Sources */,
-				A282DA582A94C20300A0D0BF /* CreateDetailGoal.swift in Sources */,
 				A2FA591B2A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
 				A2B20D5F2A7E4E68001ED73C /* UIColor+.swift in Sources */,
 				A289D9482A91246C005B7F00 /* DayStyle.swift in Sources */,
