@@ -246,6 +246,7 @@ extension DetailParentViewModel {
                 switch result {
                 case .success(let response):
                     retrieveDetailGoalList()
+                    completedGoalResult.accept(response.data) // 삭제하고 받은 응답값 방출
                     Logger.debugDescription(response)
                 case .failure(let error):
                     Logger.debugDescription(error)
