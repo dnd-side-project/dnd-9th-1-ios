@@ -43,6 +43,9 @@ class DetailParentViewModel: BindableViewModel, ServicesDetailGoal {
     var detailGoalCompleteResponse: Observable<Result<BaseModel<CompletedDetailGoal>, APIError>> {
         requestCompleteDetailGoal(id: detailGoalId)
     }
+    var detailGoalIncompleteResponse: Observable<Result<EmptyDataModel, APIError>> {
+        requestIncompleteDetailGoal(id: detailGoalId)
+    }
     
     deinit {
         bag = DisposeBag()
@@ -88,6 +91,20 @@ extension DetailParentViewModel {
     
     func completeDetailGoal() {
         detailGoalCompleteResponse
+            .subscribe { [unowned self] result in
+                switch result {
+                case .success(let response):
+                    retrieveDetailGoalList()
+                    Logger.debugDescription(response)
+                case .failure(let error):
+                    Logger.debugDescription(error)
+                }
+            }
+            .disposed(by: bag)
+    }
+    
+    func incompleteDetailGoal() {
+        detailGoalIncompleteResponse
             .subscribe { [unowned self] result in
                 switch result {
                 case .success(let response):

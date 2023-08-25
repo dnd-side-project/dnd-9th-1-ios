@@ -217,15 +217,11 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         
         viewModel.sortedGoalData
             .bind(to: detailGoalTableView.rx.items(cellIdentifier: DetailGoalTableViewCell.identifier, cellType: DetailGoalTableViewCell.self)) { _, goal, cell in
-                Logger.debugDescription("여기 \(cell.titleLabel.text)")
                 if self.isFromStorage {
                     cell.isUserInteractionEnabled = false
                     cell.makeCellBlurry()
                 }
-                cell.titleLabel.text = goal.title
-                cell.containerView.backgroundColor = goal.isCompleted ? .secondary03 : .white
-                cell.titleLabel.textColor = goal.isCompleted ? .primary : .black
-                cell.checkImageView.image = goal.isCompleted ? ImageLiteral.imgBlueCheck : ImageLiteral.imgWhiteCheck
+                cell.update(content: goal)
             }
             .disposed(by: disposeBag)
     }
@@ -300,15 +296,15 @@ extension DetailParentViewController: UITableViewDelegate {
         guard let cell = tableView.cellForRow(at: indexPath) as? DetailGoalTableViewCell else { return }
         let sortedGoalData = viewModel.sortedGoalData.value
         let row = indexPath.row
-        let selectedGoalId = sortedGoalData[row].detailGoalId
+        let selectedGoal = sortedGoalData[row]
         
+        viewModel.detailGoalId = selectedGoal.detailGoalId
         if cell.containerView.backgroundColor == .white {
             // 세부 목표 달성
-            viewModel.detailGoalId = selectedGoalId
             viewModel.completeDetailGoal()
-            cell.update(content: sortedGoalData[row])
         } else {
             // 세부 목표 달성 취소
+            viewModel.incompleteDetailGoal()
         }
     }
 }
