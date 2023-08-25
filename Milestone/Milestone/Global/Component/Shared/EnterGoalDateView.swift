@@ -69,8 +69,6 @@ class EnterGoalDateView: UIView {
             $0.datePickerMode = .date
             $0.preferredDatePickerStyle = .wheels
             $0.locale = Locale(identifier: "ko_KR")
-            $0.minimumDate = startDate
-            $0.date = startDate
         }
     lazy var startDateAlert = UIAlertController(title: "", message: alertMessage, preferredStyle: .actionSheet)
         .then {
@@ -91,8 +89,6 @@ class EnterGoalDateView: UIView {
             $0.datePickerMode = .date
             $0.preferredDatePickerStyle = .wheels
             $0.locale = Locale(identifier: "ko_KR")
-            $0.minimumDate = startDate
-            $0.date = endDate
         }
     lazy var endDateAlert = UIAlertController(title: "", message: alertMessage, preferredStyle: .actionSheet)
         .then {
@@ -108,8 +104,6 @@ class EnterGoalDateView: UIView {
             $0.datePickerMode = .date
             $0.preferredDatePickerStyle = .wheels
             $0.locale = Locale(identifier: "ko_KR")
-            $0.minimumDate = startDate
-            $0.date = startDate
         }
     lazy var startDateAfterEndDateSettingAlert = UIAlertController(title: "", message: alertMessage, preferredStyle: .actionSheet)
         .then {
@@ -150,6 +144,19 @@ class EnterGoalDateView: UIView {
     let vc = UIViewController()
     let vc2 = UIViewController()
     let vc3 = UIViewController()
+    
+    // 목표 수정을 위한 값들
+    var isModifyMode = false
+    var startDateToModify: Date? {
+        didSet {
+            checkDateCondition()
+        }
+    }
+    var endDateToModify: Date? {
+        didSet {
+            checkDateCondition()
+        }
+    }
     
     // MARK: - Initialization
     
@@ -240,6 +247,22 @@ class EnterGoalDateView: UIView {
         dateErrorLabel.removeFromSuperview()
         self.snp.updateConstraints { make in
             make.height.equalTo(104)
+        }
+    }
+    
+    func setDatePicker() {
+        if isModifyMode {
+            // 수정은 시작일자 제한 X
+            self.startDatePicker.date = startDateToModify! // ?? Date()
+            self.endDatePicker.minimumDate = startDateToModify ?? Date()
+            self.endDatePicker.date = endDateToModify ?? Date()
+        } else {
+            self.startDatePicker.minimumDate = startDate
+            self.startDatePicker.date = startDate
+            self.endDatePicker.minimumDate = startDate
+            self.endDatePicker.date = startDate
+            self.afterEndDatePicker.minimumDate = startDate
+            self.afterEndDatePicker.date = startDate
         }
     }
     

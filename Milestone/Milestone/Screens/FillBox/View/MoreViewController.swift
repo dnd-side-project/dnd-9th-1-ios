@@ -48,6 +48,10 @@ class MoreViewController: BaseViewController, ViewModelBindableType {
     var viewModel: DetailParentViewModel!
     var isFromStorage = false
     let viewHeight = 173.0
+    var dateFormatter = DateFormatter()
+        .then {
+            $0.dateFormat = "yyyy / MM / dd"
+        }
     
     // MARK: - Life Cycle
     
@@ -91,7 +95,7 @@ class MoreViewController: BaseViewController, ViewModelBindableType {
     private func changeModifyToRestore() {
         modifyOptionView.optionLabel.text = "복구하기"
         modifyOptionView.iconImageView.image = ImageLiteral.imgRestore
-        var tapRestoreGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentRestoreGoalViewController))
+        let tapRestoreGesture = UITapGestureRecognizer(target: self, action: #selector(self.presentRestoreGoalViewController))
         modifyOptionView.addGestureRecognizer(tapRestoreGesture)
     }
     
@@ -119,11 +123,19 @@ class MoreViewController: BaseViewController, ViewModelBindableType {
         lazy var addParentGoalVC = AddParentGoalViewController()
             .then {
                 $0.completeButton.titleString = "목표 수정 완료"
+                $0.enterGoalDateView.isModifyMode = true
                 $0.enterGoalTitleView.titleTextField.text = viewModel.selectedParentGoal?.title
                 let startDate = changeDateFormat(viewModel.selectedParentGoal!.startDate)
                 let endDate = changeDateFormat(viewModel.selectedParentGoal!.endDate)
                 $0.enterGoalDateView.startDateButton.setTitle(startDate, for: .normal)
                 $0.enterGoalDateView.endDateButton.setTitle(endDate, for: .normal)
+                if let startDate = dateFormatter.date(from: startDate!),
+                   let endDate = dateFormatter.date(from: endDate!) {
+                    $0.enterGoalDateView.startDateToModify = startDate
+                    $0.enterGoalDateView.endDateToModify = endDate
+                    $0.enterGoalDateView.setDatePicker()
+                }
+                
                 $0.enterGoalTitleView.updateNowNumOfCharaters()
             }
         dismiss(animated: true)

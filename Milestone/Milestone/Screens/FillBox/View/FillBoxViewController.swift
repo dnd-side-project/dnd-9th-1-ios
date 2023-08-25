@@ -143,6 +143,11 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
     private func presentAddParentGoal() {
         var addParentGoalVC = AddParentGoalViewController()
             .then {
+                $0.enterGoalDateView.startDate = Date()
+                let sevenDaysInterval: TimeInterval = 7 * 24 * 60 * 60
+                let endDate = Date().addingTimeInterval(sevenDaysInterval)
+                $0.enterGoalDateView.endDate = endDate
+                $0.enterGoalDateView.setDatePicker()
                 $0.delegate = self
             }
         addParentGoalVC.bind(viewModel: AddParentGoalViewModel())
