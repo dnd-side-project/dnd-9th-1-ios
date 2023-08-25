@@ -143,8 +143,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     func bindViewModel() {
         viewModel.goalData
-            .bind(to: tableView.rx.items(cellIdentifier: CompletionTableViewCell.identifier, cellType: CompletionTableViewCell.self)) { [weak self] row, element, cell in
-                guard let self = self else { return }
+            .bind(to: tableView.rx.items(cellIdentifier: CompletionTableViewCell.identifier, cellType: CompletionTableViewCell.self)) { [unowned self] row, element, cell in
                 let startDate = dateFormatter.date(from: element.startDate)!
                 let endDate = dateFormatter.date(from: element.endDate)!
                 cell.dateLabel.text = dateFormatter.string(from: startDate) + " - " + dateFormatter.string(from: endDate)

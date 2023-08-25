@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
 
@@ -50,9 +52,6 @@ class EnterGoalAlarmView: UIView {
                         $0.clipsToBounds = true
                         $0.layer.cornerRadius = 10
                         $0.addTarget(self, action: #selector(selectAlarmDay(_:)), for: .touchUpInside)
-                        if i.day == DayStyle.MONDAY.rawValue {
-                            selectAlarmDay($0)
-                        }
                     }
                 $0.addArrangedSubview(dayButton)
             }
@@ -91,9 +90,12 @@ class EnterGoalAlarmView: UIView {
     
     // MARK: - Properties
     
+    var isModifyMode: Bool!
+    let bag = DisposeBag()
     weak var delegate: (PresentDelegate)?
     private var timePickerData = [["오전", "오후"], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"], ["00", "30"]]
     private var dayList = [DayData(day: DayStyle.MONDAY.rawValue), DayData(day: DayStyle.TUESDAY.rawValue), DayData(day: DayStyle.WEDNESDAY.rawValue), DayData(day: DayStyle.THURSDAY.rawValue), DayData(day: DayStyle.FRIDAY.rawValue), DayData(day: DayStyle.SATURDAY.rawValue), DayData(day: DayStyle.SUNDAY.rawValue)]
+    var selectedDayList: [String] = []
     var selectedAmOrPm = "오후"
     var selectedHour = "01"
     var selectedMin = "00"
@@ -110,6 +112,15 @@ class EnterGoalAlarmView: UIView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Life Cycle
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        setPickerViewRow()
+        setClickedDaysButton()
     }
     
     // MARK: - Functions
@@ -151,6 +162,29 @@ class EnterGoalAlarmView: UIView {
         timePickerViewController.view = timePickerView
     }
     
+    /// selectedAmOrPm, selectedHour, selectedMin에 담긴 값에 따라 피커뷰의 기본 row를 변경
+    private func setPickerViewRow() {
+        timePickerView.selectRow(findIndex(for: selectedAmOrPm, in: timePickerData[0]) ?? 0, inComponent: 0, animated: false)
+        timePickerView.selectRow(findIndex(for: selectedHour, in: timePickerData[1]) ?? 0, inComponent: 1, animated: false)
+        timePickerView.selectRow(findIndex(for: selectedMin, in: timePickerData[2]) ?? 0, inComponent: 2, animated: false)
+    }
+    
+    /// 스택뷰에 담긴 버튼 7개의 스타일을 설정
+    /// 수정하기 모드인 경우 이미 선택된 버튼은 클릭
+    /// 수정하기 모드가 아니면 기본으로 월요일 버튼만 클릭
+    private func setClickedDaysButton() {
+        dayStackView.arrangedSubviews.forEach { button in
+            let btn = button as? UIButton
+            if !isModifyMode {
+                if btn?.titleLabel?.text == DayStyle.MONDAY.rawValue {
+                    selectAlarmDay(btn!)
+                }
+            } else if selectedDayList.contains((btn?.titleLabel?.text)!) {
+                selectAlarmDay(btn!)
+            }
+        }
+    }
+    
     /// 상황에 따라 버튼의 스타일을 업데이트 해줌
     private func updateStyleOf(_ button: UIButton, index: Int) {
         if dayList[index].isSelected {
@@ -183,10 +217,14 @@ class EnterGoalAlarmView: UIView {
             }
     }
     
+    private func findIndex(for value: String, in array: [String]) -> Int? {
+        return array.firstIndex(of: value)
+    }
+    
     // MARK: - @objc Functions
     
     @objc
-    private func toggleAlarmSwitch() {
+    func toggleAlarmSwitch() {
         [dayStackView, timeButton, receiveAlarmLabel].forEach { $0.isHidden = !onOffSwitch.isOn }
     }
     
