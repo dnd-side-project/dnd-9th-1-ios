@@ -75,7 +75,6 @@ extension SettingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            print("case: \(indexPath.section)")
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCellFirstSection.identifier) as? SettingTableViewCellFirstSection else { return UITableViewCell() }
             print( cellItems[indexPath.section][indexPath.row])
             cell.label.text = cellItems[indexPath.section][indexPath.row]
@@ -90,6 +89,11 @@ extension SettingViewController: UITableViewDataSource {
                     if settings.authorizationStatus == .authorized {
                         cell.toggleButton.rx.isOn
                             .subscribe(onNext: {
+                                if $0 {
+                                    UIApplication.shared.registerForRemoteNotifications()
+                                } else {
+                                    UIApplication.shared.unregisterForRemoteNotifications()
+                                }
                                 print("TAPPED")
                                 print($0)
                             })
