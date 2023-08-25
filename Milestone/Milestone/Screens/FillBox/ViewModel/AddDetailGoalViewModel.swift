@@ -18,6 +18,8 @@ class AddDetailGoalViewModel: BindableViewModel, ServicesDetailGoal {
     
     var apiSession: APIService = APISession()
     var bag = DisposeBag()
+    
+    var parentGoalId: Int = 0
         
     // MARK: - Properties
     
