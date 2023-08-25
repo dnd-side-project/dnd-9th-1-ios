@@ -26,15 +26,7 @@ class AppCoordinator: Coordinator {
         window.makeKeyAndVisible()
         
         // FIXME: 실물기기 테스트 진행 가능시 아래 주석처리 코드로 수정할것!
-        navigationController.pushViewController(MainViewController(), animated: true)
         
-//        coordinate(to: LoginCoordinator(navigationController: navigationController))
-        
-//        if AuthApi.hasToken() {
-//            navigationController.pushViewController(MainViewController(), animated: true)
-//        } else {
-//            let startCoordinator = LoginCoordinator(navigationController: navigationController)
-//            coordinate(to: startCoordinator)
-//        }
+        coordinate(to: LoginCoordinator(navigationController: navigationController))
     }
 }
