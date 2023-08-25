@@ -171,3 +171,11 @@ class RoundedButton: UIButton {
         }
     }
 }
+
+// MARK: - UpdateButtonStateDelegate
+
+extension RoundedButton: UpdateButtonStateDelegate {
+    func updateButtonState(_ state: ButtonState) {
+        self.buttonState = state
+    }
+}

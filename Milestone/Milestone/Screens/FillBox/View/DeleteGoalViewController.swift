@@ -62,6 +62,8 @@ class DeleteGoalViewController: BaseViewController, ViewModelBindableType {
     
     @objc
     private func deleteGoal() {
+        askPopUpView.yesButton.updateButtonState(.press)
+        
         // 상위 목표 삭제 API 호출
         if fromParentGoal {
             viewModel.deleteParentGoal()
@@ -69,10 +71,8 @@ class DeleteGoalViewController: BaseViewController, ViewModelBindableType {
             // TODO: - 하위 목표 삭제 API 호출
             
         }
-        // 이 팝업 dismiss
-        dismiss(animated: true)
         
-        // 상위 목표 상세 화면을 pop 시켜서 홈으로 나가게 함
+        self.dismiss(animated: true)
         self.viewModel?.popDetailParentVC.accept(true)
     }
 }
