@@ -244,6 +244,9 @@
 		C95A3CA12A94EB580028B4ED /* RewardToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA02A94EB580028B4ED /* RewardToImage.swift */; };
 		C95A3CA32A95973B0028B4ED /* Retrospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA22A95973B0028B4ED /* Retrospect.swift */; };
 		C95A3CA52A959A090028B4ED /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA42A959A090028B4ED /* LoadingView.swift */; };
+		C968F8ED2A98F1BD0051DE48 /* PrivacyInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968F8EC2A98F1BD0051DE48 /* PrivacyInformationViewController.swift */; };
+		C968F8F52A98F3080051DE48 /* InformationLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968F8F42A98F3080051DE48 /* InformationLabel.swift */; };
+		C968F8F72A98F3790051DE48 /* InformationBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968F8F62A98F3790051DE48 /* InformationBox.swift */; };
 		C9798ACA2A939F9600B5CC4A /* BindableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9798AC92A939F9600B5CC4A /* BindableViewModel.swift */; };
 		C9798ACC2A939F9E00B5CC4A /* Lodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9798ACB2A939F9E00B5CC4A /* Lodable.swift */; };
 		C9B2CDD62A8A77F1006289A8 /* CompletionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDD52A8A77F1006289A8 /* CompletionViewModel.swift */; };
@@ -407,6 +410,9 @@
 		C95A3CA02A94EB580028B4ED /* RewardToImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardToImage.swift; sourceTree = "<group>"; };
 		C95A3CA22A95973B0028B4ED /* Retrospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Retrospect.swift; sourceTree = "<group>"; };
 		C95A3CA42A959A090028B4ED /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		C968F8EC2A98F1BD0051DE48 /* PrivacyInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyInformationViewController.swift; sourceTree = "<group>"; };
+		C968F8F42A98F3080051DE48 /* InformationLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationLabel.swift; sourceTree = "<group>"; };
+		C968F8F62A98F3790051DE48 /* InformationBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationBox.swift; sourceTree = "<group>"; };
 		C9798AC92A939F9600B5CC4A /* BindableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BindableViewModel.swift; path = Foundation/BindableViewModel.swift; sourceTree = "<group>"; };
 		C9798ACB2A939F9E00B5CC4A /* Lodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lodable.swift; path = Foundation/Lodable.swift; sourceTree = "<group>"; };
 		C9B2CDD52A8A77F1006289A8 /* CompletionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewModel.swift; sourceTree = "<group>"; };
@@ -592,6 +598,7 @@
 				A289D9562A912E8F005B7F00 /* Main */,
 				A289D9572A912EB4005B7F00 /* FillBox */,
 				A289D9592A912F6E005B7F00 /* CompletionBox */,
+				C968F8F32A98F2AE0051DE48 /* Setting */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -873,6 +880,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		C968F8F32A98F2AE0051DE48 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				C968F8F42A98F3080051DE48 /* InformationLabel.swift */,
+				C968F8F62A98F3790051DE48 /* InformationBox.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		C9798AC72A939F4A00B5CC4A /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -959,6 +975,7 @@
 			children = (
 				C9BF3FC82A97836F0074E781 /* Cell */,
 				C9BF3FC62A97817C0074E781 /* SettingViewController.swift */,
+				C968F8EC2A98F1BD0051DE48 /* PrivacyInformationViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1183,6 +1200,7 @@
 				A289D9522A912864005B7F00 /* PointTextStyle.swift in Sources */,
 				C90DC9862A88F0B100241B7C /* UITextField+.swift in Sources */,
 				C90DC9762A876F5D00241B7C /* AppCoordinator.swift in Sources */,
+				C968F8ED2A98F1BD0051DE48 /* PrivacyInformationViewController.swift in Sources */,
 				88216FC02A85328900FE3A77 /* LoginViewController.swift in Sources */,
 				A2C98F062A8B6122009B5579 /* EnterGoalTitleView.swift in Sources */,
 				A2B969872A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
@@ -1212,6 +1230,7 @@
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
 				A22774AD2A977438004AE5D7 /* AMPMStyle.swift in Sources */,
 				C9B2CE102A8F4F9A006289A8 /* Constants.swift in Sources */,
+				C968F8F72A98F3790051DE48 /* InformationBox.swift in Sources */,
 				A2FA59192A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
 				C9B2CE222A8F672C006289A8 /* ServicesUser.swift in Sources */,
 				C9BF3FC72A97817C0074E781 /* SettingViewController.swift in Sources */,
@@ -1234,6 +1253,7 @@
 				C9BF3FCA2A97837C0074E781 /* SettingTableViewCellFirstSection.swift in Sources */,
 				C90DC97A2A88814700241B7C /* Coordinator.swift in Sources */,
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
+				C968F8F52A98F3080051DE48 /* InformationLabel.swift in Sources */,
 				A282DA522A94BB2400A0D0BF /* DetailParentViewModel.swift in Sources */,
 				C9B2CE052A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift in Sources */,
 				A2C98F022A8B6117009B5579 /* AddParentGoalViewController.swift in Sources */,
