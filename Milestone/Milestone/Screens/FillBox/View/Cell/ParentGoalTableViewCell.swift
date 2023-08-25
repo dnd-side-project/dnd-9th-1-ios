@@ -54,6 +54,15 @@ class ParentGoalTableViewCell: BaseTableViewCell {
     
     // MARK: - Functions
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        goalAchievementRateView.totalCount = CGFloat(0)
+        goalAchievementRateView.completedCount = CGFloat(0)
+        titleLabel.text = ""
+        termLabel.text = ""
+    }
+    
     override func configUI() {
         self.backgroundColor = .gray01
         self.selectionStyle = .none

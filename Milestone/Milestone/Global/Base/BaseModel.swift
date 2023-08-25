@@ -18,5 +18,5 @@ struct BaseModel<T: Codable>: Codable {
 struct EmptyDataModel: Codable {
     let code: Int
     let message: String
-    let data: [String: String]
+    let data: [String: String]?
 }

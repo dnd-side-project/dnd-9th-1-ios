@@ -111,6 +111,7 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         super.viewDidLoad()
 
         bindViewModel()
+        updateDetailGoalList()
         checkFirstDetailView()
     }
     
@@ -177,7 +178,8 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     }
     
     func bindViewModel() {
-        viewModel.retrieveDetailGoalList()
+        updateDetailGoalList()
+        
         if viewModel.isFull {
             viewModel.detailGoalList
                 .bind(to: detailGoalCollectionView.rx.items(cellIdentifier: DetailGoalCollectionViewCell.identifier, cellType: DetailGoalCollectionViewCell.self)) { [unowned self] row, goal, cell in
@@ -213,16 +215,13 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
                 .disposed(by: disposeBag)
         }
         
-        viewModel.detailGoalList
+        viewModel.sortedGoalData
             .bind(to: detailGoalTableView.rx.items(cellIdentifier: DetailGoalTableViewCell.identifier, cellType: DetailGoalTableViewCell.self)) { _, goal, cell in
                 if self.isFromStorage {
                     cell.isUserInteractionEnabled = false
                     cell.makeCellBlurry()
                 }
-                cell.titleLabel.text = goal.title
-                cell.containerView.backgroundColor = goal.isCompleted ? .secondary03 : .white
-                cell.titleLabel.textColor = goal.isCompleted ? .primary : .black
-                cell.checkImageView.image = goal.isCompleted ? ImageLiteral.imgBlueCheck : ImageLiteral.imgWhiteCheck
+                cell.update(content: goal)
             }
             .disposed(by: disposeBag)
     }
@@ -244,11 +243,6 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         present(couchMarkVC, animated: true)
         UserDefaults.standard.set(true, forKey: couchMarkKey)
     }
-    
-//    /// 파라미터로 받은 id가 배열에서 몇 번째 인덱스에 위치해 있는지 반환
-//    private func findIndex(id: Int, goalArray: [DetailGoalTemp]) -> Int? {
-//        return goalArray.firstIndex { $0.id == id }
-//    }
     
     // MARK: - @objc Functions
     
@@ -278,6 +272,9 @@ extension DetailParentViewController: UICollectionViewDelegate {
             self.present(detailInfo, animated: true)
         } else {
             let addDetailGoalVC = AddDetailGoalViewController()
+            addDetailGoalVC.viewModel = AddDetailGoalViewModel()
+            addDetailGoalVC.delegate = self
+            addDetailGoalVC.parentGoalId = self.viewModel.parentGoalId
             addDetailGoalVC.modalPresentationStyle = .pageSheet
 
             guard let sheet = addDetailGoalVC.sheetPresentationController else { return }
@@ -295,21 +292,29 @@ extension DetailParentViewController: UITableViewDelegate {
         9
     }
 
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let row = indexPath.row
-//        let selectedGoalId = sortedGoalData[row].id
-//
-//        sortedGoalData[row].isCompleted.toggle() // 원본 배열의 isCompleted 값 변경
-//        sortedGoalData = sortGoalForCheckList(goalArray: sortedGoalData) // 원본 배열 재정렬
-//
-//        let newIndex = findIndex(id: selectedGoalId, goalArray: sortedGoalData) // 재정렬된 배열과 비교하여 완료도가 업데이트된 목표가 들어가야할 인덱스를 찾는다
-//        let destIndexPath = IndexPath(row: newIndex ?? 0, section: 0) // 목적지 indexPath
-//        tableView.moveRow(at: indexPath, to: destIndexPath) // 해당 인덱스로 셀 이동
-//
-//        guard let movedCell = tableView.cellForRow(at: destIndexPath) as? DetailGoalTableViewCell else { return } // 이동한 셀
-//        movedCell.update(content: sortedGoalData[newIndex ?? 0]) // 이동한 셀 UI 업데이트
-//
-//        goalData[selectedGoalId].isCompleted.toggle() // 원본 배열의 isCompleted 값 변경
-//        self.detailGoalCollectionView.reloadData()
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? DetailGoalTableViewCell else { return }
+        let sortedGoalData = viewModel.sortedGoalData.value
+        let row = indexPath.row
+        let selectedGoal = sortedGoalData[row]
+        
+        viewModel.detailGoalId = selectedGoal.detailGoalId
+        if cell.containerView.backgroundColor == .white {
+            // 세부 목표 달성
+            viewModel.completeDetailGoal()
+        } else {
+            // 세부 목표 달성 취소
+            viewModel.incompleteDetailGoal()
+        }
+    }
+}
+
+// MARK: - UpdateDetailGoalListDelegate
+
+extension DetailParentViewController: UpdateDetailGoalListDelegate {
+    /// 세부 목표 리스트 업데이트
+    func updateDetailGoalList() {
+        viewModel.retrieveDetailGoalList()
+        updateTableViewHeightForFit()
+    }
 }

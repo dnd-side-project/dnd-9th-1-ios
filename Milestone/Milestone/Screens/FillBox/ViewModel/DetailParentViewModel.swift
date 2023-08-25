@@ -20,6 +20,8 @@ class DetailParentViewModel: BindableViewModel, ServicesDetailGoal {
     // MARK: - Properties
     
     var parentGoalId: Int = 0
+    var detailGoalId: Int = 0
+    var selectedParentGoal: ParentGoal?
     let stoneImageArray = [ImageLiteral.imgDetailStoneVer1, ImageLiteral.imgDetailStoneVer2, ImageLiteral.imgDetailStoneVer3,
                            ImageLiteral.imgDetailStoneVer4, ImageLiteral.imgDetailStoneVer5, ImageLiteral.imgDetailStoneVer6,
                            ImageLiteral.imgDetailStoneVer7, ImageLiteral.imgDetailStoneVer8, ImageLiteral.imgDetailStoneVer9]
@@ -33,12 +35,16 @@ class DetailParentViewModel: BindableViewModel, ServicesDetailGoal {
     var detailGoalList = BehaviorRelay<[DetailGoal]>(value: [])
     var test = BehaviorRelay<[DetailGoal]>(value: [])
     // detailGoalList를 정렬한, 테이블뷰에 보여줄 데이터
-//    lazy var sortedGoalData: [DetailGoal] = {
-//        return sortGoalForCheckList()
-//    }()
+    lazy var sortedGoalData = BehaviorRelay<[DetailGoal]>(value: sortGoalForCheckList())
     
     var detailGoalListResponse: Observable<Result<BaseModel<[DetailGoal]>, APIError>> {
         requestDetailGoalList(id: parentGoalId)
+    }
+    var detailGoalCompleteResponse: Observable<Result<BaseModel<CompletedDetailGoal>, APIError>> {
+        requestCompleteDetailGoal(id: detailGoalId)
+    }
+    var detailGoalIncompleteResponse: Observable<Result<EmptyDataModel, APIError>> {
+        requestIncompleteDetailGoal(id: detailGoalId)
     }
     
     deinit {
@@ -50,15 +56,15 @@ class DetailParentViewModel: BindableViewModel, ServicesDetailGoal {
     /// 체크리스트(TableView)를 위해 detailGoalList를 정렬하는 함수
     /// 리스트는 id순(작성순)으로 정렬되어야 한다
     /// 또한 완료된 목표는 완료되지 않은 목표들보다 뒤에 위치해야 한다
-//    private func sortGoalForCheckList() -> [DetailGoal] {
-//        return detailGoalList.sorted {
-//            if $0.isCompleted == $1.isCompleted {
-//                return $0.detailGoalId < $1.detailGoalId
-//            } else {
-//                return !$0.isCompleted && $1.isCompleted
-//            }
-//        }
-//    }
+    private func sortGoalForCheckList() -> [DetailGoal] {
+        return detailGoalList.value.sorted {
+            if $0.isCompleted == $1.isCompleted {
+                return $0.detailGoalId < $1.detailGoalId
+            } else {
+                return !$0.isCompleted && $1.isCompleted
+            }
+        }
+    }
 }
 
 extension DetailParentViewModel {
@@ -69,6 +75,7 @@ extension DetailParentViewModel {
                 case .success(let response):
                     isFull = response.data.count > 9
                     detailGoalList.accept(response.data)
+                    sortedGoalData.accept(sortGoalForCheckList()) // 정렬
                     if !isFull {
                         // 9개가 다 차지 않았다면 세부 목표 생성 셀 추가
                         var arr = response.data
@@ -79,6 +86,34 @@ extension DetailParentViewModel {
                     Logger.debugDescription(error)
                 }
             })
+            .disposed(by: bag)
+    }
+    
+    func completeDetailGoal() {
+        detailGoalCompleteResponse
+            .subscribe { [unowned self] result in
+                switch result {
+                case .success(let response):
+                    retrieveDetailGoalList()
+                    Logger.debugDescription(response)
+                case .failure(let error):
+                    Logger.debugDescription(error)
+                }
+            }
+            .disposed(by: bag)
+    }
+    
+    func incompleteDetailGoal() {
+        detailGoalIncompleteResponse
+            .subscribe { [unowned self] result in
+                switch result {
+                case .success(let response):
+                    retrieveDetailGoalList()
+                    Logger.debugDescription(response)
+                case .failure(let error):
+                    Logger.debugDescription(error)
+                }
+            }
             .disposed(by: bag)
     }
 }

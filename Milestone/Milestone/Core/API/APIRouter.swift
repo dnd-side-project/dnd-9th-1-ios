@@ -25,6 +25,10 @@ enum APIRouter: URLRequestConvertible {
     case reissue
     case login(provider: String, userId: String, fcmToken: String)
     
+    /// 회고작성 관련 API 리스트
+    case requestRetrospect(higherLevelGoalId: Int)
+    case postRetrospect(higherLevelGoalId: Int, retrospect: Retrospect)
+    
     /// 하위목표 관련 API 리스트
     case deleteDetailGoal(lowerLevelGoalId: Int)
     case requestAllDetailGoal(higherLevelGoalId: Int)
@@ -55,6 +59,10 @@ enum APIRouter: URLRequestConvertible {
         case .reissue:
             return .post
         case .login:
+            return .post
+        case .requestRetrospect:
+            return .get
+        case .postRetrospect:
             return .post
         case .deleteDetailGoal:
             return .delete
@@ -96,6 +104,10 @@ enum APIRouter: URLRequestConvertible {
             return "/reissue"
         case .login(let provider, _, _):
             return "/auth/\(provider)"
+        case .requestRetrospect(let id):
+            return "/goals/\(id)/retrospects"
+        case .postRetrospect(let id, _):
+            return "/goals/\(id)/retrospects"
         case .deleteDetailGoal(let id):
             return "/detail-goals/\(id)"
         case .requestAllDetailGoal(let id):
@@ -157,6 +169,16 @@ enum APIRouter: URLRequestConvertible {
             return [
                 K.Parameters.userId: userId,
                 K.Parameters.fcmToken: fcmToken
+            ]
+        case .requestRetrospect(let id):
+            return [
+                K.Parameters.goalId: id
+            ]
+        case .postRetrospect(_, let retrospect):
+            return [
+                K.Parameters.hasGuide: retrospect.hasGuide,
+                K.Parameters.contents: retrospect.contents,
+                K.Parameters.successLevel: retrospect.successLevel
             ]
         case .deleteDetailGoal:
             return nil

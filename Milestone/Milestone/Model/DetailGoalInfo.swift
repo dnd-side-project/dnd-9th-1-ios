@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - 세부 목표 상세 정보
+
 struct DetailGoalInfo {
     let title: String
     let alarmEnabled: Bool

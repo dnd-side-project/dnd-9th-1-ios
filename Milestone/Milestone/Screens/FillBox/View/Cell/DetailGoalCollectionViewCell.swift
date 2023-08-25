@@ -49,6 +49,7 @@ class DetailGoalCollectionViewCell: BaseCollectionViewCell {
     
     override func prepareForReuse() {
         self.titleLabel.text = ""
+        self.titleLabel.textColor = .gray05
         self.stoneImageView.image = UIImage()
     }
     
