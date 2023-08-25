@@ -19,7 +19,7 @@ protocol ServicesDetailGoal: Service {
     // 세부 목표 완료 API 요청
     func requestCompleteDetailGoal(id: Int) -> Observable<Result<BaseModel<CompletedDetailGoal>, APIError>>
     // 세부 목표 완료 취소 API 요청
-    func requestIncompleteDetailGoal(id: Int) -> Observable<Result<BaseModel<CompletedDetailGoal>, APIError>>
+    func requestIncompleteDetailGoal(id: Int) -> Observable<Result<EmptyDataModel, APIError>>
 }
 
 extension ServicesDetailGoal {
@@ -32,7 +32,7 @@ extension ServicesDetailGoal {
     func requestCompleteDetailGoal(id: Int) -> Observable<Result<BaseModel<CompletedDetailGoal>, APIError>> {
         return apiSession.request(.completeDetailGoal(lowerLevelGoalId: id))
     }
-    func requestIncompleteDetailGoal(id: Int) -> Observable<Result<BaseModel<CompletedDetailGoal>, APIError>> {
+    func requestIncompleteDetailGoal(id: Int) -> Observable<Result<EmptyDataModel, APIError>> {
         return apiSession.request(.incompleteDetailGoal(lowerLevelGoalId: id))
     }
 }
