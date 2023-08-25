@@ -39,7 +39,7 @@ class DetailParentViewModel: BindableViewModel, ServicesGoalList, ServicesDetail
     lazy var sortedGoalData = BehaviorRelay<[DetailGoal]>(value: sortGoalForCheckList())
     
     var detailGoalListResponse: Observable<Result<BaseModel<[DetailGoal]>, APIError>> {
-        requestDetailGoalList(id: parentGoalId)
+        requestDetailGoalList(id: selectedParentGoal?.identity ?? 0)
     }
     var detailGoalCompleteResponse: Observable<Result<BaseModel<CompletedDetailGoal>, APIError>> {
         requestCompleteDetailGoal(id: detailGoalId)
@@ -165,6 +165,24 @@ extension DetailParentViewModel {
         }
         
         deleteParentGoalResponse
+            .subscribe(onNext: { result in
+                switch result {
+                case .success(let response):
+                    Logger.debugDescription(response)
+                case .failure(let error):
+                    Logger.debugDescription(error)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
+    /// 세부 목표 생성
+    func createDetailGoal(reqBody: DetailGoalInfo) {
+        var createDetailGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
+            requestPostDetailGoal(id: selectedParentGoal?.identity ?? 0, reqBody: reqBody)
+        }
+        
+        createDetailGoalResponse
             .subscribe(onNext: { result in
                 switch result {
                 case .success(let response):
