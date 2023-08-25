@@ -35,6 +35,7 @@ class DetailParentViewModel: BindableViewModel, ServicesGoalList, ServicesDetail
     var popDetailParentVC = BehaviorRelay(value: false)
     var detailGoalList = BehaviorRelay<[DetailGoal]>(value: [])
     var test = BehaviorRelay<[DetailGoal]>(value: [])
+    var completedGoalResult = BehaviorRelay<StateUpdatedDetailGoal>(value: StateUpdatedDetailGoal(isGoalCompleted: false, completedGoalCount: 0))
     // detailGoalList를 정렬한, 테이블뷰에 보여줄 데이터
     lazy var sortedGoalData = BehaviorRelay<[DetailGoal]>(value: sortGoalForCheckList())
     
@@ -95,12 +96,14 @@ extension DetailParentViewModel {
             .disposed(by: bag)
     }
     
+    /// 세부 목표 완료
     func completeDetailGoal() {
         detailGoalCompleteResponse
             .subscribe { [unowned self] result in
                 switch result {
                 case .success(let response):
                     retrieveDetailGoalList()
+                    completedGoalResult.accept(response.data)
                     Logger.debugDescription(response)
                 case .failure(let error):
                     Logger.debugDescription(error)
@@ -243,6 +246,7 @@ extension DetailParentViewModel {
                 switch result {
                 case .success(let response):
                     retrieveDetailGoalList()
+                    completedGoalResult.accept(response.data) // 삭제하고 받은 응답값 방출
                     Logger.debugDescription(response)
                 case .failure(let error):
                     Logger.debugDescription(error)
