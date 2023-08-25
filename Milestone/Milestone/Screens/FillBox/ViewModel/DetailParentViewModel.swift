@@ -214,4 +214,23 @@ extension DetailParentViewModel {
             })
             .disposed(by: bag)
     }
+    
+    /// 세부 목표 수정 API
+    func modifyDetailGoal(reqBody: NewDetailGoal) {
+        var modifyDetailGoalResponse: Observable<Result<BaseModel<DetailGoalInfo>, APIError>> {
+            requestEditDetailGoal(id: detailGoalId, reqBody: reqBody)
+        }
+        
+        modifyDetailGoalResponse
+            .subscribe { [unowned self] result in
+                switch result {
+                case .success(let response):
+                    thisDetailGoal.accept(response.data)
+                    Logger.debugDescription(response)
+                case .failure(let error):
+                    Logger.debugDescription(error)
+                }
+            }
+            .disposed(by: bag)
+    }
 }
