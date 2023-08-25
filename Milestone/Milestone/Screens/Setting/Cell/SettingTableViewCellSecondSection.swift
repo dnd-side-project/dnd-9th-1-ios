@@ -12,9 +12,6 @@ class SettingTableViewCellSecondSection: BaseTableViewCell {
     // MARK: - Subviews
     
     let containerView = UIView()
-        .then {
-            $0.backgroundColor = .gray03
-        }
     
     let label = UILabel()
         .then {
@@ -41,9 +38,5 @@ class SettingTableViewCellSecondSection: BaseTableViewCell {
             make.leading.equalTo(containerView).offset(24)
             make.centerY.equalTo(containerView)
         }
-    }
-    
-    override func configUI() {
-        self.contentView.backgroundColor = .gray03
     }
 }
