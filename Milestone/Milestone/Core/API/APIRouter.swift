@@ -33,10 +33,10 @@ enum APIRouter: URLRequestConvertible {
     case deleteDetailGoal(lowerLevelGoalId: Int)
     case requestAllDetailGoal(higherLevelGoalId: Int)
     case requestDetailGoalInformation(lowerLevelGoalId: Int)
-    case editDetailGoal(lowerLevelGoalId: Int, detailGoal: CreateDetailGoal)
+    case editDetailGoal(lowerLevelGoalId: Int, detailGoal: NewDetailGoal)
     case incompleteDetailGoal(lowerLevelGoalId: Int) // 하위목표 완료 취소
     case completeDetailGoal(lowerLevelGoalId: Int) // 하위목표 완료
-    case postDetailGoal(higherLevelGoalId: Int, detailGoal: CreateDetailGoal)
+    case postDetailGoal(higherLevelGoalId: Int, detailGoal: NewDetailGoal)
     
     /// 임시
     case authTest

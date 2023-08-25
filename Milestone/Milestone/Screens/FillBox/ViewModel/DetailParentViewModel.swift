@@ -179,7 +179,7 @@ extension DetailParentViewModel {
     }
     
     /// 세부 목표 생성
-    func createDetailGoal(reqBody: CreateDetailGoal) {
+    func createDetailGoal(reqBody: NewDetailGoal) {
         var createDetailGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
             requestPostDetailGoal(id: selectedParentGoal?.identity ?? 0, reqBody: reqBody)
         }

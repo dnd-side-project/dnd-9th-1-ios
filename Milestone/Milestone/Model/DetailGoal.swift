@@ -15,9 +15,9 @@ struct DetailGoal: Codable {
     var isCompleted: Bool
 }
 
-// MARK: - 세부 목표 생성 시 req 모델
+// MARK: - 세부 목표 생성 및 수정 시 req 모델
 
-struct CreateDetailGoal: Codable {
+struct NewDetailGoal: Codable {
     let title: String
     let alarmEnabled: Bool
     let alarmTime: String
