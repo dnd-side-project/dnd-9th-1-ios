@@ -38,6 +38,9 @@ enum APIRouter: URLRequestConvertible {
     case completeDetailGoal(lowerLevelGoalId: Int) // 하위목표 완료
     case postDetailGoal(higherLevelGoalId: Int, detailGoal: DetailGoalInfo)
     
+    /// 임시
+    case authTest
+    
     // MARK: - HttpMethod
     /// switch - self 구문으로 각 엔드포인트별 메서드 지정
     private var method: HTTPMethod {
@@ -78,6 +81,8 @@ enum APIRouter: URLRequestConvertible {
             return .patch
         case .postDetailGoal:
             return .post
+        case .authTest:
+            return .get
         }
     }
     
@@ -122,6 +127,8 @@ enum APIRouter: URLRequestConvertible {
             return "/detail-goals/\(id)/complete"
         case .postDetailGoal(let id, _):
             return "/goals/\(id)/detail-goals"
+        case .authTest:
+            return "/token"
         }
     }
     
@@ -204,6 +211,8 @@ enum APIRouter: URLRequestConvertible {
                 K.Parameters.alarmTime: detailGoal.alarmTime,
                 K.Parameters.alarmDays: detailGoal.alarmDays
             ]
+        case .authTest:
+            return nil
         }
     }
     

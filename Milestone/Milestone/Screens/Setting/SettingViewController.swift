@@ -139,20 +139,14 @@ extension SettingViewController: UITableViewDataSource {
             return UITableViewCell()
         }
     }
-    
-    private func checkNotificationRegistered() {
-        if UserDefaults.standard.bool(forKey: UserDefaultsKeyStyle.registerNotification.rawValue) {
-            UIApplication.shared.registerForRemoteNotifications()
-        } else {
-            
-        }
-    }
 }
 
 extension SettingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
-            if indexPath.row == 1 {
+            if indexPath.row == 0 {
+                self.navigationController?.pushViewController(PrivacyInformationViewController(), animated: true)
+            } else if indexPath.row == 1 {
                 modalViewController.askPopUpView.askLabel.text = "로그아웃 하시겠어요?"
                 modalViewController.askPopUpView.guideLabel.text = "다시 오시길 기다릴게요 🥺"
                 

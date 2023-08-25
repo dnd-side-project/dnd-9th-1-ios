@@ -25,7 +25,7 @@ struct APISession: APIService {
         return Observable<Result<T, APIError>>.create { observer in
             
             /// Alamofire 네트워크 요청함수 호출
-            let request = API.session.request(request).responseDecodable { (response: DataResponse<T, AFError>) in
+            let request = API.session.request(request, interceptor: APIInterceptor()).responseDecodable { (response: DataResponse<T, AFError>) in
                 
                 guard let statusCode = response.response?.statusCode else {
                   observer.onNext(.failure(.unknown))
