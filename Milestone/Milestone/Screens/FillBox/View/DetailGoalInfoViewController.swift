@@ -13,7 +13,7 @@ import Then
 
 // MARK: - 세부 목표 정보 팝업뷰
 
-class DetailGoalInfoViewController: BaseViewController {
+class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - SubViews
     
@@ -33,6 +33,7 @@ class DetailGoalInfoViewController: BaseViewController {
     
     // MARK: - Properties
     
+    var viewModel: DetailParentViewModel!
     weak var delegate: (PresentDelegate)?
     
     // MARK: - Functions

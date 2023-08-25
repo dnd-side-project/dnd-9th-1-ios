@@ -50,6 +50,8 @@ class DetailParentViewModel: BindableViewModel, ServicesGoalList, ServicesDetail
     
     // 현재 상위 목표의 데이터
     var thisParentGoal: PublishRelay<ParentGoalInfo> = PublishRelay()
+    // 현재 세부 목표의 데이터
+    var thisDetailGoal: PublishRelay<CreateDetailGoal> = PublishRelay()
     
     deinit {
         bag = DisposeBag()
@@ -177,7 +179,7 @@ extension DetailParentViewModel {
     }
     
     /// 세부 목표 생성
-    func createDetailGoal(reqBody: DetailGoalInfo) {
+    func createDetailGoal(reqBody: CreateDetailGoal) {
         var createDetailGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
             requestPostDetailGoal(id: selectedParentGoal?.identity ?? 0, reqBody: reqBody)
         }
