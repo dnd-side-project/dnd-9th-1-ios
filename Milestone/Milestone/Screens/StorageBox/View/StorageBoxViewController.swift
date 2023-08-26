@@ -14,7 +14,7 @@ import Then
 
 // MARK: - 보관함 화면
 
-class StorageBoxViewController: BaseViewController {
+class StorageBoxViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Subviews
     
@@ -44,7 +44,6 @@ class StorageBoxViewController: BaseViewController {
             $0.separatorStyle = .none
             $0.showsVerticalScrollIndicator = false
             $0.register(cell: ParentGoalTableViewCell.self, forCellReuseIdentifier: ParentGoalTableViewCell.identifier)
-            $0.dataSource = self
             $0.delegate = self
         }
     let headerContainerView = UIView()
@@ -56,15 +55,21 @@ class StorageBoxViewController: BaseViewController {
     
     // MARK: - Properties
     
-    var goals = BehaviorRelay<[Goal]>(value: [Goal(identity: 0, title: "마일스톤 런칭", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true), Goal(identity: 0, title: "마일스톤 런칭", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true), Goal(identity: 0, title: "마일스톤 런칭", startDate: "2023.08.08", endDate: "2023.08.26", reminderEnabled: true)])
-    lazy var goalsValue = goals.value
+    var viewModel: StorageBoxViewModel! = StorageBoxViewModel()
     
     // MARK: - Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        bindViewModel()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        updateStorageVisibility()
+        viewModel.clearList()
+        viewModel.retrieveStorageGoalList()
     }
     
     // MARK: - Functions
@@ -97,10 +102,24 @@ class StorageBoxViewController: BaseViewController {
         }
     }
     
-    override func bindUI() {
-        goals
-            .subscribe { [unowned self] _ in
-                updateStorageVisibility()
+    func bindViewModel() {
+        viewModel.storedGoals
+            .bind(to: storageGoalTableView.rx.items(cellIdentifier: ParentGoalTableViewCell.identifier, cellType: ParentGoalTableViewCell.self)) { _, goal, cell in
+                cell.titleLabel.text = goal.title
+                cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
+                cell.goalAchievementRateView.completedCount = CGFloat(goal.completedDetailGoalCnt)
+                cell.goalAchievementRateView.totalCount = CGFloat(goal.entireDetailGoalCnt)
+                cell.titleLabel.text = goal.title
+                cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
+            }
+            .disposed(by: disposeBag)
+        
+        // viewModel.storedGoals 데이터가 세팅이 되었을 때 실행됨
+        viewModel.isSet
+            .subscribe { isSet in
+                if isSet {
+                    self.updateStorageVisibility()
+                }
             }
             .disposed(by: disposeBag)
     }
@@ -108,24 +127,25 @@ class StorageBoxViewController: BaseViewController {
     /// goals의 개수에 따라 보관함의 뷰의 isHidden 상태와 label에 적히는 목표 개수를 업데이트 한다
     private func updateStorageVisibility() {
         [emptyStorageImageView, firstEmptyGuideLabel, secondEmptyGuideLabel]
-            .forEach { $0.isHidden = !goalsValue.isEmpty }
-        storageGoalTableView.isHidden = goalsValue.isEmpty
+            .forEach { $0.isHidden = !viewModel.storedGoals.value.isEmpty }
+        Logger.debugDescription(viewModel.storedGoals.value)
+        storageGoalTableView.isHidden = viewModel.storedGoals.value.isEmpty
         storageGoalTableView.reloadData()
         updateStorageBoxTopLabel()
     }
     
     /// 보관함 맨 위 label에 들어가는 목표 개수 정보와 스타일을 업데이트 해줌
     private func updateStorageBoxTopLabel() {
-        let stringValue = "총 \(goalsValue.count)개의 목표가 보관되어있어요!"
+        let stringValue = "총 \(viewModel.storedGoals.value.count)개의 목표가 보관되어있어요!"
         alertView.label.text = stringValue
         alertView.label.textColor = .black
         let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
-        attributedString.setColorForText(textForAttribute: "총 \(goalsValue.count)개의 목표", withColor: .pointPurple)
+        attributedString.setColorForText(textForAttribute: "총 \(viewModel.storedGoals.value.count)개의 목표", withColor: .pointPurple)
         alertView.label.attributedText = attributedString
     }
 }
 
-extension StorageBoxViewController: UITableViewDelegate, UITableViewDataSource {
+extension StorageBoxViewController: UITableViewDelegate {
     // alert 뷰를 헤더뷰로 설정
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         headerContainerView.addSubview(alertView)
@@ -139,17 +159,6 @@ extension StorageBoxViewController: UITableViewDelegate, UITableViewDataSource {
     // 헤더뷰 높이 설정
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         60 + 8
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        goalsValue.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ParentGoalTableViewCell.identifier, for: indexPath) as? ParentGoalTableViewCell else { return UITableViewCell() }
-        let goal = goalsValue[indexPath.row]
-        cell.titleLabel.text = goal.title
-        cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
-        return cell
     }
     // 셀 높이 설정
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -165,5 +174,17 @@ extension StorageBoxViewController: UITableViewDelegate, UITableViewDataSource {
         detailParentVC.isFromStorage = true
         detailParentVC.viewModel = detailParentVM
         push(viewController: detailParentVC)
+    }
+}
+
+extension StorageBoxViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !viewModel.storedGoals.value.isEmpty {
+            if self.storageGoalTableView.contentOffset.y > (68 + (96 + 16) * 4) {
+                if (!viewModel.isLoading) && (!viewModel.isLastPage) {
+                    viewModel.retrieveStorageGoalList()
+                }
+            }
+        }
     }
 }

@@ -40,6 +40,9 @@
 		A25988FE2A96915F00C6BDE0 /* ServicesDetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988FD2A96915E00C6BDE0 /* ServicesDetailGoal.swift */; };
 		A25988FF2A96915F00C6BDE0 /* ServicesDetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988FD2A96915E00C6BDE0 /* ServicesDetailGoal.swift */; };
 		A25989002A96915F00C6BDE0 /* ServicesDetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988FD2A96915E00C6BDE0 /* ServicesDetailGoal.swift */; };
+		A26416DB2A9959D50073BEA1 /* StorageBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26416DA2A9959D50073BEA1 /* StorageBoxViewModel.swift */; };
+		A26416DC2A9959D50073BEA1 /* StorageBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26416DA2A9959D50073BEA1 /* StorageBoxViewModel.swift */; };
+		A26416DD2A9959D50073BEA1 /* StorageBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26416DA2A9959D50073BEA1 /* StorageBoxViewModel.swift */; };
 		A265090C2A8D458300E9A2D7 /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265090B2A8D458300E9A2D7 /* BubbleView.swift */; };
 		A26509102A8D604100E9A2D7 /* CouchMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265090F2A8D604100E9A2D7 /* CouchMarkViewController.swift */; };
 		A26509112A8D604100E9A2D7 /* CouchMarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265090F2A8D604100E9A2D7 /* CouchMarkViewController.swift */; };
@@ -318,6 +321,7 @@
 		A252C4B32A92B5AB0067B89C /* ParentGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentGoal.swift; sourceTree = "<group>"; };
 		A25988F92A967C3000C6BDE0 /* UpdateGoalListDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGoalListDelegate.swift; sourceTree = "<group>"; };
 		A25988FD2A96915E00C6BDE0 /* ServicesDetailGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesDetailGoal.swift; sourceTree = "<group>"; };
+		A26416DA2A9959D50073BEA1 /* StorageBoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageBoxViewModel.swift; sourceTree = "<group>"; };
 		A265090B2A8D458300E9A2D7 /* BubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		A265090F2A8D604100E9A2D7 /* CouchMarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouchMarkViewController.swift; sourceTree = "<group>"; };
 		A26509132A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDetailGoalStoneView.swift; sourceTree = "<group>"; };
@@ -563,6 +567,14 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		A26416D92A9959C90073BEA1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A26416DA2A9959D50073BEA1 /* StorageBoxViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		A289D93C2A9121AC005B7F00 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
@@ -780,6 +792,7 @@
 		A2D304C42A856AE900A5BA92 /* StorageBox */ = {
 			isa = PBXGroup;
 			children = (
+				A26416D92A9959C90073BEA1 /* ViewModel */,
 				A2D304C62A856B4C00A5BA92 /* View */,
 			);
 			path = StorageBox;
@@ -1224,6 +1237,7 @@
 				C9BF3FC72A97817C0074E781 /* SettingViewController.swift in Sources */,
 				A27C9A102A8E42B5002C6F44 /* EnterGoalAlarmView.swift in Sources */,
 				A289D94A2A912616005B7F00 /* WriteRetrospectStyle.swift in Sources */,
+				A26416DB2A9959D50073BEA1 /* StorageBoxViewModel.swift in Sources */,
 				A2248E8B2A8A0C5400EB995A /* MoreOptionView.swift in Sources */,
 				C90C48F12A93853D00E7E8B0 /* OnboardingViewModel.swift in Sources */,
 				C95A3CA52A959A090028B4ED /* LoadingView.swift in Sources */,
@@ -1359,6 +1373,7 @@
 				A289D94B2A912616005B7F00 /* WriteRetrospectStyle.swift in Sources */,
 				A22736802A7CE53800D7B3B2 /* MilestoneTests.swift in Sources */,
 				A2B20D5E2A7E4E68001ED73C /* UIColor+.swift in Sources */,
+				A26416DC2A9959D50073BEA1 /* StorageBoxViewModel.swift in Sources */,
 				A2FA59262A7FD3B1006ACA2E /* UICollectionView+.swift in Sources */,
 				A2B20D9B2A7ED40D001ED73C /* Logger.swift in Sources */,
 				A289D94F2A912849005B7F00 /* IndexTextStyle.swift in Sources */,
@@ -1421,6 +1436,7 @@
 				A2B20D962A7ED174001ED73C /* UIImage+.swift in Sources */,
 				A2FC49552A97981D0045FE59 /* RestoreGoalViewController.swift in Sources */,
 				A28EDA132A87808A001A021A /* UIViewController+.swift in Sources */,
+				A26416DD2A9959D50073BEA1 /* StorageBoxViewModel.swift in Sources */,
 				A227368C2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift in Sources */,
 				A2B20D632A7E4FAD001ED73C /* UIView+.swift in Sources */,
 			);
