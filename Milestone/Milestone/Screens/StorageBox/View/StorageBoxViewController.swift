@@ -68,6 +68,7 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        viewModel.clearList()
         viewModel.retrieveStorageGoalList()
     }
     
@@ -173,5 +174,17 @@ extension StorageBoxViewController: UITableViewDelegate {
         detailParentVC.isFromStorage = true
         detailParentVC.viewModel = detailParentVM
         push(viewController: detailParentVC)
+    }
+}
+
+extension StorageBoxViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !viewModel.storedGoals.value.isEmpty {
+            if self.storageGoalTableView.contentOffset.y > (68 + (96 + 16) * 4) {
+                if (!viewModel.isLoading) && (!viewModel.isLastPage) {
+                    viewModel.retrieveStorageGoalList()
+                }
+            }
+        }
     }
 }
