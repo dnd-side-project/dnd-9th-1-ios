@@ -34,7 +34,7 @@ class FillBoxViewModel: BindableViewModel {
 
 extension FillBoxViewModel: ServicesGoalList {
     /// 상위 목표 상태별 개수 조회
-    private func retrieveGoalCountByStatus() {
+    func retrieveGoalCountByStatus() {
         var goalCountByStatusResponse: Observable<Result<BaseModel<ParentGoalCount>, APIError>> {
             requestGoalCountByStatus()
         }

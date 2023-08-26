@@ -197,9 +197,22 @@ extension FillBoxViewController: UITableViewDelegate {
 
 extension FillBoxViewController: UpdateParentGoalListDelegate {
     func updateParentGoalList() {
+        viewModel.clearList()
         // 상위 목표 조회 API 호출
         viewModel.retrieveParentGoalList()
         // 상위 목표 상태별 개수 조회 API 호출
         viewModel.retrieveGoalCountByStatus()
+    }
+}
+
+extension FillBoxViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !viewModel.progressGoals.value.isEmpty {
+            if self.parentGoalTableView.contentOffset.y > (88 + (96 + 16) * 4) {
+                if (!viewModel.isLoading) && (!viewModel.isLastPage) {
+                    viewModel.retrieveParentGoalList()
+                }
+            }
+        }
     }
 }
