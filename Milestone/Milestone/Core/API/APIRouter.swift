@@ -13,7 +13,7 @@ enum APIRouter: URLRequestConvertible {
     
     /// 엔드포인트 리스트
     /// 상위목표 관련 API 리스트
-    case requestAllGoals(goalStatus: GoalStatusParameter)
+    case requestAllGoals(lastGoalId: Int?, goalStatus: GoalStatusParameter)
     case deleteGoal(id: Int)
     case requestEnabledRetrospectCount
     case requestGoalCountByStatus
@@ -138,8 +138,9 @@ enum APIRouter: URLRequestConvertible {
     /// 빈 body를 보낼때는 nil값 전달
     private var parameters: Parameters? {
         switch self {
-        case .requestAllGoals(let goalStatus):
+        case .requestAllGoals(let lastGoalId, let goalStatus):
             return [
+                K.Parameters.lastId: lastGoalId,
                 K.Parameters.goalStatus: goalStatus.rawValue
             ]
         case .deleteGoal:

@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class FillBoxViewModel: BindableViewModel, ServicesGoalList {
+class FillBoxViewModel: BindableViewModel {
     
     // MARK: - BindableViewModel Properties
     
@@ -19,25 +19,25 @@ class FillBoxViewModel: BindableViewModel, ServicesGoalList {
     
     // MARK: - Output
     
-    var goalCountByStatusResponse: Observable<Result<BaseModel<ParentGoalCount>, APIError>> {
-        requestGoalCountByStatus()
-    }
-    var parentGoalListResponse: Observable<Result<BaseModel<GoalResponse>, APIError>> {
-        requestAllGoals(goalStatusParameter: .process)
-    }
-    
     var progressGoalCount = BehaviorRelay<String>(value: "0")
     var completedGoalCount = BehaviorRelay<String>(value: "0")
     var progressGoals = BehaviorRelay<[ParentGoal]>(value: [])
     
+    var isLastPage: Bool = false
+    var lastGoalId: Int = -1
+    var isLoading = false
+
     deinit {
         bag = DisposeBag()
     }
 }
 
-extension FillBoxViewModel {
-    
-    func retrieveGoalCountByStatus() {
+extension FillBoxViewModel: ServicesGoalList {
+    /// 상위 목표 상태별 개수 조회
+    private func retrieveGoalCountByStatus() {
+        var goalCountByStatusResponse: Observable<Result<BaseModel<ParentGoalCount>, APIError>> {
+            requestGoalCountByStatus()
+        }
         goalCountByStatusResponse
             .subscribe(onNext: { [unowned self] result in
                 switch result {
@@ -51,16 +51,36 @@ extension FillBoxViewModel {
             .disposed(by: bag)
     }
     
+    /// 상위 목표 리스트 조회
     func retrieveParentGoalList() {
+        var parentGoalListResponse: Observable<Result<BaseModel<GoalResponse>, APIError>> {
+            requestAllGoals(lastGoalId: lastGoalId, goalStatusParameter: .process)
+        }
+        isLoading = true
+        
         parentGoalListResponse
             .subscribe(onNext: { [unowned self] result in
                 switch result {
                 case .success(let response):
-                    progressGoals.accept(response.data.contents)
+                    var newData: [ParentGoal] = progressGoals.value
+                    newData.append(contentsOf: response.data.contents)
+                    progressGoals.accept(newData)
+                    isLastPage = !response.data.next
+                    if !isLastPage {
+                        lastGoalId = newData.last?.identity ?? -1
+                    }
+                    isLoading = false
                 case .failure(let error):
                     Logger.debugDescription(error)
                 }
             })
             .disposed(by: bag)
+    }
+    
+    /// 리스트 비우기
+    func clearList() {
+        isLastPage = false
+        lastGoalId = -1
+        progressGoals.accept([])
     }
 }
