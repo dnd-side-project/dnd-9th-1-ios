@@ -56,29 +56,19 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Properties
     
     var viewModel: StorageBoxViewModel! = StorageBoxViewModel()
-    lazy var storedGoals = viewModel.storedGoals.value
     
     // MARK: - Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        bindViewModel()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        updateStorageVisibility()
         viewModel.retrieveStorageGoalList()
-    }
-    
-    func bindViewModel() {
-        viewModel.storedGoals
-            .bind(to: storageGoalTableView.rx.items(cellIdentifier: ParentGoalTableViewCell.identifier, cellType: ParentGoalTableViewCell.self)) { _, goal, cell in
-                cell.titleLabel.text = goal.title
-                cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
-                cell.goalAchievementRateView.completedCount = CGFloat(goal.completedDetailGoalCnt)
-                cell.goalAchievementRateView.totalCount = CGFloat(goal.entireDetailGoalCnt)
-                cell.titleLabel.text = goal.title
-                cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
-                self.updateStorageVisibility()
-            }
-            .disposed(by: disposeBag)
     }
     
     // MARK: - Functions
@@ -111,22 +101,45 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
         }
     }
     
+    func bindViewModel() {
+        viewModel.storedGoals
+            .bind(to: storageGoalTableView.rx.items(cellIdentifier: ParentGoalTableViewCell.identifier, cellType: ParentGoalTableViewCell.self)) { _, goal, cell in
+                cell.titleLabel.text = goal.title
+                cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
+                cell.goalAchievementRateView.completedCount = CGFloat(goal.completedDetailGoalCnt)
+                cell.goalAchievementRateView.totalCount = CGFloat(goal.entireDetailGoalCnt)
+                cell.titleLabel.text = goal.title
+                cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
+            }
+            .disposed(by: disposeBag)
+        
+        // viewModel.storedGoals 데이터가 세팅이 되었을 때 실행됨
+        viewModel.isSet
+            .subscribe { isSet in
+                if isSet {
+                    self.updateStorageVisibility()
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+    
     /// goals의 개수에 따라 보관함의 뷰의 isHidden 상태와 label에 적히는 목표 개수를 업데이트 한다
     private func updateStorageVisibility() {
         [emptyStorageImageView, firstEmptyGuideLabel, secondEmptyGuideLabel]
-            .forEach { $0.isHidden = !storedGoals.isEmpty }
-        storageGoalTableView.isHidden = storedGoals.isEmpty
+            .forEach { $0.isHidden = !viewModel.storedGoals.value.isEmpty }
+        Logger.debugDescription(viewModel.storedGoals.value)
+        storageGoalTableView.isHidden = viewModel.storedGoals.value.isEmpty
         storageGoalTableView.reloadData()
         updateStorageBoxTopLabel()
     }
     
     /// 보관함 맨 위 label에 들어가는 목표 개수 정보와 스타일을 업데이트 해줌
     private func updateStorageBoxTopLabel() {
-        let stringValue = "총 \(storedGoals.count)개의 목표가 보관되어있어요!"
+        let stringValue = "총 \(viewModel.storedGoals.value.count)개의 목표가 보관되어있어요!"
         alertView.label.text = stringValue
         alertView.label.textColor = .black
         let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
-        attributedString.setColorForText(textForAttribute: "총 \(storedGoals.count)개의 목표", withColor: .pointPurple)
+        attributedString.setColorForText(textForAttribute: "총 \(viewModel.storedGoals.value.count)개의 목표", withColor: .pointPurple)
         alertView.label.attributedText = attributedString
     }
 }
