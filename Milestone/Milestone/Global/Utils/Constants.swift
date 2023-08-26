@@ -14,6 +14,7 @@ struct K {
     
     /// 리퀘스트 바디 파라미터의 키값을 문자열로 사용할때 직접 추가
     struct Parameters {
+        static let lastId = "lastId"
         static let goalId = "goalId"
         static let title = "title"
         static let startDate = "startDate"

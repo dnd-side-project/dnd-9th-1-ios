@@ -91,6 +91,7 @@
 		A28EDA192A879565001A021A /* DetailParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA182A879565001A021A /* DetailParentViewController.swift */; };
 		A28EDA1A2A879565001A021A /* DetailParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA182A879565001A021A /* DetailParentViewController.swift */; };
 		A28EDA1B2A879565001A021A /* DetailParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA182A879565001A021A /* DetailParentViewController.swift */; };
+		A298E9592A9968B000EC0067 /* JewelPopUpImageStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A298E9582A9968B000EC0067 /* JewelPopUpImageStyle.swift */; };
 		A2B20D442A7E3EA1001ED73C /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D432A7E3EA1001ED73C /* Moya */; };
 		A2B20D462A7E3EA1001ED73C /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D452A7E3EA1001ED73C /* RxMoya */; };
 		A2B20D492A7E3EC6001ED73C /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D482A7E3EC6001ED73C /* Then */; };
@@ -339,6 +340,7 @@
 		A28EDA102A87808A001A021A /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		A28EDA142A8791F7001A021A /* DetailGoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		A28EDA182A879565001A021A /* DetailParentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailParentViewController.swift; sourceTree = "<group>"; };
+		A298E9582A9968B000EC0067 /* JewelPopUpImageStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JewelPopUpImageStyle.swift; sourceTree = "<group>"; };
 		A2B20D582A7E4E5C001ED73C /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		A2B20D5C2A7E4E68001ED73C /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		A2B20D602A7E4FAD001ED73C /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -587,6 +589,7 @@
 				C9B2CE462A92F61D006289A8 /* GoalStatusParameter.swift */,
 				C9040FD72A93CE7D00270E94 /* KeychainKeyList.swift */,
 				C95A3CA02A94EB580028B4ED /* RewardToImage.swift */,
+				A298E9582A9968B000EC0067 /* JewelPopUpImageStyle.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -1230,6 +1233,7 @@
 				C968F8F72A98F3790051DE48 /* InformationBox.swift in Sources */,
 				A2FA59192A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
 				C9B2CE222A8F672C006289A8 /* ServicesUser.swift in Sources */,
+				A298E9592A9968B000EC0067 /* JewelPopUpImageStyle.swift in Sources */,
 				C9BF3FC72A97817C0074E781 /* SettingViewController.swift in Sources */,
 				A27C9A102A8E42B5002C6F44 /* EnterGoalAlarmView.swift in Sources */,
 				A289D94A2A912616005B7F00 /* WriteRetrospectStyle.swift in Sources */,

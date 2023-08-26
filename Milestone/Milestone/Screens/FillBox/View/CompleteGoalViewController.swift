@@ -31,6 +31,10 @@ class CompleteGoalViewController: BaseViewController {
 //            $0.goToButton.addTarget(self, action: #selector(), for: .touchUpInside)
         }
     
+    // MARK: - Properties
+    
+    var viewModel: DetailParentViewModel!
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -59,6 +63,10 @@ class CompleteGoalViewController: BaseViewController {
     
     override func configUI() {
         view.backgroundColor = UIColor.init(hex: "#000000").withAlphaComponent(0.3)
+        
+        let value = viewModel.completedGoalResult.value
+        completePopUpView.alertImageView.image = UIImage(named: JewelPopUpImageStyle(rawValue: value.rewardType ?? "BLUE_JEWEL_1")?.caseString ?? "blueStonePopUpVer1")
+        completePopUpView.completeInformationLabel.text = "\(value.completedGoalCount)번째 보석을 찾으셨네요!"
     }
     
     /// 목표 완료 팝업 뷰가 띄워졌으니 UserDefaults 값을 바꾼다
