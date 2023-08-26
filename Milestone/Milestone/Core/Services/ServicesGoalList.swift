@@ -17,7 +17,7 @@ protocol ServicesGoalList: Service {
     
     func requestEnabledRetrospectCount() -> Observable<Result<BaseModel<RetrospectCount>, APIError>>
 
-    func requestAllGoals(goalStatusParameter: GoalStatusParameter) -> Observable<Result<BaseModel<GoalResponse>, APIError>>
+    func requestAllGoals(lastGoalId: Int, goalStatusParameter: GoalStatusParameter) -> Observable<Result<BaseModel<GoalResponse>, APIError>>
     
     func requestGoalCountByStatus() -> Observable<Result<BaseModel<ParentGoalCount>, APIError>>
     
@@ -29,8 +29,8 @@ protocol ServicesGoalList: Service {
 }
 
 extension ServicesGoalList {
-    func requestAllGoals(goalStatusParameter: GoalStatusParameter) -> Observable<Result<BaseModel<GoalResponse>, APIError>> {
-        return apiSession.request(.requestAllGoals(goalStatus: goalStatusParameter))
+    func requestAllGoals(lastGoalId: Int, goalStatusParameter: GoalStatusParameter) -> Observable<Result<BaseModel<GoalResponse>, APIError>> {
+        return apiSession.request(.requestAllGoals(lastGoalId: lastGoalId, goalStatus: goalStatusParameter))
     }
     
     func postReview(higherLevelGoalId: Int, retrospect: Retrospect) -> Observable<Result<BaseModel<Int>, APIError>> {

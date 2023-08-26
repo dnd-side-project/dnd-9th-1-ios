@@ -19,7 +19,7 @@ class CompletionViewModel: BindableViewModel {
     
     // MARK: - Output
     var goalResponse: Observable<Result<BaseModel<GoalResponse>, APIError>> {
-        requestAllGoals(goalStatusParameter: .complete)
+        requestAllGoals(lastGoalId: -1, goalStatusParameter: .complete)
     }
     
     var enabledRetrospectCountResponse: Observable<Result<BaseModel<RetrospectCount>, APIError>> {
