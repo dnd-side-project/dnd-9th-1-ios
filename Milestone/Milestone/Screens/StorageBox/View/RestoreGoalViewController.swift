@@ -27,7 +27,13 @@ class RestoreGoalViewController: BaseViewController {
             $0.noButton.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
         }
     
-    var viewModel: DetailParentViewModel?
+    // MARK: - Properties
+    
+    var viewModel: DetailParentViewModel!
+    var dateFormatter = DateFormatter()
+        .then {
+            $0.dateFormat = "yyyy / MM / dd"
+        }
     
     // MARK: - Functions
     
@@ -64,6 +70,19 @@ class RestoreGoalViewController: BaseViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.dismiss(animated: true)
             let resetGoalVC = ResetGoalViewController()
+                .then {
+                    $0.enterGoalDateView.isModifyMode = true
+                    let startDate = self.changeDateFormat(self.viewModel.selectedParentGoal!.startDate)
+                    let endDate = self.changeDateFormat(self.viewModel.selectedParentGoal!.endDate)
+                    $0.enterGoalDateView.startDateButton.setTitle(startDate, for: .normal)
+                    $0.enterGoalDateView.endDateButton.setTitle(endDate, for: .normal)
+                    if let startDate = self.dateFormatter.date(from: startDate!),
+                       let endDate = self.dateFormatter.date(from: endDate!) {
+                        $0.enterGoalDateView.startDateToModify = startDate
+                        $0.enterGoalDateView.endDateToModify = endDate
+                        $0.enterGoalDateView.setDatePicker()
+                    }
+                }
             resetGoalVC.viewModel = self.viewModel
             self.presentingViewController?.presentCustomModal(resetGoalVC, height: resetGoalVC.viewHeight)
         }
