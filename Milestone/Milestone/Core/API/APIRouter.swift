@@ -18,7 +18,7 @@ enum APIRouter: URLRequestConvertible {
     case requestEnabledRetrospectCount
     case requestGoalCountByStatus
     case editGoal(id: Int, goal: Goal)
-    case recoverGoal(id: Int, startDate: String, endDate: String, reminderEnabled: Bool)
+    case recoverGoal(id: Int, goal: Goal)
     case postGoal(goal: CreateParentGoal)
     
     /// 유저 관련 API 리스트
@@ -101,7 +101,7 @@ enum APIRouter: URLRequestConvertible {
             return "/goals/count"
         case .editGoal(let id, _):
             return "/goals/\(id)"
-        case .recoverGoal(let id, _, _, _):
+        case .recoverGoal(let id, _):
             return "/goals/\(id)/recover"
         case .postGoal:
             return "/goals"
@@ -157,12 +157,11 @@ enum APIRouter: URLRequestConvertible {
                 K.Parameters.endDate: goal.endDate,
                 K.Parameters.reminderEnabled: goal.reminderEnabled
             ]
-        case .recoverGoal(let id, let startDate, let endDate, let reminderEnabled):
+        case .recoverGoal(_, let goal):
             return [
-                K.Parameters.goalId: id,
-                K.Parameters.startDate: startDate,
-                K.Parameters.endDate: endDate,
-                K.Parameters.reminderEnabled: reminderEnabled
+                K.Parameters.startDate: goal.startDate,
+                K.Parameters.endDate: goal.endDate,
+                K.Parameters.reminderEnabled: goal.reminderEnabled
             ]
         case .postGoal(let goal):
             return [
