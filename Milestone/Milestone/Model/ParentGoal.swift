@@ -62,11 +62,11 @@ struct CreateParentGoal: Codable {
     var reminderEnabled: Bool
 }
 
-// MARK: - 상위 목표 수정 req 모델
+// MARK: - 상위 목표 수정, 복구 req 모델
 
 struct Goal: Codable, IdentifiableType, Equatable {
-    let identity: Int
-    let title: String
+    let identity: Int?
+    let title: String?
     let startDate: String
     let endDate: String
     let reminderEnabled: Bool
