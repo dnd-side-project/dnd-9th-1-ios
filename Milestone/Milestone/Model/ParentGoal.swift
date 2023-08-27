@@ -8,6 +8,13 @@
 import Foundation
 import RxDataSources
 
+// MARK: - 상위 목표 조회 Res 모델
+
+struct GoalResponse: Codable {
+    let contents: [ParentGoal]
+    let next: Bool
+}
+
 // MARK: - 상위 목표 모델 (채움함, 완료함, 보관함에 사용)
 
 struct ParentGoal: Codable, IdentifiableType, Equatable {
@@ -53,6 +60,24 @@ struct CreateParentGoal: Codable {
     var startDate: String
     var endDate: String
     var reminderEnabled: Bool
+}
+
+// MARK: - 상위 목표 수정 req 모델
+
+struct Goal: Codable, IdentifiableType, Equatable {
+    let identity: Int
+    let title: String
+    let startDate: String
+    let endDate: String
+    let reminderEnabled: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case identity = "goalId"
+        case title = "title"
+        case startDate = "startDate"
+        case endDate = "endDate"
+        case reminderEnabled = "reminderEnabled"
+    }
 }
 
 // MARK: - 상위 목표 수정 res 모델
