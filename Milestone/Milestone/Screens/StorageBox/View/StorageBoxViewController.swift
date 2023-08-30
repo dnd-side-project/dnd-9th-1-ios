@@ -169,7 +169,9 @@ extension StorageBoxViewController: UITableViewDelegate {
 //        goalsValue.remove(at: indexPath.row) // 삭제
 //        goals.accept(goalsValue) // 변경된 배열로 업데이트
 //        tableView.reloadData() // 테이블뷰 UI 업데이트
+        let selectedGoalData = self.viewModel.storedGoals.value[indexPath.row]
         let detailParentVM = DetailParentViewModel()
+        detailParentVM.selectedParentGoal = selectedGoalData
         let detailParentVC = DetailParentViewController()
         detailParentVC.isFromStorage = true
         detailParentVC.viewModel = detailParentVM

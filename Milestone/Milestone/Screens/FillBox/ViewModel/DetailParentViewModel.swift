@@ -181,6 +181,24 @@ extension DetailParentViewModel {
             .disposed(by: bag)
     }
     
+    /// 상위 목표 복구 API
+    func restoreParentGoal(reqBody: Goal) {
+        var restoreParentGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
+            requestRestoreParentGoal(id: selectedParentGoal?.identity ?? 0, reqBody: reqBody)
+        }
+        
+        restoreParentGoalResponse
+            .subscribe(onNext: { result in
+                switch result {
+                case .success(let response):
+                    Logger.debugDescription(response)
+                case .failure(let error):
+                    Logger.debugDescription(error)
+                }
+            })
+            .disposed(by: bag)
+    }
+    
     /// 세부 목표 생성
     func createDetailGoal(reqBody: NewDetailGoal) {
         var createDetailGoalResponse: Observable<Result<EmptyDataModel, APIError>> {

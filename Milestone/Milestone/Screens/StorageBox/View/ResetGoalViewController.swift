@@ -12,7 +12,7 @@ import Then
 
 // MARK: - 목표 복구 시 목표 정보 재설정 모달 뷰
 
-class ResetGoalViewController: BaseViewController {
+class ResetGoalViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - SubViews
     
@@ -45,6 +45,7 @@ class ResetGoalViewController: BaseViewController {
     // MARK: - Properties
     
     let viewHeight = 428.0
+    var viewModel: DetailParentViewModel!
     
     // MARK: - Functions
     
@@ -87,10 +88,6 @@ class ResetGoalViewController: BaseViewController {
         view.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
     }
     
-    // MARK: - Properties
-    
-    var viewModel: DetailParentViewModel?
-    
     // MARK: - @objc Functions
     
     @objc
@@ -100,8 +97,12 @@ class ResetGoalViewController: BaseViewController {
 
     @objc
     private func restoreGoal() {
-        // TODO: - 복구하기 API 호출
-
+        // 복구하기 API 호출
+        viewModel.restoreParentGoal(reqBody: Goal(identity: nil,
+                                                  title: nil,
+                                                  startDate: enterGoalDateView.startDateButton.titleLabel?.text ?? "",
+                                                  endDate: enterGoalDateView.endDateButton.titleLabel?.text ?? "",
+                                                  reminderEnabled: reminderAlarmView.onOffSwitch.isOn))
         updateButtonState(.press)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.dismiss(animated: true)

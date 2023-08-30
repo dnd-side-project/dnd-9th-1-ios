@@ -273,7 +273,6 @@
 		C9B2CE432A90E76B006289A8 /* GoalAchievementRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE422A90E76B006289A8 /* GoalAchievementRateView.swift */; };
 		C9B2CE452A91D796006289A8 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE442A91D796006289A8 /* KeychainManager.swift */; };
 		C9B2CE472A92F61D006289A8 /* GoalStatusParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE462A92F61D006289A8 /* GoalStatusParameter.swift */; };
-		C9B2CE492A92F957006289A8 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE482A92F957006289A8 /* Goal.swift */; };
 		C9B2CE4B2A92F95E006289A8 /* DetailGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE4A2A92F95E006289A8 /* DetailGoal.swift */; };
 		C9B2CE4D2A932E37006289A8 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE4C2A932E37006289A8 /* BaseModel.swift */; };
 		C9BF3FC72A97817C0074E781 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF3FC62A97817C0074E781 /* SettingViewController.swift */; };
@@ -436,7 +435,6 @@
 		C9B2CE422A90E76B006289A8 /* GoalAchievementRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalAchievementRateView.swift; sourceTree = "<group>"; };
 		C9B2CE442A91D796006289A8 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		C9B2CE462A92F61D006289A8 /* GoalStatusParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalStatusParameter.swift; sourceTree = "<group>"; };
-		C9B2CE482A92F957006289A8 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		C9B2CE4A2A92F95E006289A8 /* DetailGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoal.swift; sourceTree = "<group>"; };
 		C9B2CE4C2A932E37006289A8 /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		C9BF3FC62A97817C0074E781 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -951,10 +949,9 @@
 		C9B2CE192A8F533C006289A8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C9B2CE482A92F957006289A8 /* Goal.swift */,
-				C9B2CE4A2A92F95E006289A8 /* DetailGoal.swift */,
 				C9040FCB2A93B64A00270E94 /* Token.swift */,
 				C95A3C9A2A94D08D0028B4ED /* ParentGoal.swift */,
+				C9B2CE4A2A92F95E006289A8 /* DetailGoal.swift */,
 				C95A3CA22A95973B0028B4ED /* Retrospect.swift */,
 			);
 			path = Model;
@@ -1223,7 +1220,6 @@
 				A23E8B9C2A8FF54D0051D135 /* CompleteGoalViewController.swift in Sources */,
 				C9B2CDE92A8BCBE0006289A8 /* CompletionBoxCoordinator.swift in Sources */,
 				C9040FD82A93CE7D00270E94 /* KeychainKeyList.swift in Sources */,
-				C9B2CE492A92F957006289A8 /* Goal.swift in Sources */,
 				A2248E872A8A076D00EB995A /* MoreViewController.swift in Sources */,
 				A26509142A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift in Sources */,
 				A2C98F0E2A8B7A99009B5579 /* EnterGoalDateView.swift in Sources */,

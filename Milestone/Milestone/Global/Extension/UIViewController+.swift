@@ -43,4 +43,21 @@ extension UIViewController {
         guard let loadingView = view.subviews.compactMap({ $0 as? LoadingView }).first else { return }
         loadingView.removeFromSuperview()
     }
+    
+    /// "yyyy.MM.dd" 형식을 "yyyy / MM / dd" 형식으로 바꿔준다
+    func changeDateFormat(_ inputDate: String) -> String? {
+        let inputFormat = "yyyy.MM.dd"
+        let outputFormat = "yyyy / MM / dd"
+        
+        let dateFormatterInput = DateFormatter()
+        dateFormatterInput.dateFormat = inputFormat
+        
+        if let date = dateFormatterInput.date(from: inputDate) {
+            let dateFormatterOutput = DateFormatter()
+            dateFormatterOutput.dateFormat = outputFormat
+            return dateFormatterOutput.string(from: date)
+        } else {
+            return nil
+        }
+    }
 }
