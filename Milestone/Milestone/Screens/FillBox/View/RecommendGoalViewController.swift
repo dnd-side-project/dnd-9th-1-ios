@@ -58,6 +58,7 @@ class RecommendGoalViewController: BaseViewController, ViewModelBindableType {
             $0.setTitle("보관함 가기", for: .normal)
             $0.setTitleColor(.primary, for: .normal)
             $0.backgroundColor = .secondary03
+            $0.addTarget(self, action: #selector(goToStorageBox), for: .touchUpInside)
         }
     
     // MARK: - Properties
@@ -146,6 +147,13 @@ class RecommendGoalViewController: BaseViewController, ViewModelBindableType {
     }
     
     // MARK: - @objc Functions
+    
+    /// 팝업 dismiss 하고 Notification 발송해서 보관함 화면을 보여준다
+    @objc
+    private func goToStorageBox() {
+        self.dismiss(animated: true)
+        NotificationCenter.default.post(name: .changeSegmentControl, object: 0) // 보관함 인덱스 전송
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource

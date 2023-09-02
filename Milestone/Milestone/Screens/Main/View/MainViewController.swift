@@ -60,6 +60,7 @@ class MainViewController: BaseViewController {
         
         changeCurrentPage(control: self.segmentedControl)
         bindingModels()
+        NotificationCenter.default.addObserver(self, selector: #selector(changeSegmentControlAndPage), name: .changeSegmentControl, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -129,6 +130,13 @@ class MainViewController: BaseViewController {
     @objc
     private func changeCurrentPage(control: UISegmentedControl) {
         self.currentPage = control.selectedSegmentIndex
+    }
+    
+    @objc
+    private func changeSegmentControlAndPage(_ notification: Notification) {
+        segmentedControl.selectedSegmentIndex = notification.object as! Int
+        changeCurrentPage(control: segmentedControl)
+        segmentedControl.moveUnderlineView()
     }
 }
 

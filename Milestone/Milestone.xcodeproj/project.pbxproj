@@ -35,6 +35,9 @@
 		A2400D652AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2400D642AA3891200EB79D6 /* ContentSizedTableView.swift */; };
 		A2400D662AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2400D642AA3891200EB79D6 /* ContentSizedTableView.swift */; };
 		A2400D672AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2400D642AA3891200EB79D6 /* ContentSizedTableView.swift */; };
+		A2400D692AA3C24600EB79D6 /* Notification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2400D682AA3C24600EB79D6 /* Notification+.swift */; };
+		A2400D6A2AA3C24600EB79D6 /* Notification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2400D682AA3C24600EB79D6 /* Notification+.swift */; };
+		A2400D6B2AA3C24600EB79D6 /* Notification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2400D682AA3C24600EB79D6 /* Notification+.swift */; };
 		A252C4B52A92B5AB0067B89C /* ParentGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A252C4B32A92B5AB0067B89C /* ParentGoal.swift */; };
 		A252C4B62A92B5AB0067B89C /* ParentGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A252C4B32A92B5AB0067B89C /* ParentGoal.swift */; };
 		A25988FA2A967C3000C6BDE0 /* UpdateGoalListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988F92A967C3000C6BDE0 /* UpdateGoalListDelegate.swift */; };
@@ -321,6 +324,7 @@
 		A23E8B9F2A900EEC0051D135 /* DeleteGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGoalViewController.swift; sourceTree = "<group>"; };
 		A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskOneOfTwoView.swift; sourceTree = "<group>"; };
 		A2400D642AA3891200EB79D6 /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
+		A2400D682AA3C24600EB79D6 /* Notification+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+.swift"; sourceTree = "<group>"; };
 		A252C4B32A92B5AB0067B89C /* ParentGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentGoal.swift; sourceTree = "<group>"; };
 		A25988F92A967C3000C6BDE0 /* UpdateGoalListDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGoalListDelegate.swift; sourceTree = "<group>"; };
 		A25988FD2A96915E00C6BDE0 /* ServicesDetailGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesDetailGoal.swift; sourceTree = "<group>"; };
@@ -684,6 +688,7 @@
 				A28EDA102A87808A001A021A /* UIViewController+.swift */,
 				C90DC9852A88F0B100241B7C /* UITextField+.swift */,
 				C90DC9892A8922D300241B7C /* NSMutableAttributedString+.swift */,
+				A2400D682AA3C24600EB79D6 /* Notification+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1309,6 +1314,7 @@
 				A2B20D592A7E4E5C001ED73C /* UIFont+.swift in Sources */,
 				A25988FA2A967C3000C6BDE0 /* UpdateGoalListDelegate.swift in Sources */,
 				C9B2CE152A8F514A006289A8 /* APIService.swift in Sources */,
+				A2400D692AA3C24600EB79D6 /* Notification+.swift in Sources */,
 				C9B2CDD62A8A77F1006289A8 /* CompletionViewModel.swift in Sources */,
 				C9B2CDFF2A8DE365006289A8 /* CompleteView.swift in Sources */,
 				A2400D652AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */,
@@ -1375,6 +1381,7 @@
 				A2FA58E62A7F7A55006ACA2E /* (null) in Sources */,
 				A289D94B2A912616005B7F00 /* WriteRetrospectStyle.swift in Sources */,
 				A22736802A7CE53800D7B3B2 /* MilestoneTests.swift in Sources */,
+				A2400D6A2AA3C24600EB79D6 /* Notification+.swift in Sources */,
 				A2B20D5E2A7E4E68001ED73C /* UIColor+.swift in Sources */,
 				A26416DC2A9959D50073BEA1 /* StorageBoxViewModel.swift in Sources */,
 				A2FA59262A7FD3B1006ACA2E /* UICollectionView+.swift in Sources */,
@@ -1412,6 +1419,7 @@
 				A2FA592F2A7FD433006ACA2E /* NSObject+.swift in Sources */,
 				A2FA591B2A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
 				A2B20D5F2A7E4E68001ED73C /* UIColor+.swift in Sources */,
+				A2400D6B2AA3C24600EB79D6 /* Notification+.swift in Sources */,
 				A289D9482A91246C005B7F00 /* DayStyle.swift in Sources */,
 				A2FFBC912A94986200039919 /* FillBoxViewModel.swift in Sources */,
 				A2FA59122A7FCFB4006ACA2E /* Encodable+.swift in Sources */,
