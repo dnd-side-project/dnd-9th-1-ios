@@ -27,8 +27,7 @@ class CompleteGoalViewController: BaseViewController {
             $0.completeInformationLabel.text = "3번째 보석을 찾으셨네요!"
             $0.completeInformationLabel.textColor = .black
             $0.closeButton.addTarget(self, action: #selector(dismissCompleteGoal), for: .touchUpInside)
-            // TODO: - 추후 코디네이터 패턴 적용하면서 버튼 이벤트 연결
-//            $0.goToButton.addTarget(self, action: #selector(), for: .touchUpInside)
+            $0.goToButton.addTarget(self, action: #selector(goToCompletionBox), for: .touchUpInside)
         }
     
     // MARK: - Properties
@@ -80,5 +79,14 @@ class CompleteGoalViewController: BaseViewController {
     @objc
     private func dismissCompleteGoal() {
         dismiss(animated: true)
+    }
+    
+    /// 팝업 dismiss 하고 detailParentVC도 pop 시켜서 메인으로 이동하고
+    /// Notification 발송해서 완료함 화면을 보여준다
+    @objc
+    private func goToCompletionBox() {
+        self.dismiss(animated: true)
+        self.viewModel?.popDetailParentVC.accept(true)
+        NotificationCenter.default.post(name: .changeSegmentControl, object: 2) // 완료함 인덱스 전송
     }
 }
