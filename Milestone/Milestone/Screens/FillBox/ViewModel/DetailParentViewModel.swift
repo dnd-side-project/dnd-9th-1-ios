@@ -40,7 +40,7 @@ class DetailParentViewModel: BindableViewModel, ServicesGoalList, ServicesDetail
     lazy var sortedGoalData = BehaviorRelay<[DetailGoal]>(value: sortGoalForCheckList())
     
     var detailGoalListResponse: Observable<Result<BaseModel<[DetailGoal]>, APIError>> {
-        requestDetailGoalList(id: selectedParentGoal?.identity ?? 0)
+        requestDetailGoalList(id: selectedParentGoal?.goalId ?? 0)
     }
     var detailGoalCompleteResponse: Observable<Result<BaseModel<StateUpdatedDetailGoal>, APIError>> {
         requestCompleteDetailGoal(id: detailGoalId)
@@ -166,7 +166,7 @@ extension DetailParentViewModel {
     /// 상위 목표 삭제
     func deleteParentGoal() {
         var deleteParentGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
-            requestDeleteParentGoal(id: selectedParentGoal?.identity ?? 0)
+            requestDeleteParentGoal(id: selectedParentGoal?.goalId ?? 0)
         }
         
         deleteParentGoalResponse
@@ -184,7 +184,7 @@ extension DetailParentViewModel {
     /// 상위 목표 복구 API
     func restoreParentGoal(reqBody: Goal) {
         var restoreParentGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
-            requestRestoreParentGoal(id: selectedParentGoal?.identity ?? 0, reqBody: reqBody)
+            requestRestoreParentGoal(id: selectedParentGoal?.goalId ?? 0, reqBody: reqBody)
         }
         
         restoreParentGoalResponse
@@ -202,7 +202,7 @@ extension DetailParentViewModel {
     /// 세부 목표 생성
     func createDetailGoal(reqBody: NewDetailGoal) {
         var createDetailGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
-            requestPostDetailGoal(id: selectedParentGoal?.identity ?? 0, reqBody: reqBody)
+            requestPostDetailGoal(id: selectedParentGoal?.goalId ?? 0, reqBody: reqBody)
         }
         
         createDetailGoalResponse

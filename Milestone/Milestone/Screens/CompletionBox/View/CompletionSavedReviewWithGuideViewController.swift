@@ -194,7 +194,7 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
             .disposed(by: disposeBag)
         
         viewModel.retrieveGoalDataAtIndex(index: goalIndex)
-            .map { $0.identity }
+            .map { $0.goalId }
             .subscribe(onNext: { [unowned self] in
                 self.viewModel.retrieveRetrospectWithId(goalId: $0)
             })
