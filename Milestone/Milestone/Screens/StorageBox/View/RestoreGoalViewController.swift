@@ -82,6 +82,7 @@ class RestoreGoalViewController: BaseViewController {
                         $0.enterGoalDateView.endDateToModify = endDate
                         $0.enterGoalDateView.setDatePicker()
                     }
+                    $0.reminderAlarmView.onOffSwitch.isOn = self.viewModel.selectedParentGoal?.reminderEnabled ?? true
                 }
             resetGoalVC.viewModel = self.viewModel
             self.presentingViewController?.presentCustomModal(resetGoalVC, height: resetGoalVC.viewHeight)

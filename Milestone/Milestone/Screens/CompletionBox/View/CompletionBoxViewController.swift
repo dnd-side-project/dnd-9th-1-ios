@@ -168,7 +168,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                         guard let self = self else { return }
                         if element.hasRetrospect {
                             let outerDisposable = self.viewModel.retrieveGoalDataAtIndex(index: row)
-                                .map { $0.identity }
+                                .map { $0.goalId }
                                 .subscribe(onNext: {
                                     self.viewModel.retrieveRetrospectWithId(goalId: $0)
                                     

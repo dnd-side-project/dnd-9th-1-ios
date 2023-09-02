@@ -67,7 +67,7 @@ extension FillBoxViewModel: ServicesGoalList {
                     progressGoals.accept(newData)
                     isLastPage = !response.data.next
                     if !isLastPage {
-                        lastGoalId = newData.last?.identity ?? -1
+                        lastGoalId = newData.last?.goalId ?? -1
                     }
                     isLoading = false
                 case .failure(let error):

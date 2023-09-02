@@ -107,7 +107,7 @@ class MoreViewController: BaseViewController, ViewModelBindableType {
             .then {
                 $0.isModifyMode = true
                 $0.viewModel = viewModel
-                $0.viewModel.parentGoalId = viewModel.selectedParentGoal?.identity ?? 0
+                $0.viewModel.parentGoalId = viewModel.selectedParentGoal?.goalId ?? 0
                 $0.completeButton.titleString = "목표 수정 완료"
                 $0.enterGoalDateView.isModifyMode = true
                 $0.enterGoalTitleView.titleTextField.text = viewModel.selectedParentGoal?.title
@@ -122,6 +122,7 @@ class MoreViewController: BaseViewController, ViewModelBindableType {
                     $0.enterGoalDateView.setDatePicker()
                 }
                 $0.enterGoalTitleView.updateNowNumOfCharaters()
+                $0.reminderAlarmView.onOffSwitch.isOn = viewModel.selectedParentGoal?.reminderEnabled ?? true
             }
         dismiss(animated: true)
         self.presentingViewController?.presentCustomModal(addParentGoalVC, height: addParentGoalVC.viewHeight)

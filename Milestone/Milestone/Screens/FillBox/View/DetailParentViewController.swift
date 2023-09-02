@@ -289,7 +289,7 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     /// 상위 목표 정보로 뷰 구성
     private func updateDetailParentView() {
         guard let selectedGoalData = viewModel.selectedParentGoal else { return }
-        viewModel.thisParentGoal.accept(ParentGoalInfo(goalId: selectedGoalData.identity,
+        viewModel.thisParentGoal.accept(ParentGoalInfo(goalId: selectedGoalData.goalId,
                                                        title: selectedGoalData.title,
                                                        startDate: selectedGoalData.startDate,
                                                        endDate: selectedGoalData.endDate,
