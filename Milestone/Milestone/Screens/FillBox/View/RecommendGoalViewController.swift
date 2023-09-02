@@ -63,7 +63,7 @@ class RecommendGoalViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Properties
     
     var viewModel: FillBoxViewModel! = FillBoxViewModel()
-    var cellNum = 2
+    var cellNum = 0
     
     // MARK: - Life Cycle
     

@@ -66,6 +66,14 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
         updateParentGoalList()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.checkRecommendViewPresentCondition()
+        }
+    }
+    
     // MARK: - Functions
     
     override func render() {
@@ -152,6 +160,24 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
             }
         addParentGoalVC.bind(viewModel: DetailParentViewModel())
         presentCustomModal(addParentGoalVC, height: addParentGoalVC.viewHeight)
+    }
+    
+    /// 목표를 완료한 후인지 + 보관함에 목표가 1개 이상 있는지 확인
+    /// 조건을 만족한다면 목표 권유(추천) 팝업 뷰를 띄운다
+    private func checkRecommendViewPresentCondition() {
+        let storedGoalCount = Int(viewModel.storedGoalCount.value) ?? 3 // 보관함에 있는 목표 개수
+        if UserDefaults.standard.bool(forKey: UserDefaultsKeyStyle.recommendGoalView.rawValue) && storedGoalCount > 0 {
+            let recommendGoalVC = RecommendGoalViewController()
+                .then {
+                    $0.modalTransitionStyle = .crossDissolve
+                    $0.modalPresentationStyle = .overFullScreen
+                    $0.cellNum = (storedGoalCount > 3) ? 3 : storedGoalCount // 최대가 3개 크기
+                }
+            self.present(recommendGoalVC, animated: true)
+            
+            // 저장된 값을 false로 원상 복구
+            UserDefaults.standard.set(false, forKey: UserDefaultsKeyStyle.recommendGoalView.rawValue)
+        }
     }
     
     // MARK: - @objc Functions
