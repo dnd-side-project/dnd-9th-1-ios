@@ -122,6 +122,7 @@ class MoreViewController: BaseViewController, ViewModelBindableType {
                     $0.enterGoalDateView.setDatePicker()
                 }
                 $0.enterGoalTitleView.updateNowNumOfCharaters()
+                $0.reminderAlarmView.onOffSwitch.isOn = viewModel.selectedParentGoal?.reminderEnabled ?? true
             }
         dismiss(animated: true)
         self.presentingViewController?.presentCustomModal(addParentGoalVC, height: addParentGoalVC.viewHeight)
