@@ -22,6 +22,7 @@ class FillBoxViewModel: BindableViewModel {
     var progressGoalCount = BehaviorRelay<String>(value: "0")
     var completedGoalCount = BehaviorRelay<String>(value: "0")
     var progressGoals = BehaviorRelay<[ParentGoal]>(value: [])
+    var recommendedGoals = BehaviorRelay<[ParentGoal]>(value: [])
     
     var isLastPage: Bool = false
     var lastGoalId: Int = -1
@@ -82,5 +83,23 @@ extension FillBoxViewModel: ServicesGoalList {
         isLastPage = false
         lastGoalId = -1
         progressGoals.accept([])
+    }
+    
+    /// 보관함에 있는 상위 목표 랜덤 3개 조회
+    func retrieveRecommendGoal() {
+        var recommendGoalResponse: Observable<Result<BaseModel<[ParentGoal]>, APIError>> {
+            requestRecommendGoal()
+        }
+        
+        recommendGoalResponse
+            .subscribe(onNext: { [unowned self] result in
+                switch result {
+                case .success(let response):
+                    recommendedGoals.accept(response.data)
+                case .failure(let error):
+                    Logger.debugDescription(error)
+                }
+            })
+            .disposed(by: bag)
     }
 }
