@@ -21,6 +21,7 @@ class FillBoxViewModel: BindableViewModel {
     
     var progressGoalCount = BehaviorRelay<String>(value: "0")
     var completedGoalCount = BehaviorRelay<String>(value: "0")
+    var storedGoalCount = BehaviorRelay<String>(value: "0")
     var progressGoals = BehaviorRelay<[ParentGoal]>(value: [])
     var recommendedGoals = BehaviorRelay<[ParentGoal]>(value: [])
     
@@ -45,6 +46,7 @@ extension FillBoxViewModel: ServicesGoalList {
                 case .success(let response):
                     progressGoalCount.accept(String(response.data.counts.PROCESS))
                     completedGoalCount.accept(String(response.data.counts.COMPLETE))
+                    storedGoalCount.accept(String(response.data.counts.STORE))
                 case .failure(let error):
                     Logger.debugDescription(error)
                 }
