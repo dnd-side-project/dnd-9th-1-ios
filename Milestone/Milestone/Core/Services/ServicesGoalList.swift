@@ -28,6 +28,8 @@ protocol ServicesGoalList: Service {
     func requestDeleteParentGoal(id: Int) -> Observable<Result<EmptyDataModel, APIError>>
     
     func requestRestoreParentGoal(id: Int, reqBody: Goal) -> Observable<Result<EmptyDataModel, APIError>>
+    
+    func requestRecommendGoal() -> Observable<Result<BaseModel<[ParentGoal]>, APIError>>
 }
 
 extension ServicesGoalList {
@@ -68,5 +70,10 @@ extension ServicesGoalList {
     // 상위 목표 복구
     func requestRestoreParentGoal(id: Int, reqBody: Goal) -> Observable<Result<EmptyDataModel, APIError>> {
         return apiSession.request(.recoverGoal(id: id, goal: reqBody))
+    }
+    
+    // 보관함에 있는 상위 목표 추천
+    func requestRecommendGoal() -> Observable<Result<BaseModel<[ParentGoal]>, APIError>> {
+        return apiSession.request(.requestRecommendGoal)
     }
 }
