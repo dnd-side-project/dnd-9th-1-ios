@@ -169,7 +169,7 @@ class LoginViewController: BaseViewController {
                 if UserApi.isKakaoTalkLoginAvailable() {
                     UserApi.shared.rx.loginWithKakaoTalk()
                         .subscribe(onNext: { [weak self] _ in
-                            self?.viewModel.kakaoLogin()
+                            self?.viewModel.loginWith(provider: .kakao)
                         }, onError: {error in
                             print(error)
                         })
@@ -213,9 +213,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             
-            viewModel.appleUserIdSubject
-                .onNext(appleIDCredential.user)
-            viewModel.appleLogin()
+            viewModel.appleUserId = appleIDCredential.user
+            viewModel.loginWith(provider: .apple)
             
         case let passwordCredential as ASPasswordCredential:
             print(passwordCredential)
