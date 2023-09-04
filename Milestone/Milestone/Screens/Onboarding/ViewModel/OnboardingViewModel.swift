@@ -40,12 +40,9 @@ class OnboardingViewModel: BindableViewModel {
                 .flatMapLatest { [unowned self] in
                     self.saveToken(result: $0)
                 }
-                .subscribe(onNext: {
-                    // MARK: 로그인 실패 관련 모달 띄우기
-                    if !$0 {
-                        
-                    }
-                },onCompleted: { [unowned self] in
+                .subscribe(onError: {
+                    print($0)
+                }, onCompleted: { [unowned self] in
                     self.loginCoordinator?.coordinateToOnboarding()
                 })
                 .disposed(by: bag)
@@ -53,12 +50,10 @@ class OnboardingViewModel: BindableViewModel {
             fcmObservable
                 .flatMapLatest { [unowned self] in self.kakaoLogin(fcmToken: $0) }
                 .flatMapLatest { [unowned self] in self.saveToken(result: $0) }
-                .subscribe(onNext: {
-                    // MARK: 로그인 실패 관련 모달 띄우기
-                    if !$0 {
-                        
-                    }
-                },onCompleted: { [unowned self] in
+                .subscribe(onError: {
+                    // MARK: 에러처리 필요
+                    print($0)
+                }, onCompleted: { [unowned self] in
                     self.loginCoordinator?.coordinateToOnboarding()
                 })
                 .disposed(by: bag)
@@ -85,8 +80,8 @@ class OnboardingViewModel: BindableViewModel {
                 .saveItem(response.data.refreshToken, itemClass: .password, key: KeychainKeyList.refreshToken.rawValue)
             return accessTokenObservable.concat(refreshTokenObservable)
                 .map { true }
-        case .failure:
-            return Observable.just(false)
+        case .failure(let error):
+            return Observable.error(error)
         }
     }
 }
