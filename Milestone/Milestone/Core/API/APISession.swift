@@ -43,6 +43,7 @@ struct APISession: APIService {
                 }
                 
                 observer.onNext(.success(decoded))
+                observer.onCompleted()
             }
             
             return Disposables.create {
