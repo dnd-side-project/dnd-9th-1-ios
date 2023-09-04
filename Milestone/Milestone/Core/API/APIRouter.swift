@@ -20,6 +20,7 @@ enum APIRouter: URLRequestConvertible {
     case editGoal(id: Int, goal: Goal)
     case recoverGoal(id: Int, goal: Goal)
     case postGoal(goal: CreateParentGoal)
+    case requestRecommendGoal
     
     /// 유저 관련 API 리스트
     case reissue
@@ -42,6 +43,7 @@ enum APIRouter: URLRequestConvertible {
     case authTest
     
     // MARK: - HttpMethod
+    
     /// switch - self 구문으로 각 엔드포인트별 메서드 지정
     private var method: HTTPMethod {
         switch self {
@@ -82,6 +84,8 @@ enum APIRouter: URLRequestConvertible {
         case .postDetailGoal:
             return .post
         case .authTest:
+            return .get
+        case .requestRecommendGoal:
             return .get
         }
     }
@@ -129,6 +133,8 @@ enum APIRouter: URLRequestConvertible {
             return "/goals/\(id)/detail-goals"
         case .authTest:
             return "/token"
+        case .requestRecommendGoal:
+            return "/goals/stored-goals"
         }
     }
     
@@ -213,10 +219,13 @@ enum APIRouter: URLRequestConvertible {
             ]
         case .authTest:
             return nil
+        case .requestRecommendGoal:
+            return nil
         }
     }
     
     // MARK: - URLRequestConvertible
+    
     func asURLRequest() throws -> URLRequest {
         let url = try K.baseUrl.asURL()
         

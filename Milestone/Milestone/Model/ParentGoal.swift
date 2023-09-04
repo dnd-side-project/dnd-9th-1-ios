@@ -17,28 +17,17 @@ struct GoalResponse: Codable {
 
 // MARK: - 상위 목표 모델 (채움함, 완료함, 보관함에 사용)
 
-struct ParentGoal: Codable, IdentifiableType, Equatable {
-    let identity: Int
-    let reward: String?
-    let endDate: String
-    let startDate: String
+struct ParentGoal: Codable {
+    let goalId: Int
     let title: String
-    let completedDetailGoalCnt: Int
+    let startDate: String
+    let endDate: String
     let entireDetailGoalCnt: Int
-    let hasRetrospect: Bool
+    let completedDetailGoalCnt: Int
     let dDay: Int
-    
-    enum CodingKeys: String, CodingKey {
-        case identity = "goalId"
-        case reward = "reward"
-        case endDate = "endDate"
-        case startDate = "startDate"
-        case title = "title"
-        case completedDetailGoalCnt = "completedDetailGoalCnt"
-        case entireDetailGoalCnt = "entireDetailGoalCnt"
-        case hasRetrospect = "hasRetrospect"
-        case dDay = "dDay"
-    }
+    let hasRetrospect: Bool
+    let reminderEnabled: Bool
+    let reward: String?
 }
 
 // MARK: - 상위 목표 개수 모델

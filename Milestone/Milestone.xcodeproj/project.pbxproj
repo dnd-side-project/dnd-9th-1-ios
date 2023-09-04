@@ -32,6 +32,12 @@
 		A23E8B9E2A8FF54D0051D135 /* CompleteGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */; };
 		A23E8BA02A900EEC0051D135 /* DeleteGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23E8B9F2A900EEC0051D135 /* DeleteGoalViewController.swift */; };
 		A23E8BA22A9013610051D135 /* AskOneOfTwoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */; };
+		A2400D652AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2400D642AA3891200EB79D6 /* ContentSizedTableView.swift */; };
+		A2400D662AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2400D642AA3891200EB79D6 /* ContentSizedTableView.swift */; };
+		A2400D672AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2400D642AA3891200EB79D6 /* ContentSizedTableView.swift */; };
+		A2400D692AA3C24600EB79D6 /* Notification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2400D682AA3C24600EB79D6 /* Notification+.swift */; };
+		A2400D6A2AA3C24600EB79D6 /* Notification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2400D682AA3C24600EB79D6 /* Notification+.swift */; };
+		A2400D6B2AA3C24600EB79D6 /* Notification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2400D682AA3C24600EB79D6 /* Notification+.swift */; };
 		A252C4B52A92B5AB0067B89C /* ParentGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A252C4B32A92B5AB0067B89C /* ParentGoal.swift */; };
 		A252C4B62A92B5AB0067B89C /* ParentGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A252C4B32A92B5AB0067B89C /* ParentGoal.swift */; };
 		A25988FA2A967C3000C6BDE0 /* UpdateGoalListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988F92A967C3000C6BDE0 /* UpdateGoalListDelegate.swift */; };
@@ -318,6 +324,8 @@
 		A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteGoalViewController.swift; sourceTree = "<group>"; };
 		A23E8B9F2A900EEC0051D135 /* DeleteGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGoalViewController.swift; sourceTree = "<group>"; };
 		A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskOneOfTwoView.swift; sourceTree = "<group>"; };
+		A2400D642AA3891200EB79D6 /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
+		A2400D682AA3C24600EB79D6 /* Notification+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+.swift"; sourceTree = "<group>"; };
 		A252C4B32A92B5AB0067B89C /* ParentGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentGoal.swift; sourceTree = "<group>"; };
 		A25988F92A967C3000C6BDE0 /* UpdateGoalListDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGoalListDelegate.swift; sourceTree = "<group>"; };
 		A25988FD2A96915E00C6BDE0 /* ServicesDetailGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesDetailGoal.swift; sourceTree = "<group>"; };
@@ -623,6 +631,7 @@
 				A2EC47CF2A8A968A00401B03 /* DetailGoalInfoView.swift */,
 				A26509132A8DE1BA00E9A2D7 /* AddDetailGoalStoneView.swift */,
 				A27C9A0F2A8E42B5002C6F44 /* EnterGoalAlarmView.swift */,
+				A2400D642AA3891200EB79D6 /* ContentSizedTableView.swift */,
 			);
 			path = FillBox;
 			sourceTree = "<group>";
@@ -682,6 +691,7 @@
 				A28EDA102A87808A001A021A /* UIViewController+.swift */,
 				C90DC9852A88F0B100241B7C /* UITextField+.swift */,
 				C90DC9892A8922D300241B7C /* NSMutableAttributedString+.swift */,
+				A2400D682AA3C24600EB79D6 /* Notification+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1308,8 +1318,10 @@
 				A2B20D592A7E4E5C001ED73C /* UIFont+.swift in Sources */,
 				A25988FA2A967C3000C6BDE0 /* UpdateGoalListDelegate.swift in Sources */,
 				C9B2CE152A8F514A006289A8 /* APIService.swift in Sources */,
+				A2400D692AA3C24600EB79D6 /* Notification+.swift in Sources */,
 				C9B2CDD62A8A77F1006289A8 /* CompletionViewModel.swift in Sources */,
 				C9B2CDFF2A8DE365006289A8 /* CompleteView.swift in Sources */,
+				A2400D652AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */,
 				A2B20D942A7ED174001ED73C /* UIImage+.swift in Sources */,
 				A28EDA152A8791F7001A021A /* DetailGoalCollectionViewCell.swift in Sources */,
 				C90DC9822A88854C00241B7C /* OnboardingViewController.swift in Sources */,
@@ -1328,6 +1340,7 @@
 				A289D95D2A9133C7005B7F00 /* PresentDelegate.swift in Sources */,
 				A289D9532A912864005B7F00 /* PointTextStyle.swift in Sources */,
 				A2B969882A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
+				A2400D662AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */,
 				A28EDA122A87808A001A021A /* UIViewController+.swift in Sources */,
 				A2FA58DE2A7F7A3E006ACA2E /* (null) in Sources */,
 				A2248E842A8818AD00EB995A /* DetailGoalTableViewCell.swift in Sources */,
@@ -1372,6 +1385,7 @@
 				A2FA58E62A7F7A55006ACA2E /* (null) in Sources */,
 				A289D94B2A912616005B7F00 /* WriteRetrospectStyle.swift in Sources */,
 				A22736802A7CE53800D7B3B2 /* MilestoneTests.swift in Sources */,
+				A2400D6A2AA3C24600EB79D6 /* Notification+.swift in Sources */,
 				A2B20D5E2A7E4E68001ED73C /* UIColor+.swift in Sources */,
 				A26416DC2A9959D50073BEA1 /* StorageBoxViewModel.swift in Sources */,
 				A2FA59262A7FD3B1006ACA2E /* UICollectionView+.swift in Sources */,
@@ -1401,6 +1415,7 @@
 				A2FC49592A979F850045FE59 /* ResetGoalViewController.swift in Sources */,
 				A22774AF2A977438004AE5D7 /* AMPMStyle.swift in Sources */,
 				A2FA58E72A7F7A55006ACA2E /* (null) in Sources */,
+				A2400D672AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */,
 				A2B969892A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
 				A2D304BF2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
 				A289D9442A91241C005B7F00 /* UserDefaultsKeyStyle.swift in Sources */,
@@ -1408,6 +1423,7 @@
 				A2FA592F2A7FD433006ACA2E /* NSObject+.swift in Sources */,
 				A2FA591B2A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
 				A2B20D5F2A7E4E68001ED73C /* UIColor+.swift in Sources */,
+				A2400D6B2AA3C24600EB79D6 /* Notification+.swift in Sources */,
 				A289D9482A91246C005B7F00 /* DayStyle.swift in Sources */,
 				A2FFBC912A94986200039919 /* FillBoxViewModel.swift in Sources */,
 				A2FA59122A7FCFB4006ACA2E /* Encodable+.swift in Sources */,

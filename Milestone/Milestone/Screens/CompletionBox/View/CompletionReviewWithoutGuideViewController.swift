@@ -201,7 +201,7 @@ class CompletionReviewWithoutGuideViewController: BaseViewController, ViewModelB
     func bindViewModel() {
         let combinedObservable = Observable.combineLatest(viewModel.retrieveGoalDataAtIndex(index: goalIndex), selectedPoint.asObservable()) { goalData, selectedPoint in
             return [
-                "id": goalData.identity,
+                "id": goalData.goalId,
                 "selected": selectedPoint
             ] as [String: Any]
         }
