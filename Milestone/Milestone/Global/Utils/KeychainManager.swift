@@ -96,8 +96,8 @@ class KeychainManager {
         }
     }
     
-    func saveItem<T: Encodable>(
-        _ item: T,
+    func saveItem(
+        _ item: String,
         itemClass: ItemClass,
         key: String,
         attributes: ItemAttributes? = nil) throws {
@@ -127,10 +127,10 @@ class KeychainManager {
             }
         }
     
-    func retrieveItem<T: Decodable>(
+    func retrieveItem(
         ofClass itemClass: ItemClass,
         key: String, attributes:
-        ItemAttributes? = nil) throws -> T {
+        ItemAttributes? = nil) throws -> String {
             
             // 1
             var query: KeychainDictionary = [
@@ -167,11 +167,11 @@ class KeychainManager {
             }
             
             // 7
-            return try JSONDecoder().decode(T.self, from: data)
+            return try JSONDecoder().decode(String.self, from: data)
         }
     
-    func updateItem<T: Encodable>(
-        with item: T,
+    func updateItem(
+        with item: String,
         ofClass itemClass: ItemClass,
         key: String,
         attributes: ItemAttributes? = nil) throws {
@@ -229,7 +229,7 @@ class KeychainManager {
 extension KeychainManager: ReactiveCompatible {}
 
 extension Reactive where Base: KeychainManager {
-    func saveItem<T: Encodable>( _ item: T, itemClass: ItemClass, key: String, attributes: ItemAttributes? = nil) -> Observable<Void> {
+    func saveItem(_ item: String, itemClass: ItemClass, key: String, attributes: ItemAttributes? = nil) -> Observable<Void> {
         return Observable.create({ observer -> Disposable in
             do {
                 try self.base.saveItem(item, itemClass: itemClass, key: key)
@@ -248,10 +248,10 @@ extension Reactive where Base: KeychainManager {
         })
     }
     
-    func retrieveItem<T: Decodable>(ofClass itemClass: ItemClass, key: String, attributes: ItemAttributes? = nil) -> Observable<T> {
+    func retrieveItem(ofClass itemClass: ItemClass, key: String, attributes: ItemAttributes? = nil) -> Observable<String> {
         return Observable.create({ observer -> Disposable in
             do {
-                let result: T = try self.base.retrieveItem(ofClass: itemClass, key: key)
+                let result: String = try self.base.retrieveItem(ofClass: itemClass, key: key)
                 observer.onNext(result)
                 observer.onCompleted()
             } catch {
@@ -262,7 +262,7 @@ extension Reactive where Base: KeychainManager {
         })
     }
     
-    func updateItem<T: Encodable>( with item: T, ofClass itemClass: ItemClass, key: String, attributes: ItemAttributes? = nil) -> Observable<Void> {
+    func updateItem(with item: String, ofClass itemClass: ItemClass, key: String, attributes: ItemAttributes? = nil) -> Observable<Void> {
         return Observable.create({ observer -> Disposable in
             do {
                 try self.base.updateItem(with: item, ofClass: itemClass, key: key)
