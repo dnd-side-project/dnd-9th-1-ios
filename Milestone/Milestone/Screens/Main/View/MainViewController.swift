@@ -113,7 +113,8 @@ class MainViewController: BaseViewController {
         
         settingButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                let settingVC = SettingViewController()
+                var settingVC = SettingViewController()
+                settingVC.bind(viewModel: SettingViewModel())
                 self?.navigationController?.pushViewController(settingVC, animated: true)
             })
             .disposed(by: disposeBag)
