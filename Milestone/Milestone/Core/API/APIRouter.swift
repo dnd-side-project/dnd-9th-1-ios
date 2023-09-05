@@ -25,6 +25,8 @@ enum APIRouter: URLRequestConvertible {
     /// 유저 관련 API 리스트
     case reissue
     case login(provider: String, userId: String, fcmToken: String)
+    case logout
+    case withdraw
     
     /// 회고작성 관련 API 리스트
     case requestRetrospect(higherLevelGoalId: Int)
@@ -64,6 +66,10 @@ enum APIRouter: URLRequestConvertible {
         case .reissue:
             return .post
         case .login:
+            return .post
+        case .logout:
+            return .post
+        case .withdraw:
             return .post
         case .requestRetrospect:
             return .get
@@ -113,6 +119,10 @@ enum APIRouter: URLRequestConvertible {
             return "/reissue"
         case .login(let provider, _, _):
             return "/auth/\(provider)"
+        case .logout:
+            return "/auth/logout"
+        case .withdraw:
+            return "/auth/withdraw"
         case .requestRetrospect(let id):
             return "/goals/\(id)/retrospects"
         case .postRetrospect(let id, _):
@@ -183,6 +193,10 @@ enum APIRouter: URLRequestConvertible {
                 K.Parameters.userId: userId,
                 K.Parameters.fcmToken: fcmToken
             ]
+        case .logout:
+            return nil
+        case .withdraw:
+            return nil
         case .requestRetrospect(let id):
             return [
                 K.Parameters.goalId: id
