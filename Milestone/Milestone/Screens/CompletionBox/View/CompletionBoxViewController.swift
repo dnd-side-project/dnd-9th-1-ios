@@ -55,11 +55,6 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             $0.guideLabel.text = "이룬 목표에 대한 회고를 자세히 기록해보세요!"
         }
     
-    private let refreshControl = UIRefreshControl()
-        .then {
-            $0.attributedTitle = NSAttributedString(string: "당겨서 새로고침")
-        }
-    
     // MARK: - Properties
     
     var viewModel: CompletionViewModel!
@@ -86,18 +81,18 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         
         
         // FIXME: - 테스트코드
-//        viewModel.authTestResponse
-//            .subscribe(onNext: { result in
-//                switch result {
-//                case .success(let str):
-//                    print("SUCC!!")
-//                    print(str)
-//                case .failure(let error):
-//                    print("ERR!!")
-//                    print(error)
-//                }
-//            })
-//            .disposed(by: disposeBag)
+        viewModel.authTestResponse
+            .subscribe(onNext: { result in
+                switch result {
+                case .success(let str):
+                    print("SUCC!!")
+                    print(str)
+                case .failure(let error):
+                    print("ERR!!")
+                    print(error)
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -115,8 +110,6 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     override func render() {
         view.addSubViews([emptyImageView, label, tableView])
-        
-        tableView.addSubview(refreshControl)
         
         emptyImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(100)
@@ -218,24 +211,6 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             .bind(to: emptyImageView.rx.isHidden, label.rx.isHidden)
             .disposed(by: disposeBag)
         
-        refreshControl.rx.valueChanged
-            .subscribe(onNext: { [weak self] in
-                self?.viewModel.retrieveGoalData()
-                self?.viewModel.retrieveRetrospectCount()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.isLoading
-            .asDriver()
-            .drive(onNext: { [weak self] in
-                if $0 {
-                    self?.refreshControl.beginRefreshing()
-                } else {
-                    self?.refreshControl.endRefreshing()
-                }
-            })
-            .disposed(by: disposeBag)
-        
         viewModel.enabledRetrospectCount
             .map { count -> NSAttributedString in
                 let stringValue = "총 \(count)개의 목표 회고를 작성할 수 있어요!"
@@ -308,11 +283,4 @@ extension CompletionBoxViewController: UITableViewDelegate {
 
 extension CompletionBoxViewController {
     
-}
-
-// MARK: - Refresh Control Extension
-extension Reactive where Base: UIRefreshControl {
-    var valueChanged: ControlEvent<Void> {
-        return controlEvent(.valueChanged)
-    }
 }
