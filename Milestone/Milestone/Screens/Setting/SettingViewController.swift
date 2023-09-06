@@ -49,21 +49,32 @@ class SettingViewController: BaseViewController, ViewModelBindableType {
     var buttonDisposeBag = DisposeBag()
     var viewModel: SettingViewModel!
     
+    // MARK: - Life Cycles
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.largeTitleDisplayMode = .always
+    }
+    
     // MARK: - Functions
     
     override func render() {
         view.addSubViews([settingTableView])
         
         settingTableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
         }
     }
     
+    // MARK: 네비게이션 컨트롤러가 nil
     override func configUI() {
         self.view.backgroundColor = .white
         self.title = "설정"
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.leftBarButtonItem = leftBarButton
+        
+        settingTableView.backgroundColor = .gray01
+        settingTableView.sectionHeaderTopPadding = 0
     }
 }
 
@@ -77,6 +88,7 @@ extension SettingViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCellFirstSection.identifier) as? SettingTableViewCellFirstSection else { return UITableViewCell() }
@@ -137,6 +149,10 @@ extension SettingViewController: UITableViewDataSource {
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCellSecondSection.identifier) as? SettingTableViewCellSecondSection else { return UITableViewCell() }
             cell.label.text = cellItems[indexPath.section][indexPath.row]
+            
+            if indexPath.row == 2 {
+                cell.makeShadow(color: .init(hex: "#DCDCDC"), alpha: 1.0, x: 0, y: 0, blur: 7, spread: 0)
+            }
             return cell
         default:
             return UITableViewCell()
