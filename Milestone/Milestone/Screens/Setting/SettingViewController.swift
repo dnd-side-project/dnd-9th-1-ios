@@ -15,7 +15,8 @@ class SettingViewController: BaseViewController, ViewModelBindableType {
     
     lazy var settingTableView = UITableView()
         .then {
-            $0.separatorStyle = .none
+            $0.separatorColor = .gray01
+            $0.separatorStyle = .singleLine
             $0.register(cell: SettingTableViewCellFirstSection.self, forCellReuseIdentifier: SettingTableViewCellFirstSection.identifier)
             $0.register(cell: SettingTableViewCellSecondSection.self, forCellReuseIdentifier: SettingTableViewCellSecondSection.identifier)
             $0.dataSource = self
@@ -74,7 +75,7 @@ class SettingViewController: BaseViewController, ViewModelBindableType {
         self.navigationItem.leftBarButtonItem = leftBarButton
         
         settingTableView.backgroundColor = .gray01
-        settingTableView.sectionHeaderTopPadding = 0
+        settingTableView.sectionHeaderTopPadding = 4
     }
 }
 
@@ -144,6 +145,7 @@ extension SettingViewController: UITableViewDataSource {
                     }
                 }
             }
+            cell.containerView.makeShadow(color: .init(hex: "#DCDCDC"), alpha: 1.0, x: 0, y: 0, blur: 7, spread: 0)
             
             return cell
         case 1:
@@ -151,6 +153,7 @@ extension SettingViewController: UITableViewDataSource {
             cell.label.text = cellItems[indexPath.section][indexPath.row]
             
             if indexPath.row == 2 {
+                cell.layer.zPosition = -1
                 cell.makeShadow(color: .init(hex: "#DCDCDC"), alpha: 1.0, x: 0, y: 0, blur: 7, spread: 0)
             }
             return cell
