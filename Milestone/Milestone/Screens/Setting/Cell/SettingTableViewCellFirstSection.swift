@@ -36,10 +36,9 @@ class SettingTableViewCellFirstSection: BaseTableViewCell {
         containerView.addSubViews([label, toggleButton])
         
         containerView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.edges.equalToSuperview()
             make.top.equalToSuperview().offset(4)
-            make.bottom.equalToSuperview().offset(-4)
+            make.bottom.equalToSuperview().offset(4)
         }
         
         label.snp.makeConstraints { make in
@@ -51,5 +50,10 @@ class SettingTableViewCellFirstSection: BaseTableViewCell {
             make.trailing.equalTo(containerView.snp.trailing).offset(-24)
             make.centerY.equalTo(containerView.snp.centerY)
         }
+    }
+    
+    override func configUI() {
+        self.backgroundColor = .white
+        self.makeShadow(color: .init(hex: "#DCDCDC"), alpha: 1.0, x: 0, y: 0, blur: 7, spread: 0)
     }
 }
