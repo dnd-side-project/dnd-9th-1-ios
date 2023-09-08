@@ -78,7 +78,17 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             .disposed(by: disposeBag)
         
         checkFirstCompletionBox()
-        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        disposeAll()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.retrieveGoalData()
+        viewModel.retrieveRetrospectCount()
         
         // FIXME: - 테스트코드
         viewModel.authTestResponse
@@ -93,17 +103,6 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                 }
             })
             .disposed(by: disposeBag)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        disposeAll()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        viewModel.retrieveGoalData()
-        viewModel.retrieveRetrospectCount()
     }
     
     // MARK: - Functions
