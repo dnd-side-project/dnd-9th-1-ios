@@ -64,8 +64,7 @@ class APIInterceptor: RequestInterceptor {
                                 .disposed(by: self.disposeBag)
                             print("SAVE COMPLETED!")
                             completion(.retry)
-                        case .failure(let error):
-                            print(error)
+                        case .failure:
                             completion(.doNotRetry)
                         }
                     })
