@@ -84,6 +84,10 @@ class OnboardingViewModel: BindableViewModel {
             return Observable.error(error)
         }
     }
+    
+    func addParentGoal(goal: CreateParentGoal) -> Observable<Result<EmptyDataModel, APIError>> {
+        return requestPostParentGoal(reqBody: goal)
+    }
 }
 
-extension OnboardingViewModel: ServicesUser { }
+extension OnboardingViewModel: ServicesUser, ServicesGoalList { }
