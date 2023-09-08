@@ -8,7 +8,7 @@
 import Foundation
 
 enum KeychainKeyList: String {
-    case fcmToken = "fckToken"
-    case accessToken = "accessToken"
-    case refreshToken = "refreshToken"
+    case fcmToken
+    case accessToken
+    case refreshToken
 }
