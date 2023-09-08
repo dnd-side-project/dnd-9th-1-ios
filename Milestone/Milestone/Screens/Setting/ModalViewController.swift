@@ -66,19 +66,13 @@ class ModalViewController: BaseViewController, ViewModelBindableType {
     
     @objc
     private func handleTapLogout() {
-        UIView.animate(withDuration: 0.1) { [weak self] in
-            self?.askPopUpView.yesButton.updateButtonState(.press)
-        }
-        
         viewModel.handleLogout()
+        dismissViewController()
     }
     
     @objc
     private func handleTapWithdraw() {
-        UIView.animate(withDuration: 0.1) { [weak self] in
-            self?.askPopUpView.yesButton.updateButtonState(.press)
-        }
-        
         viewModel.handleWithdraw()
+        dismissViewController()
     }
 }
