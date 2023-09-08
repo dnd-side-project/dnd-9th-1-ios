@@ -15,10 +15,14 @@ class SettingViewModel: BindableViewModel {
     var bag = DisposeBag()
     
     func handleLogout() {
+        
         logout()
             .subscribe(on: MainScheduler.instance)
             .subscribe(onNext: { _ in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                    guard let self = self else { return }
+                    self.removeTokens()
+                    
                     let window = UIApplication.shared.connectedScenes.compactMap { ($0 as? UIWindowScene)?.keyWindow }.last
                     let root = window?.rootViewController
                     AppCoordinator(window: window!).start()
@@ -31,11 +35,30 @@ class SettingViewModel: BindableViewModel {
         withdraw()
             .subscribe(on: MainScheduler.instance)
             .subscribe(onNext: { _ in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                    guard let self = self else { return }
+                    self.removeTokens()
+                    
                     let window = UIApplication.shared.connectedScenes.compactMap { ($0 as? UIWindowScene)?.keyWindow }.last
                     let root = window?.rootViewController
                     AppCoordinator(window: window!).start()
                 }
+            })
+            .disposed(by: bag)
+    }
+    
+    func removeTokens() {
+        KeychainManager.shared.rx.deleteItem(ofClass: .password, key: KeychainKeyList.refreshToken.rawValue)
+            .debug()
+            .subscribe(onNext: {
+                print("refresh removed")
+            })
+            .disposed(by: bag)
+        
+        KeychainManager.shared.rx.deleteItem(ofClass: .password, key: KeychainKeyList.accessToken.rawValue)
+            .debug()
+            .subscribe(onNext: {
+                print("access removed")
             })
             .disposed(by: bag)
     }
