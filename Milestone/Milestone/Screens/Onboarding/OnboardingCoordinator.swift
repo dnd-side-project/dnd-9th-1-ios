@@ -21,6 +21,7 @@ class OnboardingCoordinator: Coordinator, OnboardingFlow {
     
     func start() {
         let onboardingVC = OnboardingViewController()
+        onboardingVC.viewModel = OnboardingViewModel()
         onboardingVC.coordinator = self
         navigationController.navigationBar.isHidden = true
         navigationController.pushViewController(onboardingVC, animated: true)
