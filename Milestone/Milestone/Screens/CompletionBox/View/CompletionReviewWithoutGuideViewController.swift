@@ -101,6 +101,8 @@ class CompletionReviewWithoutGuideViewController: BaseViewController, ViewModelB
     var viewModel: CompletionViewModel!
     let selectedPoint = BehaviorRelay<String>(value: "")
     
+    var saveButtonTapDisposable: Disposable!
+    
     // MARK: Life Cycles
     
     // MARK: Functions
@@ -199,22 +201,15 @@ class CompletionReviewWithoutGuideViewController: BaseViewController, ViewModelB
     }
     
     func bindViewModel() {
-        let combinedObservable = Observable.combineLatest(viewModel.retrieveGoalDataAtIndex(index: goalIndex), selectedPoint.asObservable()) { goalData, selectedPoint in
-            return [
-                "id": goalData.goalId,
-                "selected": selectedPoint
-            ] as [String: Any]
-        }
+        let goalDataAtIndex = viewModel.retrieveGoalDataAtIndex(index: goalIndex)
         
-        registerButton.rx.tap
-            .flatMap { combinedObservable }
-            .map { [unowned self] in
-                self.viewModel.saveRetrospect(goalId: $0["id"] as! Int, retrospect: Retrospect(hasGuide: false, contents: ["NONE": textView.text], successLevel: $0["selected"] as! String))
+        saveButtonTapDisposable = registerButton.rx.tap
+            .flatMapFirst { [unowned self] in
+                self.viewModel.saveRetrospect(goalId: goalDataAtIndex.goalId, retrospect: Retrospect(hasGuide: false, contents: ["NONE": textView.text], successLevel: self.selectedPoint.value))
             }
             .subscribe(onNext: { [unowned self] in
                 self.viewModel.handlingPostResponse(result: $0)
             })
-            .disposed(by: disposeBag)
         
         viewModel.isLoading
             .asDriver()
