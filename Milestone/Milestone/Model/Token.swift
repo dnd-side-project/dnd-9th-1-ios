@@ -12,3 +12,8 @@ struct Token: Codable {
     let accessToken: String
     let refreshToken: String
 }
+
+struct RefreshToken: Codable {
+    let accessToken: String
+    let refreshToken: String
+}
