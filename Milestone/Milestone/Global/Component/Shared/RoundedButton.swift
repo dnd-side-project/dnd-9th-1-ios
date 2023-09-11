@@ -67,38 +67,47 @@ class RoundedButton: UIButton {
             switch state {
             case .original:
                 isEnabled = true
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .gray06
             case .press:
                 isEnabled = true
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .black
             case .disabled:
                 isEnabled = false
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .gray02
             }
         case .secondary_l:
             switch state {
             case .original:
                 isEnabled = true
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .primary
             case .press:
                 isEnabled = true
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .init(hex: "#2A6DC6")
             case .disabled:
                 isEnabled = false
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .init(hex: "#ADBED6")
             }
         case .secondary_m:
             switch state {
             case .original:
                 isEnabled = true
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .secondary03
                 setTitleColor(.primary, for: .normal)
             case .press:
                 isEnabled = true
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .secondary02
                 setTitleColor(.primary, for: .normal)
             case .disabled:
                 isEnabled = false
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .secondary03
                 setTitleColor(.gray02, for: .normal)
             }
@@ -127,29 +136,35 @@ class RoundedButton: UIButton {
             switch state {
             case .original:
                 isEnabled = true
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .gray01
                 setTitleColor(.gray04, for: .normal)
             case .press:
                 isEnabled = true
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .gray02
                 setTitleColor(.gray04, for: .normal)
             case .disabled:
                 isEnabled = false
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .white
                 setTitleColor(.gray02, for: .disabled)
             }
         case .secondary_s:
             switch state {
             case .original:
+                layer.borderColor = UIColor.clear.cgColor
                 isEnabled = true
                 backgroundColor = .secondary03
                 setTitleColor(.primary, for: .normal)
             case .press:
                 isEnabled = true
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .secondary02
                 setTitleColor(.primary, for: .normal)
             case .disabled:
                 isEnabled = false
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .secondary02
                 setTitleColor(.gray02, for: .disabled)
             }
@@ -157,14 +172,17 @@ class RoundedButton: UIButton {
             switch state {
             case .original:
                 isEnabled = true
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .gray01
                 setTitleColor(.gray04, for: .normal)
             case .press:
                 isEnabled = true
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .gray02
                 setTitleColor(.gray04, for: .normal)
             case .disabled:
                 isEnabled = false
+                layer.borderColor = UIColor.clear.cgColor
                 backgroundColor = .white
                 setTitleColor(.gray02, for: .disabled)
             }
