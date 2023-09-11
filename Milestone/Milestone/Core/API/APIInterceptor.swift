@@ -38,12 +38,29 @@ class APIInterceptor: RequestInterceptor {
         
         if let url = request.response?.url {
             if url.relativePath == "/reissue" {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                    guard let self = self else { return }
                     let window = UIApplication.shared.connectedScenes.compactMap { ($0 as? UIWindowScene)?.keyWindow }.last
                     let root = window?.rootViewController
+                    
+                    let accessTokenObservable = KeychainManager.shared.rx
+                        .deleteItem(ofClass: .password, key: KeychainKeyList.accessToken.rawValue)
+                    let refreshTokenObservable = KeychainManager.shared.rx
+                        .deleteItem(ofClass: .password, key: KeychainKeyList.refreshToken.rawValue)
+                    
+                    // FIXME: 토큰 삭제 후 로그인 화면으로 넘어가는지 확인 필요
+                    Observable.combineLatest(accessTokenObservable, refreshTokenObservable)
+                        .subscribe(on: MainScheduler.instance)
+                        .subscribe(onNext: {_, _ in
+                            DispatchQueue.main.async {
+                                AppCoordinator(window: window!).start()
+                            }
+                        })
+                        .disposed(by: self.disposeBag)
+                    
+                    
 //                    LoginCoordinator(navigationController: root as! UINavigationController)
-                    AppCoordinator(window: window!).start()
+//                    AppCoordinator(window: window!).start()
                 }
                 
                 completion(.doNotRetryWithError(APIError.http(status: 401)))
