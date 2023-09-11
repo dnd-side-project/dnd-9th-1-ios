@@ -39,4 +39,8 @@ class SettingTableViewCellSecondSection: BaseTableViewCell {
             make.centerY.equalTo(containerView)
         }
     }
+    
+    override func configUI() {
+        self.backgroundColor = .white
+    }
 }

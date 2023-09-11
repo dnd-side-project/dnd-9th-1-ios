@@ -9,13 +9,14 @@ import UIKit
 
 import RxSwift
 
-class SettingViewController: BaseViewController {
+class SettingViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Subviews
     
     lazy var settingTableView = UITableView()
         .then {
-            $0.separatorStyle = .none
+            $0.separatorColor = .gray01
+            $0.separatorStyle = .singleLine
             $0.register(cell: SettingTableViewCellFirstSection.self, forCellReuseIdentifier: SettingTableViewCellFirstSection.identifier)
             $0.register(cell: SettingTableViewCellSecondSection.self, forCellReuseIdentifier: SettingTableViewCellSecondSection.identifier)
             $0.dataSource = self
@@ -31,8 +32,11 @@ class SettingViewController: BaseViewController {
             $0.action = #selector(pop)
         }
     
-    let modalViewController = DeleteGoalViewController()
+    lazy var modalViewController = ModalViewController()
         .then {
+            $0.viewModel = self.viewModel
+            $0.askPopUpView.noButton.backgroundColor = .clear
+            $0.askPopUpView.yesButton.buttonComponentStyle = .secondary_m_gray
             $0.askPopUpView.noButton.setTitle("지금 안할래요", for: .normal)
             $0.askPopUpView.yesButton.setTitle("지금 할래요", for: .normal)
             $0.modalTransitionStyle = .crossDissolve
@@ -44,6 +48,14 @@ class SettingViewController: BaseViewController {
     let cellItems = [["푸시 알림"], ["개인정보 처리 방침", "로그아웃", "회원 탈퇴"]]
     let sectionItems = ["알림", "계정 관리"]
     var buttonDisposeBag = DisposeBag()
+    var viewModel: SettingViewModel!
+    
+    // MARK: - Life Cycles
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.largeTitleDisplayMode = .always
+    }
     
     // MARK: - Functions
     
@@ -51,15 +63,19 @@ class SettingViewController: BaseViewController {
         view.addSubViews([settingTableView])
         
         settingTableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
         }
     }
     
+    // MARK: 네비게이션 컨트롤러가 nil
     override func configUI() {
         self.view.backgroundColor = .white
         self.title = "설정"
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.leftBarButtonItem = leftBarButton
+        
+        settingTableView.backgroundColor = .gray01
+        settingTableView.sectionHeaderTopPadding = 4
     }
 }
 
@@ -73,10 +89,11 @@ extension SettingViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCellFirstSection.identifier) as? SettingTableViewCellFirstSection else { return UITableViewCell() }
-            print( cellItems[indexPath.section][indexPath.row])
+
             cell.label.text = cellItems[indexPath.section][indexPath.row]
             
             if indexPath.row == 0 {
@@ -100,7 +117,6 @@ extension SettingViewController: UITableViewDataSource {
                                     UserDefaults.standard.set(false, forKey: UserDefaultsKeyStyle.registerNotification.rawValue)
                                     UIApplication.shared.unregisterForRemoteNotifications()
                                 }
-                                print($0)
                             })
                             .disposed(by: self.disposeBag)
                     } else {
@@ -129,11 +145,17 @@ extension SettingViewController: UITableViewDataSource {
                     }
                 }
             }
+            cell.containerView.makeShadow(color: .init(hex: "#DCDCDC"), alpha: 1.0, x: 0, y: 0, blur: 7, spread: 0)
             
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCellSecondSection.identifier) as? SettingTableViewCellSecondSection else { return UITableViewCell() }
             cell.label.text = cellItems[indexPath.section][indexPath.row]
+            
+            if indexPath.row == 2 {
+                cell.layer.zPosition = -1
+                cell.makeShadow(color: .init(hex: "#DCDCDC"), alpha: 1.0, x: 0, y: 0, blur: 7, spread: 0)
+            }
             return cell
         default:
             return UITableViewCell()
@@ -149,13 +171,14 @@ extension SettingViewController: UITableViewDelegate {
             } else if indexPath.row == 1 {
                 modalViewController.askPopUpView.askLabel.text = "로그아웃 하시겠어요?"
                 modalViewController.askPopUpView.guideLabel.text = "다시 오시길 기다릴게요 🥺"
-                
+                modalViewController.selectedRow = indexPath.row
                 buttonDisposeBag = DisposeBag()
                 
                 self.present(modalViewController, animated: true)
             } else if indexPath.row == 2 {
                 modalViewController.askPopUpView.askLabel.text = "정말 탈퇴 하시겠어요?"
                 modalViewController.askPopUpView.guideLabel.text = "저장된 정보는 복구가 불가능해요 🥺"
+                modalViewController.selectedRow = indexPath.row
                 
                 buttonDisposeBag = DisposeBag()
                 self.present(modalViewController, animated: true)

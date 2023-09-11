@@ -13,6 +13,7 @@ import RxSwift
 
 class AppCoordinator: Coordinator {
     private let window: UIWindow
+    var disposeBag = DisposeBag()
     
     init(window: UIWindow) {
         self.window = window
@@ -25,8 +26,19 @@ class AppCoordinator: Coordinator {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
-        // FIXME: 실물기기 테스트 진행 가능시 아래 주석처리 코드로 수정할것!
-        
-        coordinate(to: LoginCoordinator(navigationController: navigationController))
+        KeychainManager.shared.rx.retrieveItem(ofClass: .password, key: KeychainKeyList.refreshToken.rawValue)
+            .subscribe(onNext: {
+                if !$0.isEmpty {
+                    navigationController.pushViewController(MainViewController(), animated: false)
+                }
+            }, onError: { [weak self] error in
+                guard let error = error as? KeychainError else {
+                    return
+                }
+                if error.localizedDescription == "Item not found" {
+                    self?.coordinate(to: LoginCoordinator(navigationController: navigationController))
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }

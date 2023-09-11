@@ -44,6 +44,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     private let tableView = UITableView()
         .then {
+            $0.showsVerticalScrollIndicator = false
             $0.delaysContentTouches = false
             $0.separatorStyle = .none
             $0.backgroundColor = .clear
@@ -55,16 +56,12 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             $0.guideLabel.text = "이룬 목표에 대한 회고를 자세히 기록해보세요!"
         }
     
-    private let refreshControl = UIRefreshControl()
-        .then {
-            $0.attributedTitle = NSAttributedString(string: "당겨서 새로고침")
-        }
-    
     // MARK: - Properties
     
     var viewModel: CompletionViewModel!
     var bubbleKey = UserDefaultsKeyStyle.bubbleInCompletionBox.rawValue
     var pushViewDisposables: [Disposable] = []
+    var scrollDisposable: Disposable!
     
     let dateFormatter = DateFormatter()
         .then {
@@ -83,40 +80,33 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             .disposed(by: disposeBag)
         
         checkFirstCompletionBox()
-        
-        
-        // FIXME: - 테스트코드
-//        viewModel.authTestResponse
-//            .subscribe(onNext: { result in
-//                switch result {
-//                case .success(let str):
-//                    print("SUCC!!")
-//                    print(str)
-//                case .failure(let error):
-//                    print("ERR!!")
-//                    print(error)
-//                }
-//            })
-//            .disposed(by: disposeBag)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         disposeAll()
+        resetScroll()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.retrieveGoalData()
         viewModel.retrieveRetrospectCount()
+        
+        scrollDisposable = tableView.rx.didScroll
+            .subscribe(onNext: { [unowned self] in
+                if self.tableView.contentOffset.y > self.tableView.contentSize.height - self.tableView.frame.size.height - 100 {
+                    if !self.viewModel.isLoading.value && !self.viewModel.isLastPage {
+                        self.viewModel.retrieveMoreRetrospect()
+                    }
+                }
+            })
     }
     
     // MARK: - Functions
     
     override func render() {
         view.addSubViews([emptyImageView, label, tableView])
-        
-        tableView.addSubview(refreshControl)
         
         emptyImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(100)
@@ -142,6 +132,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     }
     
     func bindViewModel() {
+        
         viewModel.goalData
             .bind(to: tableView.rx.items(cellIdentifier: CompletionTableViewCell.identifier, cellType: CompletionTableViewCell.self)) { [unowned self] row, element, cell in
                 let startDate = dateFormatter.date(from: element.startDate)!
@@ -167,29 +158,23 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                     .drive(onNext: { [weak self] in
                         guard let self = self else { return }
                         if element.hasRetrospect {
-                            let outerDisposable = self.viewModel.retrieveGoalDataAtIndex(index: row)
-                                .map { $0.goalId }
+                            let goalDataAtIndex =  self.viewModel.retrieveGoalDataAtIndex(index: row)
+                            self.viewModel.retrieveRetrospectWithId(goalId: goalDataAtIndex.goalId)
+                            let disposable = self.viewModel.retrospect
                                 .subscribe(onNext: {
-                                    self.viewModel.retrieveRetrospectWithId(goalId: $0)
-                                    
-                                    let disposable = self.viewModel.retrospect
-                                        .subscribe(onNext: {
-                                            if $0.hasGuide {
-                                                var savedVCWithGuide = CompletionSavedReviewWithGuideViewController()
-                                                savedVCWithGuide.goalIndex = row
-                                                savedVCWithGuide.bind(viewModel: self.viewModel)
-                                                self.push(viewController: savedVCWithGuide)
-                                            } else {
-                                                var savedVCWithoutGuide = CompletionSavedReviewWithoutGuideViewController()
-                                                savedVCWithoutGuide.goalIndex = row
-                                                savedVCWithoutGuide.bind(viewModel: self.viewModel)
-                                                self.push(viewController: savedVCWithoutGuide)
-                                            }
-                                        })
-                                    self.pushViewDisposables.append(disposable)
+                                    if $0.hasGuide {
+                                        var savedVCWithGuide = CompletionSavedReviewWithGuideViewController()
+                                        savedVCWithGuide.goalIndex = row
+                                        savedVCWithGuide.bind(viewModel: self.viewModel)
+                                        self.push(viewController: savedVCWithGuide)
+                                    } else {
+                                        var savedVCWithoutGuide = CompletionSavedReviewWithoutGuideViewController()
+                                        savedVCWithoutGuide.goalIndex = row
+                                        savedVCWithoutGuide.bind(viewModel: self.viewModel)
+                                        self.push(viewController: savedVCWithoutGuide)
+                                    }
                                 })
-                            
-                            self.pushViewDisposables.append(outerDisposable)
+                            self.pushViewDisposables.append(disposable)
                         } else {
                             let reviewVC = CompletionReviewViewController()
                             reviewVC.goalIndex = row
@@ -216,24 +201,6 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         viewModel.goalDataCount
             .map { $0 > 0}
             .bind(to: emptyImageView.rx.isHidden, label.rx.isHidden)
-            .disposed(by: disposeBag)
-        
-        refreshControl.rx.valueChanged
-            .subscribe(onNext: { [weak self] in
-                self?.viewModel.retrieveGoalData()
-                self?.viewModel.retrieveRetrospectCount()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.isLoading
-            .asDriver()
-            .drive(onNext: { [weak self] in
-                if $0 {
-                    self?.refreshControl.beginRefreshing()
-                } else {
-                    self?.refreshControl.endRefreshing()
-                }
-            })
             .disposed(by: disposeBag)
         
         viewModel.enabledRetrospectCount
@@ -275,6 +242,12 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         }
     }
     
+    func resetScroll() {
+        viewModel.lastPageId = -1
+        viewModel.isLastPage = false
+        scrollDisposable.dispose()
+    }
+    
     deinit {
         disposeBag = DisposeBag()
     }
@@ -309,10 +282,4 @@ extension CompletionBoxViewController: UITableViewDelegate {
 extension CompletionBoxViewController {
     
 }
-
-// MARK: - Refresh Control Extension
-extension Reactive where Base: UIRefreshControl {
-    var valueChanged: ControlEvent<Void> {
-        return controlEvent(.valueChanged)
-    }
-}
+ 

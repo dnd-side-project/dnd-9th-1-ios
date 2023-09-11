@@ -28,6 +28,7 @@ class OnboardingViewModel: BindableViewModel {
         .compactMap { $0.id }
         .map { String($0) }
     var appleUserId: String!
+    var isFirstLogin = false
     
     /// 로그인 진행
     /// 1. 프로바이더에 따라 로그인 함수 호출
@@ -41,9 +42,13 @@ class OnboardingViewModel: BindableViewModel {
                     self.saveToken(result: $0)
                 }
                 .subscribe(onError: {
-                    print($0)
+                    print("ERR: ",$0)
                 }, onCompleted: { [unowned self] in
-                    self.loginCoordinator?.coordinateToOnboarding()
+                    if self.isFirstLogin {
+                        self.loginCoordinator?.coordinateToOnboarding()
+                    } else {
+                        self.loginCoordinator?.coordinateToMain()
+                    }
                 })
                 .disposed(by: bag)
         case .kakao:
@@ -54,7 +59,11 @@ class OnboardingViewModel: BindableViewModel {
                     // MARK: 에러처리 필요
                     print($0)
                 }, onCompleted: { [unowned self] in
-                    self.loginCoordinator?.coordinateToOnboarding()
+                    if self.isFirstLogin {
+                        self.loginCoordinator?.coordinateToOnboarding()
+                    } else {
+                        self.loginCoordinator?.coordinateToMain()
+                    }
                 })
                 .disposed(by: bag)
         }
@@ -78,12 +87,19 @@ class OnboardingViewModel: BindableViewModel {
                 .saveItem(response.data.accessToken, itemClass: .password, key: KeychainKeyList.accessToken.rawValue)
             let refreshTokenObservable = KeychainManager.shared.rx
                 .saveItem(response.data.refreshToken, itemClass: .password, key: KeychainKeyList.refreshToken.rawValue)
+            
+            self.isFirstLogin = response.data.isFirstLogin
+            
             return accessTokenObservable.concat(refreshTokenObservable)
                 .map { true }
         case .failure(let error):
             return Observable.error(error)
         }
     }
+    
+    func addParentGoal(goal: CreateParentGoal) -> Observable<Result<EmptyDataModel, APIError>> {
+        return requestPostParentGoal(reqBody: goal)
+    }
 }
 
-extension OnboardingViewModel: ServicesUser { }
+extension OnboardingViewModel: ServicesUser, ServicesGoalList { }

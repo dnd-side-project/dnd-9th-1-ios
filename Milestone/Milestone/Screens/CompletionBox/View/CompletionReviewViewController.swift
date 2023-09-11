@@ -184,6 +184,8 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
         reviewCompleteVC.button.rx.tap
             .subscribe(onNext: { [unowned self] in
                 self.dismiss(animated: true) {
+                    self.reviewVCWithoutGuide.saveButtonTapDisposable.dispose()
+                    self.reviewVCWithGuide.saveButtonTapDisposable.dispose()
                     self.pop()
                 }
             })
@@ -207,19 +209,13 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
     }
     
     func bindViewModel() {
-        viewModel.retrieveGoalDataAtIndex(index: goalIndex)
-            .map { $0.title }
-            .bind(to: titleLabel.rx.text)
-            .disposed(by: disposeBag)
+        let goalDataAtIndex = viewModel.retrieveGoalDataAtIndex(index: goalIndex)
         
-        viewModel.retrieveGoalDataAtIndex(index: goalIndex)
-            .map { [unowned self] goal -> String in
-                let startDate = dateFormatter.date(from: goal.startDate)!
-                let endDate = dateFormatter.date(from: goal.endDate)!
-                return "\(dateFormatter.string(from: startDate)) - \(dateFormatter.string(from: endDate))"
-            }
-            .bind(to: dateLabel.rx.text)
-            .disposed(by: disposeBag)
+        let startDate = dateFormatter.date(from: goalDataAtIndex.startDate)!
+        let endDate = dateFormatter.date(from: goalDataAtIndex.endDate)!
+        
+        titleLabel.text = goalDataAtIndex.title
+        dateLabel.text = "\(dateFormatter.string(from: startDate)) - \(dateFormatter.string(from: endDate))"
         
         segmentedControl.rx.value.changed
             .asDriver()

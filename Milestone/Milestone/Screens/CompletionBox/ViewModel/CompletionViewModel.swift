@@ -41,6 +41,8 @@ class CompletionViewModel: BindableViewModel {
     var presentModal = BehaviorRelay<Bool>(value: false)
     
     let retrospect = PublishRelay<Retrospect>()
+    var lastPageId = -1
+    var isLastPage = false
     
     deinit {
         bag = DisposeBag()
@@ -59,6 +61,7 @@ extension CompletionViewModel {
                 case .success(let response):
                     self.goalData.accept(response.data.contents)
                     self.goalDataCount.accept(response.data.contents.count)
+                    self.lastPageId = response.data.contents.last?.goalId ?? -1
                     self.isLoading.accept(false)
                     self.isTableviewUpdated.accept(true)
                 case .failure(let error):
@@ -69,8 +72,8 @@ extension CompletionViewModel {
             .disposed(by: bag)
     }
     
-    func retrieveGoalDataAtIndex(index: Int) -> Observable<ParentGoal> {
-        return goalData.map { $0[index] }
+    func retrieveGoalDataAtIndex(index: Int) -> ParentGoal {
+        return goalData.value[index]
     }
     
     func retrieveRetrospectWithId(goalId: Int) {
@@ -98,6 +101,28 @@ extension CompletionViewModel {
             })
             .disposed(by: bag)
     }
+    
+    /// 로딩 & lastPage 관련 로직도 추가 필요
+    func retrieveMoreRetrospect() {
+        isLoading.accept(true)
+        requestAllGoals(lastGoalId: lastPageId, goalStatusParameter: .complete)
+            .subscribe(onNext: { [unowned self] result in
+                switch result {
+                case .success(let response):
+                    self.isLoading.accept(false)
+                    var newData = self.goalData.value
+                    newData.append(contentsOf: response.data.contents)
+                    self.goalData.accept(newData)
+                    self.isLastPage = !response.data.next
+                    if !isLastPage {
+                        self.lastPageId = response.data.contents.last?.goalId ?? -1
+                    }
+                case .failure:
+                    self.isLoading.accept(false)
+                }
+            })
+            .disposed(by: bag)
+    }
 }
 
 /// input
@@ -108,18 +133,14 @@ extension CompletionViewModel {
         return postReview(higherLevelGoalId: goalId, retrospect: retrospect)
     }
     
-    func handlingPostResponse(result: Observable<Result<BaseModel<Int>, APIError>>) {
-        isLoading.accept(true)
-        result.subscribe(onNext: { [unowned self] response in
-            switch response {
-            case .success:
-                isLoading.accept(false)
-                self.presentModal.accept(true)
-            case .failure(let error):
-                isLoading.accept(false)
-                print(error)
-            }
-        })
-        .disposed(by: bag)
+    func handlingPostResponse(result: Result<BaseModel<Int>, APIError>) {
+        switch result {
+        case .success:
+            isLoading.accept(false)
+            self.presentModal.accept(true)
+        case .failure(let error):
+            isLoading.accept(false)
+            print(error)
+        }
     }
 }

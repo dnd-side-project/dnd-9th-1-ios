@@ -50,6 +50,7 @@ class OnboardingViewController: BaseViewController {
     
     // MARK: Properties
     var coordinator: OnboardingFlow?
+    var viewModel: OnboardingViewModel!
     
     // MARK: Function
     
@@ -94,7 +95,19 @@ class OnboardingViewController: BaseViewController {
     // MARK: Objc functions
     @objc func completeButtonTapped(_ sender: UIButton) {
         updateButtonState(.press)
-        coordinator?.coordinateToNext()
+        
+        let parentGoal = CreateParentGoal(title: enterGoalTitleView.titleTextField.text ?? "", startDate: enterGoalDateView.startDateButton.titleLabel?.text ?? "", endDate: enterGoalDateView.endDateButton.titleLabel?.text ?? "", reminderEnabled: reminderAlarmView.onOffSwitch.isOn)
+        
+        viewModel.addParentGoal(goal: parentGoal)
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .success:
+                    self?.coordinator?.coordinateToNext()
+                case .failure:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     @objc

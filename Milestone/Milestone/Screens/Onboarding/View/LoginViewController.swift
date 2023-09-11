@@ -15,6 +15,7 @@ import RxSwift
 
 protocol LoginFlow {
     func coordinateToOnboarding()
+    func coordinateToMain()
 }
 
 class LoginCoordinator: Coordinator, LoginFlow {
@@ -33,6 +34,10 @@ class LoginCoordinator: Coordinator, LoginFlow {
     func coordinateToOnboarding() {
         let onboardingCoordinator = OnboardingCoordinator(navigationController: navigationController)
         coordinate(to: onboardingCoordinator)
+    }
+    
+    func coordinateToMain() {
+        navigationController.pushViewController(MainViewController(), animated: true)
     }
 }
 

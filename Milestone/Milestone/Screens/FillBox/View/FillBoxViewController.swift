@@ -234,7 +234,7 @@ extension FillBoxViewController: UpdateParentGoalListDelegate {
 extension FillBoxViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if !viewModel.progressGoals.value.isEmpty {
-            if self.parentGoalTableView.contentOffset.y > (88 + (96 + 16) * 4) {
+            if self.parentGoalTableView.contentOffset.y > self.parentGoalTableView.contentSize.height - self.parentGoalTableView.frame.size.height - 100 {
                 if (!viewModel.isLoading) && (!viewModel.isLastPage) {
                     viewModel.retrieveParentGoalList()
                 }

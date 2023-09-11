@@ -154,26 +154,15 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
     }
     
     func bindViewModel() {
-        viewModel.retrieveGoalDataAtIndex(index: goalIndex)
-            .map { $0.title }
-            .bind(to: titleLabel.rx.text)
-            .disposed(by: disposeBag)
+        let goalDataAtIndex = viewModel.retrieveGoalDataAtIndex(index: goalIndex)
         
-        viewModel.retrieveGoalDataAtIndex(index: goalIndex)
-            .map { [unowned self] goal -> String in
-                let startDate = dateFormatter.date(from: goal.startDate)!
-                let endDate = dateFormatter.date(from: goal.endDate)!
-                return "\(dateFormatter.string(from: startDate))" + " - " + "\(dateFormatter.string(from: endDate))"
-            }
-            .bind(to: dateLabel.rx.text)
-            .disposed(by: disposeBag)
+        let startDate = dateFormatter.date(from: goalDataAtIndex.startDate)!
+        let endDate = dateFormatter.date(from: goalDataAtIndex.endDate)!
         
-        viewModel.retrieveGoalDataAtIndex(index: goalIndex)
-            .map { $0.goalId }
-            .subscribe(onNext: { [unowned self] in
-                self.viewModel.retrieveRetrospectWithId(goalId: $0)
-            })
-            .disposed(by: disposeBag)
+        titleLabel.text = goalDataAtIndex.title
+        dateLabel.text = "\(dateFormatter.string(from: startDate))" + " - " + "\(dateFormatter.string(from: endDate))"
+        
+        viewModel.retrieveRetrospectWithId(goalId: goalDataAtIndex.goalId)
         
         viewModel.retrospect
             .subscribe(onNext: { [unowned self] retro in

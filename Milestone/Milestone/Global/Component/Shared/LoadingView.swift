@@ -20,14 +20,14 @@ class LoadingView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureView()
-        layoutView()
+//        configureView()
+//        layoutView()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configureView()
-        layoutView()
+//        configureView()
+//        layoutView()
     }
 }
 

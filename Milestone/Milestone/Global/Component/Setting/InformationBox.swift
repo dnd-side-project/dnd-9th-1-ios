@@ -8,6 +8,12 @@
 import UIKit
 
 class InformationBox: UIView {
+    
+    var text: String! {
+        didSet {
+            configUI()
+        }
+    }
 
     let titleLabel = InformationLabel()
         .then {
@@ -25,6 +31,7 @@ class InformationBox: UIView {
         super.init(frame: frame)
         
         render()
+        configUI()
     }
     
     @available(*, unavailable)
@@ -46,5 +53,10 @@ class InformationBox: UIView {
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
+    }
+    
+    func configUI() {
+        contentsLabel.text = text
+        contentsLabel.setLineSpacing(lineHeightMultiple: 1.2)
     }
 }
