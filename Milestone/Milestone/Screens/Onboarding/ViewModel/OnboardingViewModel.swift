@@ -8,6 +8,7 @@
 import Foundation
 
 import KakaoSDKUser
+import RxCocoa
 import RxSwift
 import RxKakaoSDKUser
 
@@ -15,111 +16,73 @@ class OnboardingViewModel: BindableViewModel {
     
     var bag = DisposeBag()
     var apiSession: APIService = APISession()
-    
-    let idSubject = PublishSubject<String>()
-    let tokenSubject = PublishSubject<Token>()
     var loginCoordinator: LoginFlow?
     
-    let appleUserIdSubject = PublishSubject<String>()
+    /// FCM 토큰 옵저버블
+    let fcmObservable = KeychainManager.shared.rx
+        .retrieveItem(ofClass: .password, key: KeychainKeyList.fcmToken.rawValue)
     
-    func kakaoLogin() {
-        let fcmObservable = KeychainManager.shared.rx
-            .retrieveItem(ofClass: .password, key: KeychainKeyList.fcmToken.rawValue)
-            .compactMap { $0 as String }
-        
-        UserApi.shared.rx.me()
-            .subscribe(onSuccess: { [unowned self] in
-                guard let id = $0.id else { return }
-                self.idSubject.onNext("\(id)")
-            })
-            .disposed(by: bag)
-        
-        Observable.combineLatest(idSubject.asObservable(), fcmObservable) { [unowned self] userId, fcmToken in
-            self.requestToken(provider: "kakao", userId: userId, fcmToken: fcmToken)
+    /// 소셜로그인 id값 프로퍼티
+    let kakaoUserId = UserApi.shared.rx.me()
+        .asObservable()
+        .compactMap { $0.id }
+        .map { String($0) }
+    var appleUserId: String!
+    
+    /// 로그인 진행
+    /// 1. 프로바이더에 따라 로그인 함수 호출
+    /// 2. 로그인 함수 내에서 토큰 저장함수 재호출
+    func loginWith(provider: LoginType) {
+        switch provider {
+        case .apple:
+            fcmObservable
+                .flatMapLatest { [unowned self] in self.requestToken(provider: "apple", userId: appleUserId, fcmToken: $0)}
+                .flatMapLatest { [unowned self] in
+                    self.saveToken(result: $0)
+                }
+                .subscribe(onError: {
+                    print($0)
+                }, onCompleted: { [unowned self] in
+                    self.loginCoordinator?.coordinateToOnboarding()
+                })
+                .disposed(by: bag)
+        case .kakao:
+            fcmObservable
+                .flatMapLatest { [unowned self] in self.kakaoLogin(fcmToken: $0) }
+                .flatMapLatest { [unowned self] in self.saveToken(result: $0) }
+                .subscribe(onError: {
+                    // MARK: 에러처리 필요
+                    print($0)
+                }, onCompleted: { [unowned self] in
+                    self.loginCoordinator?.coordinateToOnboarding()
+                })
+                .disposed(by: bag)
         }
-        .flatMap { $0 }
-        .subscribe(onNext: { [unowned self] result in
-            switch result {
-            case .success(let response):
-                self.tokenSubject.onNext(response.data)
-            case .failure(let error):
-                print(error)
-            }
-        })
-        .disposed(by: bag)
-        
-        let mergedObservable = Observable.of(
-            tokenSubject
-                .map {
-                    KeychainManager.shared.rx
-                        .saveItem($0.accessToken, itemClass: .password, key: KeychainKeyList.accessToken.rawValue)
-                }
-                .subscribe(onNext: {
-                    $0.subscribe(onCompleted: {
-                        print("completed")
-                    })
-                    .dispose()
-                })
-            ,
-            tokenSubject
-                .map {
-                    KeychainManager.shared.rx
-                        .saveItem($0.refreshToken, itemClass: .password, key: KeychainKeyList.refreshToken.rawValue)
-                }
-                .subscribe(onNext: {
-                    $0.subscribe(onCompleted: {
-                        print("completed2")
-                    })
-                    .dispose()
-                })
-        )
-        
-        Observable<any Disposable>
-            .merge()
-            .subscribe(onCompleted: { [weak self] in
-                guard let self = self else { return }
-                self.loginCoordinator?.coordinateToOnboarding()
-            })
-            .disposed(by: bag)
     }
     
-    func appleLogin() {
-        let fcmObservable = KeychainManager.shared.rx
-            .retrieveItem(ofClass: .password, key: KeychainKeyList.fcmToken.rawValue)
-            .compactMap { $0 as String }
-        
-        Observable.combineLatest(fcmObservable, appleUserIdSubject.asObservable()) { [unowned self]  fcm, userId in
-            self.requestToken(provider: "apple", userId: userId, fcmToken: fcm)
-        }
-        .flatMap { $0 }
-        .subscribe(onNext: { [unowned self] result in
-            switch result {
-            case .success(let response):
-                tokenSubject.onNext(response.data)
-            case .failure(let error):
-                print(error)
+    func kakaoLogin(fcmToken: String) -> Observable<Result<BaseModel<Token>, APIError>> {
+        kakaoUserId
+            .flatMap { [unowned self] in
+                self.requestToken(provider: "kakao", userId: $0, fcmToken: fcmToken)
             }
-        })
-        .disposed(by: bag)
-        
-        let mergedObservable = Observable.of(
-            tokenSubject
-                .map {
-                    KeychainManager.shared.rx
-                        .saveItem($0.accessToken, itemClass: .password, key: KeychainKeyList.accessToken.rawValue)
-                },
-            tokenSubject
-                .map {
-                    KeychainManager.shared.rx
-                        .saveItem($0.refreshToken, itemClass: .password, key: KeychainKeyList.refreshToken.rawValue)
-                })
-        
-        Observable.merge(mergedObservable)
-            .subscribe(onCompleted: { [weak self] in
-                guard let self = self else { return }
-                self.loginCoordinator?.coordinateToOnboarding()
-            })
-            .disposed(by: bag)
+    }
+    
+    func appleLogin(fcmToken: String) -> Observable<Result<BaseModel<Token>, APIError>> {
+        self.requestToken(provider: "apple", userId: appleUserId, fcmToken: fcmToken)
+    }
+    
+    func saveToken(result: Result<BaseModel<Token>, APIError>) -> Observable<Bool> {
+        switch result {
+        case .success(let response):
+            let accessTokenObservable = KeychainManager.shared.rx
+                .saveItem(response.data.accessToken, itemClass: .password, key: KeychainKeyList.accessToken.rawValue)
+            let refreshTokenObservable = KeychainManager.shared.rx
+                .saveItem(response.data.refreshToken, itemClass: .password, key: KeychainKeyList.refreshToken.rawValue)
+            return accessTokenObservable.concat(refreshTokenObservable)
+                .map { true }
+        case .failure(let error):
+            return Observable.error(error)
+        }
     }
 }
 

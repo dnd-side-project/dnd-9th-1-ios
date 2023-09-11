@@ -240,6 +240,7 @@
 		C90DC9862A88F0B100241B7C /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9852A88F0B100241B7C /* UITextField+.swift */; };
 		C90DC9882A891A8500241B7C /* OnboardingViewControllerLast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9872A891A8500241B7C /* OnboardingViewControllerLast.swift */; };
 		C90DC98A2A8922D300241B7C /* NSMutableAttributedString+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9892A8922D300241B7C /* NSMutableAttributedString+.swift */; };
+		C91006F92AA0534D000A9C16 /* LoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91006F82AA0534D000A9C16 /* LoginType.swift */; };
 		C95A3C9B2A94D08D0028B4ED /* ParentGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9A2A94D08D0028B4ED /* ParentGoal.swift */; };
 		C95A3C9F2A94E0AC0028B4ED /* CompletionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */; };
 		C95A3CA12A94EB580028B4ED /* RewardToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA02A94EB580028B4ED /* RewardToImage.swift */; };
@@ -406,6 +407,7 @@
 		C90DC9852A88F0B100241B7C /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		C90DC9872A891A8500241B7C /* OnboardingViewControllerLast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerLast.swift; sourceTree = "<group>"; };
 		C90DC9892A8922D300241B7C /* NSMutableAttributedString+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+.swift"; sourceTree = "<group>"; };
+		C91006F82AA0534D000A9C16 /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
 		C95A3C9A2A94D08D0028B4ED /* ParentGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentGoal.swift; sourceTree = "<group>"; };
 		C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionHeaderView.swift; sourceTree = "<group>"; };
 		C95A3CA02A94EB580028B4ED /* RewardToImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardToImage.swift; sourceTree = "<group>"; };
@@ -596,6 +598,7 @@
 				C9040FD72A93CE7D00270E94 /* KeychainKeyList.swift */,
 				C95A3CA02A94EB580028B4ED /* RewardToImage.swift */,
 				A298E9582A9968B000EC0067 /* JewelPopUpImageStyle.swift */,
+				C91006F82AA0534D000A9C16 /* LoginType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -1214,6 +1217,7 @@
 				A2B969872A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
 				C95A3C9B2A94D08D0028B4ED /* ParentGoal.swift in Sources */,
 				C9B2CE172A8F5267006289A8 /* APIRouter.swift in Sources */,
+				C91006F92AA0534D000A9C16 /* LoginType.swift in Sources */,
 				A2C98F162A8BA6F0009B5579 /* RoundedButton.swift in Sources */,
 				A289D9462A91246C005B7F00 /* DayStyle.swift in Sources */,
 				A2FA58D12A7F7A1F006ACA2E /* (null) in Sources */,
