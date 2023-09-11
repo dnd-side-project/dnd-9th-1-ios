@@ -44,6 +44,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     private let tableView = UITableView()
         .then {
+            $0.showsVerticalScrollIndicator = false
             $0.delaysContentTouches = false
             $0.separatorStyle = .none
             $0.backgroundColor = .clear
@@ -60,6 +61,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     var viewModel: CompletionViewModel!
     var bubbleKey = UserDefaultsKeyStyle.bubbleInCompletionBox.rawValue
     var pushViewDisposables: [Disposable] = []
+    var scrollDisposable: Disposable!
     
     let dateFormatter = DateFormatter()
         .then {
@@ -83,6 +85,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         disposeAll()
+        resetScroll()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -90,19 +93,14 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         viewModel.retrieveGoalData()
         viewModel.retrieveRetrospectCount()
         
-        // FIXME: - 테스트코드
-        viewModel.authTestResponse
-            .subscribe(onNext: { result in
-                switch result {
-                case .success(let str):
-                    print("SUCC!!")
-                    print(str)
-                case .failure(let error):
-                    print("ERR!!")
-                    print(error)
+        scrollDisposable = tableView.rx.didScroll
+            .subscribe(onNext: { [unowned self] in
+                if self.tableView.contentOffset.y > (68 + (96 + 16) * 4) {
+                    if !self.viewModel.isLoading.value && !self.viewModel.isLastPage {
+                        self.viewModel.retrieveMoreRetrospect()
+                    }
                 }
             })
-            .disposed(by: disposeBag)
     }
     
     // MARK: - Functions
@@ -134,6 +132,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     }
     
     func bindViewModel() {
+        
         viewModel.goalData
             .bind(to: tableView.rx.items(cellIdentifier: CompletionTableViewCell.identifier, cellType: CompletionTableViewCell.self)) { [unowned self] row, element, cell in
                 let startDate = dateFormatter.date(from: element.startDate)!
@@ -159,29 +158,23 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                     .drive(onNext: { [weak self] in
                         guard let self = self else { return }
                         if element.hasRetrospect {
-                            let outerDisposable = self.viewModel.retrieveGoalDataAtIndex(index: row)
-                                .map { $0.goalId }
+                            let goalDataAtIndex =  self.viewModel.retrieveGoalDataAtIndex(index: row)
+                            self.viewModel.retrieveRetrospectWithId(goalId: goalDataAtIndex.goalId)
+                            let disposable = self.viewModel.retrospect
                                 .subscribe(onNext: {
-                                    self.viewModel.retrieveRetrospectWithId(goalId: $0)
-                                    
-                                    let disposable = self.viewModel.retrospect
-                                        .subscribe(onNext: {
-                                            if $0.hasGuide {
-                                                var savedVCWithGuide = CompletionSavedReviewWithGuideViewController()
-                                                savedVCWithGuide.goalIndex = row
-                                                savedVCWithGuide.bind(viewModel: self.viewModel)
-                                                self.push(viewController: savedVCWithGuide)
-                                            } else {
-                                                var savedVCWithoutGuide = CompletionSavedReviewWithoutGuideViewController()
-                                                savedVCWithoutGuide.goalIndex = row
-                                                savedVCWithoutGuide.bind(viewModel: self.viewModel)
-                                                self.push(viewController: savedVCWithoutGuide)
-                                            }
-                                        })
-                                    self.pushViewDisposables.append(disposable)
+                                    if $0.hasGuide {
+                                        var savedVCWithGuide = CompletionSavedReviewWithGuideViewController()
+                                        savedVCWithGuide.goalIndex = row
+                                        savedVCWithGuide.bind(viewModel: self.viewModel)
+                                        self.push(viewController: savedVCWithGuide)
+                                    } else {
+                                        var savedVCWithoutGuide = CompletionSavedReviewWithoutGuideViewController()
+                                        savedVCWithoutGuide.goalIndex = row
+                                        savedVCWithoutGuide.bind(viewModel: self.viewModel)
+                                        self.push(viewController: savedVCWithoutGuide)
+                                    }
                                 })
-                            
-                            self.pushViewDisposables.append(outerDisposable)
+                            self.pushViewDisposables.append(disposable)
                         } else {
                             let reviewVC = CompletionReviewViewController()
                             reviewVC.goalIndex = row
@@ -249,6 +242,12 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         }
     }
     
+    func resetScroll() {
+        viewModel.lastPageId = -1
+        viewModel.isLastPage = false
+        scrollDisposable.dispose()
+    }
+    
     deinit {
         disposeBag = DisposeBag()
     }
@@ -283,3 +282,4 @@ extension CompletionBoxViewController: UITableViewDelegate {
 extension CompletionBoxViewController {
     
 }
+ 
