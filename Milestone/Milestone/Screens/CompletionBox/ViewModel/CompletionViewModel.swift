@@ -73,8 +73,6 @@ extension CompletionViewModel {
     }
     
     func retrieveGoalDataAtIndex(index: Int) -> ParentGoal {
-        print("count: ",goalData.value.count)
-        print("index: \(index)")
         return goalData.value[index]
     }
     
@@ -107,7 +105,6 @@ extension CompletionViewModel {
     /// 로딩 & lastPage 관련 로직도 추가 필요
     func retrieveMoreRetrospect() {
         isLoading.accept(true)
-        print("LAST PAGE ID : \(lastPageId)")
         requestAllGoals(lastGoalId: lastPageId, goalStatusParameter: .complete)
             .subscribe(onNext: { [unowned self] result in
                 switch result {
@@ -120,8 +117,7 @@ extension CompletionViewModel {
                     if !isLastPage {
                         self.lastPageId = response.data.contents.last?.goalId ?? -1
                     }
-                case .failure(let error):
-                    print("FETCHING ERROR")
+                case .failure:
                     self.isLoading.accept(false)
                 }
             })

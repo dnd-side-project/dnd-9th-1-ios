@@ -95,7 +95,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         
         scrollDisposable = tableView.rx.didScroll
             .subscribe(onNext: { [unowned self] in
-                if self.tableView.contentOffset.y > (68 + (96 + 16) * 4) {
+                if self.tableView.contentOffset.y > self.tableView.contentSize.height - self.tableView.frame.size.height - 100 {
                     if !self.viewModel.isLoading.value && !self.viewModel.isLastPage {
                         self.viewModel.retrieveMoreRetrospect()
                     }
