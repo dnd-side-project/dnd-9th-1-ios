@@ -20,14 +20,24 @@ class APIInterceptor: RequestInterceptor {
             return
         }
         
-        guard let accessToken: String = try? KeychainManager.shared.retrieveItem(ofClass: .password, key: KeychainKeyList.accessToken.rawValue) else {
-            print("NIL")
+        if checkIsReissueAPI(urlRequest: urlRequest) {
+            guard let refreshToken: String = try? KeychainManager.shared.retrieveItem(ofClass: .password, key: KeychainKeyList.refreshToken.rawValue) else {
+                return
+            }
+            var urlRequest = urlRequest
+            urlRequest.headers.add(.authorization(bearerToken: refreshToken))
+            completion(.success(urlRequest))
             return
+        } else {
+            guard let accessToken: String = try? KeychainManager.shared.retrieveItem(ofClass: .password, key: KeychainKeyList.accessToken.rawValue) else {
+                print("NIL")
+                return
+            }
+            var urlRequest = urlRequest
+            urlRequest.headers.add(.authorization(bearerToken: accessToken))
+            
+            completion(.success(urlRequest))
         }
-        var urlRequest = urlRequest
-        urlRequest.headers.add(.authorization(bearerToken: accessToken))
-        
-        completion(.success(urlRequest))
     }
     
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
@@ -37,32 +47,7 @@ class APIInterceptor: RequestInterceptor {
         }
         
         if let url = request.response?.url {
-            if url.relativePath == "/reissue" {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                    guard let self = self else { return }
-                    let window = UIApplication.shared.connectedScenes.compactMap { ($0 as? UIWindowScene)?.keyWindow }.last
-                    let root = window?.rootViewController
-                    
-                    let accessTokenObservable = KeychainManager.shared.rx
-                        .deleteItem(ofClass: .password, key: KeychainKeyList.accessToken.rawValue)
-                    let refreshTokenObservable = KeychainManager.shared.rx
-                        .deleteItem(ofClass: .password, key: KeychainKeyList.refreshToken.rawValue)
-                    
-                    // FIXME: 토큰 삭제 후 로그인 화면으로 넘어가는지 확인 필요
-                    Observable.combineLatest(accessTokenObservable, refreshTokenObservable)
-                        .subscribe(on: MainScheduler.instance)
-                        .subscribe(onNext: {_, _ in
-                            DispatchQueue.main.async {
-                                AppCoordinator(window: window!).start()
-                            }
-                        })
-                        .disposed(by: self.disposeBag)
-                    
-                    
-//                    LoginCoordinator(navigationController: root as! UINavigationController)
-//                    AppCoordinator(window: window!).start()
-                }
-                
+            if url.relativePath == "/auth/reissue" {
                 completion(.doNotRetryWithError(APIError.http(status: 401)))
             } else {
                 APIRefreshTask().requestRefreshToken()
@@ -82,6 +67,21 @@ class APIInterceptor: RequestInterceptor {
                             print("SAVE COMPLETED!")
                             completion(.retry)
                         case .failure:
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                                guard let self = self else { return }
+                                let window = UIApplication.shared.connectedScenes.compactMap { ($0 as? UIWindowScene)?.keyWindow }.last
+                                let root = window?.rootViewController
+                                
+                                let accessTokenObservable = KeychainManager.shared.rx
+                                    .deleteItem(ofClass: .password, key: KeychainKeyList.accessToken.rawValue)
+                                let refreshTokenObservable = KeychainManager.shared.rx
+                                    .deleteItem(ofClass: .password, key: KeychainKeyList.refreshToken.rawValue)
+                                
+                                Observable.combineLatest(accessTokenObservable, refreshTokenObservable)
+                                    .subscribe(onCompleted: {
+                                        AppCoordinator(window: window!).start()
+                                    })
+                                    .disposed(by: self.disposeBag)                            }
                             completion(.doNotRetry)
                         }
                     })
@@ -93,6 +93,14 @@ class APIInterceptor: RequestInterceptor {
     
     func checkIsRegisterAPI(urlRequest: URLRequest) -> Bool {
         if urlRequest.url!.relativePath == "/auth/kakao" || urlRequest.url!.relativePath == "/auth/apple" {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func checkIsReissueAPI(urlRequest: URLRequest) -> Bool {
+        if urlRequest.url!.relativePath == "/auth/reissue" {
             return true
         } else {
             return false
