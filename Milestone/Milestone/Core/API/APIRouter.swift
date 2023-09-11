@@ -116,7 +116,7 @@ enum APIRouter: URLRequestConvertible {
         case .postGoal:
             return "/goals"
         case .reissue:
-            return "/reissue"
+            return "/auth/reissue"
         case .login(let provider, _, _):
             return "/auth/\(provider)"
         case .logout:
