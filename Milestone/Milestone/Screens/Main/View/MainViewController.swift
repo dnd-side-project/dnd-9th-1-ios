@@ -33,7 +33,7 @@ class MainViewController: BaseViewController {
     
     private lazy var pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         .then {
-            $0.setViewControllers([self.viewControllers[0]], direction: .forward, animated: true)
+            $0.setViewControllers([self.viewControllers[1]], direction: .forward, animated: true)
             $0.delegate = self
             $0.dataSource = self
         }
