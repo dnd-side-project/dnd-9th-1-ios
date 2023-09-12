@@ -225,7 +225,7 @@ extension FillBoxViewController: UpdateParentGoalListDelegate {
     func updateParentGoalList() {
         viewModel.clearList()
         // 상위 목표 조회 API 호출
-        viewModel.retrieveParentGoalList()
+//        viewModel.retrieveParentGoalList()
         // 상위 목표 상태별 개수 조회 API 호출
         viewModel.retrieveGoalCountByStatus()
     }

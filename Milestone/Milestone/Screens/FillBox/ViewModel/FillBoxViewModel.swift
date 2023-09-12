@@ -47,6 +47,8 @@ extension FillBoxViewModel: ServicesGoalList {
                     progressGoalCount.accept(String(response.data.counts.PROCESS))
                     completedGoalCount.accept(String(response.data.counts.COMPLETE))
                     storedGoalCount.accept(String(response.data.counts.STORE))
+                    
+                    self.retrieveParentGoalList()
                 case .failure(let error):
                     Logger.debugDescription(error)
                 }

@@ -55,6 +55,7 @@ extension CompletionViewModel: ServicesGoalList, ServicesUser { }
 extension CompletionViewModel {
     func retrieveGoalData() {
         isLoading.accept(true)
+        
         goalResponse
             .subscribe(onNext: { [unowned self] result in
                 switch result {
@@ -95,6 +96,9 @@ extension CompletionViewModel {
                 switch result {
                 case .success(let countResponse):
                     enabledRetrospectCount.accept(countResponse.data.count)
+                    
+                    self.retrieveGoalData()
+                    
                 case .failure(let error):
                     print(error)
                 }
