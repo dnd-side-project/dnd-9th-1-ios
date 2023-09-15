@@ -28,6 +28,7 @@ class FillBoxViewModel: BindableViewModel {
     var isLastPage: Bool = false
     var lastGoalId: Int = -1
     var isLoading = false
+    var isSet = BehaviorRelay(value: false)
 
     deinit {
         bag = DisposeBag()
@@ -70,6 +71,7 @@ extension FillBoxViewModel: ServicesGoalList {
                     var newData: [ParentGoal] = progressGoals.value
                     newData.append(contentsOf: response.data.contents)
                     progressGoals.accept(newData)
+                    isSet.accept(true)
                     isLastPage = !response.data.next
                     if !isLastPage {
                         lastGoalId = newData.last?.goalId ?? -1

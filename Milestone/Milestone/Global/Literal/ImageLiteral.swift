@@ -56,6 +56,7 @@ enum ImageLiteral {
     static var imgMile: UIImage { .load(named: "mile")}
     static var imgWhiteBigX: UIImage { .load(named: "whiteBigX")}
     static var imgBubbleTail: UIImage { .load(named: "bubbleTail")}
+    static var imgBubbleTailDown: UIImage { .load(named: "bubbleTailDown")}
     static var imgBack: UIImage { .load(named: "back")}
     static var imgMileStone: UIImage { .load(named: "Milestone") }
     static var imgAppleLogo: UIImage { .load(named: "appleLogoBlack") }
@@ -114,4 +115,5 @@ enum ImageLiteral {
     static var imgGift: UIImage { .load(named: "gift") }
     static var imgBook: UIImage { .load(named: "book") }
     static var imgPen: UIImage { .load(named: "pen") }
+    static var imgEmptyFillBox: UIImage { .load(named: "emptyFillBox") }
 }

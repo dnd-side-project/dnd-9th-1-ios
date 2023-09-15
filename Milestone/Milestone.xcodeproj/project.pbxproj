@@ -27,6 +27,10 @@
 		A22774AD2A977438004AE5D7 /* AMPMStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22774AC2A977438004AE5D7 /* AMPMStyle.swift */; };
 		A22774AE2A977438004AE5D7 /* AMPMStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22774AC2A977438004AE5D7 /* AMPMStyle.swift */; };
 		A22774AF2A977438004AE5D7 /* AMPMStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22774AC2A977438004AE5D7 /* AMPMStyle.swift */; };
+		A231AA822AB4721B004C4907 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A231AA812AB4721B004C4907 /* Config.xcconfig */; };
+		A231AA842AB480EA004C4907 /* BubbleTailDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */; };
+		A231AA852AB480EA004C4907 /* BubbleTailDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */; };
+		A231AA862AB480EA004C4907 /* BubbleTailDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */; };
 		A23E8B9C2A8FF54D0051D135 /* CompleteGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */; };
 		A23E8B9D2A8FF54D0051D135 /* CompleteGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */; };
 		A23E8B9E2A8FF54D0051D135 /* CompleteGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */; };
@@ -329,6 +333,8 @@
 		A22736892A7CE53800D7B3B2 /* MilestoneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneUITests.swift; sourceTree = "<group>"; };
 		A227368B2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A22774AC2A977438004AE5D7 /* AMPMStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMPMStyle.swift; sourceTree = "<group>"; };
+		A231AA812AB4721B004C4907 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTailDownView.swift; sourceTree = "<group>"; };
 		A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteGoalViewController.swift; sourceTree = "<group>"; };
 		A23E8B9F2A900EEC0051D135 /* DeleteGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGoalViewController.swift; sourceTree = "<group>"; };
 		A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskOneOfTwoView.swift; sourceTree = "<group>"; };
@@ -662,6 +668,7 @@
 				A2C98F112A8B9A8E009B5579 /* ReminderAlarmView.swift */,
 				A2C98F152A8BA6F0009B5579 /* RoundedButton.swift */,
 				A265090B2A8D458300E9A2D7 /* BubbleView.swift */,
+				A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */,
 				A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */,
 				C9B2CDFE2A8DE365006289A8 /* CompleteView.swift */,
 				C95A3CA42A959A090028B4ED /* LoadingView.swift */,
@@ -1010,6 +1017,7 @@
 		C9BF3FC52A9781510074E781 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				A231AA812AB4721B004C4907 /* Config.xcconfig */,
 				C91006FC2AA70C0C000A9C16 /* ViewModel */,
 				C9BF3FC82A97836F0074E781 /* Cell */,
 				C9BF3FC62A97817C0074E781 /* SettingViewController.swift */,
@@ -1175,6 +1183,7 @@
 				A2B20D752A7E50D8001ED73C /* Pretendard-ExtraLight.otf in Resources */,
 				A2B20D7B2A7E50D8001ED73C /* Pretendard-Black.otf in Resources */,
 				A2B20D8A2A7E50D8001ED73C /* Pretendard-Thin.otf in Resources */,
+				A231AA822AB4721B004C4907 /* Config.xcconfig in Resources */,
 				A2B20D722A7E50D8001ED73C /* Pretendard-Light.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1334,6 +1343,7 @@
 				A2FC49532A97981D0045FE59 /* RestoreGoalViewController.swift in Sources */,
 				A289D9642A922950005B7F00 /* RecommendGoalViewController.swift in Sources */,
 				A2FA59292A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
+				A231AA842AB480EA004C4907 /* BubbleTailDownView.swift in Sources */,
 				C90C48E92A936C1D00E7E8B0 /* ButtonComponentStyle.swift in Sources */,
 				A23E8BA22A9013610051D135 /* AskOneOfTwoView.swift in Sources */,
 				C9B2CDE72A8BBCCC006289A8 /* TriangleView.swift in Sources */,
@@ -1406,6 +1416,7 @@
 				A2FA592A2A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
 				A2C98F032A8B6117009B5579 /* AddParentGoalViewController.swift in Sources */,
 				A25988FB2A967C3000C6BDE0 /* UpdateGoalListDelegate.swift in Sources */,
+				A231AA852AB480EA004C4907 /* BubbleTailDownView.swift in Sources */,
 				A2B20D952A7ED174001ED73C /* UIImage+.swift in Sources */,
 				A2B20D912A7ED14C001ED73C /* ImageLiteral.swift in Sources */,
 				A28EDA1A2A879565001A021A /* DetailParentViewController.swift in Sources */,
@@ -1464,6 +1475,7 @@
 				A2FFBC912A94986200039919 /* FillBoxViewModel.swift in Sources */,
 				A2FA59122A7FCFB4006ACA2E /* Encodable+.swift in Sources */,
 				A289D9542A912864005B7F00 /* PointTextStyle.swift in Sources */,
+				A231AA862AB480EA004C4907 /* BubbleTailDownView.swift in Sources */,
 				A289D93F2A912241005B7F00 /* ButtonStateStyle.swift in Sources */,
 				A289D94C2A912616005B7F00 /* WriteRetrospectStyle.swift in Sources */,
 				A23E8B9E2A8FF54D0051D135 /* CompleteGoalViewController.swift in Sources */,
