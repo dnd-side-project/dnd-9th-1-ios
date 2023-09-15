@@ -44,6 +44,24 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
             $0.guideLabel.text = "목표를 클릭하여 세부 목표를 설정해보세요!"
         }
     
+    private var emptyFillBoxImageView = UIImageView()
+        .then {
+            $0.image = ImageLiteral.imgEmptyFillBox
+        }
+    
+    lazy var emptyGuideLabel = UILabel()
+        .then {
+            $0.text = " 앗! 설정한 목표가 없으시네요!"
+            $0.textColor = .gray02
+            $0.font = .pretendard(.semibold, ofSize: 18)
+            $0.textAlignment = .center
+        }
+    
+    private let addNewGoalBubbleView = BubbleTailDownView()
+        .then {
+            $0.guideLabel.text = "이루고 싶은 목표를 설정해주세요!"
+        }
+    
     // MARK: - Properties
     
     var viewModel: FillBoxViewModel! = FillBoxViewModel()
@@ -77,8 +95,7 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Functions
     
     override func render() {
-        view.addSubViews([parentGoalTableView, addGoalButton])
-        
+        view.addSubViews([parentGoalTableView, addGoalButton, emptyFillBoxImageView, emptyGuideLabel, addNewGoalBubbleView])
         parentGoalTableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.left.right.equalToSuperview().inset(20)
@@ -88,6 +105,20 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
             make.right.equalToSuperview().inset(24)
             make.width.height.equalTo(64)
+        }
+        emptyFillBoxImageView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(144)
+            make.centerX.equalToSuperview()
+        }
+        emptyGuideLabel.snp.makeConstraints { make in
+            make.top.equalTo(emptyFillBoxImageView.snp.bottom)
+            make.centerX.equalToSuperview()
+        }
+        addNewGoalBubbleView.snp.makeConstraints { make in
+            make.bottom.equalTo(addGoalButton.snp.top).offset(-25)
+            make.right.equalTo(addGoalButton.snp.right)
+            make.width.equalTo(216)
+            make.height.equalTo(45)
         }
     }
     
@@ -109,6 +140,15 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
             }
             .disposed(by: disposeBag)
         
+        // viewModel.progressGoals 데이터가 세팅이 되었을 때 실행됨
+        viewModel.isSet
+            .subscribe { isSet in
+                if isSet {
+                    self.updateFillBoxVisibility()
+                }
+            }
+            .disposed(by: disposeBag)
+        
         viewModel.progressGoalCount
             .bind(to: parentGoalHeaderView.ongoingGoalView.goalNumberLabel.rx.text)
             .disposed(by: disposeBag)
@@ -123,6 +163,18 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
             UserDefaults.standard.set(true, forKey: bubbleKey)
             addBubbleView()
         }
+    }
+    
+    /// 목표의 개수에 따라 채움함의 뷰의 isHidden 상태를 업데이트
+    /// 개수가 0개이면 채움함이 빈 화면이라는 것을 알려주는 이미지가 뜨고
+    /// 아니면 상위 목표 목록이 뜬다
+    private func updateFillBoxVisibility() {
+        let isEmpty = viewModel.progressGoals.value.isEmpty
+        [emptyFillBoxImageView, emptyGuideLabel, addNewGoalBubbleView]
+            .forEach { $0.isHidden = !isEmpty }
+        parentGoalTableView.visibleCells
+            .forEach { $0.isHidden = isEmpty }
+        parentGoalTableView.reloadData()
     }
     
     /// 말풍선 뷰 추가
@@ -224,8 +276,6 @@ extension FillBoxViewController: UITableViewDelegate {
 extension FillBoxViewController: UpdateParentGoalListDelegate {
     func updateParentGoalList() {
         viewModel.clearList()
-        // 상위 목표 조회 API 호출
-//        viewModel.retrieveParentGoalList()
         // 상위 목표 상태별 개수 조회 API 호출
         viewModel.retrieveGoalCountByStatus()
     }
