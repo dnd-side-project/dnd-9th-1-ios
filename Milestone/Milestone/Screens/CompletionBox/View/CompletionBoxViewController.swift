@@ -90,7 +90,6 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.retrieveGoalData()
         viewModel.retrieveRetrospectCount()
         
         scrollDisposable = tableView.rx.didScroll

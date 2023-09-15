@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         registerNotification()
         
-        if let kakaoKey = ProcessInfo.processInfo.environment["KAKAO_NATIVE_KEY"] {
+        if let kakaoKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_NATIVE_KEY") as? String {
             RxKakaoSDK.initSDK(appKey: kakaoKey)
         }
         

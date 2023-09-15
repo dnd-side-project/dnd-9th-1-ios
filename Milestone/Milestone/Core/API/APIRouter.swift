@@ -197,10 +197,8 @@ enum APIRouter: URLRequestConvertible {
             return nil
         case .withdraw:
             return nil
-        case .requestRetrospect(let id):
-            return [
-                K.Parameters.goalId: id
-            ]
+        case .requestRetrospect:
+            return nil
         case .postRetrospect(_, let retrospect):
             return [
                 K.Parameters.hasGuide: retrospect.hasGuide,
