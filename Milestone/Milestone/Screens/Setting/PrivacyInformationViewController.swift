@@ -120,7 +120,7 @@ class PrivacyInformationViewController: BaseViewController {
         
         navAppearance.backgroundColor = .gray01
         self.navigationController?.navigationBar.standardAppearance = navAppearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = self.navigationController?.navigationBar.standardAppearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = navAppearance
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -128,7 +128,7 @@ class PrivacyInformationViewController: BaseViewController {
         
         navAppearance.backgroundColor = nil
         self.navigationController?.navigationBar.standardAppearance = navAppearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = self.navigationController?.navigationBar.standardAppearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = navAppearance
     }
     
     // MARK: - Functions
