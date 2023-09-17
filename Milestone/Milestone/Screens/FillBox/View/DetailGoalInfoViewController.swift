@@ -34,6 +34,7 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Properties
     
     var viewModel: DetailParentViewModel!
+    var delegate: DetailParentViewController!
     
     // MARK: - Life Cycle
     
@@ -116,6 +117,7 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
         lazy var addDetailGoalVC = AddDetailGoalViewController()
             .then {
                 $0.viewModel = viewModel
+                $0.delegate = delegate
                 $0.isModifyMode = true
                 $0.enterGoalTitleView.updateNowNumOfCharaters()
             }
