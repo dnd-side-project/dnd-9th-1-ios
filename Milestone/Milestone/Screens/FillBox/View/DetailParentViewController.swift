@@ -18,17 +18,15 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Subviews
     
-    lazy var leftBarButton = UIBarButtonItem()
+    lazy var leftBarButton = DefaultLeftBarButton()
         .then {
-            $0.image = UIImage(systemName: "chevron.left")
-            $0.style = .plain
-            $0.tintColor = .gray05
             $0.target = self
             $0.action = #selector(pop)
         }
     lazy var rightBarButton = UIBarButtonItem()
         .then {
             $0.image = UIImage(systemName: "ellipsis")
+            $0.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10.0)
             $0.style = .plain
             $0.tintColor = .gray05
             $0.target = self

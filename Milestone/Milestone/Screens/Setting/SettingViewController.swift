@@ -30,12 +30,8 @@ class SettingViewController: BaseViewController, ViewModelBindableType {
             $0.delegate = self
         }
     
-    lazy var leftBarButton = UIBarButtonItem()
+    lazy var leftBarButton = DefaultLeftBarButton()
         .then {
-            $0.image = UIImage(systemName: "chevron.left")
-            $0.imageInsets = UIEdgeInsets(top: 0, left: 10.0, bottom: 0, right: 0)
-            $0.style = .plain
-            $0.tintColor = .gray05
             $0.target = self
             $0.action = #selector(pop)
         }
