@@ -21,6 +21,7 @@ class DeleteGoalViewController: BaseViewController, ViewModelBindableType {
             $0.askLabel.text = "정말 삭제 하시겠어요?"
             $0.guideLabel.text = "삭제된 목표는 되돌릴 수 없어요 🥺"
             $0.yesButton.setTitle("삭제할게요", for: .normal)
+            $0.yesButton.buttonComponentStyle = .secondary_m_gray
             $0.yesButton.addTarget(self, action: #selector(deleteGoal), for: .touchUpInside)
             $0.noButton.setTitle("지금 안할래요", for: .normal)
             $0.noButton.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
