@@ -247,7 +247,7 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         viewModel.thisParentGoal
             .subscribe(onNext: { [unowned self] goal in
                 goalTitleLabel.text = goal.title
-                dDayLabel.text = "D - \(goal.dDay)"
+                dDayLabel.text = isFromStorage ? "D + \(goal.dDay * -1)" : "D - \(goal.dDay)"
                 termLabel.text = "\(goal.startDate) - \(goal.endDate)"
             })
             .disposed(by: disposeBag)
