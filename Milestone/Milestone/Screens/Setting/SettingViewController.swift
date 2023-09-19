@@ -13,6 +13,13 @@ class SettingViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Subviews
     
+    lazy var titleLabel = UILabel()
+        .then {
+            $0.text = "설정"
+            $0.font = .pretendard(.semibold, ofSize: 24)
+            $0.textColor = .black
+        }
+    
     lazy var settingTableView = UITableView()
         .then {
             $0.separatorColor = .gray01
@@ -23,11 +30,8 @@ class SettingViewController: BaseViewController, ViewModelBindableType {
             $0.delegate = self
         }
     
-    lazy var leftBarButton = UIBarButtonItem()
+    lazy var leftBarButton = DefaultLeftBarButton()
         .then {
-            $0.image = UIImage(systemName: "chevron.left")
-            $0.style = .plain
-            $0.tintColor = .gray05
             $0.target = self
             $0.action = #selector(pop)
         }
@@ -50,28 +54,26 @@ class SettingViewController: BaseViewController, ViewModelBindableType {
     var buttonDisposeBag = DisposeBag()
     var viewModel: SettingViewModel!
     
-    // MARK: - Life Cycles
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.largeTitleDisplayMode = .always
-    }
-    
     // MARK: - Functions
     
     override func render() {
-        view.addSubViews([settingTableView])
+        view.addSubViews([titleLabel, settingTableView])
         
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
+            make.left.equalToSuperview().inset(24)
+        }
         settingTableView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(titleLabel.snp.bottom).offset(24)
+            make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
         }
     }
     
     // MARK: 네비게이션 컨트롤러가 nil
+    
     override func configUI() {
         self.view.backgroundColor = .white
-        self.title = "설정"
         self.navigationItem.leftBarButtonItem = leftBarButton
         
         settingTableView.backgroundColor = .gray01
