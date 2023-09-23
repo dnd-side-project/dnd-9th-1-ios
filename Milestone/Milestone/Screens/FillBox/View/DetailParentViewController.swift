@@ -315,6 +315,7 @@ extension DetailParentViewController: UICollectionViewDelegate {
         if viewModel.detailGoalList.value.count > indexPath.row {
             var detailInfoVC = DetailGoalInfoViewController()
             viewModel.detailGoalId = viewModel.detailGoalList.value[indexPath.row].detailGoalId
+            detailInfoVC.delegate = self
             detailInfoVC.bind(viewModel: viewModel)
             detailInfoVC.modalPresentationStyle = .overFullScreen
             detailInfoVC.modalTransitionStyle = .crossDissolve

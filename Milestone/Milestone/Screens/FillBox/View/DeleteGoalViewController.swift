@@ -82,7 +82,9 @@ class DeleteGoalViewController: BaseViewController, ViewModelBindableType {
             if viewModel.detailGoalList.value.count == 1 { // 여기선 삭제되기 전의 값이라서 1개일 때가 다 지워진 것
                 goToFillBox()
             } else { // 세부 목표가 다 지워진 게 아닌 경우에는 pop 안 함
-                self.dismiss(animated: true)
+                self.dismiss(animated: true) {
+                    self.delegate?.updateDetailGoalList()
+                }
             }
         }
     }

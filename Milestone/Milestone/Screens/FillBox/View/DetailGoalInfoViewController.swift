@@ -25,7 +25,7 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
         }
     lazy var infoView = DetailGoalInfoView()
         .then {
-            $0.titleLabel.text = "기출문제다시한번풀고정리해보기"
+            $0.titleLabel.text = ""
             $0.stoneImageView.image = ImageLiteral.imgDetailStoneVer1 // TEMP
             $0.removeButton.addTarget(self, action: #selector(replacePopUpViewToRemove), for: .touchUpInside)
             $0.modifyButton.addTarget(self, action: #selector(replacePopUpViewToModify), for: .touchUpInside)
@@ -34,6 +34,7 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Properties
     
     var viewModel: DetailParentViewModel!
+    var delegate: DetailParentViewController!
     
     // MARK: - Life Cycle
     
@@ -100,6 +101,7 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
         let deleteGoalVC = DeleteGoalViewController()
             .then {
                 $0.viewModel = viewModel
+                $0.delegate = delegate
                 $0.fromParentGoal = false
                 $0.modalPresentationStyle = .overFullScreen
                 $0.modalTransitionStyle = .crossDissolve
@@ -116,6 +118,7 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
         lazy var addDetailGoalVC = AddDetailGoalViewController()
             .then {
                 $0.viewModel = viewModel
+                $0.delegate = delegate
                 $0.isModifyMode = true
                 $0.enterGoalTitleView.updateNowNumOfCharaters()
             }
