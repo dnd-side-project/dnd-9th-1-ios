@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 import Then
 
-// MARK: - 세부 목표 정보 팝업뷰
+// MARK: - 하위 목표 정보 팝업뷰
 
 class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
     
@@ -93,7 +93,7 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
     // MARK: - @objc Functions
     
     /// 팝업 뷰 교체
-    /// 세부 목표 정보 팝업 뷰 dismiss하고
+    /// 하위 목표 정보 팝업 뷰 dismiss하고
     /// 목표 삭제 팝업 뷰를 present한다
     @objc
     private func replacePopUpViewToRemove() {
@@ -110,7 +110,7 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
     }
     
     /// 팝업 뷰 교체
-    /// 세부 목표 정보 팝업 뷰 dismiss하고
+    /// 하위 목표 정보 팝업 뷰 dismiss하고
     /// 목표 수정 팝업 뷰를 present한다
     @objc
     private func replacePopUpViewToModify() {

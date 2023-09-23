@@ -51,7 +51,7 @@ class DetailParentViewModel: BindableViewModel, ServicesGoalList, ServicesDetail
     
     // 현재 상위 목표의 데이터
     var thisParentGoal: PublishRelay<ParentGoalInfo> = PublishRelay()
-    // 현재 세부 목표의 데이터
+    // 현재 하위 목표의 데이터
     var thisDetailGoal = BehaviorRelay<DetailGoalInfo>(value: DetailGoalInfo(detailGoalId: 0, title: "", alarmTime: "", alarmDays: [], alarmEnabled: true))
     
     deinit {
@@ -84,7 +84,7 @@ extension DetailParentViewModel {
                     detailGoalList.accept(response.data)
                     sortedGoalData.accept(sortGoalForCheckList()) // 정렬
                     if !isFull {
-                        // 9개가 다 차지 않았다면 세부 목표 생성 셀 추가
+                        // 9개가 다 차지 않았다면 하위 목표 생성 셀 추가
                         var arr = response.data
                         arr.append(DetailGoal(detailGoalId: -1, title: "하위 목표를 추가해주세요!", isCompleted: false))
                         test.accept(arr)
@@ -96,7 +96,7 @@ extension DetailParentViewModel {
             .disposed(by: bag)
     }
     
-    /// 세부 목표 완료
+    /// 하위 목표 완료
     func completeDetailGoal() {
         detailGoalCompleteResponse
             .subscribe { [unowned self] result in
@@ -199,7 +199,7 @@ extension DetailParentViewModel {
             .disposed(by: bag)
     }
     
-    /// 세부 목표 생성
+    /// 하위 목표 생성
     func createDetailGoal(reqBody: NewDetailGoal) {
         var createDetailGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
             requestPostDetailGoal(id: selectedParentGoal?.goalId ?? 0, reqBody: reqBody)
@@ -217,7 +217,7 @@ extension DetailParentViewModel {
             .disposed(by: bag)
     }
     
-    /// 세부 목표 상세 정보 조회
+    /// 하위 목표 상세 정보 조회
     func retrieveDetailGoalInfo() {
         var retrieveDetailGoalInfoResponse: Observable<Result<BaseModel<DetailGoalInfo>, APIError>> {
             requestDetailGoalInfo(id: detailGoalId)
@@ -236,7 +236,7 @@ extension DetailParentViewModel {
             .disposed(by: bag)
     }
     
-    /// 세부 목표 수정 API
+    /// 하위 목표 수정 API
     func modifyDetailGoal(reqBody: NewDetailGoal) {
         var modifyDetailGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
             requestEditDetailGoal(id: detailGoalId, reqBody: reqBody)
@@ -253,7 +253,7 @@ extension DetailParentViewModel {
             }
             .disposed(by: bag)
     }
-    /// 세부 목표 삭제 API
+    /// 하위 목표 삭제 API
     func deleteDetailGoal() {
         var modifyDetailGoalResponse: Observable<Result<BaseModel<StateUpdatedDetailGoal>, APIError>> {
             requestDeleteDetailGoal(id: detailGoalId)

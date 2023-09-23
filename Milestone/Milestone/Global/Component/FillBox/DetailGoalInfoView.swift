@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-// MARK: - 세부 목표 정보 뷰
+// MARK: - 하위 목표 정보 뷰
 
 class DetailGoalInfoView: UIView {
     

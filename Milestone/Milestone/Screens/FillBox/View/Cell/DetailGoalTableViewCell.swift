@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-// MARK: - 세부 목표 체크 리스트 테이블뷰
+// MARK: - 하위 목표 체크 리스트 테이블뷰
 
 class DetailGoalTableViewCell: BaseTableViewCell {
     

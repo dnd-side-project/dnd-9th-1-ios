@@ -100,7 +100,7 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     var viewModel: DetailParentViewModel!
     var isParentCompleted: Bool!
     
-    // 세부 목표를 추가해주세요! 데이터
+    // 하위 목표를 추가해주세요! 데이터
     private var emptyGoal: DetailGoal?
     private var couchMarkKey: String = UserDefaultsKeyStyle.couchMark.rawValue
     
@@ -311,7 +311,7 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
 
 extension DetailParentViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // 세부 목표 셀 클릭 시
+        // 하위 목표 셀 클릭 시
         if viewModel.detailGoalList.value.count > indexPath.row {
             var detailInfoVC = DetailGoalInfoViewController()
             viewModel.detailGoalId = viewModel.detailGoalList.value[indexPath.row].detailGoalId
@@ -320,7 +320,7 @@ extension DetailParentViewController: UICollectionViewDelegate {
             detailInfoVC.modalPresentationStyle = .overFullScreen
             detailInfoVC.modalTransitionStyle = .crossDissolve
             self.present(detailInfoVC, animated: true)
-        } else { // 세부 목표를 추가해주세요! 셀 클릭 시
+        } else { // 하위 목표를 추가해주세요! 셀 클릭 시
             let addDetailGoalVC = AddDetailGoalViewController()
             addDetailGoalVC.viewModel = viewModel
             addDetailGoalVC.delegate = self
@@ -349,10 +349,10 @@ extension DetailParentViewController: UITableViewDelegate {
         
         viewModel.detailGoalId = selectedGoal.detailGoalId
         if cell.containerView.backgroundColor == .white {
-            // 세부 목표 달성
+            // 하위 목표 달성
             viewModel.completeDetailGoal()
         } else {
-            // 세부 목표 달성 취소
+            // 하위 목표 달성 취소
             viewModel.incompleteDetailGoal()
         }
     }
@@ -361,7 +361,7 @@ extension DetailParentViewController: UITableViewDelegate {
 // MARK: - UpdateDetailGoalListDelegate
 
 extension DetailParentViewController: UpdateDetailGoalListDelegate {
-    /// 세부 목표 리스트 업데이트
+    /// 하위 목표 리스트 업데이트
     func updateDetailGoalList() {
         viewModel.retrieveDetailGoalList()
         updateTableViewHeightForFit()

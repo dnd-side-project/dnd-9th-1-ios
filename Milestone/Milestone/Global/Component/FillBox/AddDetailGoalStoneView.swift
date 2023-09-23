@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: - 세부 목표를 추가해주세요! 뷰 (일단은 코치마크에서만 쓰임)
+// MARK: - 하위 목표를 추가해주세요! 뷰 (일단은 코치마크에서만 쓰임)
 
 class AddDetailGoalStoneView: UIView {
     lazy var stoneImageView = UIImageView()

@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - 세부 목표 모델
+// MARK: - 하위 목표 모델
 
 struct DetailGoal: Codable {
     let detailGoalId: Int
@@ -15,7 +15,7 @@ struct DetailGoal: Codable {
     var isCompleted: Bool
 }
 
-// MARK: - 세부 목표 생성 및 수정 시 req 모델
+// MARK: - 하위 목표 생성 및 수정 시 req 모델
 
 struct NewDetailGoal: Codable {
     let title: String
@@ -24,7 +24,7 @@ struct NewDetailGoal: Codable {
     let alarmDays: [String]
 }
 
-// MARK: - 세부 목표 상세 res 모델
+// MARK: - 하위 목표 상세 res 모델
 
 struct DetailGoalInfo: Codable {
     var detailGoalId: Int
@@ -34,7 +34,7 @@ struct DetailGoalInfo: Codable {
     var alarmEnabled: Bool
 }
 
-// MARK: - 세부 목표 완료 및 삭제 시 res 모델
+// MARK: - 하위 목표 완료 및 삭제 시 res 모델
 
 struct StateUpdatedDetailGoal: Codable {
     var isGoalCompleted: Bool

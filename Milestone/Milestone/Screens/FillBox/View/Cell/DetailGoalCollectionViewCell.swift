@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-// MARK: - 세부 목표 컬렉션 뷰
+// MARK: - 하위 목표 컬렉션 뷰
 
 class DetailGoalCollectionViewCell: BaseCollectionViewCell {
     
