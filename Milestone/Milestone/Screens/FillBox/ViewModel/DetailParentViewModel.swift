@@ -86,7 +86,7 @@ extension DetailParentViewModel {
                     if !isFull {
                         // 9개가 다 차지 않았다면 세부 목표 생성 셀 추가
                         var arr = response.data
-                        arr.append(DetailGoal(detailGoalId: -1, title: "세부 목표를 추가해주세요!", isCompleted: false))
+                        arr.append(DetailGoal(detailGoalId: -1, title: "하위 목표를 추가해주세요!", isCompleted: false))
                         test.accept(arr)
                     }
                 case .failure(let error):

@@ -19,7 +19,7 @@ class CouchMarkViewController: BaseViewController {
     var addDetailGoalStoneView = AddDetailGoalStoneView()
         .then {
             $0.stoneImageView.image = ImageLiteral.imgAddStone
-            $0.titleLabel.text = "세부 목표를 추가해주세요!"
+            $0.titleLabel.text = "하위 목표를 추가해주세요!"
             $0.titleLabel.textColor = .gray02
             $0.layer.masksToBounds = true
             $0.layer.borderWidth = 2
@@ -32,9 +32,9 @@ class CouchMarkViewController: BaseViewController {
             $0.textColor = .white
             $0.numberOfLines = 2
             $0.setLineSpacing(lineHeightMultiple: 1.5)
-            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "상위 목표 안에 들어갈 세부 목표를 설정해보세요")
+            let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "상위 목표 안에 들어갈 하위 목표를 설정해보세요")
             attributedString.setColorForText(textForAttribute: "상위 목표 안에 들어갈", withColor: UIColor.white)
-            attributedString.setColorForText(textForAttribute: "세부 목표", withColor: UIColor.secondary01)
+            attributedString.setColorForText(textForAttribute: "하위 목표", withColor: UIColor.secondary01)
             attributedString.setColorForText(textForAttribute: "를 설정해보세요", withColor: UIColor.white)
             $0.attributedText = attributedString
         }

@@ -41,7 +41,7 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
     
     private let bubbleView = BubbleView()
         .then {
-            $0.guideLabel.text = "목표를 클릭하여 세부 목표를 설정해보세요!"
+            $0.guideLabel.text = "목표를 클릭하여 하위 목표를 설정해보세요!"
         }
     
     private var emptyFillBoxImageView = UIImageView()
