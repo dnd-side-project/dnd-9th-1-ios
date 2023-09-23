@@ -27,7 +27,6 @@
 		A22774AD2A977438004AE5D7 /* AMPMStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22774AC2A977438004AE5D7 /* AMPMStyle.swift */; };
 		A22774AE2A977438004AE5D7 /* AMPMStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22774AC2A977438004AE5D7 /* AMPMStyle.swift */; };
 		A22774AF2A977438004AE5D7 /* AMPMStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22774AC2A977438004AE5D7 /* AMPMStyle.swift */; };
-		A231AA822AB4721B004C4907 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A231AA812AB4721B004C4907 /* Config.xcconfig */; };
 		A231AA842AB480EA004C4907 /* BubbleTailDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */; };
 		A231AA852AB480EA004C4907 /* BubbleTailDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */; };
 		A231AA862AB480EA004C4907 /* BubbleTailDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */; };
@@ -336,7 +335,6 @@
 		A22736892A7CE53800D7B3B2 /* MilestoneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneUITests.swift; sourceTree = "<group>"; };
 		A227368B2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A22774AC2A977438004AE5D7 /* AMPMStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMPMStyle.swift; sourceTree = "<group>"; };
-		A231AA812AB4721B004C4907 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTailDownView.swift; sourceTree = "<group>"; };
 		A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteGoalViewController.swift; sourceTree = "<group>"; };
 		A23E8B9F2A900EEC0051D135 /* DeleteGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGoalViewController.swift; sourceTree = "<group>"; };
@@ -1022,7 +1020,6 @@
 		C9BF3FC52A9781510074E781 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				A231AA812AB4721B004C4907 /* Config.xcconfig */,
 				C91006FC2AA70C0C000A9C16 /* ViewModel */,
 				C9BF3FC82A97836F0074E781 /* Cell */,
 				C9BF3FC62A97817C0074E781 /* SettingViewController.swift */,
@@ -1188,7 +1185,6 @@
 				A2B20D752A7E50D8001ED73C /* Pretendard-ExtraLight.otf in Resources */,
 				A2B20D7B2A7E50D8001ED73C /* Pretendard-Black.otf in Resources */,
 				A2B20D8A2A7E50D8001ED73C /* Pretendard-Thin.otf in Resources */,
-				A231AA822AB4721B004C4907 /* Config.xcconfig in Resources */,
 				A2B20D722A7E50D8001ED73C /* Pretendard-Light.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
