@@ -32,7 +32,7 @@ class CompleteGoalViewController: BaseViewController {
     
     // MARK: - Properties
     
-    var viewModel: DetailParentViewModel!
+    var viewModel: DetailUpperViewModel!
     
     // MARK: - Life Cycle
     
@@ -81,12 +81,12 @@ class CompleteGoalViewController: BaseViewController {
         dismiss(animated: true)
     }
     
-    /// 팝업 dismiss 하고 detailParentVC도 pop 시켜서 메인으로 이동하고
+    /// 팝업 dismiss 하고 detailUpperVC도 pop 시켜서 메인으로 이동하고
     /// Notification 발송해서 완료함 화면을 보여준다
     @objc
     private func goToCompletionBox() {
         self.dismiss(animated: true)
-        self.viewModel?.popDetailParentVC.accept(true)
+        self.viewModel?.popDetailUpperVC.accept(true)
         NotificationCenter.default.post(name: .changeSegmentControl, object: 2) // 완료함 인덱스 전송
     }
 }

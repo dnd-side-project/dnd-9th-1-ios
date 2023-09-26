@@ -1,5 +1,5 @@
 //
-//  DetailParentViewController.swift
+//  DetailUpperViewController.swift
 //  Milestone
 //
 //  Created by 서은수 on 2023/08/11.
@@ -14,7 +14,7 @@ import Then
 
 // MARK: - 상위 목표 상세 보기 화면
 
-class DetailParentViewController: BaseViewController, ViewModelBindableType {
+class DetailUpperViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Subviews
     
@@ -76,32 +76,32 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
             $0.minimumLineSpacing = 8
             $0.minimumInteritemSpacing = 0
         }
-    lazy var detailGoalCollectionView = UICollectionView(frame: CGRect(), collectionViewLayout: flowLayout)
+    lazy var lowerGoalCollectionView = UICollectionView(frame: CGRect(), collectionViewLayout: flowLayout)
         .then {
             $0.backgroundColor = .gray01
             $0.showsVerticalScrollIndicator = false
             $0.isScrollEnabled = false
-            $0.register(cell: DetailGoalCollectionViewCell.self, forCellWithReuseIdentifier: DetailGoalCollectionViewCell.identifier)
+            $0.register(cell: LowerGoalCollectionViewCell.self, forCellWithReuseIdentifier: LowerGoalCollectionViewCell.identifier)
             $0.delegate = self
         }
-    lazy var detailGoalTableView = UITableView()
+    lazy var lowerGoalTableView = UITableView()
         .then {
             $0.backgroundColor = .gray01
             $0.separatorStyle = .none
             $0.showsVerticalScrollIndicator = false
             $0.isScrollEnabled = false
-            $0.register(cell: DetailGoalTableViewCell.self, forCellReuseIdentifier: DetailGoalTableViewCell.identifier)
+            $0.register(cell: LowerGoalTableViewCell.self, forCellReuseIdentifier: LowerGoalTableViewCell.identifier)
             $0.delegate = self
         }
     
     // MARK: - Properties
     
     var isFromStorage = false
-    var viewModel: DetailParentViewModel!
-    var isParentCompleted: Bool!
+    var viewModel: DetailUpperViewModel!
+    var isUpperCompleted: Bool!
     
     // 하위 목표를 추가해주세요! 데이터
-    private var emptyGoal: DetailGoal?
+    private var emptyGoal: LowerGoal?
     private var couchMarkKey: String = UserDefaultsKeyStyle.couchMark.rawValue
     
     // MARK: - Life Cycle
@@ -110,9 +110,9 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         super.viewDidLoad()
         
         bindViewModel()
-        updateDetailGoalList()
+        updateLowerGoalList()
         checkFirstDetailView()
-        updateDetailParentView()
+        updateDetailUpperView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -126,14 +126,14 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     override func render() {
         view.addSubView(scrollView)
         scrollView.addSubView(contentView)
-        contentView.addSubViews([goalTitleLabel, dDayLabel, termLabel, detailGoalCollectionView, detailGoalTableView])
+        contentView.addSubViews([goalTitleLabel, dDayLabel, termLabel, lowerGoalCollectionView, lowerGoalTableView])
         
         scrollView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
         contentView.snp.makeConstraints { make in
             make.edges.width.equalToSuperview()
-            make.bottom.equalTo(detailGoalTableView).offset(16)
+            make.bottom.equalTo(lowerGoalTableView).offset(16)
         }
         goalTitleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(24)
@@ -150,13 +150,13 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
             make.centerY.equalTo(dDayLabel)
             make.left.equalTo(dDayLabel.snp.right).offset(8)
         }
-        detailGoalCollectionView.snp.makeConstraints { make in
+        lowerGoalCollectionView.snp.makeConstraints { make in
             make.top.equalTo(dDayLabel.snp.bottom).offset(20)
             make.left.right.equalToSuperview().inset(20)
             make.height.equalTo(444 + 16)
         }
-        detailGoalTableView.snp.makeConstraints { make in
-            make.top.equalTo(detailGoalCollectionView.snp.bottom).offset(36)
+        lowerGoalTableView.snp.makeConstraints { make in
+            make.top.equalTo(lowerGoalCollectionView.snp.bottom).offset(36)
             make.left.right.equalToSuperview().inset(20)
             make.height.equalTo(9 * (56 + 8)) // 최대 높이
         }
@@ -170,9 +170,9 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     }
     
     override func bindUI() {
-        viewModel.popDetailParentVC
-            .subscribe { [self] popDetailParentVC in
-                if popDetailParentVC {
+        viewModel.popDetailUpperVC
+            .subscribe { [self] popDetailUpperVC in
+                if popDetailUpperVC {
                     pop()
                     // 현재 스택에 있는 뷰 컨트롤러들을 가져오고, 가장 상위의 뷰 컨트롤러를 제거
 //                    if var viewControllers = navigationController?.viewControllers {
@@ -188,8 +188,8 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     }
     
     private func updateTableViewHeightForFit() {
-        detailGoalTableView.snp.updateConstraints { make in
-            make.top.equalTo(detailGoalCollectionView.snp.bottom).offset(36)
+        lowerGoalTableView.snp.updateConstraints { make in
+            make.top.equalTo(lowerGoalCollectionView.snp.bottom).offset(36)
             make.left.right.equalToSuperview().inset(20)
             make.height.equalTo(viewModel.test.value.count * (56 + 8)) // 상세 목표 개수에 맞게 높이를 업데이트
         }
@@ -197,8 +197,8 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     
     func bindViewModel() {
         if viewModel.isFull {
-            viewModel.detailGoalList
-                .bind(to: detailGoalCollectionView.rx.items(cellIdentifier: DetailGoalCollectionViewCell.identifier, cellType: DetailGoalCollectionViewCell.self)) { [unowned self] row, goal, cell in
+            viewModel.lowerGoalList
+                .bind(to: lowerGoalCollectionView.rx.items(cellIdentifier: LowerGoalCollectionViewCell.identifier, cellType: LowerGoalCollectionViewCell.self)) { [unowned self] row, goal, cell in
                     // 보관함일 때
                     if self.isFromStorage {
                         cell.isUserInteractionEnabled = false
@@ -211,14 +211,14 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
                 .disposed(by: disposeBag)
         } else {
             viewModel.test
-                .bind(to: detailGoalCollectionView.rx.items(cellIdentifier: DetailGoalCollectionViewCell.identifier, cellType: DetailGoalCollectionViewCell.self)) { [unowned self] row, goal, cell in
+                .bind(to: lowerGoalCollectionView.rx.items(cellIdentifier: LowerGoalCollectionViewCell.identifier, cellType: LowerGoalCollectionViewCell.self)) { [unowned self] row, goal, cell in
                     // 보관함일 때
                     if self.isFromStorage {
                         cell.isUserInteractionEnabled = false
                         cell.makeCellBlurry()
                     }
                     
-                    Logger.debugDescription(viewModel.detailGoalList.value.count)
+                    Logger.debugDescription(viewModel.lowerGoalList.value.count)
                     if row < viewModel.test.value.count - 1 {
                         cell.titleLabel.text = goal.title
                         cell.stoneImageView.image = goal.isCompleted ? self.viewModel.completedImageArray[row] : self.viewModel.stoneImageArray[row]
@@ -232,7 +232,7 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         }
         
         viewModel.sortedGoalData
-            .bind(to: detailGoalTableView.rx.items(cellIdentifier: DetailGoalTableViewCell.identifier, cellType: DetailGoalTableViewCell.self)) { _, goal, cell in
+            .bind(to: lowerGoalTableView.rx.items(cellIdentifier: LowerGoalTableViewCell.identifier, cellType: LowerGoalTableViewCell.self)) { _, goal, cell in
                 if self.isFromStorage {
                     cell.isUserInteractionEnabled = false
                     cell.makeCellBlurry()
@@ -242,7 +242,7 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
             .disposed(by: disposeBag)
         
         // 현재 상위 목표의 정보를 업데이트
-        viewModel.thisParentGoal
+        viewModel.thisUpperGoal
             .subscribe(onNext: { [unowned self] goal in
                 goalTitleLabel.text = goal.title
                 dDayLabel.text = isFromStorage ? "D + \(goal.dDay * -1)" : "D - \(goal.dDay)"
@@ -252,8 +252,8 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
         
         viewModel.completedGoalResult
             .subscribe(onNext: { [unowned self] res in
-                self.isParentCompleted = res.isGoalCompleted
-                if isParentCompleted {
+                self.isUpperCompleted = res.isGoalCompleted
+                if isUpperCompleted {
                     let vc = CompleteGoalViewController()
                         .then {
                             $0.viewModel = viewModel
@@ -285,9 +285,9 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     }
     
     /// 상위 목표 정보로 뷰 구성
-    private func updateDetailParentView() {
-        guard let selectedGoalData = viewModel.selectedParentGoal else { return }
-        viewModel.thisParentGoal.accept(ParentGoalInfo(goalId: selectedGoalData.goalId,
+    private func updateDetailUpperView() {
+        guard let selectedGoalData = viewModel.selectedUpperGoal else { return }
+        viewModel.thisUpperGoal.accept(UpperGoalInfo(goalId: selectedGoalData.goalId,
                                                        title: selectedGoalData.title,
                                                        startDate: selectedGoalData.startDate,
                                                        endDate: selectedGoalData.endDate,
@@ -309,61 +309,61 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 
-extension DetailParentViewController: UICollectionViewDelegate {
+extension DetailUpperViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // 하위 목표 셀 클릭 시
-        if viewModel.detailGoalList.value.count > indexPath.row {
-            var detailInfoVC = DetailGoalInfoViewController()
-            viewModel.detailGoalId = viewModel.detailGoalList.value[indexPath.row].detailGoalId
-            detailInfoVC.delegate = self
-            detailInfoVC.bind(viewModel: viewModel)
-            detailInfoVC.modalPresentationStyle = .overFullScreen
-            detailInfoVC.modalTransitionStyle = .crossDissolve
-            self.present(detailInfoVC, animated: true)
+        if viewModel.lowerGoalList.value.count > indexPath.row {
+            var lowerInfoVC = LowerGoalInfoViewController()
+            viewModel.lowerGoalId = viewModel.lowerGoalList.value[indexPath.row].detailGoalId
+            lowerInfoVC.delegate = self
+            lowerInfoVC.bind(viewModel: viewModel)
+            lowerInfoVC.modalPresentationStyle = .overFullScreen
+            lowerInfoVC.modalTransitionStyle = .crossDissolve
+            self.present(lowerInfoVC, animated: true)
         } else { // 하위 목표를 추가해주세요! 셀 클릭 시
-            let addDetailGoalVC = AddDetailGoalViewController()
-            addDetailGoalVC.viewModel = viewModel
-            addDetailGoalVC.delegate = self
-            addDetailGoalVC.modalPresentationStyle = .pageSheet
+            let addLowerGoalVC = AddLowerGoalViewController()
+            addLowerGoalVC.viewModel = viewModel
+            addLowerGoalVC.delegate = self
+            addLowerGoalVC.modalPresentationStyle = .pageSheet
             
-            guard let sheet = addDetailGoalVC.sheetPresentationController else { return }
+            guard let sheet = addLowerGoalVC.sheetPresentationController else { return }
             let fraction = UISheetPresentationController.Detent.custom { _ in 500.0 }
             sheet.detents = [fraction]
-            present(addDetailGoalVC, animated: true)
+            present(addLowerGoalVC, animated: true)
         }
     }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
 
-extension DetailParentViewController: UITableViewDelegate {
+extension DetailUpperViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         9
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? DetailGoalTableViewCell else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? LowerGoalTableViewCell else { return }
         let sortedGoalData = viewModel.sortedGoalData.value
         let row = indexPath.row
         let selectedGoal = sortedGoalData[row]
         
-        viewModel.detailGoalId = selectedGoal.detailGoalId
+        viewModel.lowerGoalId = selectedGoal.detailGoalId
         if cell.containerView.backgroundColor == .white {
             // 하위 목표 달성
-            viewModel.completeDetailGoal()
+            viewModel.completeLowerGoal()
         } else {
             // 하위 목표 달성 취소
-            viewModel.incompleteDetailGoal()
+            viewModel.incompleteLowerGoal()
         }
     }
 }
 
-// MARK: - UpdateDetailGoalListDelegate
+// MARK: - UpdateLowerGoalListDelegate
 
-extension DetailParentViewController: UpdateDetailGoalListDelegate {
+extension DetailUpperViewController: UpdateLowerGoalListDelegate {
     /// 하위 목표 리스트 업데이트
-    func updateDetailGoalList() {
-        viewModel.retrieveDetailGoalList()
+    func updateLowerGoalList() {
+        viewModel.retrieveLowerGoalList()
         updateTableViewHeightForFit()
     }
 }

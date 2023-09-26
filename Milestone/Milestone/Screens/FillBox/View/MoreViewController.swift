@@ -45,7 +45,7 @@ class MoreViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Properties
     
-    var viewModel: DetailParentViewModel!
+    var viewModel: DetailUpperViewModel!
     var isFromStorage = false
     let viewHeight = 173.0
     var dateFormatter = DateFormatter()
@@ -103,16 +103,16 @@ class MoreViewController: BaseViewController, ViewModelBindableType {
     
     @objc
     private func presentModifyGoalViewController() {
-        lazy var addParentGoalVC = AddParentGoalViewController()
+        lazy var addUpperGoalVC = AddUpperGoalViewController()
             .then {
                 $0.isModifyMode = true
                 $0.viewModel = viewModel
-                $0.viewModel.parentGoalId = viewModel.selectedParentGoal?.goalId ?? 0
+                $0.viewModel.upperGoalId = viewModel.selectedUpperGoal?.goalId ?? 0
                 $0.completeButton.titleString = "목표 수정 완료"
                 $0.enterGoalDateView.isModifyMode = true
-                $0.enterGoalTitleView.titleTextField.text = viewModel.selectedParentGoal?.title
-                let startDate = changeDateFormat(viewModel.selectedParentGoal!.startDate)
-                let endDate = changeDateFormat(viewModel.selectedParentGoal!.endDate)
+                $0.enterGoalTitleView.titleTextField.text = viewModel.selectedUpperGoal?.title
+                let startDate = changeDateFormat(viewModel.selectedUpperGoal!.startDate)
+                let endDate = changeDateFormat(viewModel.selectedUpperGoal!.endDate)
                 $0.enterGoalDateView.startDateButton.setTitle(startDate, for: .normal)
                 $0.enterGoalDateView.endDateButton.setTitle(endDate, for: .normal)
                 if let startDate = dateFormatter.date(from: startDate!),
@@ -122,10 +122,10 @@ class MoreViewController: BaseViewController, ViewModelBindableType {
                     $0.enterGoalDateView.setDatePicker()
                 }
                 $0.enterGoalTitleView.updateNowNumOfCharaters()
-                $0.reminderAlarmView.onOffSwitch.isOn = viewModel.selectedParentGoal?.reminderEnabled ?? true
+                $0.reminderAlarmView.onOffSwitch.isOn = viewModel.selectedUpperGoal?.reminderEnabled ?? true
             }
         dismiss(animated: true)
-        self.presentingViewController?.presentCustomModal(addParentGoalVC, height: addParentGoalVC.viewHeight)
+        self.presentingViewController?.presentCustomModal(addUpperGoalVC, height: addUpperGoalVC.viewHeight)
     }
    
     @objc

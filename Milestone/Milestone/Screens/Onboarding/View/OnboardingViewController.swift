@@ -17,7 +17,7 @@ class OnboardingViewController: BaseViewController {
     lazy var backButton = UIButton()
         .then {
             $0.setImage(ImageLiteral.imgBack, for: .normal)
-            $0.addTarget(self, action: #selector(dismissAddParentGoal), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(dismissAddUpperGoal), for: .touchUpInside)
         }
     
     var topicLabel = UILabel()
@@ -96,9 +96,9 @@ class OnboardingViewController: BaseViewController {
     @objc func completeButtonTapped(_ sender: UIButton) {
         updateButtonState(.press)
         
-        let parentGoal = CreateParentGoal(title: enterGoalTitleView.titleTextField.text ?? "", startDate: enterGoalDateView.startDateButton.titleLabel?.text ?? "", endDate: enterGoalDateView.endDateButton.titleLabel?.text ?? "", reminderEnabled: reminderAlarmView.onOffSwitch.isOn)
+        let upperGoal = CreateUpperGoal(title: enterGoalTitleView.titleTextField.text ?? "", startDate: enterGoalDateView.startDateButton.titleLabel?.text ?? "", endDate: enterGoalDateView.endDateButton.titleLabel?.text ?? "", reminderEnabled: reminderAlarmView.onOffSwitch.isOn)
         
-        viewModel.addParentGoal(goal: parentGoal)
+        viewModel.addUpperGoal(goal: upperGoal)
             .subscribe(onNext: { [weak self] result in
                 switch result {
                 case .success:
@@ -111,7 +111,7 @@ class OnboardingViewController: BaseViewController {
     }
     
     @objc
-    private func dismissAddParentGoal() {
+    private func dismissAddUpperGoal() {
         self.dismiss(animated: true)
     }
 }

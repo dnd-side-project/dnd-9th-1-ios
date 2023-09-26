@@ -31,7 +31,7 @@ class CompletionViewModel: BindableViewModel {
         authTest()
     }
     
-    var goalData = BehaviorRelay<[ParentGoal]>(value: [])
+    var goalData = BehaviorRelay<[UpperGoal]>(value: [])
 
     var goalDataCount = PublishRelay<Int>()
     var enabledRetrospectCount = BehaviorRelay<Int>(value: 0)
@@ -73,7 +73,7 @@ extension CompletionViewModel {
             .disposed(by: bag)
     }
     
-    func retrieveGoalDataAtIndex(index: Int) -> ParentGoal {
+    func retrieveGoalDataAtIndex(index: Int) -> UpperGoal {
         return goalData.value[index]
     }
     

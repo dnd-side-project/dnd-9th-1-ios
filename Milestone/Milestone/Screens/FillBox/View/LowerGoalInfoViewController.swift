@@ -1,5 +1,5 @@
 //
-//  DetailGoalInfoViewController.swift
+//  LowerGoalInfoViewController.swift
 //  Milestone
 //
 //  Created by 서은수 on 2023/08/15.
@@ -13,7 +13,7 @@ import Then
 
 // MARK: - 하위 목표 정보 팝업뷰
 
-class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
+class LowerGoalInfoViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - SubViews
     
@@ -23,7 +23,7 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
             $0.backgroundColor = .black.withAlphaComponent(0.3)
             $0.addGestureRecognizer(dimmedViewTap)
         }
-    lazy var infoView = DetailGoalInfoView()
+    lazy var infoView = LowerGoalInfoView()
         .then {
             $0.titleLabel.text = ""
             $0.stoneImageView.image = ImageLiteral.imgDetailStoneVer1 // TEMP
@@ -33,15 +33,15 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Properties
     
-    var viewModel: DetailParentViewModel!
-    var delegate: DetailParentViewController!
+    var viewModel: DetailUpperViewModel!
+    var delegate: DetailUpperViewController!
     
     // MARK: - Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel.retrieveDetailGoalInfo()
+        viewModel.retrieveLowerGoalInfo()
     }
     
     // MARK: - Functions
@@ -75,7 +75,7 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
     }
     
     func bindViewModel() {
-        viewModel.thisDetailGoal
+        viewModel.thisLowerGoal
             .subscribe(onNext: { info in
                 self.infoView.titleLabel.text = info.title
                 let alarmDaysString = info.alarmDays.map {
@@ -102,7 +102,7 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
             .then {
                 $0.viewModel = viewModel
                 $0.delegate = delegate
-                $0.fromParentGoal = false
+                $0.fromUpperGoal = false
                 $0.modalPresentationStyle = .overFullScreen
                 $0.modalTransitionStyle = .crossDissolve
             }
@@ -115,13 +115,13 @@ class DetailGoalInfoViewController: BaseViewController, ViewModelBindableType {
     @objc
     private func replacePopUpViewToModify() {
         dismissViewController()
-        lazy var addDetailGoalVC = AddDetailGoalViewController()
+        lazy var addLowerGoalVC = AddLowerGoalViewController()
             .then {
                 $0.viewModel = viewModel
                 $0.delegate = delegate
                 $0.isModifyMode = true
                 $0.enterGoalTitleView.updateNowNumOfCharaters()
             }
-        self.presentingViewController?.presentCustomModal(addDetailGoalVC, height: addDetailGoalVC.viewHeight)
+        self.presentingViewController?.presentCustomModal(addLowerGoalVC, height: addLowerGoalVC.viewHeight)
     }
 }

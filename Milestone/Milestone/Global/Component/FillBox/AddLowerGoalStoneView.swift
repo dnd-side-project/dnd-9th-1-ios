@@ -1,5 +1,5 @@
 //
-//  AddDetailGoalStoneView.swift
+//  AddLowerGoalStoneView.swift
 //  Milestone
 //
 //  Created by 서은수 on 2023/08/17.
@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - 하위 목표를 추가해주세요! 뷰 (일단은 코치마크에서만 쓰임)
 
-class AddDetailGoalStoneView: UIView {
+class AddLowerGoalStoneView: UIView {
     lazy var stoneImageView = UIImageView()
     
     lazy var titleLabel = UILabel()

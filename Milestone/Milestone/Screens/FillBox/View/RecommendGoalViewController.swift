@@ -48,7 +48,7 @@ class RecommendGoalViewController: BaseViewController, ViewModelBindableType {
             $0.separatorStyle = .none
             $0.showsVerticalScrollIndicator = false
             $0.isScrollEnabled = false
-            $0.register(cell: ParentGoalTableViewCell.self, forCellReuseIdentifier: ParentGoalTableViewCell.identifier)
+            $0.register(cell: UpperGoalTableViewCell.self, forCellReuseIdentifier: UpperGoalTableViewCell.identifier)
             $0.delegate = self
         }
     lazy var goToStorageButton = UIButton()
@@ -133,7 +133,7 @@ class RecommendGoalViewController: BaseViewController, ViewModelBindableType {
     
     func bindViewModel() {
         viewModel.recommendedGoals
-            .bind(to: recommendGoalTableView.rx.items(cellIdentifier: ParentGoalTableViewCell.identifier, cellType: ParentGoalTableViewCell.self)) { _, goal, cell in
+            .bind(to: recommendGoalTableView.rx.items(cellIdentifier: UpperGoalTableViewCell.identifier, cellType: UpperGoalTableViewCell.self)) { _, goal, cell in
                 cell.backgroundColor = .white
                 cell.containerView.layer.shadowColor = UIColor.clear.cgColor
                 cell.containerView.layer.borderWidth = 1

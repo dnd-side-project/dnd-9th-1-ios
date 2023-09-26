@@ -16,7 +16,7 @@ class CouchMarkViewController: BaseViewController {
     
     // MARK: - Subviews
     
-    var addDetailGoalStoneView = AddDetailGoalStoneView()
+    var addLowerGoalStoneView = AddLowerGoalStoneView()
         .then {
             $0.stoneImageView.image = ImageLiteral.imgAddStone
             $0.titleLabel.text = "하위 목표를 추가해주세요!"
@@ -65,23 +65,23 @@ class CouchMarkViewController: BaseViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
-        if let touch = touches.first, touch.view == view || touch.view == addDetailGoalStoneView {
+        if let touch = touches.first, touch.view == view || touch.view == addLowerGoalStoneView {
             dismiss(animated: true) // 배경 클릭 시 dismiss
         }
     }
     
     override func render() {
-        view.addSubViews([addDetailGoalStoneView, firstGuideLabel, secondGuideLabel, mileImageView, xButton])
+        view.addSubViews([addLowerGoalStoneView, firstGuideLabel, secondGuideLabel, mileImageView, xButton])
         
-        addDetailGoalStoneView.snp.makeConstraints { make in
+        addLowerGoalStoneView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).inset(146)
             make.left.equalToSuperview().inset(20)
             make.width.equalTo((UIScreen.main.bounds.width - 48 - 16 - 4) / 3)
             make.height.equalTo(148 - 4)
         }
         firstGuideLabel.snp.makeConstraints { make in
-            make.top.equalTo(addDetailGoalStoneView).offset(30)
-            make.left.equalTo(addDetailGoalStoneView.snp.right).offset(16)
+            make.top.equalTo(addLowerGoalStoneView).offset(30)
+            make.left.equalTo(addLowerGoalStoneView.snp.right).offset(16)
             make.width.equalTo(160)
         }
         secondGuideLabel.snp.makeConstraints { make in

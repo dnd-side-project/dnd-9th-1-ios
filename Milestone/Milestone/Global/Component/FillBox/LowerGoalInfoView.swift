@@ -1,5 +1,5 @@
 //
-//  DetailGoalInfoView.swift
+//  LowerGoalInfoView.swift
 //  Milestone
 //
 //  Created by 서은수 on 2023/08/15.
@@ -12,7 +12,7 @@ import Then
 
 // MARK: - 하위 목표 정보 뷰
 
-class DetailGoalInfoView: UIView {
+class LowerGoalInfoView: UIView {
     
     // MARK: - Subviews
     

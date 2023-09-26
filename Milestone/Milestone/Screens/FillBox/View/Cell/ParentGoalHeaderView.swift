@@ -1,5 +1,5 @@
 //
-//  ParentGoalHeaderView.swift
+//  UpperGoalHeaderView.swift
 //  Milestone
 //
 //  Created by 서은수 on 2023/08/11.
@@ -12,7 +12,7 @@ import Then
 
 // MARK: - 상위 목표 테이블뷰의 헤더뷰
 
-class ParentGoalHeaderView: UITableViewHeaderFooterView {
+class UpperGoalHeaderView: UITableViewHeaderFooterView {
     
     let ongoingGoalView = GoalStatusView()
         .then {

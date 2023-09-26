@@ -11,13 +11,13 @@ import RxDataSources
 // MARK: - 상위 목표 조회 Res 모델
 
 struct GoalResponse: Codable {
-    let contents: [ParentGoal]
+    let contents: [UpperGoal]
     let next: Bool
 }
 
 // MARK: - 상위 목표 모델 (채움함, 완료함, 보관함에 사용)
 
-struct ParentGoal: Codable {
+struct UpperGoal: Codable {
     let goalId: Int
     let title: String
     let startDate: String
@@ -32,7 +32,7 @@ struct ParentGoal: Codable {
 
 // MARK: - 상위 목표 개수 모델
 
-struct ParentGoalCount: Codable {
+struct UpperGoalCount: Codable {
     var counts: Count
 }
 
@@ -44,7 +44,7 @@ struct Count: Codable {
 
 // MARK: - 상위 목표 생성 모델
 
-struct CreateParentGoal: Codable {
+struct CreateUpperGoal: Codable {
     var title: String
     var startDate: String
     var endDate: String
@@ -71,7 +71,7 @@ struct Goal: Codable, IdentifiableType, Equatable {
 
 // MARK: - 상위 목표 수정 res 모델
 
-struct ParentGoalInfo: Codable {
+struct UpperGoalInfo: Codable {
     let goalId: Int
     let title: String
     let startDate: String

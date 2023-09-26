@@ -97,8 +97,8 @@ class OnboardingViewModel: BindableViewModel {
         }
     }
     
-    func addParentGoal(goal: CreateParentGoal) -> Observable<Result<EmptyDataModel, APIError>> {
-        return requestPostParentGoal(reqBody: goal)
+    func addUpperGoal(goal: CreateUpperGoal) -> Observable<Result<EmptyDataModel, APIError>> {
+        return requestPostUpperGoal(reqBody: goal)
     }
 }
 
