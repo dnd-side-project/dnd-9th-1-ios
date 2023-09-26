@@ -27,7 +27,6 @@
 		A22774AD2A977438004AE5D7 /* AMPMStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22774AC2A977438004AE5D7 /* AMPMStyle.swift */; };
 		A22774AE2A977438004AE5D7 /* AMPMStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22774AC2A977438004AE5D7 /* AMPMStyle.swift */; };
 		A22774AF2A977438004AE5D7 /* AMPMStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22774AC2A977438004AE5D7 /* AMPMStyle.swift */; };
-		A231AA822AB4721B004C4907 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A231AA812AB4721B004C4907 /* Config.xcconfig */; };
 		A231AA842AB480EA004C4907 /* BubbleTailDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */; };
 		A231AA852AB480EA004C4907 /* BubbleTailDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */; };
 		A231AA862AB480EA004C4907 /* BubbleTailDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */; };
@@ -256,6 +255,7 @@
 		C91007092AB335E8000A9C16 /* RxKakaoSDKStory in Frameworks */ = {isa = PBXBuildFile; productRef = C91007082AB335E8000A9C16 /* RxKakaoSDKStory */; };
 		C910070B2AB335E8000A9C16 /* RxKakaoSDKTalk in Frameworks */ = {isa = PBXBuildFile; productRef = C910070A2AB335E8000A9C16 /* RxKakaoSDKTalk */; };
 		C910070D2AB335E8000A9C16 /* RxKakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = C910070C2AB335E8000A9C16 /* RxKakaoSDKUser */; };
+		C947D91C2AC30D4200015407 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C947D91B2AC30D4200015407 /* Lottie */; };
 		C95A3C9B2A94D08D0028B4ED /* ParentGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9A2A94D08D0028B4ED /* ParentGoal.swift */; };
 		C95A3C9F2A94E0AC0028B4ED /* CompletionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */; };
 		C95A3CA12A94EB580028B4ED /* RewardToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA02A94EB580028B4ED /* RewardToImage.swift */; };
@@ -336,7 +336,6 @@
 		A22736892A7CE53800D7B3B2 /* MilestoneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneUITests.swift; sourceTree = "<group>"; };
 		A227368B2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A22774AC2A977438004AE5D7 /* AMPMStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMPMStyle.swift; sourceTree = "<group>"; };
-		A231AA812AB4721B004C4907 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTailDownView.swift; sourceTree = "<group>"; };
 		A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteGoalViewController.swift; sourceTree = "<group>"; };
 		A23E8B9F2A900EEC0051D135 /* DeleteGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGoalViewController.swift; sourceTree = "<group>"; };
@@ -428,7 +427,7 @@
 		C91006F82AA0534D000A9C16 /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
 		C91006FA2AA7085C000A9C16 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		C91006FD2AA70C22000A9C16 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
-		C910070E2AB33731000A9C16 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		C910070E2AB33731000A9C16 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Config.xcconfig; path = Screens/Config.xcconfig; sourceTree = "<group>"; };
 		C95A3C9A2A94D08D0028B4ED /* ParentGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentGoal.swift; sourceTree = "<group>"; };
 		C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionHeaderView.swift; sourceTree = "<group>"; };
 		C95A3CA02A94EB580028B4ED /* RewardToImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardToImage.swift; sourceTree = "<group>"; };
@@ -485,6 +484,7 @@
 				A2B20D562A7E3F05001ED73C /* Alamofire in Frameworks */,
 				A2B20D4E2A7E3EE1001ED73C /* RxRelay in Frameworks */,
 				C910070D2AB335E8000A9C16 /* RxKakaoSDKUser in Frameworks */,
+				C947D91C2AC30D4200015407 /* Lottie in Frameworks */,
 				C9B2CDE32A8B5E9D006289A8 /* RxDataSources in Frameworks */,
 				C91007012AB335E8000A9C16 /* RxKakaoSDK in Frameworks */,
 				C91007032AB335E8000A9C16 /* RxKakaoSDKAuth in Frameworks */,
@@ -1022,7 +1022,6 @@
 		C9BF3FC52A9781510074E781 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				A231AA812AB4721B004C4907 /* Config.xcconfig */,
 				C91006FC2AA70C0C000A9C16 /* ViewModel */,
 				C9BF3FC82A97836F0074E781 /* Cell */,
 				C9BF3FC62A97817C0074E781 /* SettingViewController.swift */,
@@ -1077,6 +1076,7 @@
 				C91007082AB335E8000A9C16 /* RxKakaoSDKStory */,
 				C910070A2AB335E8000A9C16 /* RxKakaoSDKTalk */,
 				C910070C2AB335E8000A9C16 /* RxKakaoSDKUser */,
+				C947D91B2AC30D4200015407 /* Lottie */,
 			);
 			productName = Milestone;
 			productReference = A22736652A7CE53700D7B3B2 /* Milestone.app */;
@@ -1159,6 +1159,7 @@
 				C9B2CDDF2A8B5E9D006289A8 /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				C9040FD32A93C87900270E94 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				C91006FF2AB335E8000A9C16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
+				C947D91A2AC30D4200015407 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = A22736662A7CE53700D7B3B2 /* Products */;
 			projectDirPath = "";
@@ -1188,7 +1189,6 @@
 				A2B20D752A7E50D8001ED73C /* Pretendard-ExtraLight.otf in Resources */,
 				A2B20D7B2A7E50D8001ED73C /* Pretendard-Black.otf in Resources */,
 				A2B20D8A2A7E50D8001ED73C /* Pretendard-Thin.otf in Resources */,
-				A231AA822AB4721B004C4907 /* Config.xcconfig in Resources */,
 				A2B20D722A7E50D8001ED73C /* Pretendard-Light.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1909,6 +1909,14 @@
 				minimumVersion = 2.17.0;
 			};
 		};
+		C947D91A2AC30D4200015407 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		C9B2CDDF2A8B5E9D006289A8 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
@@ -1999,6 +2007,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C91006FF2AB335E8000A9C16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
 			productName = RxKakaoSDKUser;
+		};
+		C947D91B2AC30D4200015407 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C947D91A2AC30D4200015407 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 		C9B2CDE02A8B5E9D006289A8 /* Differentiator */ = {
 			isa = XCSwiftPackageProductDependency;
