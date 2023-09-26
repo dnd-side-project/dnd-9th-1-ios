@@ -9,6 +9,7 @@ import UIKit
 
 import AuthenticationServices
 import KakaoSDKUser
+import Lottie
 import RxKakaoSDKUser
 import SnapKit
 import RxSwift
@@ -28,6 +29,7 @@ class LoginCoordinator: Coordinator, LoginFlow {
     func start() {
         let loginViewController = LoginViewController()
         loginViewController.coordinator = self
+        loginViewController.viewModel = OnboardingViewModel()
         navigationController.pushViewController(loginViewController, animated: true)
     }
     
@@ -104,15 +106,41 @@ class LoginViewController: BaseViewController {
         return iv
     }()
     
+    let loadingView: LottieAnimationView = .init(name: "loading")
+        .then {
+            $0.play()
+        }
+    lazy var loadingWrapperViewController = UIViewController()
+        .then { wrapperVC in
+            wrapperVC.modalTransitionStyle = .crossDissolve
+            wrapperVC.modalPresentationStyle = .overFullScreen
+            wrapperVC.view.addSubview(self.loadingView)
+            loadingView.snp.makeConstraints { make in
+                make.width.height.equalTo(200)
+                make.centerY.equalTo(wrapperVC.view)
+                make.centerX.equalTo(wrapperVC.view)
+            }
+            wrapperVC.view.backgroundColor = .black.withAlphaComponent(0.3)
+        }
+    
     // MARK: - Properties
     var coordinator: LoginFlow?
-    var viewModel: OnboardingViewModel!
+    var viewModel: OnboardingViewModel?
     
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = OnboardingViewModel()
-        viewModel.loginCoordinator = self.coordinator
+        viewModel?.loginCoordinator = self.coordinator
+        
+        viewModel?.isLoading.subscribe(onNext: { [unowned self] in
+            if $0 {
+                self.present(self.loadingWrapperViewController, animated: false)
+            } else {
+                self.dismiss(animated: false)
+            }
+        })
+        .disposed(by: disposeBag)
     }
     
     // MARK: - Functions
@@ -174,7 +202,7 @@ class LoginViewController: BaseViewController {
                 if UserApi.isKakaoTalkLoginAvailable() {
                     UserApi.shared.rx.loginWithKakaoTalk()
                         .subscribe(onNext: { [weak self] _ in
-                            self?.viewModel.loginWith(provider: .kakao)
+                            self?.viewModel?.loginWith(provider: .kakao)
                         }, onError: {error in
                             print(error)
                         })
@@ -218,8 +246,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         switch authorization.credential {
         case let appleIDCredential as ASAuthorizationAppleIDCredential:
             
-            viewModel.appleUserId = appleIDCredential.user
-            viewModel.loginWith(provider: .apple)
+            viewModel?.appleUserId = appleIDCredential.user
+            viewModel?.loginWith(provider: .apple)
             
         case let passwordCredential as ASPasswordCredential:
             print(passwordCredential)
