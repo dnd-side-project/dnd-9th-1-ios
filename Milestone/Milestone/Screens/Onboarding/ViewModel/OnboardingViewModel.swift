@@ -44,7 +44,11 @@ class OnboardingViewModel: BindableViewModel {
                 .subscribe(onError: {
                     print("ERR: ",$0)
                 }, onCompleted: { [unowned self] in
-                    self.loginCoordinator?.coordinateToOnboarding()
+                    if self.isFirstLogin {
+                        self.loginCoordinator?.coordinateToOnboarding()
+                    } else {
+                        self.loginCoordinator?.coordinateToMain()
+                    }
                 })
                 .disposed(by: bag)
         case .kakao:
