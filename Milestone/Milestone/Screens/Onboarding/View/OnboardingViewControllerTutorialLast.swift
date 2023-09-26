@@ -7,13 +7,13 @@
 
 import UIKit
 
-class OnboardingViewControllerLast: BaseViewController {
+class OnboardingViewControllerTutorialLast: BaseViewController {
     
     var coordinator: OnboardingFlow?
     
     let onboardingImageView = UIImageView()
         .then {
-            $0.image = ImageLiteral.imgOnboarding2
+            $0.image = ImageLiteral.imgOnboarding6
             $0.contentMode = .scaleAspectFit
         }
     
@@ -31,7 +31,7 @@ class OnboardingViewControllerLast: BaseViewController {
             $0.attributedText = attributedString
         }
     
-    let completeButton = UIButton(type: .system)
+    lazy var completeButton = UIButton(type: .system)
         .then {
             $0.backgroundColor = .gray06
             $0.setTitle("시작하기", for: .normal)
