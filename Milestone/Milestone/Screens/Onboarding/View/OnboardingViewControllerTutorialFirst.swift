@@ -10,7 +10,7 @@ import RxSwift
 import Then
 import UIKit
 
-class OnboardingViewControllerTutorialFirst: BaseViewController, PresentDelegate {
+class OnboardingViewControllerTutorialFirst: BaseViewController {
     
     // MARK: - SubViews
     
@@ -119,7 +119,7 @@ class OnboardingViewControllerTutorialFirst: BaseViewController, PresentDelegate
 
 // MARK: - PresentAlertDelegate
 
-extension OnboardingViewController: PresentDelegate {
+extension OnboardingViewControllerTutorialFirst: PresentDelegate {
     func present(alert: UIAlertController) {
         self.present(alert, animated: true)
     }

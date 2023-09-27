@@ -136,6 +136,10 @@ class AddLowerGoalViewController: BaseViewController, ViewModelBindableType {
         }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     // MARK: - @objc Functions
     
     @objc
