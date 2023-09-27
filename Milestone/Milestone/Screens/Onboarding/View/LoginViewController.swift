@@ -123,6 +123,12 @@ class LoginViewController: BaseViewController {
             wrapperVC.view.backgroundColor = .black.withAlphaComponent(0.3)
         }
     
+    lazy var loadingErrorToastView = ToastView()
+        .then {
+            $0.alpha = 0
+            $0.text = "로그인에 실패했어요"
+        }
+    
     // MARK: - Properties
     var coordinator: LoginFlow?
     var viewModel: OnboardingViewModel?
@@ -141,12 +147,40 @@ class LoginViewController: BaseViewController {
             }
         })
         .disposed(by: disposeBag)
+        
+        viewModel?.isError.subscribe(onNext: { [unowned self] in
+            if $0 {
+                UIView.animate(withDuration: 0.2, delay: 0.5) {
+                    self.loadingErrorToastView.alpha = 1
+                    self.loadingErrorToastView.frame = CGRect(origin: CGPoint(x: self.loadingErrorToastView.frame.origin.x, y: self.loadingErrorToastView.frame.origin.y + 50), size: self.loadingErrorToastView.frame.size)
+                } completion: { _ in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        UIView.animate(withDuration: 0.2) {
+                            self.loadingErrorToastView.alpha = 0
+                            self.loadingErrorToastView.frame = CGRect(origin: CGPoint(x: self.loadingErrorToastView.frame.origin.x, y: self.loadingErrorToastView.frame.origin.y - 50), size: self.loadingErrorToastView.frame.size)
+                        }
+                    }
+                }
+
+//                self.loadingErrorToastView.isHidden = false
+            } else {
+//                self.loadingErrorToastView.isHidden = true
+            }
+        })
+        .disposed(by: disposeBag)
     }
     
     // MARK: - Functions
     
     override func render() {
-        view.addSubViews([label, logoImageView, labelWithLogo, backgroundImageView, appleLoginButton, appleLogo, kakaoLoginButton, kakaoLogo])
+        view.addSubViews([label, logoImageView, labelWithLogo, loadingErrorToastView, backgroundImageView, appleLoginButton, appleLogo, kakaoLoginButton, kakaoLogo])
+        
+        loadingErrorToastView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-50)
+            make.height.equalTo(52)
+            make.leading.equalTo(view.snp.leading).offset(24)
+            make.trailing.equalTo(view.snp.trailing).offset(-24)
+        }
         
         label.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
