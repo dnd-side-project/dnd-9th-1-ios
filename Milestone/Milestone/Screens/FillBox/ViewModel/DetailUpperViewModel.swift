@@ -1,5 +1,5 @@
 //
-//  DetailParentViewModel.swift
+//  DetailUpperViewModel.swift
 //  Milestone
 //
 //  Created by 서은수 on 2023/08/22.
@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class DetailParentViewModel: BindableViewModel, ServicesGoalList, ServicesDetailGoal {
+class DetailUpperViewModel: BindableViewModel, ServicesGoalList, ServicesLowerGoal {
     
     // MARK: - BindableViewModel Properties
     
@@ -19,9 +19,9 @@ class DetailParentViewModel: BindableViewModel, ServicesGoalList, ServicesDetail
     
     // MARK: - Properties
     
-    var parentGoalId: Int = 0
-    var detailGoalId: Int = 0
-    var selectedParentGoal: ParentGoal?
+    var upperGoalId: Int = 0
+    var lowerGoalId: Int = 0
+    var selectedUpperGoal: UpperGoal?
     let stoneImageArray = [ImageLiteral.imgDetailStoneVer1, ImageLiteral.imgDetailStoneVer2, ImageLiteral.imgDetailStoneVer3,
                            ImageLiteral.imgDetailStoneVer4, ImageLiteral.imgDetailStoneVer5, ImageLiteral.imgDetailStoneVer6,
                            ImageLiteral.imgDetailStoneVer7, ImageLiteral.imgDetailStoneVer8, ImageLiteral.imgDetailStoneVer9]
@@ -32,27 +32,27 @@ class DetailParentViewModel: BindableViewModel, ServicesGoalList, ServicesDetail
     
     // MARK: - Output
     
-    var popDetailParentVC = BehaviorRelay(value: false)
-    var detailGoalList = BehaviorRelay<[DetailGoal]>(value: [])
-    var test = BehaviorRelay<[DetailGoal]>(value: [])
-    var completedGoalResult = BehaviorRelay<StateUpdatedDetailGoal>(value: StateUpdatedDetailGoal(isGoalCompleted: false, completedGoalCount: 0))
-    // detailGoalList를 정렬한, 테이블뷰에 보여줄 데이터
-    lazy var sortedGoalData = BehaviorRelay<[DetailGoal]>(value: sortGoalForCheckList())
+    var popDetailUpperVC = BehaviorRelay(value: false)
+    var lowerGoalList = BehaviorRelay<[LowerGoal]>(value: [])
+    var test = BehaviorRelay<[LowerGoal]>(value: [])
+    var completedGoalResult = BehaviorRelay<StateUpdatedUpperGoal>(value: StateUpdatedUpperGoal(isGoalCompleted: false, completedGoalCount: 0))
+    // lowerGoalList를 정렬한, 테이블뷰에 보여줄 데이터
+    lazy var sortedGoalData = BehaviorRelay<[LowerGoal]>(value: sortGoalForCheckList())
     
-    var detailGoalListResponse: Observable<Result<BaseModel<[DetailGoal]>, APIError>> {
-        requestDetailGoalList(id: selectedParentGoal?.goalId ?? 0)
+    var lowerGoalListResponse: Observable<Result<BaseModel<[LowerGoal]>, APIError>> {
+        requestLowerGoalList(id: selectedUpperGoal?.goalId ?? 0)
     }
-    var detailGoalCompleteResponse: Observable<Result<BaseModel<StateUpdatedDetailGoal>, APIError>> {
-        requestCompleteDetailGoal(id: detailGoalId)
+    var lowerGoalCompleteResponse: Observable<Result<BaseModel<StateUpdatedUpperGoal>, APIError>> {
+        requestCompleteLowerGoal(id: lowerGoalId)
     }
-    var detailGoalIncompleteResponse: Observable<Result<EmptyDataModel, APIError>> {
-        requestIncompleteDetailGoal(id: detailGoalId)
+    var lowerGoalIncompleteResponse: Observable<Result<EmptyDataModel, APIError>> {
+        requestIncompleteLowerGoal(id: lowerGoalId)
     }
     
     // 현재 상위 목표의 데이터
-    var thisParentGoal: PublishRelay<ParentGoalInfo> = PublishRelay()
-    // 현재 세부 목표의 데이터
-    var thisDetailGoal = BehaviorRelay<DetailGoalInfo>(value: DetailGoalInfo(detailGoalId: 0, title: "", alarmTime: "", alarmDays: [], alarmEnabled: true))
+    var thisUpperGoal: PublishRelay<UpperGoalInfo> = PublishRelay()
+    // 현재 하위 목표의 데이터
+    var thisLowerGoal = BehaviorRelay<LowerGoalInfo>(value: LowerGoalInfo(detailGoalId: 0, title: "", alarmTime: "", alarmDays: [], alarmEnabled: true))
     
     deinit {
         bag = DisposeBag()
@@ -60,11 +60,11 @@ class DetailParentViewModel: BindableViewModel, ServicesGoalList, ServicesDetail
     
     // MARK: - Functions
     
-    /// 체크리스트(TableView)를 위해 detailGoalList를 정렬하는 함수
+    /// 체크리스트(TableView)를 위해 lowerGoalList를 정렬하는 함수
     /// 리스트는 id순(작성순)으로 정렬되어야 한다
     /// 또한 완료된 목표는 완료되지 않은 목표들보다 뒤에 위치해야 한다
-    private func sortGoalForCheckList() -> [DetailGoal] {
-        return detailGoalList.value.sorted {
+    private func sortGoalForCheckList() -> [LowerGoal] {
+        return lowerGoalList.value.sorted {
             if $0.isCompleted == $1.isCompleted {
                 return $0.detailGoalId < $1.detailGoalId
             } else {
@@ -74,19 +74,19 @@ class DetailParentViewModel: BindableViewModel, ServicesGoalList, ServicesDetail
     }
 }
 
-extension DetailParentViewModel {
-    func retrieveDetailGoalList() {
-        detailGoalListResponse
+extension DetailUpperViewModel {
+    func retrieveLowerGoalList() {
+        lowerGoalListResponse
             .subscribe(onNext: { [unowned self] result in
                 switch result {
                 case .success(let response):
                     isFull = response.data.count > 9
-                    detailGoalList.accept(response.data)
+                    lowerGoalList.accept(response.data)
                     sortedGoalData.accept(sortGoalForCheckList()) // 정렬
                     if !isFull {
-                        // 9개가 다 차지 않았다면 세부 목표 생성 셀 추가
+                        // 9개가 다 차지 않았다면 하위 목표 생성 셀 추가
                         var arr = response.data
-                        arr.append(DetailGoal(detailGoalId: -1, title: "세부 목표를 추가해주세요!", isCompleted: false))
+                        arr.append(LowerGoal(detailGoalId: -1, title: "하위 목표를 추가해주세요!", isCompleted: false))
                         test.accept(arr)
                     }
                 case .failure(let error):
@@ -96,13 +96,13 @@ extension DetailParentViewModel {
             .disposed(by: bag)
     }
     
-    /// 세부 목표 완료
-    func completeDetailGoal() {
-        detailGoalCompleteResponse
+    /// 하위 목표 완료
+    func completeLowerGoal() {
+        lowerGoalCompleteResponse
             .subscribe { [unowned self] result in
                 switch result {
                 case .success(let response):
-                    retrieveDetailGoalList()
+                    retrieveLowerGoalList()
                     completedGoalResult.accept(response.data)
                     Logger.debugDescription(response)
                 case .failure(let error):
@@ -112,12 +112,12 @@ extension DetailParentViewModel {
             .disposed(by: bag)
     }
     
-    func incompleteDetailGoal() {
-        detailGoalIncompleteResponse
+    func incompleteLowerGoal() {
+        lowerGoalIncompleteResponse
             .subscribe { [unowned self] result in
                 switch result {
                 case .success(let response):
-                    retrieveDetailGoalList()
+                    retrieveLowerGoalList()
                     Logger.debugDescription(response)
                 case .failure(let error):
                     Logger.debugDescription(error)
@@ -127,12 +127,12 @@ extension DetailParentViewModel {
     }
     
     /// 상위 목표 생성
-    func createParentGoal(reqBody: CreateParentGoal) {
-        var createParentGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
-            requestPostParentGoal(reqBody: reqBody)
+    func createUpperGoal(reqBody: CreateUpperGoal) {
+        var createUpperGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
+            requestPostUpperGoal(reqBody: reqBody)
         }
         
-        createParentGoalResponse
+        createUpperGoalResponse
             .subscribe(onNext: { result in
                 switch result {
                 case .success(let response):
@@ -145,16 +145,16 @@ extension DetailParentViewModel {
     }
     
     /// 상위 목표 수정
-    func modifyParentGoal(reqBody: Goal) {
-        var modifyParentGoalResponse: Observable<Result<BaseModel<ParentGoalInfo>, APIError>> {
-            requestModifyParentGoal(id: parentGoalId, reqBody: reqBody)
+    func modifyUpperGoal(reqBody: Goal) {
+        var modifyUpperGoalResponse: Observable<Result<BaseModel<UpperGoalInfo>, APIError>> {
+            requestModifyUpperGoal(id: upperGoalId, reqBody: reqBody)
         }
         
-        modifyParentGoalResponse
+        modifyUpperGoalResponse
             .subscribe(onNext: { [unowned self] result in
                 switch result {
                 case .success(let response):
-                    thisParentGoal.accept(response.data)
+                    thisUpperGoal.accept(response.data)
                     Logger.debugDescription(response)
                 case .failure(let error):
                     Logger.debugDescription(error)
@@ -164,12 +164,12 @@ extension DetailParentViewModel {
     }
     
     /// 상위 목표 삭제
-    func deleteParentGoal() {
-        var deleteParentGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
-            requestDeleteParentGoal(id: selectedParentGoal?.goalId ?? 0)
+    func deleteUpperGoal() {
+        var deleteUpperGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
+            requestDeleteUpperGoal(id: selectedUpperGoal?.goalId ?? 0)
         }
         
-        deleteParentGoalResponse
+        deleteUpperGoalResponse
             .subscribe(onNext: { result in
                 switch result {
                 case .success(let response):
@@ -182,12 +182,12 @@ extension DetailParentViewModel {
     }
     
     /// 상위 목표 복구 API
-    func restoreParentGoal(reqBody: Goal) {
-        var restoreParentGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
-            requestRestoreParentGoal(id: selectedParentGoal?.goalId ?? 0, reqBody: reqBody)
+    func restoreUpperGoal(reqBody: Goal) {
+        var restoreUpperGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
+            requestRestoreUpperGoal(id: selectedUpperGoal?.goalId ?? 0, reqBody: reqBody)
         }
         
-        restoreParentGoalResponse
+        restoreUpperGoalResponse
             .subscribe(onNext: { result in
                 switch result {
                 case .success(let response):
@@ -199,13 +199,13 @@ extension DetailParentViewModel {
             .disposed(by: bag)
     }
     
-    /// 세부 목표 생성
-    func createDetailGoal(reqBody: NewDetailGoal) {
-        var createDetailGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
-            requestPostDetailGoal(id: selectedParentGoal?.goalId ?? 0, reqBody: reqBody)
+    /// 하위 목표 생성
+    func createLowerGoal(reqBody: NewLowerGoal) {
+        var createLowerGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
+            requestPostLowerGoal(id: selectedUpperGoal?.goalId ?? 0, reqBody: reqBody)
         }
         
-        createDetailGoalResponse
+        createLowerGoalResponse
             .subscribe(onNext: { result in
                 switch result {
                 case .success(let response):
@@ -217,17 +217,17 @@ extension DetailParentViewModel {
             .disposed(by: bag)
     }
     
-    /// 세부 목표 상세 정보 조회
-    func retrieveDetailGoalInfo() {
-        var retrieveDetailGoalInfoResponse: Observable<Result<BaseModel<DetailGoalInfo>, APIError>> {
-            requestDetailGoalInfo(id: detailGoalId)
+    /// 하위 목표 상세 정보 조회
+    func retrieveLowerGoalInfo() {
+        var retrieveLowerGoalInfoResponse: Observable<Result<BaseModel<LowerGoalInfo>, APIError>> {
+            requestLowerGoalInfo(id: lowerGoalId)
         }
         
-        retrieveDetailGoalInfoResponse
+        retrieveLowerGoalInfoResponse
             .subscribe(onNext: { [unowned self] result in
                 switch result {
                 case .success(let response):
-                    thisDetailGoal.accept(response.data) // thisDetailGoal 값 설정
+                    thisLowerGoal.accept(response.data) // thisLowerGoal 값 설정
                     Logger.debugDescription(response)
                 case .failure(let error):
                     Logger.debugDescription(error)
@@ -236,13 +236,13 @@ extension DetailParentViewModel {
             .disposed(by: bag)
     }
     
-    /// 세부 목표 수정 API
-    func modifyDetailGoal(reqBody: NewDetailGoal) {
-        var modifyDetailGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
-            requestEditDetailGoal(id: detailGoalId, reqBody: reqBody)
+    /// 하위 목표 수정 API
+    func modifyLowerGoal(reqBody: NewLowerGoal) {
+        var modifyLowerGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
+            requestEditLowerGoal(id: lowerGoalId, reqBody: reqBody)
         }
         
-        modifyDetailGoalResponse
+        modifyLowerGoalResponse
             .subscribe { result in
                 switch result {
                 case .success(let response):
@@ -253,17 +253,17 @@ extension DetailParentViewModel {
             }
             .disposed(by: bag)
     }
-    /// 세부 목표 삭제 API
-    func deleteDetailGoal() {
-        var modifyDetailGoalResponse: Observable<Result<BaseModel<StateUpdatedDetailGoal>, APIError>> {
-            requestDeleteDetailGoal(id: detailGoalId)
+    /// 하위 목표 삭제 API
+    func deleteLowerGoal() {
+        var modifyLowerGoalResponse: Observable<Result<BaseModel<StateUpdatedUpperGoal>, APIError>> {
+            requestDeleteLowerGoal(id: lowerGoalId)
         }
         
-        modifyDetailGoalResponse
+        modifyLowerGoalResponse
             .subscribe { [unowned self] result in
                 switch result {
                 case .success(let response):
-                    retrieveDetailGoalList()
+                    retrieveLowerGoalList()
                     completedGoalResult.accept(response.data) // 삭제하고 받은 응답값 방출
                     Logger.debugDescription(response)
                 case .failure(let error):

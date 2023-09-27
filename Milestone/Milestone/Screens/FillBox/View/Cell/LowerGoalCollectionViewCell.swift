@@ -1,5 +1,5 @@
 //
-//  DetailGoalCollectionViewCell.swift
+//  LowerGoalCollectionViewCell.swift
 //  Milestone
 //
 //  Created by 서은수 on 2023/08/12.
@@ -10,9 +10,9 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-// MARK: - 세부 목표 컬렉션 뷰
+// MARK: - 하위 목표 컬렉션 뷰
 
-class DetailGoalCollectionViewCell: BaseCollectionViewCell {
+class LowerGoalCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Subviews
     
@@ -39,7 +39,7 @@ class DetailGoalCollectionViewCell: BaseCollectionViewCell {
     
     // MARK: - Properties
     
-    static let identifier = "DetailGoalCollectionViewCell"
+    static let identifier = "LowerGoalCollectionViewCell"
     
     var index = 0 // 셀 인덱스
     var isSet = BehaviorRelay(value: false) // 목표가 설정되어 있는지 안 되어 있는지

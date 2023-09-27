@@ -1,5 +1,5 @@
 //
-//  DetailGoalTableViewCell.swift
+//  LowerGoalTableViewCell.swift
 //  Milestone
 //
 //  Created by 서은수 on 2023/08/13.
@@ -10,9 +10,9 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-// MARK: - 세부 목표 체크 리스트 테이블뷰
+// MARK: - 하위 목표 체크 리스트 테이블뷰
 
-class DetailGoalTableViewCell: BaseTableViewCell {
+class LowerGoalTableViewCell: BaseTableViewCell {
     
     // MARK: - Subviews
     
@@ -39,7 +39,7 @@ class DetailGoalTableViewCell: BaseTableViewCell {
     
     // MARK: - Properties
     
-    static let identifier = "DetailGoalTableViewCell"
+    static let identifier = "LowerGoalTableViewCell"
     var isCompleted = BehaviorRelay(value: false) // 목표가 완료되었는지 아닌지
     
     // MARK: - Functions
@@ -101,7 +101,7 @@ class DetailGoalTableViewCell: BaseTableViewCell {
     }
     
     /// 셀 내용 업데이트
-    func update(content: DetailGoal) {
+    func update(content: LowerGoal) {
         titleLabel.rx.text.onNext(content.title)
         isCompleted.accept(content.isCompleted)
     }

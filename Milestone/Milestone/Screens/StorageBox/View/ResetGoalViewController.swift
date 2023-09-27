@@ -19,7 +19,7 @@ class ResetGoalViewController: BaseViewController, ViewModelBindableType {
     lazy var backButton = UIButton()
         .then {
             $0.setImage(ImageLiteral.imgBack, for: .normal)
-            $0.addTarget(self, action: #selector(dismissAddParentGoal), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(dismissAddUpperGoal), for: .touchUpInside)
         }
     var topicLabel = UILabel()
         .then {
@@ -45,7 +45,7 @@ class ResetGoalViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Properties
     
     let viewHeight = 428.0
-    var viewModel: DetailParentViewModel!
+    var viewModel: DetailUpperViewModel!
     
     // MARK: - Functions
     
@@ -91,14 +91,14 @@ class ResetGoalViewController: BaseViewController, ViewModelBindableType {
     // MARK: - @objc Functions
     
     @objc
-    private func dismissAddParentGoal() {
+    private func dismissAddUpperGoal() {
         self.dismiss(animated: true)
     }
 
     @objc
     private func restoreGoal() {
         // 복구하기 API 호출
-        viewModel.restoreParentGoal(reqBody: Goal(identity: nil,
+        viewModel.restoreUpperGoal(reqBody: Goal(identity: nil,
                                                   title: nil,
                                                   startDate: enterGoalDateView.startDateButton.titleLabel?.text ?? "",
                                                   endDate: enterGoalDateView.endDateButton.titleLabel?.text ?? "",
@@ -106,7 +106,7 @@ class ResetGoalViewController: BaseViewController, ViewModelBindableType {
         updateButtonState(.press)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.dismiss(animated: true)
-            self.viewModel?.popDetailParentVC.accept(true)
+            self.viewModel?.popDetailUpperVC.accept(true)
         }
     }
 }

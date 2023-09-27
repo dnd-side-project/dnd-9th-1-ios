@@ -1,5 +1,5 @@
 //
-//  AddDetailGoalViewController.swift
+//  AddLowerGoalViewController.swift
 //  Milestone
 //
 //  Created by 서은수 on 2023/08/17.
@@ -12,14 +12,14 @@ import Then
 
 // MARK: - 하위 목표 추가 모달뷰
 
-class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
+class AddLowerGoalViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - SubViews
     
     lazy var backButton = UIButton()
         .then {
             $0.setImage(ImageLiteral.imgBack, for: .normal)
-            $0.addTarget(self, action: #selector(dismissAddDetailGoal), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(dismissAddLowerGoal), for: .touchUpInside)
         }
     var topicLabel = UILabel()
         .then {
@@ -46,8 +46,8 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Properties
     
     var isModifyMode = false
-    var viewModel: DetailParentViewModel!
-    var delegate: UpdateDetailGoalListDelegate?
+    var viewModel: DetailUpperViewModel!
+    var delegate: UpdateLowerGoalListDelegate?
     let viewHeight = 549.0
     
     // MARK: - Life Cycle
@@ -101,18 +101,18 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
     
     /// 수정하기 모드일 때 뷰 설정
     private func setViewOnModifyMode() {
-        let detailGoal = viewModel.thisDetailGoal.value
+        let lowerGoal = viewModel.thisLowerGoal.value
         completeButton.titleString = "목표 수정 완료"
-        enterGoalTitleView.titleTextField.text = detailGoal.title
-        let arr = splitTimeStringToThree(timeString: detailGoal.alarmTime)
+        enterGoalTitleView.titleTextField.text = lowerGoal.title
+        let arr = splitTimeStringToThree(timeString: lowerGoal.alarmTime)
         enterGoalAlarmView.selectedAmOrPm = arr?[0] ?? "오후"
         enterGoalAlarmView.selectedHour = arr?[1] ?? "01"
         enterGoalAlarmView.selectedMin = arr?[2] ?? "00"
         enterGoalAlarmView.timeButton.setTitle("\(arr?[0] ?? "오후")   \(arr?[1] ?? "01") : \(arr?[2] ?? "00")", for: .normal)
-        enterGoalAlarmView.selectedDayList = detailGoal.alarmDays.map {
+        enterGoalAlarmView.selectedDayList = lowerGoal.alarmDays.map {
             DayForResStyle(rawValue: $0)?.caseString ?? ""
         }
-        enterGoalAlarmView.onOffSwitch.isOn = detailGoal.alarmEnabled
+        enterGoalAlarmView.onOffSwitch.isOn = lowerGoal.alarmEnabled
         enterGoalAlarmView.toggleAlarmSwitch()
     }
     
@@ -139,7 +139,7 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
     // MARK: - @objc Functions
     
     @objc
-    private func dismissAddDetailGoal() {
+    private func dismissAddLowerGoal() {
         self.dismiss(animated: true)
     }
     
@@ -148,21 +148,21 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
         updateButtonState(.press)
         Logger.debugDescription(self.enterGoalTitleView.titleTextField.text!)
         // req body 생성
-        let detailGoalInfo = NewDetailGoal(title: self.enterGoalTitleView.titleTextField.text!,
+        let lowerGoalInfo = NewLowerGoal(title: self.enterGoalTitleView.titleTextField.text!,
                                            alarmEnabled: self.enterGoalAlarmView.onOffSwitch.isOn,
                                            alarmTime: "\(self.enterGoalAlarmView.selectedAmOrPm) \(self.enterGoalAlarmView.selectedHour):\(self.enterGoalAlarmView.selectedMin)",
                                            alarmDays: self.enterGoalAlarmView.getSelectedDay())
         /// 모드에 맞게 다른 API를 호출한다
         if isModifyMode {
-            viewModel.modifyDetailGoal(reqBody: detailGoalInfo)
+            viewModel.modifyLowerGoal(reqBody: lowerGoalInfo)
         } else {
-            viewModel.createDetailGoal(reqBody: detailGoalInfo)
+            viewModel.createLowerGoal(reqBody: lowerGoalInfo)
         }
         
         // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.dismiss(animated: true) {
-                self.delegate?.updateDetailGoalList()
+                self.delegate?.updateLowerGoalList()
             }
         }
     }
@@ -170,7 +170,7 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
 
 // MARK: - PresentAlertDelegate
 
-extension AddDetailGoalViewController: PresentDelegate {
+extension AddLowerGoalViewController: PresentDelegate {
     func present(_ viewController: UIViewController) {
         self.present(viewController, animated: true)
     }
@@ -182,7 +182,7 @@ extension AddDetailGoalViewController: PresentDelegate {
 
 // MARK: - UpdateButtonStateDelegate
 
-extension AddDetailGoalViewController: UpdateButtonStateDelegate {
+extension AddLowerGoalViewController: UpdateButtonStateDelegate {
     func updateButtonState(_ state: ButtonState) {
         self.completeButton.buttonState = state
     }

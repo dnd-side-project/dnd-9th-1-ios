@@ -1,5 +1,5 @@
 //
-//  AddParentGoalViewController.swift
+//  AddUpperGoalViewController.swift
 //  Milestone
 //
 //  Created by 서은수 on 2023/08/15.
@@ -14,14 +14,14 @@ import Then
 
 // MARK: - 상위 목표 추가 모달뷰
 
-class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
+class AddUpperGoalViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - SubViews
     
     lazy var backButton = UIButton()
         .then {
             $0.setImage(ImageLiteral.imgBack, for: .normal)
-            $0.addTarget(self, action: #selector(dismissAddParentGoal), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(dismissAddUpperGoal), for: .touchUpInside)
         }
     var topicLabel = UILabel()
         .then {
@@ -48,9 +48,9 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Properties
     
     var isModifyMode = false
-    var viewModel: DetailParentViewModel!
+    var viewModel: DetailUpperViewModel!
     let viewHeight = 549.0
-    var delegate: UpdateParentGoalListDelegate?
+    var delegate: UpdateUpperGoalListDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,44 +106,44 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
     /// 완료 버튼 액션 설정
     private func setCompleteButtonAction() {
         if isModifyMode {
-            completeButton.addTarget(self, action: #selector(completeModifyParentGoal), for: .touchUpInside)
+            completeButton.addTarget(self, action: #selector(completeModifyUpperGoal), for: .touchUpInside)
         } else {
-            completeButton.addTarget(self, action: #selector(completeAddParentGoal), for: .touchUpInside)
+            completeButton.addTarget(self, action: #selector(completeAddUpperGoal), for: .touchUpInside)
         }
     }
     
     // MARK: - @objc Functions
     
     @objc
-    private func dismissAddParentGoal() {
+    private func dismissAddUpperGoal() {
         self.dismiss(animated: true)
     }
     
     @objc
-    private func completeAddParentGoal() {
+    private func completeAddUpperGoal() {
         // 상위 목표 생성 API 호출
-        let reqBody = CreateParentGoal(title: self.enterGoalTitleView.titleTextField.text ?? " ", startDate: self.enterGoalDateView.startDateButton.titleLabel?.text ?? "", endDate: self.enterGoalDateView.endDateButton.titleLabel?.text ?? "", reminderEnabled: self.reminderAlarmView.onOffSwitch.isOn)
-        viewModel.createParentGoal(reqBody: reqBody)
+        let reqBody = CreateUpperGoal(title: self.enterGoalTitleView.titleTextField.text ?? " ", startDate: self.enterGoalDateView.startDateButton.titleLabel?.text ?? "", endDate: self.enterGoalDateView.endDateButton.titleLabel?.text ?? "", reminderEnabled: self.reminderAlarmView.onOffSwitch.isOn)
+        viewModel.createUpperGoal(reqBody: reqBody)
         
         updateButtonState(.press)
         // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.dismiss(animated: true) {
                 // 목표 추가 모달 dismiss 하면서 상위 목표 목록 업데이트
-                self.delegate?.updateParentGoalList()
+                self.delegate?.updateUpperGoalList()
             }
         }
     }
     
     @objc
-    private func completeModifyParentGoal() {
+    private func completeModifyUpperGoal() {
         let title = self.enterGoalTitleView.titleTextField.text ?? ""
         let startDate = self.enterGoalDateView.startDateButton.titleLabel?.text ?? ""
         let endDate = self.enterGoalDateView.endDateButton.titleLabel?.text ?? ""
         let reminderEnabled = self.reminderAlarmView.onOffSwitch.isOn
         // 상위 목표 수정 API 호출
-        let reqBody = Goal(identity: viewModel.parentGoalId, title: title, startDate: startDate, endDate: endDate, reminderEnabled: reminderEnabled)
-        viewModel.modifyParentGoal(reqBody: reqBody)
+        let reqBody = Goal(identity: viewModel.upperGoalId, title: title, startDate: startDate, endDate: endDate, reminderEnabled: reminderEnabled)
+        viewModel.modifyUpperGoal(reqBody: reqBody)
         
         updateButtonState(.press)
         // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
@@ -158,7 +158,7 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
 
 // MARK: - PresentAlertDelegate
 
-extension AddParentGoalViewController: PresentDelegate {
+extension AddUpperGoalViewController: PresentDelegate {
     func present(alert: UIAlertController) {
         self.present(alert, animated: true)
     }
@@ -169,7 +169,7 @@ extension AddParentGoalViewController: PresentDelegate {
 
 // MARK: - UpdateButtonStateDelegate
 
-extension AddParentGoalViewController: UpdateButtonStateDelegate {
+extension AddUpperGoalViewController: UpdateButtonStateDelegate {
     func updateButtonState(_ state: ButtonState) {
         self.completeButton.buttonState = state
     }
