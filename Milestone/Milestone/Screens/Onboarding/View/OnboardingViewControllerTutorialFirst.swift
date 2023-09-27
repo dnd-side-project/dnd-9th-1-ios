@@ -96,9 +96,9 @@ class OnboardingViewControllerTutorialFirst: BaseViewController, PresentDelegate
     @objc func completeButtonTapped(_ sender: UIButton) {
         updateButtonState(.press)
         
-        let parentGoal = CreateParentGoal(title: enterGoalTitleView.titleTextField.text ?? "", startDate: enterGoalDateView.startDateButton.titleLabel?.text ?? "", endDate: enterGoalDateView.endDateButton.titleLabel?.text ?? "", reminderEnabled: reminderAlarmView.onOffSwitch.isOn)
+        let upperGoal = CreateUpperGoal(title: enterGoalTitleView.titleTextField.text ?? "", startDate: enterGoalDateView.startDateButton.titleLabel?.text ?? "", endDate: enterGoalDateView.endDateButton.titleLabel?.text ?? "", reminderEnabled: reminderAlarmView.onOffSwitch.isOn)
         
-        viewModel.addParentGoal(goal: parentGoal)
+        viewModel.addUpperGoal(goal: upperGoal)
             .subscribe(onNext: { [weak self] result in
                 switch result {
                 case .success:
