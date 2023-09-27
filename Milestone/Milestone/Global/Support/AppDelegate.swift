@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         if AuthApi.isKakaoTalkLoginUrl(url) {
             return AuthController.rx.handleOpenUrl(url: url)
         }
@@ -62,8 +62,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification) async
     -> UNNotificationPresentationOptions {
-        let userInfo = notification.request.content.userInfo
-        
         return [[.sound, .banner, .badge]]
     }
     

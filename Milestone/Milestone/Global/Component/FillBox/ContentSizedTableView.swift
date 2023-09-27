@@ -10,7 +10,7 @@ import UIKit
 // MARK: - content size에 맞게 높이를 자동 조절하는 테이블뷰
 
 final class ContentSizedTableView: UITableView {
-    override var contentSize:CGSize {
+    override var contentSize: CGSize {
         didSet {
             invalidateIntrinsicContentSize()
         }
@@ -18,7 +18,6 @@ final class ContentSizedTableView: UITableView {
 
     override var intrinsicContentSize: CGSize {
         layoutIfNeeded()
-        return CGSize(width: UIView.noIntrinsicMetric,
-                     height: contentSize.height + adjustedContentInset.top)
+        return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height + adjustedContentInset.top)
     }
 }

@@ -287,11 +287,7 @@ class DetailUpperViewController: BaseViewController, ViewModelBindableType {
     /// 상위 목표 정보로 뷰 구성
     private func updateDetailUpperView() {
         guard let selectedGoalData = viewModel.selectedUpperGoal else { return }
-        viewModel.thisUpperGoal.accept(UpperGoalInfo(goalId: selectedGoalData.goalId,
-                                                       title: selectedGoalData.title,
-                                                       startDate: selectedGoalData.startDate,
-                                                       endDate: selectedGoalData.endDate,
-                                                       dDay: selectedGoalData.dDay))
+        viewModel.thisUpperGoal.accept(UpperGoalInfo(goalId: selectedGoalData.goalId, title: selectedGoalData.title, startDate: selectedGoalData.startDate, endDate: selectedGoalData.endDate, dDay: selectedGoalData.dDay))
     }
     
     // MARK: - @objc Functions

@@ -16,4 +16,3 @@ protocol UpdateUpperGoalListDelegate: AnyObject {
 protocol UpdateLowerGoalListDelegate: AnyObject {
     func updateLowerGoalList()
 }
-
