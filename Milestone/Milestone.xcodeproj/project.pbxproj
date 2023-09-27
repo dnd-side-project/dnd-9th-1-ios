@@ -255,6 +255,7 @@
 		C91007092AB335E8000A9C16 /* RxKakaoSDKStory in Frameworks */ = {isa = PBXBuildFile; productRef = C91007082AB335E8000A9C16 /* RxKakaoSDKStory */; };
 		C910070B2AB335E8000A9C16 /* RxKakaoSDKTalk in Frameworks */ = {isa = PBXBuildFile; productRef = C910070A2AB335E8000A9C16 /* RxKakaoSDKTalk */; };
 		C910070D2AB335E8000A9C16 /* RxKakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = C910070C2AB335E8000A9C16 /* RxKakaoSDKUser */; };
+		C947D91C2AC30D4200015407 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C947D91B2AC30D4200015407 /* Lottie */; };
 		C947D9112AC28BE100015407 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D9102AC28BE100015407 /* OnboardingViewController.swift */; };
 		C947D9132AC28D5300015407 /* OnboardingViewControllerFirst.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D9122AC28D5300015407 /* OnboardingViewControllerFirst.swift */; };
 		C947D9152AC28D5E00015407 /* OnboardingViewControllerSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D9142AC28D5E00015407 /* OnboardingViewControllerSecond.swift */; };
@@ -431,6 +432,7 @@
 		C91006F82AA0534D000A9C16 /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
 		C91006FA2AA7085C000A9C16 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		C91006FD2AA70C22000A9C16 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		C910070E2AB33731000A9C16 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Config.xcconfig; path = Screens/Config.xcconfig; sourceTree = "<group>"; };
 		C910070E2AB33731000A9C16 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		C947D9102AC28BE100015407 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		C947D9122AC28D5300015407 /* OnboardingViewControllerFirst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerFirst.swift; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 				A2B20D562A7E3F05001ED73C /* Alamofire in Frameworks */,
 				A2B20D4E2A7E3EE1001ED73C /* RxRelay in Frameworks */,
 				C910070D2AB335E8000A9C16 /* RxKakaoSDKUser in Frameworks */,
+				C947D91C2AC30D4200015407 /* Lottie in Frameworks */,
 				C9B2CDE32A8B5E9D006289A8 /* RxDataSources in Frameworks */,
 				C91007012AB335E8000A9C16 /* RxKakaoSDK in Frameworks */,
 				C91007032AB335E8000A9C16 /* RxKakaoSDKAuth in Frameworks */,
@@ -1097,6 +1100,7 @@
 				C91007082AB335E8000A9C16 /* RxKakaoSDKStory */,
 				C910070A2AB335E8000A9C16 /* RxKakaoSDKTalk */,
 				C910070C2AB335E8000A9C16 /* RxKakaoSDKUser */,
+				C947D91B2AC30D4200015407 /* Lottie */,
 			);
 			productName = Milestone;
 			productReference = A22736652A7CE53700D7B3B2 /* Milestone.app */;
@@ -1179,6 +1183,7 @@
 				C9B2CDDF2A8B5E9D006289A8 /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				C9040FD32A93C87900270E94 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				C91006FF2AB335E8000A9C16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
+				C947D91A2AC30D4200015407 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = A22736662A7CE53700D7B3B2 /* Products */;
 			projectDirPath = "";
@@ -1925,6 +1930,14 @@
 				minimumVersion = 2.17.0;
 			};
 		};
+		C947D91A2AC30D4200015407 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		C9B2CDDF2A8B5E9D006289A8 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
@@ -2015,6 +2028,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C91006FF2AB335E8000A9C16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
 			productName = RxKakaoSDKUser;
+		};
+		C947D91B2AC30D4200015407 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C947D91A2AC30D4200015407 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 		C9B2CDE02A8B5E9D006289A8 /* Differentiator */ = {
 			isa = XCSwiftPackageProductDependency;

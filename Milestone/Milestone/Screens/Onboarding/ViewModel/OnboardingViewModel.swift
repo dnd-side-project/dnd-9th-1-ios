@@ -29,11 +29,15 @@ class OnboardingViewModel: BindableViewModel {
         .map { String($0) }
     var appleUserId: String!
     var isFirstLogin = false
+    var isLoading = BehaviorRelay<Bool>(value: false)
     
     /// 로그인 진행
     /// 1. 프로바이더에 따라 로그인 함수 호출
     /// 2. 로그인 함수 내에서 토큰 저장함수 재호출
     func loginWith(provider: LoginType) {
+        
+        isLoading.accept(true)
+        
         switch provider {
         case .apple:
             fcmObservable
@@ -41,9 +45,10 @@ class OnboardingViewModel: BindableViewModel {
                 .flatMapLatest { [unowned self] in
                     self.saveToken(result: $0)
                 }
-                .subscribe(onError: {
-                    print("ERR: ",$0)
+                .subscribe(onError: {[unowned self] _ in
+                    self.isLoading.accept(false)
                 }, onCompleted: { [unowned self] in
+                    self.isLoading.accept(false)
                     if self.isFirstLogin {
                         self.loginCoordinator?.coordinateToOnboarding()
                     } else {
@@ -55,10 +60,12 @@ class OnboardingViewModel: BindableViewModel {
             fcmObservable
                 .flatMapLatest { [unowned self] in self.kakaoLogin(fcmToken: $0) }
                 .flatMapLatest { [unowned self] in self.saveToken(result: $0) }
-                .subscribe(onError: {
+                .subscribe(onError: { [unowned self] in
                     // MARK: 에러처리 필요
+                    self.isLoading.accept(false)
                     print($0)
                 }, onCompleted: { [unowned self] in
+                    self.isLoading.accept(false)
                     if self.isFirstLogin {
                         self.loginCoordinator?.coordinateToOnboarding()
                     } else {
