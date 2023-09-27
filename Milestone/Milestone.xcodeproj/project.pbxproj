@@ -243,10 +243,10 @@
 		C90DC9272A81FF2000241B7C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C90DC9262A81FF2000241B7C /* .swiftlint.yml */; };
 		C90DC9762A876F5D00241B7C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9752A876F5D00241B7C /* AppCoordinator.swift */; };
 		C90DC97A2A88814700241B7C /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9792A88814700241B7C /* Coordinator.swift */; };
-		C90DC9822A88854C00241B7C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9812A88854C00241B7C /* OnboardingViewController.swift */; };
+		C90DC9822A88854C00241B7C /* OnboardingViewControllerTutorialFirst.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9812A88854C00241B7C /* OnboardingViewControllerTutorialFirst.swift */; };
 		C90DC9842A88874800241B7C /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9832A88874800241B7C /* OnboardingCoordinator.swift */; };
 		C90DC9862A88F0B100241B7C /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9852A88F0B100241B7C /* UITextField+.swift */; };
-		C90DC9882A891A8500241B7C /* OnboardingViewControllerLast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9872A891A8500241B7C /* OnboardingViewControllerLast.swift */; };
+		C90DC9882A891A8500241B7C /* OnboardingViewControllerTutorialLast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9872A891A8500241B7C /* OnboardingViewControllerTutorialLast.swift */; };
 		C90DC98A2A8922D300241B7C /* NSMutableAttributedString+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90DC9892A8922D300241B7C /* NSMutableAttributedString+.swift */; };
 		C91006F92AA0534D000A9C16 /* LoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91006F82AA0534D000A9C16 /* LoginType.swift */; };
 		C91006FB2AA7085C000A9C16 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91006FA2AA7085C000A9C16 /* ModalViewController.swift */; };
@@ -259,6 +259,13 @@
 		C910070B2AB335E8000A9C16 /* RxKakaoSDKTalk in Frameworks */ = {isa = PBXBuildFile; productRef = C910070A2AB335E8000A9C16 /* RxKakaoSDKTalk */; };
 		C910070D2AB335E8000A9C16 /* RxKakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = C910070C2AB335E8000A9C16 /* RxKakaoSDKUser */; };
 		C95A3C9B2A94D08D0028B4ED /* UpperGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9A2A94D08D0028B4ED /* UpperGoal.swift */; };
+		C947D9112AC28BE100015407 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D9102AC28BE100015407 /* OnboardingViewController.swift */; };
+		C947D9132AC28D5300015407 /* OnboardingViewControllerFirst.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D9122AC28D5300015407 /* OnboardingViewControllerFirst.swift */; };
+		C947D9152AC28D5E00015407 /* OnboardingViewControllerSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D9142AC28D5E00015407 /* OnboardingViewControllerSecond.swift */; };
+		C947D9172AC28D6600015407 /* OnboardingViewControllerThird.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D9162AC28D6600015407 /* OnboardingViewControllerThird.swift */; };
+		C947D9192AC28D7300015407 /* OnboardingViewControllerFourth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D9182AC28D7300015407 /* OnboardingViewControllerFourth.swift */; };
+		C947D91C2AC30D4200015407 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C947D91B2AC30D4200015407 /* Lottie */; };
+		C947D95D2AC3F7FF00015407 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D95C2AC3F7FF00015407 /* ToastView.swift */; };
 		C95A3C9F2A94E0AC0028B4ED /* CompletionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */; };
 		C95A3CA12A94EB580028B4ED /* RewardToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA02A94EB580028B4ED /* RewardToImage.swift */; };
 		C95A3CA32A95973B0028B4ED /* Retrospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA22A95973B0028B4ED /* Retrospect.swift */; };
@@ -422,16 +429,22 @@
 		C90DC9262A81FF2000241B7C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C90DC9752A876F5D00241B7C /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		C90DC9792A88814700241B7C /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		C90DC9812A88854C00241B7C /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		C90DC9812A88854C00241B7C /* OnboardingViewControllerTutorialFirst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerTutorialFirst.swift; sourceTree = "<group>"; };
 		C90DC9832A88874800241B7C /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
 		C90DC9852A88F0B100241B7C /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
-		C90DC9872A891A8500241B7C /* OnboardingViewControllerLast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerLast.swift; sourceTree = "<group>"; };
+		C90DC9872A891A8500241B7C /* OnboardingViewControllerTutorialLast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerTutorialLast.swift; sourceTree = "<group>"; };
 		C90DC9892A8922D300241B7C /* NSMutableAttributedString+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+.swift"; sourceTree = "<group>"; };
 		C91006F82AA0534D000A9C16 /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
 		C91006FA2AA7085C000A9C16 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		C91006FD2AA70C22000A9C16 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		C910070E2AB33731000A9C16 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		C95A3C9A2A94D08D0028B4ED /* UpperGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperGoal.swift; sourceTree = "<group>"; };
+		C947D9102AC28BE100015407 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		C947D9122AC28D5300015407 /* OnboardingViewControllerFirst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerFirst.swift; sourceTree = "<group>"; };
+		C947D9142AC28D5E00015407 /* OnboardingViewControllerSecond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerSecond.swift; sourceTree = "<group>"; };
+		C947D9162AC28D6600015407 /* OnboardingViewControllerThird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerThird.swift; sourceTree = "<group>"; };
+		C947D9182AC28D7300015407 /* OnboardingViewControllerFourth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerFourth.swift; sourceTree = "<group>"; };
+		C947D95C2AC3F7FF00015407 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionHeaderView.swift; sourceTree = "<group>"; };
 		C95A3CA02A94EB580028B4ED /* RewardToImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardToImage.swift; sourceTree = "<group>"; };
 		C95A3CA22A95973B0028B4ED /* Retrospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Retrospect.swift; sourceTree = "<group>"; };
@@ -487,6 +500,7 @@
 				A2B20D562A7E3F05001ED73C /* Alamofire in Frameworks */,
 				A2B20D4E2A7E3EE1001ED73C /* RxRelay in Frameworks */,
 				C910070D2AB335E8000A9C16 /* RxKakaoSDKUser in Frameworks */,
+				C947D91C2AC30D4200015407 /* Lottie in Frameworks */,
 				C9B2CDE32A8B5E9D006289A8 /* RxDataSources in Frameworks */,
 				C91007012AB335E8000A9C16 /* RxKakaoSDK in Frameworks */,
 				C91007032AB335E8000A9C16 /* RxKakaoSDKAuth in Frameworks */,
@@ -548,7 +562,6 @@
 				C9B2CE0E2A8F4ED6006289A8 /* Core */,
 				A2B20D8D2A7ED12D001ED73C /* Global */,
 				A22736992A7CE73600D7B3B2 /* Screens */,
-				C910070E2AB33731000A9C16 /* Config.xcconfig */,
 			);
 			path = Milestone;
 			sourceTree = "<group>";
@@ -591,6 +604,7 @@
 				A2D304B92A854E1600A5BA92 /* FillBox */,
 				A2D304C52A856AF400A5BA92 /* CompletionBox */,
 				C9BF3FC52A9781510074E781 /* Setting */,
+				C910070E2AB33731000A9C16 /* Config.xcconfig */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -681,6 +695,7 @@
 				C9B2CE422A90E76B006289A8 /* GoalAchievementRateView.swift */,
 				A2CC0DB92AB8888C000893B3 /* DefaultLeftBarButton.swift */,
 				A2A303182AC3B090006823F3 /* NetworkFailView.swift */,
+				C947D95C2AC3F7FF00015407 /* ToastView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -892,9 +907,11 @@
 		A2FA59302A7FD6D3006ACA2E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C91C26012AC288630044151C /* OnboardingSubviews */,
 				88216FBF2A85328900FE3A77 /* LoginViewController.swift */,
-				C90DC9812A88854C00241B7C /* OnboardingViewController.swift */,
-				C90DC9872A891A8500241B7C /* OnboardingViewControllerLast.swift */,
+				C90DC9812A88854C00241B7C /* OnboardingViewControllerTutorialFirst.swift */,
+				C90DC9872A891A8500241B7C /* OnboardingViewControllerTutorialLast.swift */,
+				C947D9102AC28BE100015407 /* OnboardingViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -932,6 +949,17 @@
 				C91006FD2AA70C22000A9C16 /* SettingViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C91C26012AC288630044151C /* OnboardingSubviews */ = {
+			isa = PBXGroup;
+			children = (
+				C947D9122AC28D5300015407 /* OnboardingViewControllerFirst.swift */,
+				C947D9142AC28D5E00015407 /* OnboardingViewControllerSecond.swift */,
+				C947D9162AC28D6600015407 /* OnboardingViewControllerThird.swift */,
+				C947D9182AC28D7300015407 /* OnboardingViewControllerFourth.swift */,
+			);
+			path = OnboardingSubviews;
 			sourceTree = "<group>";
 		};
 		C968F8F32A98F2AE0051DE48 /* Setting */ = {
@@ -1079,6 +1107,7 @@
 				C91007082AB335E8000A9C16 /* RxKakaoSDKStory */,
 				C910070A2AB335E8000A9C16 /* RxKakaoSDKTalk */,
 				C910070C2AB335E8000A9C16 /* RxKakaoSDKUser */,
+				C947D91B2AC30D4200015407 /* Lottie */,
 			);
 			productName = Milestone;
 			productReference = A22736652A7CE53700D7B3B2 /* Milestone.app */;
@@ -1161,6 +1190,7 @@
 				C9B2CDDF2A8B5E9D006289A8 /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				C9040FD32A93C87900270E94 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				C91006FF2AB335E8000A9C16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
+				C947D91A2AC30D4200015407 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = A22736662A7CE53700D7B3B2 /* Products */;
 			projectDirPath = "";
@@ -1253,6 +1283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C947D95D2AC3F7FF00015407 /* ToastView.swift in Sources */,
 				C9B2CE072A8E69E5006289A8 /* IndexViewAfterSaved.swift in Sources */,
 				A2EC47CC2A8A962600401B03 /* LowerGoalInfoViewController.swift in Sources */,
 				A26509102A8D604100E9A2D7 /* CouchMarkViewController.swift in Sources */,
@@ -1274,10 +1305,11 @@
 				A28EDA112A87808A001A021A /* UIViewController+.swift in Sources */,
 				C9BF3FCC2A9783EA0074E781 /* SettingTableViewCellSecondSection.swift in Sources */,
 				A2B9698F2A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */,
-				C90DC9882A891A8500241B7C /* OnboardingViewControllerLast.swift in Sources */,
+				C90DC9882A891A8500241B7C /* OnboardingViewControllerTutorialLast.swift in Sources */,
 				A2D304BD2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
 				A2FA592D2A7FD433006ACA2E /* NSObject+.swift in Sources */,
 				A28EDA192A879565001A021A /* DetailUpperViewController.swift in Sources */,
+				C947D9172AC28D6600015407 /* OnboardingViewControllerThird.swift in Sources */,
 				C9B2CDEF2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift in Sources */,
 				A23E8BA02A900EEC0051D135 /* DeleteGoalViewController.swift in Sources */,
 				A289D9602A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */,
@@ -1297,6 +1329,7 @@
 				C9BF3FC72A97817C0074E781 /* SettingViewController.swift in Sources */,
 				A27C9A102A8E42B5002C6F44 /* EnterGoalAlarmView.swift in Sources */,
 				A289D94A2A912616005B7F00 /* WriteRetrospectStyle.swift in Sources */,
+				C947D9132AC28D5300015407 /* OnboardingViewControllerFirst.swift in Sources */,
 				A26416DB2A9959D50073BEA1 /* StorageBoxViewModel.swift in Sources */,
 				A2248E8B2A8A0C5400EB995A /* MoreOptionView.swift in Sources */,
 				C90C48F12A93853D00E7E8B0 /* OnboardingViewModel.swift in Sources */,
@@ -1345,9 +1378,11 @@
 				C95A3CA32A95973B0028B4ED /* Retrospect.swift in Sources */,
 				C9B2CDF72A8CC26E006289A8 /* PointView.swift in Sources */,
 				C9B2CE242A8F673C006289A8 /* ServicesGoalList.swift in Sources */,
+				C947D9112AC28BE100015407 /* OnboardingViewController.swift in Sources */,
 				C91006FE2AA70C22000A9C16 /* SettingViewModel.swift in Sources */,
 				C9B2CDF12A8CA397006289A8 /* IndexView.swift in Sources */,
 				A2FC49532A97981D0045FE59 /* RestoreGoalViewController.swift in Sources */,
+				C947D9152AC28D5E00015407 /* OnboardingViewControllerSecond.swift in Sources */,
 				A289D9642A922950005B7F00 /* RecommendGoalViewController.swift in Sources */,
 				A2FA59292A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
 				A231AA842AB480EA004C4907 /* BubbleTailDownView.swift in Sources */,
@@ -1374,11 +1409,12 @@
 				C9B2CE152A8F514A006289A8 /* APIService.swift in Sources */,
 				A2400D692AA3C24600EB79D6 /* Notification+.swift in Sources */,
 				C9B2CDD62A8A77F1006289A8 /* CompletionViewModel.swift in Sources */,
+				C947D9192AC28D7300015407 /* OnboardingViewControllerFourth.swift in Sources */,
 				C9B2CDFF2A8DE365006289A8 /* CompleteView.swift in Sources */,
 				A2400D652AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */,
 				A2B20D942A7ED174001ED73C /* UIImage+.swift in Sources */,
 				A28EDA152A8791F7001A021A /* LowerGoalCollectionViewCell.swift in Sources */,
-				C90DC9822A88854C00241B7C /* OnboardingViewController.swift in Sources */,
+				C90DC9822A88854C00241B7C /* OnboardingViewControllerTutorialFirst.swift in Sources */,
 				C9B2CDDE2A8B42CA006289A8 /* CompletionTableViewCell.swift in Sources */,
 				A22736692A7CE53700D7B3B2 /* AppDelegate.swift in Sources */,
 				A27C9A0C2A8E4258002C6F44 /* AddLowerGoalViewController.swift in Sources */,
@@ -1547,7 +1583,6 @@
 /* Begin XCBuildConfiguration section */
 		A227368D2A7CE53800D7B3B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C910070E2AB33731000A9C16 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1609,7 +1644,6 @@
 		};
 		A227368E2A7CE53800D7B3B2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C910070E2AB33731000A9C16 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1665,7 +1699,6 @@
 		};
 		A22736902A7CE53800D7B3B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C910070E2AB33731000A9C16 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1701,7 +1734,6 @@
 		};
 		A22736912A7CE53800D7B3B2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C910070E2AB33731000A9C16 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1737,7 +1769,6 @@
 		};
 		A22736932A7CE53800D7B3B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C910070E2AB33731000A9C16 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1758,7 +1789,6 @@
 		};
 		A22736942A7CE53800D7B3B2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C910070E2AB33731000A9C16 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1779,7 +1809,6 @@
 		};
 		A22736962A7CE53800D7B3B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C910070E2AB33731000A9C16 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1798,7 +1827,6 @@
 		};
 		A22736972A7CE53800D7B3B2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C910070E2AB33731000A9C16 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1913,6 +1941,14 @@
 				minimumVersion = 2.17.0;
 			};
 		};
+		C947D91A2AC30D4200015407 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		C9B2CDDF2A8B5E9D006289A8 /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
@@ -2003,6 +2039,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C91006FF2AB335E8000A9C16 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */;
 			productName = RxKakaoSDKUser;
+		};
+		C947D91B2AC30D4200015407 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C947D91A2AC30D4200015407 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 		C9B2CDE02A8B5E9D006289A8 /* Differentiator */ = {
 			isa = XCSwiftPackageProductDependency;

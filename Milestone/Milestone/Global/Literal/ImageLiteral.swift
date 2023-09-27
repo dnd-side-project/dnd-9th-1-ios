@@ -16,6 +16,11 @@ enum ImageLiteral {
     static var imgPlus: UIImage { .load(named: "plus")}
     static var imgOnboarding1: UIImage { .load(named: "onboarding1") }
     static var imgOnboarding2: UIImage { .load(named: "onboarding2") }
+    static var imgOnboarding3: UIImage { .load(named: "onboarding3") }
+    static var imgOnboarding4_1: UIImage { .load(named: "onboarding4_1") }
+    static var imgOnboarding4_2: UIImage { .load(named: "onboarding4_2") }
+    static var imgOnboarding5: UIImage { .load(named: "onboarding5") }
+    static var imgOnboarding6: UIImage { .load(named: "onboarding6") }
     static var imgcompletionEmpty: UIImage { .load(named: "completionEmptyImage") }
     static var imgDetailStoneVer1: UIImage { .load(named: "detailStone1")}
     static var imgDetailStoneVer2: UIImage { .load(named: "detailStone2")}
@@ -117,4 +122,6 @@ enum ImageLiteral {
     static var imgPen: UIImage { .load(named: "pen") }
     static var imgEmptyFillBox: UIImage { .load(named: "emptyFillBox") }
     static var imgNetworkFail: UIImage { .load(named: "networkFail") }
+    static var imgDiamond: UIImage { .load(named: "stone") }
+    static var imgWarning: UIImage { .load(named: "warning") }
 }
