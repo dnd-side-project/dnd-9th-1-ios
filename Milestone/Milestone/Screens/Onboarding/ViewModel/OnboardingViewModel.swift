@@ -30,6 +30,7 @@ class OnboardingViewModel: BindableViewModel {
     var appleUserId: String!
     var isFirstLogin = false
     var isLoading = BehaviorRelay<Bool>(value: false)
+    var isError = BehaviorRelay<Bool>(value: false)
     
     /// 로그인 진행
     /// 1. 프로바이더에 따라 로그인 함수 호출
@@ -46,6 +47,7 @@ class OnboardingViewModel: BindableViewModel {
                     self.saveToken(result: $0)
                 }
                 .subscribe(onError: {[unowned self] _ in
+                    self.isError.accept(true)
                     self.isLoading.accept(false)
                 }, onCompleted: { [unowned self] in
                     self.isLoading.accept(false)
@@ -62,6 +64,7 @@ class OnboardingViewModel: BindableViewModel {
                 .flatMapLatest { [unowned self] in self.saveToken(result: $0) }
                 .subscribe(onError: { [unowned self] in
                     // MARK: 에러처리 필요
+                    self.isError.accept(true)
                     self.isLoading.accept(false)
                     print($0)
                 }, onCompleted: { [unowned self] in
