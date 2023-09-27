@@ -122,4 +122,5 @@ enum ImageLiteral {
     static var imgPen: UIImage { .load(named: "pen") }
     static var imgEmptyFillBox: UIImage { .load(named: "emptyFillBox") }
     static var imgDiamond: UIImage { .load(named: "stone") }
+    static var imgWarning: UIImage { .load(named: "warning") }
 }
