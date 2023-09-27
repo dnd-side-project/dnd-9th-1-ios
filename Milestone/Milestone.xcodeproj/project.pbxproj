@@ -255,12 +255,13 @@
 		C91007092AB335E8000A9C16 /* RxKakaoSDKStory in Frameworks */ = {isa = PBXBuildFile; productRef = C91007082AB335E8000A9C16 /* RxKakaoSDKStory */; };
 		C910070B2AB335E8000A9C16 /* RxKakaoSDKTalk in Frameworks */ = {isa = PBXBuildFile; productRef = C910070A2AB335E8000A9C16 /* RxKakaoSDKTalk */; };
 		C910070D2AB335E8000A9C16 /* RxKakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = C910070C2AB335E8000A9C16 /* RxKakaoSDKUser */; };
-		C947D91C2AC30D4200015407 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C947D91B2AC30D4200015407 /* Lottie */; };
 		C947D9112AC28BE100015407 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D9102AC28BE100015407 /* OnboardingViewController.swift */; };
 		C947D9132AC28D5300015407 /* OnboardingViewControllerFirst.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D9122AC28D5300015407 /* OnboardingViewControllerFirst.swift */; };
 		C947D9152AC28D5E00015407 /* OnboardingViewControllerSecond.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D9142AC28D5E00015407 /* OnboardingViewControllerSecond.swift */; };
 		C947D9172AC28D6600015407 /* OnboardingViewControllerThird.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D9162AC28D6600015407 /* OnboardingViewControllerThird.swift */; };
 		C947D9192AC28D7300015407 /* OnboardingViewControllerFourth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D9182AC28D7300015407 /* OnboardingViewControllerFourth.swift */; };
+		C947D91C2AC30D4200015407 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C947D91B2AC30D4200015407 /* Lottie */; };
+		C947D95D2AC3F7FF00015407 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D95C2AC3F7FF00015407 /* ToastView.swift */; };
 		C95A3C9B2A94D08D0028B4ED /* ParentGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9A2A94D08D0028B4ED /* ParentGoal.swift */; };
 		C95A3C9F2A94E0AC0028B4ED /* CompletionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */; };
 		C95A3CA12A94EB580028B4ED /* RewardToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA02A94EB580028B4ED /* RewardToImage.swift */; };
@@ -432,13 +433,13 @@
 		C91006F82AA0534D000A9C16 /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
 		C91006FA2AA7085C000A9C16 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		C91006FD2AA70C22000A9C16 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
-		C910070E2AB33731000A9C16 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Config.xcconfig; path = Screens/Config.xcconfig; sourceTree = "<group>"; };
 		C910070E2AB33731000A9C16 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		C947D9102AC28BE100015407 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		C947D9122AC28D5300015407 /* OnboardingViewControllerFirst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerFirst.swift; sourceTree = "<group>"; };
 		C947D9142AC28D5E00015407 /* OnboardingViewControllerSecond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerSecond.swift; sourceTree = "<group>"; };
 		C947D9162AC28D6600015407 /* OnboardingViewControllerThird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerThird.swift; sourceTree = "<group>"; };
 		C947D9182AC28D7300015407 /* OnboardingViewControllerFourth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerFourth.swift; sourceTree = "<group>"; };
+		C947D95C2AC3F7FF00015407 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		C95A3C9A2A94D08D0028B4ED /* ParentGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentGoal.swift; sourceTree = "<group>"; };
 		C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionHeaderView.swift; sourceTree = "<group>"; };
 		C95A3CA02A94EB580028B4ED /* RewardToImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardToImage.swift; sourceTree = "<group>"; };
@@ -689,6 +690,7 @@
 				C95A3CA42A959A090028B4ED /* LoadingView.swift */,
 				C9B2CE422A90E76B006289A8 /* GoalAchievementRateView.swift */,
 				A2CC0DB92AB8888C000893B3 /* DefaultLeftBarButton.swift */,
+				C947D95C2AC3F7FF00015407 /* ToastView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1276,6 +1278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C947D95D2AC3F7FF00015407 /* ToastView.swift in Sources */,
 				C9B2CE072A8E69E5006289A8 /* IndexViewAfterSaved.swift in Sources */,
 				A2EC47CC2A8A962600401B03 /* DetailGoalInfoViewController.swift in Sources */,
 				A26509102A8D604100E9A2D7 /* CouchMarkViewController.swift in Sources */,
