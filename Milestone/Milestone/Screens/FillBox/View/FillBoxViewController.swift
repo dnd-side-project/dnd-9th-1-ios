@@ -62,6 +62,8 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
             $0.guideLabel.text = "이루고 싶은 목표를 설정해주세요!"
         }
     
+    private let networkFailView = NetworkFailView()
+    
     // MARK: - Properties
     
     var viewModel: FillBoxViewModel! = FillBoxViewModel()
@@ -95,31 +97,35 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Functions
     
     override func render() {
-        view.addSubViews([upperGoalTableView, addGoalButton, emptyFillBoxImageView, emptyGuideLabel, addNewGoalBubbleView])
-        upperGoalTableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.left.right.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(16)
+        view.addSubview(networkFailView)
+        networkFailView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(84)
         }
-        addGoalButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
-            make.right.equalToSuperview().inset(24)
-            make.width.height.equalTo(64)
-        }
-        emptyFillBoxImageView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(144)
-            make.centerX.equalToSuperview()
-        }
-        emptyGuideLabel.snp.makeConstraints { make in
-            make.top.equalTo(emptyFillBoxImageView.snp.bottom)
-            make.centerX.equalToSuperview()
-        }
-        addNewGoalBubbleView.snp.makeConstraints { make in
-            make.bottom.equalTo(addGoalButton.snp.top).offset(-25)
-            make.right.equalTo(addGoalButton.snp.right)
-            make.width.equalTo(216)
-            make.height.equalTo(45)
-        }
+//        view.addSubViews([upperGoalTableView, addGoalButton, emptyFillBoxImageView, emptyGuideLabel, addNewGoalBubbleView])
+//        upperGoalTableView.snp.makeConstraints { make in
+//            make.top.equalTo(view.safeAreaLayoutGuide)
+//            make.left.right.equalToSuperview().inset(20)
+//            make.bottom.equalToSuperview().inset(16)
+//        }
+//        addGoalButton.snp.makeConstraints { make in
+//            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
+//            make.right.equalToSuperview().inset(24)
+//            make.width.height.equalTo(64)
+//        }
+//        emptyFillBoxImageView.snp.makeConstraints { make in
+//            make.top.equalTo(view.safeAreaLayoutGuide).offset(144)
+//            make.centerX.equalToSuperview()
+//        }
+//        emptyGuideLabel.snp.makeConstraints { make in
+//            make.top.equalTo(emptyFillBoxImageView.snp.bottom)
+//            make.centerX.equalToSuperview()
+//        }
+//        addNewGoalBubbleView.snp.makeConstraints { make in
+//            make.bottom.equalTo(addGoalButton.snp.top).offset(-25)
+//            make.right.equalTo(addGoalButton.snp.right)
+//            make.width.equalTo(216)
+//            make.height.equalTo(45)
+//        }
     }
     
     override func configUI() {

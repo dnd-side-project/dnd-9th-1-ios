@@ -101,6 +101,9 @@
 		A28EDA1A2A879565001A021A /* DetailUpperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA182A879565001A021A /* DetailUpperViewController.swift */; };
 		A28EDA1B2A879565001A021A /* DetailUpperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA182A879565001A021A /* DetailUpperViewController.swift */; };
 		A298E9592A9968B000EC0067 /* JewelPopUpImageStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A298E9582A9968B000EC0067 /* JewelPopUpImageStyle.swift */; };
+		A2A303192AC3B090006823F3 /* NetworkFailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A303182AC3B090006823F3 /* NetworkFailView.swift */; };
+		A2A3031A2AC3B090006823F3 /* NetworkFailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A303182AC3B090006823F3 /* NetworkFailView.swift */; };
+		A2A3031B2AC3B090006823F3 /* NetworkFailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A303182AC3B090006823F3 /* NetworkFailView.swift */; };
 		A2B20D442A7E3EA1001ED73C /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D432A7E3EA1001ED73C /* Moya */; };
 		A2B20D462A7E3EA1001ED73C /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D452A7E3EA1001ED73C /* RxMoya */; };
 		A2B20D492A7E3EC6001ED73C /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D482A7E3EC6001ED73C /* Then */; };
@@ -364,6 +367,7 @@
 		A28EDA142A8791F7001A021A /* LowerGoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowerGoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		A28EDA182A879565001A021A /* DetailUpperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailUpperViewController.swift; sourceTree = "<group>"; };
 		A298E9582A9968B000EC0067 /* JewelPopUpImageStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JewelPopUpImageStyle.swift; sourceTree = "<group>"; };
+		A2A303182AC3B090006823F3 /* NetworkFailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFailView.swift; sourceTree = "<group>"; };
 		A2B20D582A7E4E5C001ED73C /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		A2B20D5C2A7E4E68001ED73C /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		A2B20D602A7E4FAD001ED73C /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -676,6 +680,7 @@
 				C95A3CA42A959A090028B4ED /* LoadingView.swift */,
 				C9B2CE422A90E76B006289A8 /* GoalAchievementRateView.swift */,
 				A2CC0DB92AB8888C000893B3 /* DefaultLeftBarButton.swift */,
+				A2A303182AC3B090006823F3 /* NetworkFailView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1346,6 +1351,7 @@
 				A289D9642A922950005B7F00 /* RecommendGoalViewController.swift in Sources */,
 				A2FA59292A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
 				A231AA842AB480EA004C4907 /* BubbleTailDownView.swift in Sources */,
+				A2A303192AC3B090006823F3 /* NetworkFailView.swift in Sources */,
 				C90C48E92A936C1D00E7E8B0 /* ButtonComponentStyle.swift in Sources */,
 				A23E8BA22A9013610051D135 /* AskOneOfTwoView.swift in Sources */,
 				C9B2CDE72A8BBCCC006289A8 /* TriangleView.swift in Sources */,
@@ -1401,6 +1407,7 @@
 				A2EC47CD2A8A962600401B03 /* LowerGoalInfoViewController.swift in Sources */,
 				A2FC49582A979F850045FE59 /* ResetGoalViewController.swift in Sources */,
 				A25988FF2A96915F00C6BDE0 /* ServicesLowerGoal.swift in Sources */,
+				A2A3031A2AC3B090006823F3 /* NetworkFailView.swift in Sources */,
 				A289D9612A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */,
 				A282DA532A94BB2400A0D0BF /* DetailUpperViewModel.swift in Sources */,
 				A2FFBC902A94986200039919 /* FillBoxViewModel.swift in Sources */,
@@ -1469,6 +1476,7 @@
 				A2B969892A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
 				A2D304BF2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
 				A289D9442A91241C005B7F00 /* UserDefaultsKeyStyle.swift in Sources */,
+				A2A3031B2AC3B090006823F3 /* NetworkFailView.swift in Sources */,
 				A2C98F042A8B6117009B5579 /* AddUpperGoalViewController.swift in Sources */,
 				A2FA592F2A7FD433006ACA2E /* NSObject+.swift in Sources */,
 				A2FA591B2A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
