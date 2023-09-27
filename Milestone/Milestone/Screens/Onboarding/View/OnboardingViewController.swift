@@ -2,135 +2,98 @@
 //  OnboardingViewController.swift
 //  Milestone
 //
-//  Created by 박경준 on 2023/08/13.
+//  Created by 박경준 on 2023/09/26.
 //
 
-import RxCocoa
-import RxSwift
-import Then
 import UIKit
+
+import RxSwift
 
 class OnboardingViewController: BaseViewController {
     
-    // MARK: - SubViews
+    // MARK: - Subviews
     
-    lazy var backButton = UIButton()
+    let pageControl = UIPageControl()
         .then {
-            $0.setImage(ImageLiteral.imgBack, for: .normal)
-            $0.addTarget(self, action: #selector(dismissAddParentGoal), for: .touchUpInside)
+            $0.pageIndicatorTintColor = .gray02
+            $0.currentPageIndicatorTintColor = .primary
+            $0.numberOfPages = 4
         }
     
-    var topicLabel = UILabel()
+    lazy var pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
         .then {
-            $0.numberOfLines = 0
-            $0.text = "이루고 싶은\n목표를 적어주세요!"
-            $0.font = .pretendard(.bold, ofSize: 28)
-            $0.textAlignment = .left
-        }
-    
-    lazy var enterGoalTitleView = EnterGoalTitleView()
-        .then {
+            $0.dataSource = self
             $0.delegate = self
+            $0.setViewControllers([self.coordinator!.viewControllers[0]], direction: .forward, animated: true)
         }
     
-    lazy var enterGoalDateView = EnterGoalDateView()
-        .then {
-            $0.presentDelegate = self
-            $0.buttonStateDelegate = self
-        }
+    // MARK: - Properties
     
-    var reminderAlarmView = ReminderAlarmView()
-    
-    lazy var completeButton = RoundedButton()
-        .then {
-            $0.buttonComponentStyle = .primary_l
-            $0.titleString = "목표 만들기 완료"
-            $0.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
-        }
-    
-    // MARK: Properties
-    var coordinator: OnboardingFlow?
-    var viewModel: OnboardingViewModel!
-    
-    // MARK: Function
-    
-    override func render() {
-        view.addSubViews([backButton, topicLabel, enterGoalTitleView, enterGoalDateView, reminderAlarmView, completeButton])
-        
-        topicLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(100)
-            make.leading.equalToSuperview().offset(24)
-        }
-        enterGoalTitleView.snp.makeConstraints { make in
-            make.top.equalTo(topicLabel.snp.bottom).offset(32)
-            make.centerX.equalToSuperview()
-        }
-        enterGoalDateView.snp.makeConstraints { make in
-            make.top.equalTo(enterGoalTitleView.snp.bottom).offset(24)
-            make.centerX.equalToSuperview()
-        }
-        reminderAlarmView.snp.makeConstraints { make in
-            make.top.equalTo(enterGoalDateView.snp.bottom).offset(24)
-            make.centerX.equalToSuperview()
-        }
-        completeButton.snp.makeConstraints { make in
-            make.left.right.equalToSuperview().inset(24)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
-            make.height.equalTo(54)
+    var currentPage: Int = 0 {
+        didSet {
+            // from segmentedControl -> pageViewController 업데이트
+            let direction: UIPageViewController.NavigationDirection = oldValue <= self.currentPage ? .forward : .reverse
+            self.pageViewController.setViewControllers(
+                [self.coordinator!.viewControllers[self.currentPage]],
+                direction: direction,
+                animated: true,
+                completion: nil
+            )
         }
     }
+    
+    var coordinator: OnboardingFlow?
+    
+    // MARK: - Functions
     
     override func configUI() {
-        view.backgroundColor = .white
-        view.layer.masksToBounds = true
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        view.layer.cornerRadius = 20
-        view.makeShadow(color: .init(hex: "#464646", alpha: 0.2), alpha: 1, x: 0, y: -10, blur: 20, spread: 0)
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        enterGoalTitleView.titleTextField.endEditing(true)
-    }
-    
-    // MARK: Objc functions
-    @objc func completeButtonTapped(_ sender: UIButton) {
-        updateButtonState(.press)
+        view.backgroundColor = .init(hex: "#F7F7F9")
+        pageControl.layer.zPosition = 999
         
-        let parentGoal = CreateParentGoal(title: enterGoalTitleView.titleTextField.text ?? "", startDate: enterGoalDateView.startDateButton.titleLabel?.text ?? "", endDate: enterGoalDateView.endDateButton.titleLabel?.text ?? "", reminderEnabled: reminderAlarmView.onOffSwitch.isOn)
-        
-        viewModel.addParentGoal(goal: parentGoal)
-            .subscribe(onNext: { [weak self] result in
-                switch result {
-                case .success:
-                    self?.coordinator?.coordinateToNext()
-                case .failure:
-                    break
-                }
-            })
-            .disposed(by: disposeBag)
+        coordinator?.pageIndex.subscribe(onNext: { [unowned self] in
+            self.currentPage = $0
+            self.pageControl.currentPage = $0
+        })
+        .disposed(by: disposeBag)
     }
     
-    @objc
-    private func dismissAddParentGoal() {
-        self.dismiss(animated: true)
+    override func render() {
+        [pageControl, pageViewController.view].forEach { view.addSubview($0) }
+        
+        pageViewController.view.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+        }
+        
+        pageControl.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-118)
+        }
     }
 }
 
-// MARK: - PresentAlertDelegate
-
-extension OnboardingViewController: PresentDelegate {
-    func present(alert: UIAlertController) {
-        self.present(alert, animated: true)
+extension OnboardingViewController: UIPageViewControllerDataSource {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let viewControllers = self.coordinator?.viewControllers,
+            let index = viewControllers.firstIndex(of: viewController),
+              index - 1 >= 0 else { return nil }
+        return viewControllers[index - 1]
     }
-    func present(_ viewController: UIViewController) {
-        self.present(viewController, animated: true)
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let viewControllers = self.coordinator?.viewControllers,
+            let index = viewControllers.firstIndex(of: viewController),
+              index + 1 < viewControllers.count else { return nil }
+        return viewControllers[index + 1]
     }
 }
 
-// MARK: - UpdateButtonStateDelegate
-
-extension OnboardingViewController: UpdateButtonStateDelegate {
-    func updateButtonState(_ state: ButtonState) {
-        self.completeButton.buttonState = state
+extension OnboardingViewController: UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        guard let viewController = pageViewController.viewControllers?[0],
+              let viewControllers = self.coordinator?.viewControllers,
+              let index = viewControllers.firstIndex(of: viewController) else { return }
+        self.pageControl.currentPage = index
+        self.coordinator?.pageIndex.accept(index)
     }
 }
