@@ -229,6 +229,9 @@
 		A2FDF3402AC5737B007AAF3D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FDF33F2AC5737A007AAF3D /* NetworkMonitor.swift */; };
 		A2FDF3412AC5737B007AAF3D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FDF33F2AC5737A007AAF3D /* NetworkMonitor.swift */; };
 		A2FDF3422AC5737B007AAF3D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FDF33F2AC5737A007AAF3D /* NetworkMonitor.swift */; };
+		A2FDF3442AC59753007AAF3D /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A2FDF3432AC59753007AAF3D /* Config.xcconfig */; };
+		A2FDF3452AC59753007AAF3D /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A2FDF3432AC59753007AAF3D /* Config.xcconfig */; };
+		A2FDF3462AC59753007AAF3D /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A2FDF3432AC59753007AAF3D /* Config.xcconfig */; };
 		A2FFBC8F2A94986200039919 /* FillBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FFBC8E2A94986200039919 /* FillBoxViewModel.swift */; };
 		A2FFBC902A94986200039919 /* FillBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FFBC8E2A94986200039919 /* FillBoxViewModel.swift */; };
 		A2FFBC912A94986200039919 /* FillBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FFBC8E2A94986200039919 /* FillBoxViewModel.swift */; };
@@ -418,6 +421,7 @@
 		A2FC49522A97981D0045FE59 /* RestoreGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreGoalViewController.swift; sourceTree = "<group>"; };
 		A2FC49562A979F850045FE59 /* ResetGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetGoalViewController.swift; sourceTree = "<group>"; };
 		A2FDF33F2AC5737A007AAF3D /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		A2FDF3432AC59753007AAF3D /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		A2FFBC8E2A94986200039919 /* FillBoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBoxViewModel.swift; sourceTree = "<group>"; };
 		C9040FCB2A93B64A00270E94 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		C9040FCD2A93BDB400270E94 /* APIInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIInterceptor.swift; sourceTree = "<group>"; };
@@ -598,6 +602,7 @@
 		A22736992A7CE73600D7B3B2 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A2FDF3432AC59753007AAF3D /* Config.xcconfig */,
 				A2FA59342A7FD718006ACA2E /* Onboarding */,
 				A2B9697F2A8574EA00C4903F /* Main */,
 				A2D304C42A856AE900A5BA92 /* StorageBox */,
@@ -1208,6 +1213,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2FDF3442AC59753007AAF3D /* Config.xcconfig in Resources */,
 				C9040FD22A93C80300270E94 /* GoogleService-Info.plist in Resources */,
 				C90DC9272A81FF2000241B7C /* .swiftlint.yml in Resources */,
 				A2B20D7E2A7E50D8001ED73C /* Pretendard-Medium.otf in Resources */,
@@ -1234,6 +1240,7 @@
 				A2B20D8B2A7E50D8001ED73C /* Pretendard-Thin.otf in Resources */,
 				A2B20D792A7E50D8001ED73C /* Pretendard-Bold.otf in Resources */,
 				A2B20D822A7E50D8001ED73C /* Pretendard-SemiBold.otf in Resources */,
+				A2FDF3452AC59753007AAF3D /* Config.xcconfig in Resources */,
 				A2B20D852A7E50D8001ED73C /* Pretendard-Regular.otf in Resources */,
 				A2B20D7C2A7E50D8001ED73C /* Pretendard-Black.otf in Resources */,
 				A2B20D732A7E50D8001ED73C /* Pretendard-Light.otf in Resources */,
@@ -1250,6 +1257,7 @@
 				A2B20D8C2A7E50D8001ED73C /* Pretendard-Thin.otf in Resources */,
 				A2B20D7A2A7E50D8001ED73C /* Pretendard-Bold.otf in Resources */,
 				A2B20D832A7E50D8001ED73C /* Pretendard-SemiBold.otf in Resources */,
+				A2FDF3462AC59753007AAF3D /* Config.xcconfig in Resources */,
 				A2B20D862A7E50D8001ED73C /* Pretendard-Regular.otf in Resources */,
 				A2B20D7D2A7E50D8001ED73C /* Pretendard-Black.otf in Resources */,
 				A2B20D742A7E50D8001ED73C /* Pretendard-Light.otf in Resources */,
@@ -1717,7 +1725,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dnd.milestone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1752,7 +1760,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dnd.milestone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
