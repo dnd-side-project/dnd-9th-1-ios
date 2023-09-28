@@ -53,6 +53,11 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
             $0.layer.cornerRadius = 20
         }
     
+    lazy var networkFailView = NetworkFailView()
+        .then {
+            $0.retryButton.addTarget(self, action: #selector(retryNetworkConnection), for: .touchUpInside)
+        }
+    
     // MARK: - Properties
     
     var viewModel: StorageBoxViewModel! = StorageBoxViewModel()
@@ -68,8 +73,7 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        viewModel.clearList()
-        viewModel.retrieveStorageGoalList()
+        checkNetworkConnection()
     }
     
     // MARK: - Functions
@@ -124,6 +128,34 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
             .disposed(by: disposeBag)
     }
     
+    /// 네트워크 연결 상태 확인
+    /// 상태에 따라 다른 뷰를 띄운다
+    private func checkNetworkConnection() {
+        if NetworkMonitor.shared.isConnected {
+            showStorageBoxList()
+            viewModel.clearList()
+            viewModel.retrieveStorageGoalList()
+        } else {
+            showNetworkFailView()
+        }
+    }
+    
+    /// 네트워크 연결 실패 뷰 띄우기
+    private func showNetworkFailView() {
+        [emptyStorageImageView, firstEmptyGuideLabel, secondEmptyGuideLabel, storageGoalTableView]
+            .forEach { $0.removeFromSuperview() }
+        view.addSubview(networkFailView)
+        networkFailView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(84)
+        }
+    }
+    
+    /// 네트워크 연결 성공이면 보관함 원래 뷰들 띄우기
+    private func showStorageBoxList() {
+        networkFailView.removeFromSuperview()
+        render()
+    }
+    
     /// goals의 개수에 따라 보관함의 뷰의 isHidden 상태와 label에 적히는 목표 개수를 업데이트 한다
     private func updateStorageVisibility() {
         [emptyStorageImageView, firstEmptyGuideLabel, secondEmptyGuideLabel]
@@ -142,6 +174,14 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
         let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
         attributedString.setColorForText(textForAttribute: "총 \(viewModel.storedGoals.value.count)개의 목표", withColor: .pointPurple)
         alertView.label.attributedText = attributedString
+    }
+    
+    // MARK: - @objc Functions
+    
+    /// 네트워크 연결 실패 시 재시도 버튼 클릭
+    @objc
+    private func retryNetworkConnection() {
+        checkNetworkConnection()
     }
 }
 
