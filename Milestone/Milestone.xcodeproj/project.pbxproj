@@ -226,6 +226,9 @@
 		A2FC49572A979F850045FE59 /* ResetGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FC49562A979F850045FE59 /* ResetGoalViewController.swift */; };
 		A2FC49582A979F850045FE59 /* ResetGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FC49562A979F850045FE59 /* ResetGoalViewController.swift */; };
 		A2FC49592A979F850045FE59 /* ResetGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FC49562A979F850045FE59 /* ResetGoalViewController.swift */; };
+		A2FDF3402AC5737B007AAF3D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FDF33F2AC5737A007AAF3D /* NetworkMonitor.swift */; };
+		A2FDF3412AC5737B007AAF3D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FDF33F2AC5737A007AAF3D /* NetworkMonitor.swift */; };
+		A2FDF3422AC5737B007AAF3D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FDF33F2AC5737A007AAF3D /* NetworkMonitor.swift */; };
 		A2FFBC8F2A94986200039919 /* FillBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FFBC8E2A94986200039919 /* FillBoxViewModel.swift */; };
 		A2FFBC902A94986200039919 /* FillBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FFBC8E2A94986200039919 /* FillBoxViewModel.swift */; };
 		A2FFBC912A94986200039919 /* FillBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FFBC8E2A94986200039919 /* FillBoxViewModel.swift */; };
@@ -414,6 +417,7 @@
 		A2FA592C2A7FD433006ACA2E /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 		A2FC49522A97981D0045FE59 /* RestoreGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreGoalViewController.swift; sourceTree = "<group>"; };
 		A2FC49562A979F850045FE59 /* ResetGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetGoalViewController.swift; sourceTree = "<group>"; };
+		A2FDF33F2AC5737A007AAF3D /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		A2FFBC8E2A94986200039919 /* FillBoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBoxViewModel.swift; sourceTree = "<group>"; };
 		C9040FCB2A93B64A00270E94 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		C9040FCD2A93BDB400270E94 /* APIInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIInterceptor.swift; sourceTree = "<group>"; };
@@ -784,6 +788,7 @@
 				A2B20D992A7ED40D001ED73C /* Logger.swift */,
 				C9B2CE0F2A8F4F9A006289A8 /* Constants.swift */,
 				C9B2CE442A91D796006289A8 /* KeychainManager.swift */,
+				A2FDF33F2AC5737A007AAF3D /* NetworkMonitor.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1285,6 +1290,7 @@
 				A2B20D652A7E5077001ED73C /* UILabel+.swift in Sources */,
 				A289D9522A912864005B7F00 /* PointTextStyle.swift in Sources */,
 				C90DC9862A88F0B100241B7C /* UITextField+.swift in Sources */,
+				A2FDF3402AC5737B007AAF3D /* NetworkMonitor.swift in Sources */,
 				C90DC9762A876F5D00241B7C /* AppCoordinator.swift in Sources */,
 				C968F8ED2A98F1BD0051DE48 /* PrivacyInformationViewController.swift in Sources */,
 				A2CC0DBA2AB8888C000893B3 /* DefaultLeftBarButton.swift in Sources */,
@@ -1425,6 +1431,7 @@
 				A2400D662AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */,
 				A28EDA122A87808A001A021A /* UIViewController+.swift in Sources */,
 				A2FA58DE2A7F7A3E006ACA2E /* (null) in Sources */,
+				A2FDF3412AC5737B007AAF3D /* NetworkMonitor.swift in Sources */,
 				A2248E842A8818AD00EB995A /* LowerGoalTableViewCell.swift in Sources */,
 				A2B9698C2A859EAB00C4903F /* UIButton+.swift in Sources */,
 				A289D9472A91246C005B7F00 /* DayStyle.swift in Sources */,
@@ -1527,6 +1534,7 @@
 				A2B9698D2A859EAB00C4903F /* UIButton+.swift in Sources */,
 				A2FA59162A7FCFC8006ACA2E /* Data+.swift in Sources */,
 				A2FA591F2A7FD2DD006ACA2E /* BaseCollectionViewCell.swift in Sources */,
+				A2FDF3422AC5737B007AAF3D /* NetworkMonitor.swift in Sources */,
 				A26509122A8D604100E9A2D7 /* CouchMarkViewController.swift in Sources */,
 				A2B969912A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */,
 				A2B20D922A7ED14C001ED73C /* ImageLiteral.swift in Sources */,
