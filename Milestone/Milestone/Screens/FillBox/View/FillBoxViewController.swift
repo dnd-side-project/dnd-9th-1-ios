@@ -62,7 +62,10 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
             $0.guideLabel.text = "이루고 싶은 목표를 설정해주세요!"
         }
     
-    private let networkFailView = NetworkFailView()
+    lazy var networkFailView = NetworkFailView()
+        .then {
+            $0.retryButton.addTarget(self, action: #selector(retryNetworkConnection), for: .touchUpInside)
+        }
     
     // MARK: - Properties
     
@@ -83,7 +86,7 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        updateUpperGoalList()
+        checkNetworkConnection()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -97,35 +100,31 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Functions
     
     override func render() {
-        view.addSubview(networkFailView)
-        networkFailView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(84)
+        view.addSubViews([upperGoalTableView, addGoalButton, emptyFillBoxImageView, emptyGuideLabel, addNewGoalBubbleView])
+        upperGoalTableView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.left.right.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(16)
         }
-//        view.addSubViews([upperGoalTableView, addGoalButton, emptyFillBoxImageView, emptyGuideLabel, addNewGoalBubbleView])
-//        upperGoalTableView.snp.makeConstraints { make in
-//            make.top.equalTo(view.safeAreaLayoutGuide)
-//            make.left.right.equalToSuperview().inset(20)
-//            make.bottom.equalToSuperview().inset(16)
-//        }
-//        addGoalButton.snp.makeConstraints { make in
-//            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
-//            make.right.equalToSuperview().inset(24)
-//            make.width.height.equalTo(64)
-//        }
-//        emptyFillBoxImageView.snp.makeConstraints { make in
-//            make.top.equalTo(view.safeAreaLayoutGuide).offset(144)
-//            make.centerX.equalToSuperview()
-//        }
-//        emptyGuideLabel.snp.makeConstraints { make in
-//            make.top.equalTo(emptyFillBoxImageView.snp.bottom)
-//            make.centerX.equalToSuperview()
-//        }
-//        addNewGoalBubbleView.snp.makeConstraints { make in
-//            make.bottom.equalTo(addGoalButton.snp.top).offset(-25)
-//            make.right.equalTo(addGoalButton.snp.right)
-//            make.width.equalTo(216)
-//            make.height.equalTo(45)
-//        }
+        addGoalButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
+            make.right.equalToSuperview().inset(24)
+            make.width.height.equalTo(64)
+        }
+        emptyFillBoxImageView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(144)
+            make.centerX.equalToSuperview()
+        }
+        emptyGuideLabel.snp.makeConstraints { make in
+            make.top.equalTo(emptyFillBoxImageView.snp.bottom)
+            make.centerX.equalToSuperview()
+        }
+        addNewGoalBubbleView.snp.makeConstraints { make in
+            make.bottom.equalTo(addGoalButton.snp.top).offset(-25)
+            make.right.equalTo(addGoalButton.snp.right)
+            make.width.equalTo(216)
+            make.height.equalTo(45)
+        }
     }
     
     override func configUI() {
@@ -161,6 +160,32 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
         viewModel.completedGoalCount
             .bind(to: upperGoalHeaderView.completedGoalView.goalNumberLabel.rx.text)
             .disposed(by: disposeBag)
+    }
+    
+    /// 네트워크 연결 상태에 따라 다른 뷰 보여주기
+    func checkNetworkConnection() {
+        if NetworkMonitor.shared.isConnected {
+            showFillBoxList()
+            updateUpperGoalList()
+        } else {
+            showNetworkFailView()
+        }
+    }
+    
+    /// 네트워크 연결 실패 뷰 띄우기
+    private func showNetworkFailView() {
+        [upperGoalTableView, addGoalButton, emptyFillBoxImageView, emptyGuideLabel, addNewGoalBubbleView]
+            .forEach { $0.removeFromSuperview() }
+        view.addSubview(networkFailView)
+        networkFailView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(84)
+        }
+    }
+    
+    /// 네트워크 연결 성공이면 채움함 원래 뷰들 띄우기
+    private func showFillBoxList() {
+        networkFailView.removeFromSuperview()
+        render()
     }
     
     /// 처음이 맞는지 확인 -> 맞으면 말풍선 뷰 띄우기
@@ -250,6 +275,13 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
             addGoalButton.backgroundColor = .primary // 다시 색깔 복구
             presentAddUpperGoal() // 모달 뷰 띄우기
         }
+    }
+    
+    /// 네트워크 연결 재시도 클릭 시 실행
+    /// 연결 상태를 확인하고 그에 따른 뷰를 보여준다
+    @objc
+    private func retryNetworkConnection() {
+        checkNetworkConnection()
     }
 }
 
