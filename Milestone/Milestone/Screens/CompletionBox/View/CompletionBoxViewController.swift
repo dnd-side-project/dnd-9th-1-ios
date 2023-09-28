@@ -56,9 +56,14 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             $0.guideLabel.text = "이룬 목표에 대한 회고를 자세히 기록해보세요!"
         }
     
+    lazy var networkFailView = NetworkFailView()
+        .then {
+            $0.retryButton.addTarget(self, action: #selector(retryNetworkConnection), for: .touchUpInside)
+        }
+    
     // MARK: - Properties
     
-    var viewModel: CompletionViewModel!
+    var viewModel: CompletionViewModel! = CompletionViewModel()
     var bubbleKey = UserDefaultsKeyStyle.bubbleInCompletionBox.rawValue
     var pushViewDisposables: [Disposable] = []
     var scrollDisposable: Disposable!
@@ -90,6 +95,8 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        checkNetworkConnection()
         viewModel.retrieveRetrospectCount()
         
         scrollDisposable = tableView.rx.didScroll
@@ -213,6 +220,31 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             .disposed(by: disposeBag)
     }
     
+    /// 네트워크 연결 상태에 따라 다른 뷰 보여주기
+    func checkNetworkConnection() {
+        if NetworkMonitor.shared.isConnected {
+            showCompletionBoxList()
+        } else {
+            showNetworkFailView()
+        }
+    }
+    
+    /// 네트워크 연결 실패 뷰 띄우기
+    private func showNetworkFailView() {
+        [emptyImageView, label, tableView]
+            .forEach { $0.removeFromSuperview() }
+        view.addSubview(networkFailView)
+        networkFailView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(84)
+        }
+    }
+    
+    /// 네트워크 연결 성공이면 완료함 원래 뷰들 띄우기
+    private func showCompletionBoxList() {
+        networkFailView.removeFromSuperview()
+        render()
+    }
+    
     /// 테이블뷰 레이아웃 세팅 완료 후 정의해야할 레이아웃 대상들을 분리
     func setAdditionalLayout() {
         view.addSubview(bubbleView)
@@ -249,6 +281,15 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     deinit {
         disposeBag = DisposeBag()
+    }
+    
+    // MARK: - @objc Functions
+    
+    /// 네트워크 연결 재시도 클릭 시 실행
+    /// 연결 상태를 확인하고 그에 따른 뷰를 보여준다
+    @objc
+    private func retryNetworkConnection() {
+        checkNetworkConnection()
     }
 }
 
