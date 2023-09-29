@@ -9,8 +9,11 @@ import Foundation
 
 struct K {
     
+    // TODO: - 꼭 true로 변경해서 배포!!
+    static let isProd = true
+    
     /// API base URL
-    static let baseUrl = "https://dnd9th.site"
+    static let baseUrl = isProd ? "https://dnd9th.site" : "https://milestone-staging.site"
     
     /// 리퀘스트 바디 파라미터의 키값을 문자열로 사용할때 직접 추가
     struct Parameters {

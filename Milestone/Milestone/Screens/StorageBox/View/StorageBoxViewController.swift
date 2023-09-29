@@ -43,7 +43,7 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
             $0.backgroundColor = .gray01
             $0.separatorStyle = .none
             $0.showsVerticalScrollIndicator = false
-            $0.register(cell: ParentGoalTableViewCell.self, forCellReuseIdentifier: ParentGoalTableViewCell.identifier)
+            $0.register(cell: UpperGoalTableViewCell.self, forCellReuseIdentifier: UpperGoalTableViewCell.identifier)
             $0.delegate = self
         }
     let headerContainerView = UIView()
@@ -104,7 +104,7 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
     
     func bindViewModel() {
         viewModel.storedGoals
-            .bind(to: storageGoalTableView.rx.items(cellIdentifier: ParentGoalTableViewCell.identifier, cellType: ParentGoalTableViewCell.self)) { _, goal, cell in
+            .bind(to: storageGoalTableView.rx.items(cellIdentifier: UpperGoalTableViewCell.identifier, cellType: UpperGoalTableViewCell.self)) { _, goal, cell in
                 cell.titleLabel.text = goal.title
                 cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
                 cell.goalAchievementRateView.completedCount = CGFloat(goal.completedDetailGoalCnt)
@@ -170,12 +170,12 @@ extension StorageBoxViewController: UITableViewDelegate {
 //        goals.accept(goalsValue) // 변경된 배열로 업데이트
 //        tableView.reloadData() // 테이블뷰 UI 업데이트
         let selectedGoalData = self.viewModel.storedGoals.value[indexPath.row]
-        let detailParentVM = DetailParentViewModel()
-        detailParentVM.selectedParentGoal = selectedGoalData
-        let detailParentVC = DetailParentViewController()
-        detailParentVC.isFromStorage = true
-        detailParentVC.viewModel = detailParentVM
-        push(viewController: detailParentVC)
+        let detailUpperVM = DetailUpperViewModel()
+        detailUpperVM.selectedUpperGoal = selectedGoalData
+        let detailUpperVC = DetailUpperViewController()
+        detailUpperVC.isFromStorage = true
+        detailUpperVC.viewModel = detailUpperVM
+        push(viewController: detailUpperVC)
     }
 }
 

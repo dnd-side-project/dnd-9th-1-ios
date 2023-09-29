@@ -14,11 +14,8 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
     
     // MARK: Subviews
     
-    lazy var leftBarButton = UIBarButtonItem()
+    lazy var leftBarButton = DefaultLeftBarButton()
         .then {
-            $0.image = UIImage(systemName: "chevron.left")
-            $0.style = .plain
-            $0.tintColor = .gray05
             $0.target = self
             $0.action = #selector(pop)
         }
