@@ -25,11 +25,13 @@ class CompletionViewModel: BindableViewModel, ViewModelType {
     struct Output {
         let retrospectCount: BehaviorRelay<Int>
         let isAlertBoxHidden: BehaviorRelay<Bool>
+        let items: BehaviorRelay<[CompletionTableViewCellViewModel]>
     }
     
     func transform(input: Input) -> Output {
         let count = BehaviorRelay(value: 0)
         let alertBoxHidden = BehaviorRelay(value: false)
+        let items = BehaviorRelay<[CompletionTableViewCellViewModel]>(value: [])
         
         input.viewDidAppear
             .flatMapLatest { [unowned self] () -> Observable<BaseModel<RetrospectCount>> in
@@ -37,7 +39,6 @@ class CompletionViewModel: BindableViewModel, ViewModelType {
             }
             .subscribe(onNext: {
                 count.accept($0.data.count)
-                print("COUNT: \($0.data.count)")
                 let countValue = $0.data.count
                 if countValue == 0 {
                     alertBoxHidden.accept(true)
@@ -47,7 +48,23 @@ class CompletionViewModel: BindableViewModel, ViewModelType {
             })
             .disposed(by: bag)
         
-        return Output(retrospectCount: count, isAlertBoxHidden: alertBoxHidden)
+        input.viewDidAppear
+            .flatMapLatest { [unowned self] () -> Observable<BaseModel<GoalResponse>> in
+                return self.requestAllGoalsWithSignle(lastGoalId: -1, goalStatusParameter: .complete).asObservable()
+            }
+            .map {
+                $0.data.contents
+                    .map {
+                        let viewModel = CompletionTableViewCellViewModel(with: $0)
+                        return viewModel
+                    }
+            }
+            .subscribe(onNext: {
+                items.accept($0)
+            })
+            .disposed(by: bag)
+        
+        return Output(retrospectCount: count, isAlertBoxHidden: alertBoxHidden, items: items)
     }
     
     // MARK: - Output
