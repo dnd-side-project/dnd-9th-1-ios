@@ -12,4 +12,5 @@ import RxSwift
 
 protocol APIService {
     func request<T: Codable> (_ request: APIRouter) -> Observable<Result<T, APIError>>
+    func requestSingle<T: Codable> (_ request: APIRouter) -> Single<T>
 }
