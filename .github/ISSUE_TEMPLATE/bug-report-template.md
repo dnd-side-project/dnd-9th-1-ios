@@ -1,9 +1,8 @@
 ---
-name: Bug Report Template
-about: DND 9기 1조의 iOS Bug Report 템플릿
+name: Bug Fix Template
+about: Milestone 팀의 Bug Fix 템플릿
 title: "[fix/브랜치명] ~를 수정한다."
-labels: bug, feat
-assignees: EunsuSeo01
+labels: bug, fix
 
 ---
 

@@ -70,8 +70,7 @@ class APIInterceptor: RequestInterceptor {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
                                 guard let self = self else { return }
                                 let window = UIApplication.shared.connectedScenes.compactMap { ($0 as? UIWindowScene)?.keyWindow }.last
-                                let root = window?.rootViewController
-                                
+
                                 let accessTokenObservable = KeychainManager.shared.rx
                                     .deleteItem(ofClass: .password, key: KeychainKeyList.accessToken.rawValue)
                                 let refreshTokenObservable = KeychainManager.shared.rx

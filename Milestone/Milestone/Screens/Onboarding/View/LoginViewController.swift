@@ -287,8 +287,6 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             print(passwordCredential)
             // Sign in using an existing iCloud Keychain credential.
             print("password credential .. ")
-            let username = passwordCredential.user
-            let password = passwordCredential.password
         default:
             break
         }

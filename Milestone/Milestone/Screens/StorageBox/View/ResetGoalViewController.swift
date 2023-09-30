@@ -98,11 +98,7 @@ class ResetGoalViewController: BaseViewController, ViewModelBindableType {
     @objc
     private func restoreGoal() {
         // 복구하기 API 호출
-        viewModel.restoreUpperGoal(reqBody: Goal(identity: nil,
-                                                  title: nil,
-                                                  startDate: enterGoalDateView.startDateButton.titleLabel?.text ?? "",
-                                                  endDate: enterGoalDateView.endDateButton.titleLabel?.text ?? "",
-                                                  reminderEnabled: reminderAlarmView.onOffSwitch.isOn))
+        viewModel.restoreUpperGoal(reqBody: Goal(identity: nil, title: nil, startDate: enterGoalDateView.startDateButton.titleLabel?.text ?? "", endDate: enterGoalDateView.endDateButton.titleLabel?.text ?? "", reminderEnabled: reminderAlarmView.onOffSwitch.isOn))
         updateButtonState(.press)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
             self.dismiss(animated: true)

@@ -152,10 +152,7 @@ class AddLowerGoalViewController: BaseViewController, ViewModelBindableType {
         updateButtonState(.press)
         Logger.debugDescription(self.enterGoalTitleView.titleTextField.text!)
         // req body 생성
-        let lowerGoalInfo = NewLowerGoal(title: self.enterGoalTitleView.titleTextField.text!,
-                                           alarmEnabled: self.enterGoalAlarmView.onOffSwitch.isOn,
-                                           alarmTime: "\(self.enterGoalAlarmView.selectedAmOrPm) \(self.enterGoalAlarmView.selectedHour):\(self.enterGoalAlarmView.selectedMin)",
-                                           alarmDays: self.enterGoalAlarmView.getSelectedDay())
+        let lowerGoalInfo = NewLowerGoal(title: self.enterGoalTitleView.titleTextField.text!, alarmEnabled: self.enterGoalAlarmView.onOffSwitch.isOn, alarmTime: "\(self.enterGoalAlarmView.selectedAmOrPm) \(self.enterGoalAlarmView.selectedHour):\(self.enterGoalAlarmView.selectedMin)", alarmDays: self.enterGoalAlarmView.getSelectedDay())
         /// 모드에 맞게 다른 API를 호출한다
         if isModifyMode {
             viewModel.modifyLowerGoal(reqBody: lowerGoalInfo)
