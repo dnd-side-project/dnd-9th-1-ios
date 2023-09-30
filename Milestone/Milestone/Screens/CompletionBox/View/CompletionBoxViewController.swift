@@ -218,6 +218,13 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         output.isAlertBoxHidden.map { !$0 }
             .bind(to: emptyImageView.rx.isHidden, label.rx.isHidden)
             .disposed(by: disposeBag)
+    
+        output.items.asDriver(onErrorJustReturn: [])
+            .drive(tableView.rx.items(cellIdentifier: CompletionTableViewCell.identifier, cellType: CompletionTableViewCell.self)) { _, viewModel, cell in
+                cell.bind(to: viewModel)
+            }
+            .disposed(by: disposeBag)
+            
     }
     
     /// 테이블뷰 레이아웃 세팅 완료 후 정의해야할 레이아웃 대상들을 분리
