@@ -8,6 +8,7 @@
 import Foundation
 
 import Network
+import RxRelay
 
 // MARK: - 네트워크 연결을 모니터링
 
@@ -16,7 +17,7 @@ final class NetworkMonitor {
     
     private let queue = DispatchQueue.global()
     private let monitor: NWPathMonitor
-    public private(set) var isConnected: Bool = false
+    public private(set) var isConnected = BehaviorRelay<Bool>(value: false)
     public private(set) var connectionType: ConnectionType = .unknown
     
     /// 연결 타입
@@ -38,10 +39,10 @@ final class NetworkMonitor {
         monitor.pathUpdateHandler = { [weak self] path in
             Logger.debugDescription("path :\(path)")
             
-            self?.isConnected = path.status == .satisfied
+            self?.isConnected.accept(path.status == .satisfied)
             self?.getConenctionType(path)
             
-            if self?.isConnected == true {
+            if self?.isConnected.value == true {
                 Logger.debugDescription("연결됨")
             } else {
                 Logger.debugDescription("연결 끊김")
