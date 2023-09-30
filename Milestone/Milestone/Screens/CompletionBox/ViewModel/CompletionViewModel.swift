@@ -26,6 +26,7 @@ class CompletionViewModel: BindableViewModel, ViewModelType {
         let retrospectCount: BehaviorRelay<Int>
         let isAlertBoxHidden: BehaviorRelay<Bool>
         let items: BehaviorRelay<[CompletionTableViewCellViewModel]>
+        let retrospectSelected: Driver<RetrospectDetailViewModel>
     }
     
     func transform(input: Input) -> Output {
@@ -64,7 +65,13 @@ class CompletionViewModel: BindableViewModel, ViewModelType {
             })
             .disposed(by: bag)
         
-        return Output(retrospectCount: count, isAlertBoxHidden: alertBoxHidden, items: items)
+        let retrospectSelected = input.selection.map { cell -> RetrospectDetailViewModel in
+            let vm = RetrospectDetailViewModel(upperGoal: cell.upperGoal)
+            return vm
+        }
+        
+        
+        return Output(retrospectCount: count, isAlertBoxHidden: alertBoxHidden, items: items, retrospectSelected: retrospectSelected)
     }
     
     // MARK: - Output
