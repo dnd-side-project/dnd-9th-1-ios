@@ -10,23 +10,51 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
-class CompletionViewModel: BindableViewModel {
+class CompletionViewModel: BindableViewModel, ViewModelType {
     
     // MARK: BindableViewModel Properties
     var apiSession: APIService = APISession()
     
     var bag = DisposeBag()
     
+    struct Input {
+        let viewDidAppear: Observable<Void>
+        let selection: Driver<CompletionTableViewCellViewModel>
+    }
+    
+    struct Output {
+        let retrospectCount: BehaviorRelay<Int>
+        let isAlertBoxHidden: BehaviorRelay<Bool>
+    }
+    
+    func transform(input: Input) -> Output {
+        let count = BehaviorRelay(value: 0)
+        let alertBoxHidden = BehaviorRelay(value: false)
+        
+        input.viewDidAppear
+            .flatMapLatest { [unowned self] () -> Observable<BaseModel<RetrospectCount>> in
+                return self.requestEnabledRetrospectCount().asObservable()
+            }
+            .subscribe(onNext: {
+                count.accept($0.data.count)
+                print("COUNT: \($0.data.count)")
+                let countValue = $0.data.count
+                if countValue == 0 {
+                    alertBoxHidden.accept(true)
+                } else {
+                    alertBoxHidden.accept(false)
+                }
+            })
+            .disposed(by: bag)
+        
+        return Output(retrospectCount: count, isAlertBoxHidden: alertBoxHidden)
+    }
+    
     // MARK: - Output
     var goalResponse: Observable<Result<BaseModel<GoalResponse>, APIError>> {
         requestAllGoals(lastGoalId: -1, goalStatusParameter: .complete)
     }
     
-    var enabledRetrospectCountResponse: Observable<Result<BaseModel<RetrospectCount>, APIError>> {
-        requestEnabledRetrospectCount()
-    }
-    
-    // FIXME: - 테스트코드
     var authTestResponse: Observable<Result<String, APIError>> {
         authTest()
     }
@@ -83,22 +111,6 @@ extension CompletionViewModel {
                 switch result {
                 case .success(let response):
                     self.retrospect.accept(response.data)
-                case .failure(let error):
-                    print(error)
-                }
-            })
-            .disposed(by: bag)
-    }
-    
-    func retrieveRetrospectCount() {
-        enabledRetrospectCountResponse
-            .subscribe(onNext: { [unowned self] result in
-                switch result {
-                case .success(let countResponse):
-                    enabledRetrospectCount.accept(countResponse.data.count)
-                    
-                    self.retrieveGoalData()
-                    
                 case .failure(let error):
                     print(error)
                 }
