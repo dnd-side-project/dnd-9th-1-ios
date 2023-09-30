@@ -63,6 +63,8 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     var pushViewDisposables: [Disposable] = []
     var scrollDisposable: Disposable!
     
+    let viewDidAppearTrigger = PublishSubject<Void>()
+    
     let dateFormatter = DateFormatter()
         .then {
             $0.dateFormat = "yyyy.MM.dd"
@@ -90,7 +92,8 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.retrieveRetrospectCount()
+        
+        viewDidAppearTrigger.onNext(())
         
         scrollDisposable = tableView.rx.didScroll
             .subscribe(onNext: { [unowned self] in
@@ -185,11 +188,6 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             }
             .disposed(by: disposeBag)
         
-        viewModel.goalDataCount
-            .map { $0 == 0 }
-            .bind(to: alertBox.rx.isHidden)
-            .disposed(by: disposeBag)
-        
         viewModel.isLoading
             .asDriver()
             .drive(onNext: { [weak self] loading in
@@ -197,12 +195,13 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             })
             .disposed(by: disposeBag)
         
-        viewModel.goalDataCount
-            .map { $0 > 0}
-            .bind(to: emptyImageView.rx.isHidden, label.rx.isHidden)
-            .disposed(by: disposeBag)
+        // MARK: - 리팩토링 코드
+        let input = CompletionViewModel.Input(viewDidAppear: viewDidAppearTrigger, selection: tableView.rx.modelSelected(CompletionTableViewCellViewModel.self).asDriver())
+        let output = viewModel.transform(input: input)
         
-        viewModel.enabledRetrospectCount
+        // 1. 회고 작성가능 갯수 카운트 레이블 바인딩
+        
+        output.retrospectCount
             .map { count -> NSAttributedString in
                 let stringValue = "총 \(count)개의 목표 회고를 작성할 수 있어요!"
                 let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
@@ -210,6 +209,14 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                 return attributedString
             }
             .bind(to: alertBox.label.rx.attributedText)
+            .disposed(by: disposeBag)
+        
+        output.isAlertBoxHidden
+            .bind(to: alertBox.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        output.isAlertBoxHidden.map { !$0 }
+            .bind(to: emptyImageView.rx.isHidden, label.rx.isHidden)
             .disposed(by: disposeBag)
     }
     
