@@ -135,66 +135,6 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     func bindViewModel() {
         
-        viewModel.goalData
-            .bind(to: tableView.rx.items(cellIdentifier: CompletionTableViewCell.identifier, cellType: CompletionTableViewCell.self)) { [unowned self] row, element, cell in
-                let startDate = dateFormatter.date(from: element.startDate)!
-                let endDate = dateFormatter.date(from: element.endDate)!
-                cell.dateLabel.text = dateFormatter.string(from: startDate) + " - " + dateFormatter.string(from: endDate)
-                cell.label.text = element.title
-                cell.completionImageView.image = UIImage(named: RewardToImage(rawValue: element.reward ?? "BLUE_JEWEL_1")!.rawValue)
-                
-                if element.hasRetrospect {
-                    cell.button.setTitle("회고 보기", for: .normal)
-                    cell.button.buttonComponentStyle = .secondary_m_line
-                    cell.button.buttonState = .original
-                    cell.hasRetrospect = true
-                } else {
-                    cell.button.setTitle("회고 작성", for: .normal)
-                    cell.button.buttonComponentStyle = .secondary_m
-                    cell.button.buttonState = .original
-                    cell.hasRetrospect = false
-                }
-                
-                cell.button.rx.tap
-                    .asDriver()
-                    .drive(onNext: { [weak self] in
-                        guard let self = self else { return }
-                        if element.hasRetrospect {
-                            let goalDataAtIndex =  self.viewModel.retrieveGoalDataAtIndex(index: row)
-                            self.viewModel.retrieveRetrospectWithId(goalId: goalDataAtIndex.goalId)
-                            let disposable = self.viewModel.retrospect
-                                .subscribe(onNext: {
-                                    if $0.hasGuide {
-                                        var savedVCWithGuide = CompletionSavedReviewWithGuideViewController()
-                                        savedVCWithGuide.goalIndex = row
-                                        savedVCWithGuide.bind(viewModel: self.viewModel)
-                                        self.push(viewController: savedVCWithGuide)
-                                    } else {
-                                        var savedVCWithoutGuide = CompletionSavedReviewWithoutGuideViewController()
-                                        savedVCWithoutGuide.goalIndex = row
-                                        savedVCWithoutGuide.bind(viewModel: self.viewModel)
-                                        self.push(viewController: savedVCWithoutGuide)
-                                    }
-                                })
-                            self.pushViewDisposables.append(disposable)
-                        } else {
-                            let reviewVC = CompletionReviewViewController()
-                            reviewVC.goalIndex = row
-                            reviewVC.viewModel = self.viewModel
-                            self.push(viewController: reviewVC)
-                        }
-                    })
-                    .disposed(by: cell.disposeBag)
-            }
-            .disposed(by: disposeBag)
-        
-        viewModel.isLoading
-            .asDriver()
-            .drive(onNext: { [weak self] loading in
-                self?.loading(loading: loading)
-            })
-            .disposed(by: disposeBag)
-        
         // MARK: - 리팩토링 코드
         let input = CompletionViewModel.Input(viewDidAppear: viewDidAppearTrigger, selection: tableView.rx.modelSelected(CompletionTableViewCellViewModel.self).asDriver())
         let output = viewModel.transform(input: input)
