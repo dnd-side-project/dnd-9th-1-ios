@@ -265,6 +265,7 @@
 		C947D9192AC28D7300015407 /* OnboardingViewControllerFourth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D9182AC28D7300015407 /* OnboardingViewControllerFourth.swift */; };
 		C947D91C2AC30D4200015407 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C947D91B2AC30D4200015407 /* Lottie */; };
 		C947D95D2AC3F7FF00015407 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D95C2AC3F7FF00015407 /* ToastView.swift */; };
+		C95700EC2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700EB2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift */; };
 		C95A3C9B2A94D08D0028B4ED /* UpperGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9A2A94D08D0028B4ED /* UpperGoal.swift */; };
 		C95A3C9F2A94E0AC0028B4ED /* CompletionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */; };
 		C95A3CA12A94EB580028B4ED /* RewardToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA02A94EB580028B4ED /* RewardToImage.swift */; };
@@ -416,7 +417,7 @@
 		A2FA592C2A7FD433006ACA2E /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 		A2FC49522A97981D0045FE59 /* RestoreGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreGoalViewController.swift; sourceTree = "<group>"; };
 		A2FC49562A979F850045FE59 /* ResetGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetGoalViewController.swift; sourceTree = "<group>"; };
-		A2FDF3432AC59753007AAF3D /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		A2FDF3432AC59753007AAF3D /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Config.xcconfig; path = ../Config.xcconfig; sourceTree = "<group>"; };
 		A2FFBC8E2A94986200039919 /* FillBoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBoxViewModel.swift; sourceTree = "<group>"; };
 		C9040FCB2A93B64A00270E94 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		C9040FCD2A93BDB400270E94 /* APIInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIInterceptor.swift; sourceTree = "<group>"; };
@@ -443,6 +444,7 @@
 		C947D9162AC28D6600015407 /* OnboardingViewControllerThird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerThird.swift; sourceTree = "<group>"; };
 		C947D9182AC28D7300015407 /* OnboardingViewControllerFourth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerFourth.swift; sourceTree = "<group>"; };
 		C947D95C2AC3F7FF00015407 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		C95700EB2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		C95A3C9A2A94D08D0028B4ED /* UpperGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperGoal.swift; sourceTree = "<group>"; };
 		C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionHeaderView.swift; sourceTree = "<group>"; };
 		C95A3CA02A94EB580028B4ED /* RewardToImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardToImage.swift; sourceTree = "<group>"; };
@@ -999,6 +1001,7 @@
 			children = (
 				C9B2CDDD2A8B42CA006289A8 /* CompletionTableViewCell.swift */,
 				C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */,
+				C95700EB2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1285,6 +1288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C947D95D2AC3F7FF00015407 /* ToastView.swift in Sources */,
+				C95700EC2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift in Sources */,
 				C9B2CE072A8E69E5006289A8 /* IndexViewAfterSaved.swift in Sources */,
 				A2EC47CC2A8A962600401B03 /* LowerGoalInfoViewController.swift in Sources */,
 				A26509102A8D604100E9A2D7 /* CouchMarkViewController.swift in Sources */,
@@ -1581,6 +1585,7 @@
 /* Begin XCBuildConfiguration section */
 		A227368D2A7CE53800D7B3B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2FDF3432AC59753007AAF3D /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1642,6 +1647,7 @@
 		};
 		A227368E2A7CE53800D7B3B2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2FDF3432AC59753007AAF3D /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1697,6 +1703,7 @@
 		};
 		A22736902A7CE53800D7B3B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2FDF3432AC59753007AAF3D /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1732,6 +1739,7 @@
 		};
 		A22736912A7CE53800D7B3B2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2FDF3432AC59753007AAF3D /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
