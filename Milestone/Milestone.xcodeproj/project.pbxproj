@@ -266,6 +266,8 @@
 		C947D91C2AC30D4200015407 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C947D91B2AC30D4200015407 /* Lottie */; };
 		C947D95D2AC3F7FF00015407 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D95C2AC3F7FF00015407 /* ToastView.swift */; };
 		C95700EC2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700EB2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift */; };
+		C95700F02AC8239700271FAB /* RetrospectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700EF2AC8239700271FAB /* RetrospectDetailViewController.swift */; };
+		C95700F22AC824AF00271FAB /* RetrospectDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700F12AC824AF00271FAB /* RetrospectDetailViewModel.swift */; };
 		C95A3C9B2A94D08D0028B4ED /* UpperGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9A2A94D08D0028B4ED /* UpperGoal.swift */; };
 		C95A3C9F2A94E0AC0028B4ED /* CompletionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */; };
 		C95A3CA12A94EB580028B4ED /* RewardToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA02A94EB580028B4ED /* RewardToImage.swift */; };
@@ -445,6 +447,8 @@
 		C947D9182AC28D7300015407 /* OnboardingViewControllerFourth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerFourth.swift; sourceTree = "<group>"; };
 		C947D95C2AC3F7FF00015407 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		C95700EB2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		C95700EF2AC8239700271FAB /* RetrospectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectDetailViewController.swift; sourceTree = "<group>"; };
+		C95700F12AC824AF00271FAB /* RetrospectDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectDetailViewModel.swift; sourceTree = "<group>"; };
 		C95A3C9A2A94D08D0028B4ED /* UpperGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperGoal.swift; sourceTree = "<group>"; };
 		C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionHeaderView.swift; sourceTree = "<group>"; };
 		C95A3CA02A94EB580028B4ED /* RewardToImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardToImage.swift; sourceTree = "<group>"; };
@@ -880,6 +884,7 @@
 		A2D304C72A856B4F00A5BA92 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C95700EE2AC8236500271FAB /* RetrospectDetail */,
 				C9B2CDDC2A8B42AD006289A8 /* Cell */,
 				A2248E942A8A5A5C00EB995A /* CompletionBoxViewController.swift */,
 				C9B2CDEA2A8BCD6B006289A8 /* CompletionReviewViewController.swift */,
@@ -960,6 +965,15 @@
 				C947D9182AC28D7300015407 /* OnboardingViewControllerFourth.swift */,
 			);
 			path = OnboardingSubviews;
+			sourceTree = "<group>";
+		};
+		C95700EE2AC8236500271FAB /* RetrospectDetail */ = {
+			isa = PBXGroup;
+			children = (
+				C95700EF2AC8239700271FAB /* RetrospectDetailViewController.swift */,
+				C95700F12AC824AF00271FAB /* RetrospectDetailViewModel.swift */,
+			);
+			path = RetrospectDetail;
 			sourceTree = "<group>";
 		};
 		C968F8F32A98F2AE0051DE48 /* Setting */ = {
@@ -1372,6 +1386,7 @@
 				A2FA59102A7FCFB4006ACA2E /* Encodable+.swift in Sources */,
 				A2D304C92A856B6B00A5BA92 /* StorageBoxViewController.swift in Sources */,
 				A2FA59212A7FD2EC006ACA2E /* BaseTableViewCell.swift in Sources */,
+				C95700F22AC824AF00271FAB /* RetrospectDetailViewModel.swift in Sources */,
 				A2FA59142A7FCFC8006ACA2E /* Data+.swift in Sources */,
 				C9B2CDD82A8A7B26006289A8 /* ViewModelBindableType.swift in Sources */,
 				A2FA591D2A7FD2DD006ACA2E /* BaseCollectionViewCell.swift in Sources */,
@@ -1389,6 +1404,7 @@
 				A2FC49532A97981D0045FE59 /* RestoreGoalViewController.swift in Sources */,
 				C947D9152AC28D5E00015407 /* OnboardingViewControllerSecond.swift in Sources */,
 				A289D9642A922950005B7F00 /* RecommendGoalViewController.swift in Sources */,
+				C95700F02AC8239700271FAB /* RetrospectDetailViewController.swift in Sources */,
 				A2FA59292A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
 				A231AA842AB480EA004C4907 /* BubbleTailDownView.swift in Sources */,
 				C90C48E92A936C1D00E7E8B0 /* ButtonComponentStyle.swift in Sources */,
