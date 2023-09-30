@@ -226,7 +226,12 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             .disposed(by: disposeBag)
         
         output.retrospectSelected.drive(onNext: {
-            print("SELECTED DATA: \($0.upperGoal.value)")
+            if $0.upperGoal.value.hasRetrospect {
+                
+            } else {
+                let retrospectVC = RetrospectDetailViewController(viewModel: $0)
+                self.push(viewController: retrospectVC)
+            }
         })
         .disposed(by: disposeBag)
     }
