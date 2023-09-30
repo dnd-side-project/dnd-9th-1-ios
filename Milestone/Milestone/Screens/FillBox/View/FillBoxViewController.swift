@@ -63,12 +63,10 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
         }
     
     lazy var networkFailView = NetworkFailView()
-        .then {
-            $0.retryButton.addTarget(self, action: #selector(retryNetworkConnection), for: .touchUpInside)
-        }
     
     // MARK: - Properties
     
+    var networkMonitor = NetworkMonitor.shared
     var viewModel: FillBoxViewModel! = FillBoxViewModel()
     var bubbleKey = UserDefaultsKeyStyle.bubbleInFillBox.rawValue
     
@@ -86,7 +84,7 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        checkNetworkConnection()
+        updateUpperGoalList()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -160,16 +158,19 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
         viewModel.completedGoalCount
             .bind(to: upperGoalHeaderView.completedGoalView.goalNumberLabel.rx.text)
             .disposed(by: disposeBag)
-    }
-    
-    /// 네트워크 연결 상태에 따라 다른 뷰 보여주기
-    func checkNetworkConnection() {
-        if NetworkMonitor.shared.isConnected {
-            showFillBoxList()
-            updateUpperGoalList()
-        } else {
-            showNetworkFailView()
-        }
+        
+        networkMonitor.isConnected
+            .subscribe(onNext: { [weak self] isConnected in
+                DispatchQueue.main.async {
+                    // isConnected 값이 바뀔 때마다 실행하고자 하는 함수를 호출
+                    if isConnected {
+                        self?.showFillBoxList()
+                    } else {
+                        self?.showNetworkFailView()
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     /// 네트워크 연결 실패 뷰 띄우기
@@ -275,13 +276,6 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
             addGoalButton.backgroundColor = .primary // 다시 색깔 복구
             presentAddUpperGoal() // 모달 뷰 띄우기
         }
-    }
-    
-    /// 네트워크 연결 재시도 클릭 시 실행
-    /// 연결 상태를 확인하고 그에 따른 뷰를 보여준다
-    @objc
-    private func retryNetworkConnection() {
-        checkNetworkConnection()
     }
 }
 

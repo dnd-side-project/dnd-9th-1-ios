@@ -54,12 +54,10 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
         }
     
     lazy var networkFailView = NetworkFailView()
-        .then {
-            $0.retryButton.addTarget(self, action: #selector(retryNetworkConnection), for: .touchUpInside)
-        }
     
     // MARK: - Properties
     
+    var networkMonitor = NetworkMonitor.shared
     var viewModel: StorageBoxViewModel! = StorageBoxViewModel()
     
     // MARK: - Life Cycle
@@ -73,7 +71,8 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        checkNetworkConnection()
+        viewModel.clearList()
+        viewModel.retrieveStorageGoalList()
     }
     
     // MARK: - Functions
@@ -126,18 +125,19 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
                 }
             }
             .disposed(by: disposeBag)
-    }
-    
-    /// 네트워크 연결 상태 확인
-    /// 상태에 따라 다른 뷰를 띄운다
-    private func checkNetworkConnection() {
-        if NetworkMonitor.shared.isConnected {
-            showStorageBoxList()
-            viewModel.clearList()
-            viewModel.retrieveStorageGoalList()
-        } else {
-            showNetworkFailView()
-        }
+        
+        networkMonitor.isConnected
+            .subscribe(onNext: { [weak self] isConnected in
+                DispatchQueue.main.async {
+                    // isConnected 값이 바뀔 때마다 실행하고자 하는 함수를 호출
+                    if isConnected {
+                        self?.showStorageBoxList()
+                    } else {
+                        self?.showNetworkFailView()
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     /// 네트워크 연결 실패 뷰 띄우기
@@ -174,14 +174,6 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
         let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
         attributedString.setColorForText(textForAttribute: "총 \(viewModel.storedGoals.value.count)개의 목표", withColor: .pointPurple)
         alertView.label.attributedText = attributedString
-    }
-    
-    // MARK: - @objc Functions
-    
-    /// 네트워크 연결 실패 시 재시도 버튼 클릭
-    @objc
-    private func retryNetworkConnection() {
-        checkNetworkConnection()
     }
 }
 
