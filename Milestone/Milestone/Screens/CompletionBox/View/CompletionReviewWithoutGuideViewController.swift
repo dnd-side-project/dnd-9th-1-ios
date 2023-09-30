@@ -369,18 +369,18 @@ class CompletionReviewWithoutGuideViewController: BaseViewController, ViewModelB
                 $0 != "자유롭게 회고를 작성해보세요!" && !$0.isEmpty
             }
         
-        Observable.combineLatest(textViewObservable, fillSelected.asObservable()) { lhs, rhs in
-            return lhs && rhs
-        }
-        .subscribe(onNext: { [unowned self] in
-            if $0 {
-                self.registerButton.isEnabled = true
-                self.registerButton.backgroundColor = .primary
-            } else {
-                self.registerButton.isEnabled = false
-                self.registerButton.backgroundColor = .init(hex: "#ADBED6")
-            }
-        })
-        .disposed(by: disposeBag)
+//        Observable.combineLatest(textViewObservable, fillSelected.asObservable()) { lhs, rhs in
+//            return lhs && rhs
+//        }
+//        .subscribe(onNext: { [unowned self] in
+//            if $0 {
+//                self.registerButton.isEnabled = true
+//                self.registerButton.backgroundColor = .primary
+//            } else {
+//                self.registerButton.isEnabled = false
+//                self.registerButton.backgroundColor = .init(hex: "#ADBED6")
+//            }
+//        })
+//        .disposed(by: disposeBag)
     }
 }

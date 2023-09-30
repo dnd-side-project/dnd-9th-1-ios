@@ -146,7 +146,7 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
         setAttributedIndexLabel()
         setPointViews()
         selectPointView()
-        validateInput()
+//        validateInput()
         
         firstQuestionView.indexImage.image = ImageLiteral.imgGood
         secondQuestionView.indexImage.image = ImageLiteral.imgBad
@@ -337,39 +337,39 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
     
     /// 입력 유효성 검사
     func validateInput() {
-        let firstObservable = firstQuestionView.textView.rx.text
-            .compactMap { $0 }
-            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
+//        let firstObservable = firstQuestionView.textView.rx.text
+//            .compactMap { $0 }
+//            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
+//
+//        let secondObservable = secondQuestionView.textView.rx.text
+//            .compactMap { $0 }
+//            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
+//
+//        let thirdObservable = thirdQuestionView.textView.rx.text
+//            .compactMap { $0 }
+//            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
+//
+//        let fourthObservable = fourthQuestionView.textView.rx.text
+//            .compactMap { $0 }
+//            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
         
-        let secondObservable = secondQuestionView.textView.rx.text
-            .compactMap { $0 }
-            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
-        
-        let thirdObservable = thirdQuestionView.textView.rx.text
-            .compactMap { $0 }
-            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
-        
-        let fourthObservable = fourthQuestionView.textView.rx.text
-            .compactMap { $0 }
-            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
-        
-        Observable.combineLatest(firstObservable, secondObservable, thirdObservable, fourthObservable, fillSelected) { first, second, third, fourth, fill -> Bool in
-            if first > 0 && second > 0 && third > 0 && fourth > 0 && fill {
-                return true
-            } else {
-                return false
-            }
-        }
-        .subscribe(onNext: { [unowned self] in
-            if $0 {
-                self.registerButton.backgroundColor = .primary
-                self.registerButton.isEnabled = true
-            } else {
-                self.registerButton.backgroundColor = .init(hex: "#ADBED6")
-                self.registerButton.isEnabled = false
-            }
-        })
-        .disposed(by: disposeBag)
+//        Observable.combineLatest(firstObservable, secondObservable, thirdObservable, fourthObservable, fillSelected) { first, second, third, fourth, fill -> Bool in
+//            if first > 0 && second > 0 && third > 0 && fourth > 0 && fill {
+//                return true
+//            } else {
+//                return false
+//            }
+//        }
+//        .subscribe(onNext: { [unowned self] in
+//            if $0 {
+//                self.registerButton.backgroundColor = .primary
+//                self.registerButton.isEnabled = true
+//            } else {
+//                self.registerButton.backgroundColor = .init(hex: "#ADBED6")
+//                self.registerButton.isEnabled = false
+//            }
+//        })
+//        .disposed(by: disposeBag)
             
     }
 }
