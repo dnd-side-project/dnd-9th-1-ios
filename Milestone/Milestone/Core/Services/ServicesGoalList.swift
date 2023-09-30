@@ -14,8 +14,6 @@ protocol ServicesGoalList: Service {
     func postReview(higherLevelGoalId: Int, retrospect: Retrospect) -> Observable<Result<BaseModel<Int>, APIError>>
     
     func requestRetrospect(goalId: Int) -> Observable<Result<BaseModel<Retrospect>, APIError>>
-    
-    func requestEnabledRetrospectCount() -> Single<BaseModel<RetrospectCount>>
 
     func requestAllGoals(lastGoalId: Int, goalStatusParameter: GoalStatusParameter) -> Observable<Result<BaseModel<GoalResponse>, APIError>>
     
@@ -31,6 +29,10 @@ protocol ServicesGoalList: Service {
     
     func requestRecommendGoal() -> Observable<Result<BaseModel<[UpperGoal]>, APIError>>
      
+    // MARK: - Single Trait 리팩토링 함수
+    func requestEnabledRetrospectCount() -> Single<BaseModel<RetrospectCount>>
+    
+    func requestAllGoalsWithSignle(lastGoalId: Int, goalStatusParameter: GoalStatusParameter) -> Single<BaseModel<GoalResponse>>
 }
 
 extension ServicesGoalList {
@@ -76,5 +78,9 @@ extension ServicesGoalList {
     // 보관함에 있는 상위 목표 추천
     func requestRecommendGoal() -> Observable<Result<BaseModel<[UpperGoal]>, APIError>> {
         return apiSession.request(.requestRecommendGoal)
+    }
+    
+    func requestAllGoalsWithSignle(lastGoalId: Int, goalStatusParameter: GoalStatusParameter) -> Single<BaseModel<GoalResponse>> {
+        return apiSession.requestSingle(.requestAllGoals(lastGoalId: lastGoalId, goalStatus: goalStatusParameter))
     }
 }
