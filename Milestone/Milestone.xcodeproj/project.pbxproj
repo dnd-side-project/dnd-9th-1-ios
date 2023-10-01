@@ -286,7 +286,6 @@
 		C9B2CDE32A8B5E9D006289A8 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = C9B2CDE22A8B5E9D006289A8 /* RxDataSources */; };
 		C9B2CDE72A8BBCCC006289A8 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDE62A8BBCCC006289A8 /* TriangleView.swift */; };
 		C9B2CDE92A8BCBE0006289A8 /* CompletionBoxCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDE82A8BCBE0006289A8 /* CompletionBoxCoordinator.swift */; };
-		C9B2CDEB2A8BCD6B006289A8 /* CompletionReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEA2A8BCD6B006289A8 /* CompletionReviewViewController.swift */; };
 		C9B2CDED2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEC2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift */; };
 		C9B2CDEF2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */; };
 		C9B2CDF12A8CA397006289A8 /* IndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDF02A8CA397006289A8 /* IndexView.swift */; };
@@ -465,7 +464,6 @@
 		C9B2CDDD2A8B42CA006289A8 /* CompletionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCell.swift; sourceTree = "<group>"; };
 		C9B2CDE62A8BBCCC006289A8 /* TriangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
 		C9B2CDE82A8BCBE0006289A8 /* CompletionBoxCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionBoxCoordinator.swift; sourceTree = "<group>"; };
-		C9B2CDEA2A8BCD6B006289A8 /* CompletionReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionReviewViewController.swift; sourceTree = "<group>"; };
 		C9B2CDEC2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionReviewWithGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionReviewWithoutGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CDF02A8CA397006289A8 /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
@@ -887,7 +885,6 @@
 				C95700EE2AC8236500271FAB /* RetrospectDetail */,
 				C9B2CDDC2A8B42AD006289A8 /* Cell */,
 				A2248E942A8A5A5C00EB995A /* CompletionBoxViewController.swift */,
-				C9B2CDEA2A8BCD6B006289A8 /* CompletionReviewViewController.swift */,
 				C9B2CDEC2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift */,
 				C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */,
 				C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */,
@@ -1416,7 +1413,6 @@
 				A2B9698B2A859EAB00C4903F /* UIButton+.swift in Sources */,
 				C9B2CE202A8F62B2006289A8 /* Service.swift in Sources */,
 				C9B2CE4B2A92F95E006289A8 /* LowerGoal.swift in Sources */,
-				C9B2CDEB2A8BCD6B006289A8 /* CompletionReviewViewController.swift in Sources */,
 				C9B2CE1D2A8F5783006289A8 /* APISession.swift in Sources */,
 				A2FA59252A7FD3B1006ACA2E /* UICollectionView+.swift in Sources */,
 				A2D304C12A854EDE00A5BA92 /* MainSegmentedControl.swift in Sources */,
