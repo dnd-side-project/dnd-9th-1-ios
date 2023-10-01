@@ -40,12 +40,6 @@ class CompletionViewModel: BindableViewModel, ViewModelType {
             }
             .subscribe(onNext: {
                 count.accept($0.data.count)
-                let countValue = $0.data.count
-                if countValue == 0 {
-                    alertBoxHidden.accept(true)
-                } else {
-                    alertBoxHidden.accept(false)
-                }
             })
             .disposed(by: bag)
         
@@ -54,7 +48,8 @@ class CompletionViewModel: BindableViewModel, ViewModelType {
                 return self.requestAllGoalsWithSignle(lastGoalId: -1, goalStatusParameter: .complete).asObservable()
             }
             .map {
-                $0.data.contents
+                alertBoxHidden.accept($0.data.contents.isEmpty)
+                return $0.data.contents
                     .map {
                         let viewModel = CompletionTableViewCellViewModel(with: $0)
                         return viewModel
@@ -69,7 +64,6 @@ class CompletionViewModel: BindableViewModel, ViewModelType {
             let vm = RetrospectDetailViewModel(upperGoal: cell.upperGoal)
             return vm
         }
-        
         
         return Output(retrospectCount: count, isAlertBoxHidden: alertBoxHidden, items: items, retrospectSelected: retrospectSelected)
     }
