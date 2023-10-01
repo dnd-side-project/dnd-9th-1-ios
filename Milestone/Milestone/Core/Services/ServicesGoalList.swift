@@ -83,4 +83,8 @@ extension ServicesGoalList {
     func requestAllGoalsWithSignle(lastGoalId: Int, goalStatusParameter: GoalStatusParameter) -> Single<BaseModel<GoalResponse>> {
         return apiSession.requestSingle(.requestAllGoals(lastGoalId: lastGoalId, goalStatus: goalStatusParameter))
     }
+    
+    func postRetrospectSingle(higherLevelGoalId: Int, retrospect: Retrospect) -> Single<BaseModel<Int>> {
+        return apiSession.requestSingle(.postRetrospect(higherLevelGoalId: higherLevelGoalId, retrospect: retrospect))
+    }
 }
