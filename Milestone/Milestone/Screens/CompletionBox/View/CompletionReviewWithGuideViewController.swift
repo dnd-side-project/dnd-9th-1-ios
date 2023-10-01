@@ -61,8 +61,8 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
     
     var viewModel: CompletionViewModel!
     private var fillSelected = PublishSubject<Bool>()
-    var goalIndex = 0
     let selectedPoint = BehaviorRelay<String>(value: "")
+    let pointSelectTrigger = PublishSubject<Void>()
     
     var saveButtonTapDisposable: Disposable!
     
@@ -146,7 +146,6 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
         setAttributedIndexLabel()
         setPointViews()
         selectPointView()
-//        validateInput()
         
         firstQuestionView.indexImage.image = ImageLiteral.imgGood
         secondQuestionView.indexImage.image = ImageLiteral.imgBad
@@ -155,16 +154,6 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
     }
 
     func bindViewModel() {
-        let goalDataAtIndex = viewModel.retrieveGoalDataAtIndex(index: goalIndex)
-        
-        saveButtonTapDisposable = registerButton.rx.tap
-            .flatMapFirst { [unowned self] in
-                self.viewModel.saveRetrospect(goalId: goalDataAtIndex.goalId, retrospect: Retrospect(hasGuide: true, contents: ["LIKED": firstQuestionView.textView.text, "LACKED": secondQuestionView.textView.text, "LEARNED": thirdQuestionView.textView.text, "LONGED_FOR": fourthQuestionView.textView.text], successLevel: self.selectedPoint.value))
-                    .debug()
-            }
-            .subscribe(onNext: { [unowned self] in
-                self.viewModel.handlingPostResponse(result: $0)
-            })
         
         viewModel.isLoading
             .asDriver()
@@ -221,8 +210,8 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
     
     /// 스택뷰에서 탭된 이미지만 after select로 변경
     func selectPointView() {
-        lowestPointView.pointButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
+        lowestPointView.pointButton.rx.tap.asDriver()
+            .drive(onNext: { [unowned self] in
                 selectedPoint.accept("LEVEL1")
                 self.fillSelected.onNext(true)
                 
@@ -240,11 +229,13 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
                 
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
+                
+                pointSelectTrigger.onNext(())
             })
             .disposed(by: disposeBag)
         
-        lowerPointView.pointButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
+        lowerPointView.pointButton.rx.tap.asDriver()
+            .drive(onNext: { [unowned self] in
                 self.selectedPoint.accept("LEVEL2")
                 self.fillSelected.onNext(true)
                 
@@ -263,11 +254,12 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
                 
+                pointSelectTrigger.onNext(())
             })
             .disposed(by: disposeBag)
         
-        middlePointView.pointButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
+        middlePointView.pointButton.rx.tap.asDriver()
+            .drive(onNext: { [unowned self] in
                 self.selectedPoint.accept("LEVEL3")
                 self.fillSelected.onNext(true)
                 
@@ -286,11 +278,12 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
                 
+                pointSelectTrigger.onNext(())
             })
             .disposed(by: disposeBag)
         
-        higherPointView.pointButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
+        higherPointView.pointButton.rx.tap.asDriver()
+            .drive(onNext: { [unowned self] in
                 self.selectedPoint.accept("LEVEL4")
                 self.fillSelected.onNext(true)
                 
@@ -309,11 +302,12 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
                 
+                pointSelectTrigger.onNext(())
             })
             .disposed(by: disposeBag)
         
-        highestPointView.pointButton.rx.tap
-            .subscribe(onNext: { [unowned self] in
+        highestPointView.pointButton.rx.tap.asDriver()
+            .drive(onNext: { [unowned self] in
                 self.selectedPoint.accept("LEVEL5")
                 self.fillSelected.onNext(true)
                 
@@ -331,45 +325,9 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
                 
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgAfterSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .primary
+                
+                pointSelectTrigger.onNext(())
             })
             .disposed(by: disposeBag)
-    }
-    
-    /// 입력 유효성 검사
-    func validateInput() {
-//        let firstObservable = firstQuestionView.textView.rx.text
-//            .compactMap { $0 }
-//            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
-//
-//        let secondObservable = secondQuestionView.textView.rx.text
-//            .compactMap { $0 }
-//            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
-//
-//        let thirdObservable = thirdQuestionView.textView.rx.text
-//            .compactMap { $0 }
-//            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
-//
-//        let fourthObservable = fourthQuestionView.textView.rx.text
-//            .compactMap { $0 }
-//            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
-        
-//        Observable.combineLatest(firstObservable, secondObservable, thirdObservable, fourthObservable, fillSelected) { first, second, third, fourth, fill -> Bool in
-//            if first > 0 && second > 0 && third > 0 && fourth > 0 && fill {
-//                return true
-//            } else {
-//                return false
-//            }
-//        }
-//        .subscribe(onNext: { [unowned self] in
-//            if $0 {
-//                self.registerButton.backgroundColor = .primary
-//                self.registerButton.isEnabled = true
-//            } else {
-//                self.registerButton.backgroundColor = .init(hex: "#ADBED6")
-//                self.registerButton.isEnabled = false
-//            }
-//        })
-//        .disposed(by: disposeBag)
-            
     }
 }

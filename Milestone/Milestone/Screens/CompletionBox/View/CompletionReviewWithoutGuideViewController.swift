@@ -97,9 +97,10 @@ class CompletionReviewWithoutGuideViewController: BaseViewController, ViewModelB
     // MARK: Properties
     let heightSubject = PublishSubject<Int>()
     var fillSelected = PublishSubject<Bool>()
-    var goalIndex = 0
     var viewModel: CompletionViewModel!
     let selectedPoint = BehaviorRelay<String>(value: "")
+    
+    let pointSelectTrigger = PublishSubject<Void>()
     
     var saveButtonTapDisposable: Disposable!
     
@@ -165,7 +166,6 @@ class CompletionReviewWithoutGuideViewController: BaseViewController, ViewModelB
     override func configUI() {
         selectPointView()
         setPointViews()
-        validateInput()
         
         textView.rx.didBeginEditing
             .subscribe(onNext: { [unowned self] in
@@ -201,16 +201,6 @@ class CompletionReviewWithoutGuideViewController: BaseViewController, ViewModelB
     }
     
     func bindViewModel() {
-        let goalDataAtIndex = viewModel.retrieveGoalDataAtIndex(index: goalIndex)
-        
-        saveButtonTapDisposable = registerButton.rx.tap
-            .flatMapFirst { [unowned self] in
-                self.viewModel.saveRetrospect(goalId: goalDataAtIndex.goalId, retrospect: Retrospect(hasGuide: false, contents: ["NONE": textView.text], successLevel: self.selectedPoint.value))
-            }
-            .subscribe(onNext: { [unowned self] in
-                self.viewModel.handlingPostResponse(result: $0)
-            })
-        
         viewModel.isLoading
             .asDriver()
             .drive(onNext: { [unowned self] in
@@ -267,6 +257,8 @@ class CompletionReviewWithoutGuideViewController: BaseViewController, ViewModelB
                 
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
+                
+                pointSelectTrigger.onNext(())
             })
             .disposed(by: disposeBag)
         
@@ -289,7 +281,8 @@ class CompletionReviewWithoutGuideViewController: BaseViewController, ViewModelB
                 
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
-                
+              
+                pointSelectTrigger.onNext(())
             })
             .disposed(by: disposeBag)
         
@@ -313,6 +306,7 @@ class CompletionReviewWithoutGuideViewController: BaseViewController, ViewModelB
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
                 
+                pointSelectTrigger.onNext(())
             })
             .disposed(by: disposeBag)
         
@@ -336,6 +330,7 @@ class CompletionReviewWithoutGuideViewController: BaseViewController, ViewModelB
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
                 
+                pointSelectTrigger.onNext(())
             })
             .disposed(by: disposeBag)
         
@@ -358,29 +353,9 @@ class CompletionReviewWithoutGuideViewController: BaseViewController, ViewModelB
                 
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgAfterSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .primary
+                
+                pointSelectTrigger.onNext(())
             })
             .disposed(by: disposeBag)
-    }
-    
-    func validateInput() {
-        let textViewObservable = textView.rx.text
-            .compactMap { $0 }
-            .map {
-                $0 != "자유롭게 회고를 작성해보세요!" && !$0.isEmpty
-            }
-        
-//        Observable.combineLatest(textViewObservable, fillSelected.asObservable()) { lhs, rhs in
-//            return lhs && rhs
-//        }
-//        .subscribe(onNext: { [unowned self] in
-//            if $0 {
-//                self.registerButton.isEnabled = true
-//                self.registerButton.backgroundColor = .primary
-//            } else {
-//                self.registerButton.isEnabled = false
-//                self.registerButton.backgroundColor = .init(hex: "#ADBED6")
-//            }
-//        })
-//        .disposed(by: disposeBag)
     }
 }
