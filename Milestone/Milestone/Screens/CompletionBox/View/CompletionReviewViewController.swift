@@ -188,10 +188,6 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
             })
             .disposed(by: disposeBag)
         
-        // FIXME: - 삭제 가능할듯
-        reviewVCWithGuide.bind(viewModel: self.viewModel)
-        reviewVCWithoutGuide.bind(viewModel: self.viewModel)
-        
         viewModel.presentModal
             .subscribe(onNext: { [unowned self] in
                 if $0 {

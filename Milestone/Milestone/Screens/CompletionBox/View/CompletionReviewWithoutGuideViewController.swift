@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class CompletionReviewWithoutGuideViewController: BaseViewController, ViewModelBindableType {
+class CompletionReviewWithoutGuideViewController: BaseViewController {
     
     // MARK: Subviews
     let textViewWrapper = UIView()
@@ -97,7 +97,6 @@ class CompletionReviewWithoutGuideViewController: BaseViewController, ViewModelB
     // MARK: Properties
     let heightSubject = PublishSubject<Int>()
     var fillSelected = PublishSubject<Bool>()
-    var viewModel: CompletionViewModel!
     let selectedPoint = BehaviorRelay<String>(value: "")
     
     let pointSelectTrigger = PublishSubject<Void>()
@@ -201,12 +200,6 @@ class CompletionReviewWithoutGuideViewController: BaseViewController, ViewModelB
     }
     
     func bindViewModel() {
-        viewModel.isLoading
-            .asDriver()
-            .drive(onNext: { [unowned self] in
-                self.registerButton.isHidden = $0
-            })
-            .disposed(by: disposeBag)
     }
     
     func setPointViews() {

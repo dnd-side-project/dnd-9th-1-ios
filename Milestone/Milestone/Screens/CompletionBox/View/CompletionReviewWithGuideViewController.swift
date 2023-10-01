@@ -9,7 +9,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBindableType {
+class CompletionReviewWithGuideViewController: BaseViewController {
     
     // MARK: Subviews
     
@@ -58,8 +58,6 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
         }
     
     // MARK: Properties
-    
-    var viewModel: CompletionViewModel!
     private var fillSelected = PublishSubject<Bool>()
     let selectedPoint = BehaviorRelay<String>(value: "")
     let pointSelectTrigger = PublishSubject<Void>()
@@ -154,13 +152,6 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
     }
 
     func bindViewModel() {
-        
-        viewModel.isLoading
-            .asDriver()
-            .drive(onNext: { [unowned self] in
-                self.registerButton.isHidden = $0
-            })
-            .disposed(by: disposeBag)
     }
     
     func setAttributedIndexLabel() {
