@@ -188,9 +188,7 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
             })
             .disposed(by: disposeBag)
         
-        reviewVCWithGuide.goalIndex = goalIndex
-        reviewVCWithoutGuide.goalIndex = goalIndex
-        
+        // FIXME: - 삭제 가능할듯
         reviewVCWithGuide.bind(viewModel: self.viewModel)
         reviewVCWithoutGuide.bind(viewModel: self.viewModel)
         
