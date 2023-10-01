@@ -98,8 +98,7 @@ class CompletionReviewWithoutGuideViewController: BaseViewController {
     let heightSubject = PublishSubject<Int>()
     var fillSelected = PublishSubject<Bool>()
     let selectedPoint = BehaviorRelay<String>(value: "")
-    
-    let pointSelectTrigger = PublishSubject<Void>()
+    let pointSelectTrigger = PublishSubject<FillPoint>()
     
     var saveButtonTapDisposable: Disposable!
     
@@ -251,7 +250,7 @@ class CompletionReviewWithoutGuideViewController: BaseViewController {
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
                 
-                pointSelectTrigger.onNext(())
+                pointSelectTrigger.onNext(.level1)
             })
             .disposed(by: disposeBag)
         
@@ -275,7 +274,7 @@ class CompletionReviewWithoutGuideViewController: BaseViewController {
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
               
-                pointSelectTrigger.onNext(())
+                pointSelectTrigger.onNext(.level2)
             })
             .disposed(by: disposeBag)
         
@@ -299,7 +298,7 @@ class CompletionReviewWithoutGuideViewController: BaseViewController {
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
                 
-                pointSelectTrigger.onNext(())
+                pointSelectTrigger.onNext(.level3)
             })
             .disposed(by: disposeBag)
         
@@ -323,7 +322,7 @@ class CompletionReviewWithoutGuideViewController: BaseViewController {
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
                 
-                pointSelectTrigger.onNext(())
+                pointSelectTrigger.onNext(.level4)
             })
             .disposed(by: disposeBag)
         
@@ -347,7 +346,7 @@ class CompletionReviewWithoutGuideViewController: BaseViewController {
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgAfterSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .primary
                 
-                pointSelectTrigger.onNext(())
+                pointSelectTrigger.onNext(.level5)
             })
             .disposed(by: disposeBag)
     }
