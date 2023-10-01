@@ -23,11 +23,16 @@ class RetrospectDetailViewModel: BindableViewModel, ViewModelType {
     
     // TODO: - 마음 채움도 선택완료 여부까지 인풋으로 추가 필요
     struct Input {
+        // 텍스트뷰 입력
         let likedTextViewChanged: Observable<String?>
         let lackedTextViewChanged: Observable<String?>
         let learnedTextViewChanged: Observable<String?>
         let longedForTextViewChanged: Observable<String?>
         let freeTextViewChanged: Observable<String?>
+        
+        // 마음채움도 입력
+        let pointSelectedWithGuide: Observable<Void>
+        let pointSelectedWithoutGuide: Observable<Void>
     }
     
     struct Output {
@@ -40,11 +45,19 @@ class RetrospectDetailViewModel: BindableViewModel, ViewModelType {
     func transform(input: Input) -> Output {
         let textViewCount = Observable.combineLatest(input.likedTextViewChanged.map { $0 ?? "" != "내용을 입력해주세요!" ? $0?.count : 0 }, input.lackedTextViewChanged.map { $0 ?? "" != "내용을 입력해주세요!" ? $0?.count : 0 }, input.learnedTextViewChanged.map { $0 ?? "" != "내용을 입력해주세요!" ? $0?.count : 0 }, input.longedForTextViewChanged.map { $0 ?? "" != "내용을 입력해주세요!" ? $0?.count : 0 }).asDriver(onErrorJustReturn: (0, 0, 0, 0))
         
-        let guideViewActivated = textViewCount.map { $0.0 ?? 0 > 0 && $0.1 ?? 0 > 0 && $0.2 ?? 0 > 0 && $0.3 ?? 0 > 0 }
+        let guideViewActivated = input.pointSelectedWithGuide
+            .flatMapLatest {
+                textViewCount.map { $0.0 ?? 0 > 0 && $0.1 ?? 0 > 0 && $0.2 ?? 0 > 0 && $0.3 ?? 0 > 0 }
+            }
+            .asDriver(onErrorJustReturn: false)
         
         let freeTextViewCount = input.freeTextViewChanged.map { $0 ?? "" != "자유롭게 회고를 작성해보세요!" ? $0?.count : 0 }.asDriver(onErrorJustReturn: 0)
 
-        let freeViewActivated = freeTextViewCount.map { $0 ?? 0 > 0 }
+        let freeViewActivated = input.pointSelectedWithoutGuide
+            .flatMapLatest {
+                freeTextViewCount.map { $0 ?? 0 > 0 }
+            }
+            .asDriver(onErrorJustReturn: false)
         
         return Output(textViewCount: textViewCount, freeTextViewCount: freeTextViewCount, guideViewButtonActivated: guideViewActivated, freeViewButtonActivated: freeViewActivated)
     }
