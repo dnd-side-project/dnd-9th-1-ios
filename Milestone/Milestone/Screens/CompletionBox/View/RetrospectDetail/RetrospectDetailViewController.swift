@@ -216,7 +216,7 @@ class RetrospectDetailViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         // MARK: - 리팩토링
-        let input = RetrospectDetailViewModel.Input(likedTextViewChanged: reviewVCWithGuide.firstQuestionView.textView.rx.text.asObservable(), lackedTextViewChanged: reviewVCWithGuide.secondQuestionView.textView.rx.text.asObservable(), learnedTextViewChanged: reviewVCWithGuide.thirdQuestionView.textView.rx.text.asObservable(), longedForTextViewChanged: reviewVCWithGuide.fourthQuestionView.textView.rx.text.asObservable(), freeTextViewChanged: reviewVCWithoutGuide.textView.rx.text.asObservable())
+        let input = RetrospectDetailViewModel.Input(likedTextViewChanged: reviewVCWithGuide.firstQuestionView.textView.rx.text.asObservable(), lackedTextViewChanged: reviewVCWithGuide.secondQuestionView.textView.rx.text.asObservable(), learnedTextViewChanged: reviewVCWithGuide.thirdQuestionView.textView.rx.text.asObservable(), longedForTextViewChanged: reviewVCWithGuide.fourthQuestionView.textView.rx.text.asObservable(), freeTextViewChanged: reviewVCWithoutGuide.textView.rx.text.asObservable(), pointSelectedWithGuide: reviewVCWithGuide.pointSelectTrigger.asObservable(), pointSelectedWithoutGuide: reviewVCWithoutGuide.pointSelectTrigger.asObservable())
         
         let output = viewModel.transform(input: input)
         
