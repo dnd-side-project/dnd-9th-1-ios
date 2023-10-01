@@ -254,6 +254,18 @@ class RetrospectDetailViewController: BaseViewController {
                 self.reviewVCWithoutGuide.registerButton.backgroundColor = $0 ? .primary : .init(hex: "#ADBED6")
             })
             .disposed(by: disposeBag)
+        
+        output.modalPresentWithGuide
+            .subscribe(onNext: { [unowned self] _ in
+                self.present(reviewCompleteVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        output.modalPresentWithoutGuide
+            .subscribe(onNext: { [unowned self] _ in
+                self.present(reviewCompleteVC, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     func setFontSize() {

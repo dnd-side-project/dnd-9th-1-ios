@@ -44,7 +44,8 @@ class RetrospectDetailViewModel: BindableViewModel, ViewModelType {
         let guideViewButtonActivated: Driver<Bool>
         let freeViewButtonActivated: Driver<Bool>
         
-        let modalPresent: Observable<BaseModel<Int>>
+        let modalPresentWithGuide: Observable<BaseModel<Int>>
+        let modalPresentWithoutGuide: Observable<BaseModel<Int>>
     }
     
     func transform(input: Input) -> Output {
@@ -58,45 +59,31 @@ class RetrospectDetailViewModel: BindableViewModel, ViewModelType {
             .asDriver(onErrorJustReturn: false)
         
         let freeTextViewCount = input.freeTextViewChanged.map { $0 ?? "" != "자유롭게 회고를 작성해보세요!" ? $0?.count : 0 }.asDriver(onErrorJustReturn: 0)
-
         let freeViewActivated = input.pointSelectedWithoutGuide
             .flatMapLatest { _ in
                 freeTextViewCount.map { $0 ?? 0 > 0 }
             }
             .asDriver(onErrorJustReturn: false)
         
-        let saveWithGuide = input.saveButtonTriggerWithGuide
-            .flatMapLatest {
-                Observable.combineLatest(input.pointSelectedWithGuide, input.likedTextViewChanged, input.lackedTextViewChanged, input.learnedTextViewChanged, input.longedForTextViewChanged)
-            }
-            .flatMapLatest { [unowned self] (selectPoint, liked, lacked, learned, longedFor) -> Observable<BaseModel<Int>> in
-                
-                let retrospect = Retrospect(hasGuide: true, contents: ["LIKED": liked ?? "", "LACKED": lacked ?? "", "LEARNED": learned ?? "", "LONGED_FOR": longedFor ?? ""], successLevel: selectPoint.rawValue)
+        let guideInputObservable = Observable.combineLatest(input.pointSelectedWithGuide, input.likedTextViewChanged, input.lackedTextViewChanged, input.learnedTextViewChanged, input.longedForTextViewChanged)
+        let saveWithGuide = Observable.combineLatest(guideInputObservable, input.saveButtonTriggerWithGuide)
+            .flatMapLatest { [unowned self] (inputs, _) -> Observable<BaseModel<Int>> in
+                let (point, liked, lacked, learned, longedFor) = inputs
+                let retrospect = Retrospect(hasGuide: true, contents: ["LIKED": liked ?? "", "LACKED": lacked ?? "", "LEARNED": learned ?? "", "LONGED_FOR": longedFor ?? ""], successLevel: point.rawValue)
                 return self.postRetrospectSingle(higherLevelGoalId: self.upperGoal.value.goalId, retrospect: retrospect).asObservable()
             }
         
-        let saveWithoutGuide = Observable.combineLatest(input.saveButtonTriggerWithoutGuide, Observable.combineLatest(input.pointSelectedWithoutGuide, input.freeTextViewChanged))
-            .flatMapLatest { [unowned self] (_, arg1) -> Observable<BaseModel<Int>> in
-                let (fillPoint, text) = arg1
-                let retrospect = Retrospect(hasGuide: false, contents: ["NONE": text ?? ""], successLevel: fillPoint.rawValue)
+        let freeInputObservable = Observable.combineLatest(input.pointSelectedWithoutGuide, input.freeTextViewChanged)
+        let saveWithoutGuide =  Observable.combineLatest(freeInputObservable, input.saveButtonTriggerWithoutGuide)
+            .flatMap { [unowned self] (inputs, _) -> Observable<BaseModel<Int>> in
+                let (point, text) = inputs
+                let retrospect = Retrospect(hasGuide: false, contents: ["NONE": text ?? ""], successLevel: point.rawValue)
                 return self.postRetrospectSingle(higherLevelGoalId: self.upperGoal.value.goalId, retrospect: retrospect).asObservable()
             }
-        
-        input.saveButtonTriggerWithoutGuide
-            .flatMapLatest {
-                Observable.combineLatest(input.pointSelectedWithoutGuide, input.freeTextViewChanged)
-            }
-            .flatMapLatest { [unowned self] (fillPoint, text) -> Observable<BaseModel<Int>> in
-                let retrospect = Retrospect(hasGuide: false, contents: ["NONE": text ?? ""], successLevel: fillPoint.rawValue)
-                return self.postRetrospectSingle(higherLevelGoalId: self.upperGoal.value.goalId, retrospect: retrospect).asObservable()
-            }
-        
-        let modalPresent = Observable.of(saveWithGuide, saveWithoutGuide)
-            .merge()
         
         // MARK: - Retrospect 객체 생성
         
-        return Output(textViewCount: textViewCount, freeTextViewCount: freeTextViewCount, guideViewButtonActivated: guideViewActivated, freeViewButtonActivated: freeViewActivated, modalPresent: modalPresent)
+        return Output(textViewCount: textViewCount, freeTextViewCount: freeTextViewCount, guideViewButtonActivated: guideViewActivated, freeViewButtonActivated: freeViewActivated, modalPresentWithGuide: saveWithGuide, modalPresentWithoutGuide: saveWithoutGuide)
     }
 }
 
