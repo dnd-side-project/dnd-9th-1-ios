@@ -66,6 +66,7 @@ class CompletionTableViewCell: BaseTableViewCell {
         viewModel.hasRetrospect.subscribe(onNext: { [unowned self] in
             self.button.buttonComponentStyle = $0 ? .secondary_m_line : .secondary_m
             self.button.buttonState = .original
+            self.button.setTitle( $0 ? "회고 보기" : "회고 작성하기", for: .normal)
         }).disposed(by: disposeBag)
         
         viewModel.reward.map {
