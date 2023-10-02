@@ -163,15 +163,37 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             }
             .disposed(by: disposeBag)
         
-        output.retrospectSelected.drive(onNext: {
+        // MARK: - 분기처리
+        output.retrospectSelected.drive(onNext: { [unowned self] in
             if $0.upperGoal.value.hasRetrospect {
-                
+                // 회고 데이터랑 같이 푸시
+                self.pushRetrospectViewer(goalId: $0.upperGoal.value.goalId, upperGoal: $0.upperGoal.value)
             } else {
                 let retrospectVC = RetrospectDetailViewController(viewModel: $0)
                 self.push(viewController: retrospectVC)
             }
         })
         .disposed(by: disposeBag)
+    }
+    
+    func pushRetrospectViewer(goalId: Int, upperGoal: UpperGoal) {
+        viewModel.retrieveRetrospect(goalId: goalId).asObservable()
+            .subscribe(onNext: { [unowned self] in
+                
+                let retrospect = Retrospect(hasGuide: $0.data.hasGuide, contents: $0.data.contents, successLevel: $0.data.successLevel)
+               
+                
+                if $0.data.hasGuide {
+                    let vm = RetrospectViewerWithGuideViewModel(retrospect: retrospect, upperGoal: upperGoal)
+                    let viewerVC = RetrospectViewerWithGuideViewController(viewModel: vm)
+                    self.push(viewController: viewerVC)
+                } else {
+                    let vm = RetrospectViewerWithoutGuideViewModel(retrospect: retrospect, upperGoal: upperGoal)
+                    let viewerVC = RetrospectViewerWithoutGuideViewController(viewModel: vm)
+                    self.push(viewController: viewerVC)
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     /// 테이블뷰 레이아웃 세팅 완료 후 정의해야할 레이아웃 대상들을 분리
