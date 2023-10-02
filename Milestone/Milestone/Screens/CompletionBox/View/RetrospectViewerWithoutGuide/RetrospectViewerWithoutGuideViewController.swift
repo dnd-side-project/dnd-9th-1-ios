@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewModelBindableType {
+class RetrospectViewerWithoutGuideViewController: BaseViewController {
 
     // MARK: Subviews
     
@@ -68,8 +68,7 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
         }
     
     // MARK: Properties
-    var viewModel: CompletionViewModel!
-    var goalIndex: Int!
+    var viewModel: RetrospectViewerWithoutGuideViewModel
     
     let dateFormatter = DateFormatter()
         .then {
@@ -79,6 +78,17 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
     // MARK: Life Cycles
     
     // MARK: Functions
+    init(viewModel: RetrospectViewerWithoutGuideViewModel) {
+        self.viewModel = viewModel
+        super.init()
+        
+        bindViewModel()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func render() {
         view.addSubViews([titleBox, scrollView])
         titleBox.addSubViews([titleLabel, calendarImageView, dateLabel])
@@ -134,8 +144,6 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
     override func configUI() {
         view.backgroundColor = .init(hex: "#F3F3FF")
         
-        textView.text = ""
-        
         textView.rx.text
             .compactMap { $0 }
             .map { str -> NSAttributedString in
@@ -151,20 +159,26 @@ class CompletionSavedReviewWithoutGuideViewController: BaseViewController, ViewM
     }
     
     func bindViewModel() {
-        let goalDataAtIndex = viewModel.retrieveGoalDataAtIndex(index: goalIndex)
+        viewModel.upperGoal
+            .map { $0.title }
+            .bind(to: titleLabel.rx.text)
+            .disposed(by: disposeBag)
         
-        let startDate = dateFormatter.date(from: goalDataAtIndex.startDate)!
-        let endDate = dateFormatter.date(from: goalDataAtIndex.endDate)!
-        
-        titleLabel.text = goalDataAtIndex.title
-        dateLabel.text = "\(dateFormatter.string(from: startDate))" + " - " + "\(dateFormatter.string(from: endDate))"
-        
-        viewModel.retrieveRetrospectWithId(goalId: goalDataAtIndex.goalId)
+        viewModel.upperGoal
+            .map { "\($0.startDate) - \($0.endDate)"}
+            .bind(to: dateLabel.rx.text)
+            .disposed(by: disposeBag)
         
         viewModel.retrospect
-            .subscribe(onNext: { [unowned self] retro in
-                self.textView.text = retro.contents["NONE"]
-                self.fillImageView.image = UIImage(named: retro.successLevel)
+            .map { $0.contents["NONE"] ?? "" }
+            .bind(to: textView.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.retrospect
+            .map { $0.successLevel }
+            .asDriver(onErrorJustReturn: "")
+            .drive(onNext: { [unowned self] in
+                self.fillImageView.image = UIImage(named: "\($0)")
             })
             .disposed(by: disposeBag)
     }
