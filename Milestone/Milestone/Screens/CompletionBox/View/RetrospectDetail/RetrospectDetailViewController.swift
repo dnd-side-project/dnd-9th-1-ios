@@ -72,10 +72,10 @@ class RetrospectDetailViewController: BaseViewController {
     var viewControllers: [UIViewController] {
         [self.reviewVCWithGuide, self.reviewVCWithoutGuide]
     }
-    lazy var reviewVCWithGuide = CompletionReviewWithGuideViewController()
-    lazy var reviewVCWithoutGuide = CompletionReviewWithoutGuideViewController()
+    lazy var reviewVCWithGuide = RetrospectWithGuideViewController()
+    lazy var reviewVCWithoutGuide = RetrospectWithoutGuideViewController()
     
-    let reviewCompleteVC = ReviewCompleteViewController()
+    let reviewCompleteVC = RetrospectModalViewController()
         .then {
             $0.modalTransitionStyle = .crossDissolve
             $0.modalPresentationStyle = .overFullScreen
