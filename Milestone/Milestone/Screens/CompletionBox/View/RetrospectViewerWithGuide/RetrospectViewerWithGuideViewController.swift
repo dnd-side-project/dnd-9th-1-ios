@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewModelBindableType {
+class RetrospectViewerWithGuideViewController: BaseViewController {
     
     // MARK: Subviews
     
@@ -75,8 +75,7 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
     
     // MARK: Properties
     
-    var goalIndex: Int!
-    var viewModel: CompletionViewModel!
+    var viewModel: RetrospectViewerWithGuideViewModel
     
     let dateFormatter = DateFormatter()
         .then {
@@ -84,6 +83,17 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
         }
     
     // MARK: Functions
+    
+    init(viewModel: RetrospectViewerWithGuideViewModel) {
+        self.viewModel = viewModel
+        super.init()
+        
+        bindViewModel()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func render() {
         view.addSubViews([titleBox, scrollView])
@@ -149,11 +159,6 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
             make.height.equalTo(260)
         }
         
-//        fillLabel.snp.makeConstraints { make in
-//            make.top.equalTo(fourthQuestionView.textView.snp.bottom).offset(32)
-//            make.leading.equalTo(view.snp.leading).offset(24)
-//        }
-        
         fillImageView.snp.makeConstraints { make in
             make.top.equalTo(fourthQuestionView.textView.snp.bottom).offset(24)
             make.centerX.equalTo(scrollView)
@@ -176,24 +181,41 @@ class CompletionSavedReviewWithGuideViewController: BaseViewController, ViewMode
     }
     
     func bindViewModel() {
-        let goalDataAtIndex = viewModel.retrieveGoalDataAtIndex(index: goalIndex)
+        viewModel.upperGoal
+            .map { $0.title }
+            .bind(to: titleLabel.rx.text)
+            .disposed(by: disposeBag)
         
-        let startDate = dateFormatter.date(from: goalDataAtIndex.startDate)!
-        let endDate = dateFormatter.date(from: goalDataAtIndex.endDate)!
-        
-        titleLabel.text = goalDataAtIndex.title
-        dateLabel.text = "\(dateFormatter.string(from: startDate))" + " - " + "\(dateFormatter.string(from: endDate))"
-        
-        viewModel.retrieveRetrospectWithId(goalId: goalDataAtIndex.goalId)
+        viewModel.upperGoal
+            .map { "\($0.startDate) - \($0.endDate)"}
+            .bind(to: dateLabel.rx.text)
+            .disposed(by: disposeBag)
         
         viewModel.retrospect
-            .subscribe(onNext: { [unowned self] retro in
-                self.firstQuestionView.textView.text = retro.contents["LIKED"]
-                self.secondQuestionView.textView.text = retro.contents["LACKED"]
-                self.thirdQuestionView.textView.text = retro.contents["LEARNED"]
-                self.fourthQuestionView.textView.text = retro.contents["LONGED_FOR"]
-                
-                fillImageView.image = UIImage(named: retro.successLevel)
+            .map { $0.contents["LIKED"] ?? "" }
+            .bind(to: firstQuestionView.textView.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.retrospect
+            .map { $0.contents["LACKED"] ?? "" }
+            .bind(to: secondQuestionView.textView.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.retrospect
+            .map { $0.contents["LEARNED"] ?? "" }
+            .bind(to: thirdQuestionView.textView.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.retrospect
+            .map { $0.contents["LONGED_FOR"] ?? "" }
+            .bind(to: fourthQuestionView.textView.rx.text)
+            .disposed(by: disposeBag)
+            
+        viewModel.retrospect
+            .map { $0.successLevel }
+            .asDriver(onErrorJustReturn: "")
+            .drive(onNext: { [unowned self] in
+                self.fillImageView.image = UIImage(named: "\($0)")
             })
             .disposed(by: disposeBag)
     }
