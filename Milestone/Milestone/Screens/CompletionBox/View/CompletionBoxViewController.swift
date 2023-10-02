@@ -61,9 +61,9 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     var viewModel: CompletionViewModel!
     var bubbleKey = UserDefaultsKeyStyle.bubbleInCompletionBox.rawValue
     var pushViewDisposables: [Disposable] = []
-    var scrollDisposable: Disposable!
     
     let viewDidAppearTrigger = PublishSubject<Void>()
+    let retrieveNextPageTrigger = PublishSubject<Void>()
     
     let dateFormatter = DateFormatter()
         .then {
@@ -84,25 +84,19 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         checkFirstCompletionBox()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        disposeAll()
-        resetScroll()
-    }
-    
+    // MARK: - viewdidappear를 트리거로 X
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         viewDidAppearTrigger.onNext(())
         
-        scrollDisposable = tableView.rx.didScroll
+        tableView.rx.contentOffset
             .subscribe(onNext: { [unowned self] in
-                if self.tableView.contentOffset.y > self.tableView.contentSize.height - self.tableView.frame.size.height - 100 {
-                    if !self.viewModel.isLoading.value && !self.viewModel.isLastPage {
-                        self.viewModel.retrieveMoreRetrospect()
-                    }
+                if $0.y > 0 && $0.y > self.tableView.contentSize.height - self.tableView.frame.size.height - 100 && !self.viewModel.isLoading && !self.viewModel.isLastPage {
+                    self.retrieveNextPageTrigger.onNext(())
                 }
             })
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Functions
@@ -134,7 +128,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     func bindViewModel() {
         // MARK: - 리팩토링 코드
-        let input = CompletionViewModel.Input(viewDidAppear: viewDidAppearTrigger, selection: tableView.rx.modelSelected(CompletionTableViewCellViewModel.self).asDriver())
+        let input = CompletionViewModel.Input(viewDidAppear: viewDidAppearTrigger, selection: tableView.rx.modelSelected(CompletionTableViewCellViewModel.self).asDriver(), retrieveNextPageTrigger: retrieveNextPageTrigger.asObservable())
         let output = viewModel.transform(input: input)
         
         // 1. 회고 작성가능 갯수 카운트 레이블 바인딩
@@ -216,22 +210,6 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         } else {
             bubbleView.isHidden = true
         }
-    }
-    
-    private func disposeAll() {
-        pushViewDisposables.forEach { disposable in
-            disposable.dispose()
-        }
-    }
-    
-    func resetScroll() {
-        viewModel.lastPageId = -1
-        viewModel.isLastPage = false
-        scrollDisposable.dispose()
-    }
-    
-    deinit {
-        disposeBag = DisposeBag()
     }
 }
 
