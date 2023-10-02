@@ -64,11 +64,18 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     let viewDidAppearTrigger = PublishSubject<Void>()
     let retrieveNextPageTrigger = PublishSubject<Void>()
+    let viewPushDirection = BehaviorRelay<ViewDireciton>(value: .idle)
     
     let dateFormatter = DateFormatter()
         .then {
             $0.dateFormat = "yyyy.MM.dd"
         }
+    
+    enum ViewDireciton {
+        case push
+        case pop
+        case idle
+    }
     
     // MARK: - Life Cycle
     
@@ -82,14 +89,8 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             .disposed(by: disposeBag)
         
         checkFirstCompletionBox()
-    }
-    
-    // MARK: - viewdidappear를 트리거로 X
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         viewDidAppearTrigger.onNext(())
-        
         tableView.rx.contentOffset
             .subscribe(onNext: { [unowned self] in
                 if $0.y > 0 && $0.y > self.tableView.contentSize.height - self.tableView.frame.size.height - 100 && !self.viewModel.isLoading && !self.viewModel.isLastPage {
@@ -97,6 +98,16 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                 }
             })
             .disposed(by: disposeBag)
+    }
+    
+    // MARK: - viewdidappear가 push될때 트리거됨
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if viewPushDirection.value == .idle {
+            viewDidAppearTrigger.onNext(())
+        }
     }
     
     // MARK: - Functions
@@ -161,8 +172,10 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
         output.retrospectSelected.drive(onNext: { [unowned self] in
             if $0.upperGoal.value.hasRetrospect {
                 // 회고 데이터랑 같이 푸시
+                self.viewPushDirection.accept(.push)
                 self.pushRetrospectViewer(goalId: $0.upperGoal.value.goalId, upperGoal: $0.upperGoal.value)
             } else {
+                self.viewPushDirection.accept(.push)
                 let retrospectVC = RetrospectDetailViewController(viewModel: $0)
                 self.push(viewController: retrospectVC)
             }
@@ -176,7 +189,6 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                 
                 let retrospect = Retrospect(hasGuide: $0.data.hasGuide, contents: $0.data.contents, successLevel: $0.data.successLevel)
                
-                
                 if $0.data.hasGuide {
                     let vm = RetrospectViewerWithGuideViewModel(retrospect: retrospect, upperGoal: upperGoal)
                     let viewerVC = RetrospectViewerWithGuideViewController(viewModel: vm)
@@ -236,10 +248,3 @@ extension CompletionBoxViewController: UITableViewDelegate {
         return 60 + 8
     }
 }
-
-// MARK: - RxTableViewSectionedAnimatedDataSource
-
-extension CompletionBoxViewController {
-    
-}
- 
