@@ -14,7 +14,6 @@ class CompletionViewModel: BindableViewModel, ViewModelType {
     
     // MARK: BindableViewModel Properties
     var apiSession: APIService = APISession()
-    
     var bag = DisposeBag()
     
     struct Input {
@@ -60,12 +59,17 @@ class CompletionViewModel: BindableViewModel, ViewModelType {
             })
             .disposed(by: bag)
         
+        // MARK: - 푸시할 뷰 분기처리
         let retrospectSelected = input.selection.map { cell -> RetrospectDetailViewModel in
             let vm = RetrospectDetailViewModel(upperGoal: cell.upperGoal)
             return vm
         }
         
         return Output(retrospectCount: count, isAlertBoxHidden: alertBoxHidden, items: items, retrospectSelected: retrospectSelected)
+    }
+    
+    func retrieveRetrospect(goalId: Int) -> Single<BaseModel<Retrospect>>{
+        requestRetrospectWithSingle(goalId: goalId)
     }
     
     // MARK: - Output
