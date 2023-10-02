@@ -87,4 +87,9 @@ extension ServicesGoalList {
     func postRetrospectSingle(higherLevelGoalId: Int, retrospect: Retrospect) -> Single<BaseModel<Int>> {
         return apiSession.requestSingle(.postRetrospect(higherLevelGoalId: higherLevelGoalId, retrospect: retrospect))
     }
+    
+    // MARK: - Single Trait
+    func requestRetrospectWithSingle(goalId: Int) -> Single<BaseModel<Retrospect>> {
+        return apiSession.requestSingle(.requestRetrospect(higherLevelGoalId: goalId))
+    }
 }
