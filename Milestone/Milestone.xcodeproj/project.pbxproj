@@ -269,6 +269,8 @@
 		C95700F02AC8239700271FAB /* RetrospectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700EF2AC8239700271FAB /* RetrospectDetailViewController.swift */; };
 		C95700F22AC824AF00271FAB /* RetrospectDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700F12AC824AF00271FAB /* RetrospectDetailViewModel.swift */; };
 		C95700F42AC9382000271FAB /* FillPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700F32AC9382000271FAB /* FillPoint.swift */; };
+		C95700F82AC9803700271FAB /* RetrospectViewerWithGuideViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700F72AC9803700271FAB /* RetrospectViewerWithGuideViewModel.swift */; };
+		C95700FA2AC9804300271FAB /* RetrospectViewerWithoutGuideViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700F92AC9804300271FAB /* RetrospectViewerWithoutGuideViewModel.swift */; };
 		C95A3C9B2A94D08D0028B4ED /* UpperGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9A2A94D08D0028B4ED /* UpperGoal.swift */; };
 		C95A3C9F2A94E0AC0028B4ED /* CompletionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */; };
 		C95A3CA12A94EB580028B4ED /* RewardToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA02A94EB580028B4ED /* RewardToImage.swift */; };
@@ -287,14 +289,14 @@
 		C9B2CDE32A8B5E9D006289A8 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = C9B2CDE22A8B5E9D006289A8 /* RxDataSources */; };
 		C9B2CDE72A8BBCCC006289A8 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDE62A8BBCCC006289A8 /* TriangleView.swift */; };
 		C9B2CDE92A8BCBE0006289A8 /* CompletionBoxCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDE82A8BCBE0006289A8 /* CompletionBoxCoordinator.swift */; };
-		C9B2CDED2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEC2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift */; };
-		C9B2CDEF2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */; };
+		C9B2CDED2A8C99ED006289A8 /* RetrospectWithGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEC2A8C99ED006289A8 /* RetrospectWithGuideViewController.swift */; };
+		C9B2CDEF2A8C9B73006289A8 /* RetrospectWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEE2A8C9B73006289A8 /* RetrospectWithoutGuideViewController.swift */; };
 		C9B2CDF12A8CA397006289A8 /* IndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDF02A8CA397006289A8 /* IndexView.swift */; };
 		C9B2CDF72A8CC26E006289A8 /* PointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDF62A8CC26E006289A8 /* PointView.swift */; };
 		C9B2CDFF2A8DE365006289A8 /* CompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDFE2A8DE365006289A8 /* CompleteView.swift */; };
-		C9B2CE012A8DEBE0006289A8 /* ReviewCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE002A8DEBE0006289A8 /* ReviewCompleteViewController.swift */; };
-		C9B2CE032A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */; };
-		C9B2CE052A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */; };
+		C9B2CE012A8DEBE0006289A8 /* RetrospectModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE002A8DEBE0006289A8 /* RetrospectModalViewController.swift */; };
+		C9B2CE032A8E6417006289A8 /* RetrospectViewerWithGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE022A8E6417006289A8 /* RetrospectViewerWithGuideViewController.swift */; };
+		C9B2CE052A8E645D006289A8 /* RetrospectViewerWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE042A8E645D006289A8 /* RetrospectViewerWithoutGuideViewController.swift */; };
 		C9B2CE072A8E69E5006289A8 /* IndexViewAfterSaved.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE062A8E69E5006289A8 /* IndexViewAfterSaved.swift */; };
 		C9B2CE102A8F4F9A006289A8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE0F2A8F4F9A006289A8 /* Constants.swift */; };
 		C9B2CE132A8F5142006289A8 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE122A8F5142006289A8 /* APIError.swift */; };
@@ -450,6 +452,8 @@
 		C95700EF2AC8239700271FAB /* RetrospectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectDetailViewController.swift; sourceTree = "<group>"; };
 		C95700F12AC824AF00271FAB /* RetrospectDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectDetailViewModel.swift; sourceTree = "<group>"; };
 		C95700F32AC9382000271FAB /* FillPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillPoint.swift; sourceTree = "<group>"; };
+		C95700F72AC9803700271FAB /* RetrospectViewerWithGuideViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectViewerWithGuideViewModel.swift; sourceTree = "<group>"; };
+		C95700F92AC9804300271FAB /* RetrospectViewerWithoutGuideViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectViewerWithoutGuideViewModel.swift; sourceTree = "<group>"; };
 		C95A3C9A2A94D08D0028B4ED /* UpperGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperGoal.swift; sourceTree = "<group>"; };
 		C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionHeaderView.swift; sourceTree = "<group>"; };
 		C95A3CA02A94EB580028B4ED /* RewardToImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardToImage.swift; sourceTree = "<group>"; };
@@ -466,14 +470,14 @@
 		C9B2CDDD2A8B42CA006289A8 /* CompletionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCell.swift; sourceTree = "<group>"; };
 		C9B2CDE62A8BBCCC006289A8 /* TriangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
 		C9B2CDE82A8BCBE0006289A8 /* CompletionBoxCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionBoxCoordinator.swift; sourceTree = "<group>"; };
-		C9B2CDEC2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionReviewWithGuideViewController.swift; sourceTree = "<group>"; };
-		C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionReviewWithoutGuideViewController.swift; sourceTree = "<group>"; };
+		C9B2CDEC2A8C99ED006289A8 /* RetrospectWithGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectWithGuideViewController.swift; sourceTree = "<group>"; };
+		C9B2CDEE2A8C9B73006289A8 /* RetrospectWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectWithoutGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CDF02A8CA397006289A8 /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
 		C9B2CDF62A8CC26E006289A8 /* PointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointView.swift; sourceTree = "<group>"; };
 		C9B2CDFE2A8DE365006289A8 /* CompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteView.swift; sourceTree = "<group>"; };
-		C9B2CE002A8DEBE0006289A8 /* ReviewCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCompleteViewController.swift; sourceTree = "<group>"; };
-		C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSavedReviewWithGuideViewController.swift; sourceTree = "<group>"; };
-		C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSavedReviewWithoutGuideViewController.swift; sourceTree = "<group>"; };
+		C9B2CE002A8DEBE0006289A8 /* RetrospectModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectModalViewController.swift; sourceTree = "<group>"; };
+		C9B2CE022A8E6417006289A8 /* RetrospectViewerWithGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectViewerWithGuideViewController.swift; sourceTree = "<group>"; };
+		C9B2CE042A8E645D006289A8 /* RetrospectViewerWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectViewerWithoutGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CE062A8E69E5006289A8 /* IndexViewAfterSaved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewAfterSaved.swift; sourceTree = "<group>"; };
 		C9B2CE0F2A8F4F9A006289A8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C9B2CE122A8F5142006289A8 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
@@ -885,14 +889,12 @@
 		A2D304C72A856B4F00A5BA92 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C95700EE2AC8236500271FAB /* RetrospectDetail */,
-				C9B2CDDC2A8B42AD006289A8 /* Cell */,
 				A2248E942A8A5A5C00EB995A /* CompletionBoxViewController.swift */,
-				C9B2CDEC2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift */,
-				C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */,
-				C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */,
-				C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */,
-				C9B2CE002A8DEBE0006289A8 /* ReviewCompleteViewController.swift */,
+				C9B2CE002A8DEBE0006289A8 /* RetrospectModalViewController.swift */,
+				C95700EE2AC8236500271FAB /* RetrospectDetail */,
+				C95700F52AC97C2600271FAB /* RetrospectViewerWithGuide */,
+				C95700F62AC97FCD00271FAB /* RetrospectViewerWithoutGuide */,
+				C9B2CDDC2A8B42AD006289A8 /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -972,8 +974,28 @@
 			children = (
 				C95700EF2AC8239700271FAB /* RetrospectDetailViewController.swift */,
 				C95700F12AC824AF00271FAB /* RetrospectDetailViewModel.swift */,
+				C9B2CDEC2A8C99ED006289A8 /* RetrospectWithGuideViewController.swift */,
+				C9B2CDEE2A8C9B73006289A8 /* RetrospectWithoutGuideViewController.swift */,
 			);
 			path = RetrospectDetail;
+			sourceTree = "<group>";
+		};
+		C95700F52AC97C2600271FAB /* RetrospectViewerWithGuide */ = {
+			isa = PBXGroup;
+			children = (
+				C9B2CE022A8E6417006289A8 /* RetrospectViewerWithGuideViewController.swift */,
+				C95700F72AC9803700271FAB /* RetrospectViewerWithGuideViewModel.swift */,
+			);
+			path = RetrospectViewerWithGuide;
+			sourceTree = "<group>";
+		};
+		C95700F62AC97FCD00271FAB /* RetrospectViewerWithoutGuide */ = {
+			isa = PBXGroup;
+			children = (
+				C9B2CE042A8E645D006289A8 /* RetrospectViewerWithoutGuideViewController.swift */,
+				C95700F92AC9804300271FAB /* RetrospectViewerWithoutGuideViewModel.swift */,
+			);
+			path = RetrospectViewerWithoutGuide;
 			sourceTree = "<group>";
 		};
 		C968F8F32A98F2AE0051DE48 /* Setting */ = {
@@ -1323,6 +1345,7 @@
 				A2FA58D12A7F7A1F006ACA2E /* (null) in Sources */,
 				A28EDA112A87808A001A021A /* UIViewController+.swift in Sources */,
 				C9BF3FCC2A9783EA0074E781 /* SettingTableViewCellSecondSection.swift in Sources */,
+				C95700F82AC9803700271FAB /* RetrospectViewerWithGuideViewModel.swift in Sources */,
 				A2B9698F2A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */,
 				C90DC9882A891A8500241B7C /* OnboardingViewControllerTutorialLast.swift in Sources */,
 				A2D304BD2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
@@ -1330,7 +1353,7 @@
 				A28EDA192A879565001A021A /* DetailUpperViewController.swift in Sources */,
 				C95700F42AC9382000271FAB /* FillPoint.swift in Sources */,
 				C947D9172AC28D6600015407 /* OnboardingViewControllerThird.swift in Sources */,
-				C9B2CDEF2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift in Sources */,
+				C9B2CDEF2A8C9B73006289A8 /* RetrospectWithoutGuideViewController.swift in Sources */,
 				A23E8BA02A900EEC0051D135 /* DeleteGoalViewController.swift in Sources */,
 				A289D9602A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */,
 				A23E8B9C2A8FF54D0051D135 /* CompleteGoalViewController.swift in Sources */,
@@ -1370,7 +1393,7 @@
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
 				C968F8F52A98F3080051DE48 /* InformationLabel.swift in Sources */,
 				A282DA522A94BB2400A0D0BF /* DetailUpperViewModel.swift in Sources */,
-				C9B2CE052A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift in Sources */,
+				C9B2CE052A8E645D006289A8 /* RetrospectViewerWithoutGuideViewController.swift in Sources */,
 				A2C98F022A8B6117009B5579 /* AddUpperGoalViewController.swift in Sources */,
 				C9B2CE452A91D796006289A8 /* KeychainManager.swift in Sources */,
 				A2FA59192A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
@@ -1395,7 +1418,7 @@
 				A2B20D902A7ED14C001ED73C /* ImageLiteral.swift in Sources */,
 				C9B2CE472A92F61D006289A8 /* GoalStatusParameter.swift in Sources */,
 				C95A3CA12A94EB580028B4ED /* RewardToImage.swift in Sources */,
-				C9B2CDED2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift in Sources */,
+				C9B2CDED2A8C99ED006289A8 /* RetrospectWithGuideViewController.swift in Sources */,
 				C95A3CA32A95973B0028B4ED /* Retrospect.swift in Sources */,
 				C9B2CDF72A8CC26E006289A8 /* PointView.swift in Sources */,
 				C9B2CE242A8F673C006289A8 /* ServicesGoalList.swift in Sources */,
@@ -1411,7 +1434,7 @@
 				C90C48E92A936C1D00E7E8B0 /* ButtonComponentStyle.swift in Sources */,
 				A23E8BA22A9013610051D135 /* AskOneOfTwoView.swift in Sources */,
 				C9B2CDE72A8BBCCC006289A8 /* TriangleView.swift in Sources */,
-				C9B2CE012A8DEBE0006289A8 /* ReviewCompleteViewController.swift in Sources */,
+				C9B2CE012A8DEBE0006289A8 /* RetrospectModalViewController.swift in Sources */,
 				C9040FD02A93C3AC00270E94 /* APIIEventLogger.swift in Sources */,
 				A2B969842A85812F00C4903F /* GoalStatusView.swift in Sources */,
 				A2B9698B2A859EAB00C4903F /* UIButton+.swift in Sources */,
@@ -1420,7 +1443,7 @@
 				C9B2CE1D2A8F5783006289A8 /* APISession.swift in Sources */,
 				A2FA59252A7FD3B1006ACA2E /* UICollectionView+.swift in Sources */,
 				A2D304C12A854EDE00A5BA92 /* MainSegmentedControl.swift in Sources */,
-				C9B2CE032A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift in Sources */,
+				C9B2CE032A8E6417006289A8 /* RetrospectViewerWithGuideViewController.swift in Sources */,
 				C9798ACA2A939F9600B5CC4A /* BindableViewModel.swift in Sources */,
 				A2FC49572A979F850045FE59 /* ResetGoalViewController.swift in Sources */,
 				A2B20D9A2A7ED40D001ED73C /* Logger.swift in Sources */,
@@ -1429,6 +1452,7 @@
 				C9B2CE152A8F514A006289A8 /* APIService.swift in Sources */,
 				A2400D692AA3C24600EB79D6 /* Notification+.swift in Sources */,
 				C9B2CDD62A8A77F1006289A8 /* CompletionViewModel.swift in Sources */,
+				C95700FA2AC9804300271FAB /* RetrospectViewerWithoutGuideViewModel.swift in Sources */,
 				C947D9192AC28D7300015407 /* OnboardingViewControllerFourth.swift in Sources */,
 				C9B2CDFF2A8DE365006289A8 /* CompleteView.swift in Sources */,
 				A2400D652AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */,
