@@ -9,7 +9,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class CompletionReviewWithGuideViewController: BaseViewController {
+class RetrospectWithGuideViewController: BaseViewController {
     
     // MARK: Subviews
     

@@ -7,8 +7,11 @@
 
 import UIKit
 
-class ReviewCompleteViewController: BaseViewController {
+// MARK: - 회고 작성 후 모달창
+class RetrospectModalViewController: BaseViewController {
+    
     // MARK: SubViews
+    
     let backgroundView = UIView()
         .then {
             $0.backgroundColor = .black.withAlphaComponent(0.3)

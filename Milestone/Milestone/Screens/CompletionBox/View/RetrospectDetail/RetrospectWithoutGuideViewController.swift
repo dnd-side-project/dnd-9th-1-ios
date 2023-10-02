@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class CompletionReviewWithoutGuideViewController: BaseViewController {
+class RetrospectWithoutGuideViewController: BaseViewController {
     
     // MARK: Subviews
     let textViewWrapper = UIView()
