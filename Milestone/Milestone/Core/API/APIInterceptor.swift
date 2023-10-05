@@ -11,7 +11,9 @@ import Alamofire
 import RxSwift
 
 class APIInterceptor: RequestInterceptor {
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
+    static var isRefreshing = false
+    static let retryObservable = PublishSubject<Void>()
     
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         
@@ -41,6 +43,7 @@ class APIInterceptor: RequestInterceptor {
     }
     
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+        
         guard let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 else {
             completion(.doNotRetryWithError(error))
             return
@@ -50,42 +53,59 @@ class APIInterceptor: RequestInterceptor {
             if url.relativePath == "/auth/reissue" {
                 completion(.doNotRetryWithError(APIError.http(status: 401)))
             } else {
-                APIRefreshTask().requestRefreshToken()
-                    .subscribe(onNext: {[unowned self] result in
-                        switch result {
-                        case .success(let response):
-                            KeychainManager.shared.rx.saveItem(response.data.accessToken, itemClass: .password, key: KeychainKeyList.accessToken.rawValue)
-                                .subscribe(onNext: {
-                                    print("accessToken save completed!")
-                                })
-                                .disposed(by: self.disposeBag)
-                            KeychainManager.shared.rx.saveItem(response.data.refreshToken, itemClass: .password, key: KeychainKeyList.refreshToken.rawValue)
-                                .subscribe(onNext: {
-                                    print("refreshToken save completed!")
-                                })
-                                .disposed(by: self.disposeBag)
-                            print("SAVE COMPLETED!")
+                if APIInterceptor.isRefreshing {
+                    APIInterceptor.retryObservable
+                        .debug()
+                        .subscribe(onNext: { [unowned self] in
                             completion(.retry)
-                        case .failure:
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                                guard let self = self else { return }
-                                let window = UIApplication.shared.connectedScenes.compactMap { ($0 as? UIWindowScene)?.keyWindow }.last
-                                let root = window?.rootViewController
-                                
-                                let accessTokenObservable = KeychainManager.shared.rx
-                                    .deleteItem(ofClass: .password, key: KeychainKeyList.accessToken.rawValue)
-                                let refreshTokenObservable = KeychainManager.shared.rx
-                                    .deleteItem(ofClass: .password, key: KeychainKeyList.refreshToken.rawValue)
-                                
-                                Observable.combineLatest(accessTokenObservable, refreshTokenObservable)
-                                    .subscribe(onCompleted: {
-                                        AppCoordinator(window: window!).start()
+                            self.disposeBag = DisposeBag()
+                        })
+                        .disposed(by: disposeBag)
+                } else {
+                    APIInterceptor.isRefreshing = true
+                    
+                    APIRefreshTask().requestRefreshToken()
+                        .subscribe(onNext: {[unowned self] result in
+                            switch result {
+                            case .success(let response):
+                                KeychainManager.shared.rx.saveItem(response.data.accessToken, itemClass: .password, key: KeychainKeyList.accessToken.rawValue)
+                                    .subscribe(onNext: {
+                                        print("accessToken save completed!")
                                     })
-                                    .disposed(by: self.disposeBag)                            }
-                            completion(.doNotRetry)
-                        }
-                    })
-                    .disposed(by: disposeBag)
+                                    .disposed(by: self.disposeBag)
+                                KeychainManager.shared.rx.saveItem(response.data.refreshToken, itemClass: .password, key: KeychainKeyList.refreshToken.rawValue)
+                                    .subscribe(onNext: {
+                                        print("refreshToken save completed!")
+                                    })
+                                    .disposed(by: self.disposeBag)
+                                print("SAVE COMPLETED!")
+                                APIInterceptor.isRefreshing = false
+                                APIInterceptor.retryObservable.onNext(())
+                                completion(.retry)
+                            case .failure:
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                                    guard let self = self else { return }
+                                    let window = UIApplication.shared.connectedScenes.compactMap { ($0 as? UIWindowScene)?.keyWindow }.last
+                                    let root = window?.rootViewController
+                                    
+                                    let accessTokenObservable = KeychainManager.shared.rx
+                                        .deleteItem(ofClass: .password, key: KeychainKeyList.accessToken.rawValue)
+                                    let refreshTokenObservable = KeychainManager.shared.rx
+                                        .deleteItem(ofClass: .password, key: KeychainKeyList.refreshToken.rawValue)
+                                    
+                                    Observable.combineLatest(accessTokenObservable, refreshTokenObservable)
+                                        .subscribe(onCompleted: {
+                                            AppCoordinator(window: window!).start()
+                                        })
+                                        .disposed(by: self.disposeBag)
+                                }
+                                APIInterceptor.isRefreshing = false
+                                APIInterceptor.retryObservable.onNext(())
+                                completion(.doNotRetry)
+                            }
+                        })
+                        .disposed(by: disposeBag)
+                }
             }
         }
        
