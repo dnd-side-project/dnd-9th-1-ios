@@ -28,14 +28,12 @@ class APIInterceptor: RequestInterceptor {
             guard let refreshToken: String = try? KeychainManager.shared.retrieveItem(ofClass: .password, key: KeychainKeyList.refreshToken.rawValue) else {
                 return
             }
-            print("refresh: \(refreshToken)")
             var urlRequest = urlRequest
             urlRequest.headers.add(.authorization(bearerToken: refreshToken))
             completion(.success(urlRequest))
             return
         } else {
             guard let accessToken: String = try? KeychainManager.shared.retrieveItem(ofClass: .password, key: KeychainKeyList.accessToken.rawValue) else {
-                print("NIL")
                 return
             }
             var urlRequest = urlRequest
@@ -51,8 +49,6 @@ class APIInterceptor: RequestInterceptor {
             completion(.doNotRetryWithError(error))
             return
         }
-        print("retry.. \(request.response?.url?.relativePath)")
-        print("isREFRESHING?: \(APIInterceptor.isRefreshing)")
         
         if let url = request.response?.url {
             if url.relativePath == "/auth/reissue" {
@@ -85,7 +81,6 @@ class APIInterceptor: RequestInterceptor {
                                         print("refreshToken save completed!")
                                     })
                                     .disposed(by: self.disposeBag)
-                                print("SAVE COMPLETED!")
                                 APIInterceptor.isRefreshing = false
                                 APIInterceptor.retryObservable.onNext(())
                                 completion(.retry)
@@ -134,7 +129,6 @@ class APIInterceptor: RequestInterceptor {
     }
     
     deinit {
-        print("DEINIT!")
         retryDisposeBag = DisposeBag()
         disposeBag = DisposeBag()
     }
