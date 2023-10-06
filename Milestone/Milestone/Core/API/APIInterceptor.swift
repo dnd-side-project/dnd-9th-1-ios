@@ -12,6 +12,8 @@ import RxSwift
 
 class APIInterceptor: RequestInterceptor {
     var disposeBag = DisposeBag()
+    var retryDisposeBag = DisposeBag()
+    
     static var isRefreshing = false
     static let retryObservable = PublishSubject<Void>()
     
@@ -26,6 +28,7 @@ class APIInterceptor: RequestInterceptor {
             guard let refreshToken: String = try? KeychainManager.shared.retrieveItem(ofClass: .password, key: KeychainKeyList.refreshToken.rawValue) else {
                 return
             }
+            print("refresh: \(refreshToken)")
             var urlRequest = urlRequest
             urlRequest.headers.add(.authorization(bearerToken: refreshToken))
             completion(.success(urlRequest))
@@ -48,9 +51,12 @@ class APIInterceptor: RequestInterceptor {
             completion(.doNotRetryWithError(error))
             return
         }
+        print("retry.. \(request.response?.url?.relativePath)")
+        print("isREFRESHING?: \(APIInterceptor.isRefreshing)")
         
         if let url = request.response?.url {
             if url.relativePath == "/auth/reissue" {
+                APIInterceptor.isRefreshing = false
                 completion(.doNotRetryWithError(APIError.http(status: 401)))
             } else {
                 if APIInterceptor.isRefreshing {
@@ -58,9 +64,10 @@ class APIInterceptor: RequestInterceptor {
                         .debug()
                         .subscribe(onNext: { [unowned self] in
                             completion(.retry)
-                            self.disposeBag = DisposeBag()
+                            self.retryDisposeBag = DisposeBag()
                         })
-                        .disposed(by: disposeBag)
+                        .disposed(by: retryDisposeBag)
+                    APIInterceptor.isRefreshing = false
                 } else {
                     APIInterceptor.isRefreshing = true
                     
@@ -69,12 +76,12 @@ class APIInterceptor: RequestInterceptor {
                             switch result {
                             case .success(let response):
                                 KeychainManager.shared.rx.saveItem(response.data.accessToken, itemClass: .password, key: KeychainKeyList.accessToken.rawValue)
-                                    .subscribe(onNext: {
+                                    .subscribe(onCompleted: {
                                         print("accessToken save completed!")
                                     })
                                     .disposed(by: self.disposeBag)
                                 KeychainManager.shared.rx.saveItem(response.data.refreshToken, itemClass: .password, key: KeychainKeyList.refreshToken.rawValue)
-                                    .subscribe(onNext: {
+                                    .subscribe(onCompleted: {
                                         print("refreshToken save completed!")
                                     })
                                     .disposed(by: self.disposeBag)
@@ -108,7 +115,6 @@ class APIInterceptor: RequestInterceptor {
                 }
             }
         }
-       
     }
     
     func checkIsRegisterAPI(urlRequest: URLRequest) -> Bool {
@@ -125,6 +131,12 @@ class APIInterceptor: RequestInterceptor {
         } else {
             return false
         }
+    }
+    
+    deinit {
+        print("DEINIT!")
+        retryDisposeBag = DisposeBag()
+        disposeBag = DisposeBag()
     }
 }
 
