@@ -73,7 +73,6 @@ class RetrospectWithoutGuideViewController: BaseViewController {
             }
         }
     
-    
     private lazy var fillPointStackView = UIStackView(arrangedSubviews: [self.lowestPointView, self.lowerPointView, self.middlePointView, self.higherPointView, self.highestPointView])
         .then {
             $0.distribution = .equalSpacing

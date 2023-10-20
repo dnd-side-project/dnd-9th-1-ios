@@ -8,7 +8,7 @@
 import Foundation
 
 enum GoalStatusParameter: String {
-    case store = "store"
-    case process = "process"
-    case complete = "complete"
+    case store
+    case process
+    case complete
 }

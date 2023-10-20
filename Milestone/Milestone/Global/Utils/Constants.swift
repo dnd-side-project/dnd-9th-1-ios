@@ -10,7 +10,7 @@ import Foundation
 struct K {
     
     // TODO: - 꼭 true로 변경해서 배포!!
-    static let isProd = true
+    static let isProd = false
     
     /// API base URL
     static let baseUrl = isProd ? "https://dnd9th.site" : "https://milestone-staging.site"

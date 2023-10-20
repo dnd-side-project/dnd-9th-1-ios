@@ -56,9 +56,12 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             $0.guideLabel.text = "이룬 목표에 대한 회고를 자세히 기록해보세요!"
         }
     
+    lazy var networkFailView = NetworkFailView()
+    
     // MARK: - Properties
     
-    var viewModel: CompletionViewModel!
+    var networkMonitor = NetworkMonitor.shared
+    var viewModel: CompletionViewModel! = CompletionViewModel()
     var bubbleKey = UserDefaultsKeyStyle.bubbleInCompletionBox.rawValue
     var pushViewDisposables: [Disposable] = []
     
@@ -200,6 +203,35 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                 }
             })
             .disposed(by: disposeBag)
+        
+        networkMonitor.isConnected
+            .subscribe(onNext: { [weak self] isConnected in
+                DispatchQueue.main.async {
+                    // isConnected 값이 바뀔 때마다 실행하고자 하는 함수를 호출
+                    if isConnected {
+                        self?.showCompletionBoxList()
+                    } else {
+                        self?.showNetworkFailView()
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// 네트워크 연결 실패 뷰 띄우기
+    private func showNetworkFailView() {
+        [emptyImageView, label, tableView]
+            .forEach { $0.removeFromSuperview() }
+        view.addSubview(networkFailView)
+        networkFailView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(84)
+        }
+    }
+    
+    /// 네트워크 연결 성공이면 완료함 원래 뷰들 띄우기
+    private func showCompletionBoxList() {
+        networkFailView.removeFromSuperview()
+        render()
     }
     
     /// 테이블뷰 레이아웃 세팅 완료 후 정의해야할 레이아웃 대상들을 분리

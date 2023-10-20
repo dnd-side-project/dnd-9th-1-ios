@@ -24,7 +24,6 @@ class SettingViewModel: BindableViewModel {
                     self.removeTokens()
                     
                     let window = UIApplication.shared.connectedScenes.compactMap { ($0 as? UIWindowScene)?.keyWindow }.last
-                    let root = window?.rootViewController
                     AppCoordinator(window: window!).start()
                 }
             })
@@ -40,7 +39,6 @@ class SettingViewModel: BindableViewModel {
                     self.removeTokens()
                     
                     let window = UIApplication.shared.connectedScenes.compactMap { ($0 as? UIWindowScene)?.keyWindow }.last
-                    let root = window?.rootViewController
                     AppCoordinator(window: window!).start()
                 }
             })

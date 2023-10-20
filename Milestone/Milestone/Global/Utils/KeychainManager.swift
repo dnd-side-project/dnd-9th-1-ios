@@ -160,7 +160,7 @@ class KeychainManager {
             
             // 6
             guard
-                let keychainItem = item as? [String : Any],
+                let keychainItem = item as? [String: Any],
                 let data = keychainItem[kSecValueData as String] as? Data
             else {
                 throw KeychainError.invalidData
