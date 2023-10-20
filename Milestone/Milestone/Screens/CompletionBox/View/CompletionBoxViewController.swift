@@ -64,12 +64,21 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     var viewModel: CompletionViewModel! = CompletionViewModel()
     var bubbleKey = UserDefaultsKeyStyle.bubbleInCompletionBox.rawValue
     var pushViewDisposables: [Disposable] = []
-    var scrollDisposable: Disposable!
+    
+    let viewDidAppearTrigger = PublishSubject<Void>()
+    let retrieveNextPageTrigger = PublishSubject<Void>()
+    let viewPushDirection = BehaviorRelay<ViewDireciton>(value: .idle)
     
     let dateFormatter = DateFormatter()
         .then {
             $0.dateFormat = "yyyy.MM.dd"
         }
+    
+    enum ViewDireciton {
+        case push
+        case pop
+        case idle
+    }
     
     // MARK: - Life Cycle
     
@@ -83,27 +92,25 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             .disposed(by: disposeBag)
         
         checkFirstCompletionBox()
+        
+        viewDidAppearTrigger.onNext(())
+        tableView.rx.contentOffset
+            .subscribe(onNext: { [unowned self] in
+                if $0.y > 0 && $0.y > self.tableView.contentSize.height - self.tableView.frame.size.height - 100 && !self.viewModel.isLoading && !self.viewModel.isLastPage {
+                    self.retrieveNextPageTrigger.onNext(())
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        disposeAll()
-        resetScroll()
-    }
+    // MARK: - viewdidappear가 push될때 트리거됨
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.retrieveRetrospectCount()
-        
-        scrollDisposable = tableView.rx.didScroll
-            .subscribe(onNext: { [unowned self] in
-                if self.tableView.contentOffset.y > self.tableView.contentSize.height - self.tableView.frame.size.height - 100 {
-                    if !self.viewModel.isLoading.value && !self.viewModel.isLastPage {
-                        self.viewModel.retrieveMoreRetrospect()
-                    }
-                }
-            })
+        if viewPushDirection.value == .idle {
+            viewDidAppearTrigger.onNext(())
+        }
     }
     
     // MARK: - Functions
@@ -131,82 +138,16 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     override func configUI() {
         view.backgroundColor = .gray01
-        bindViewModel()
     }
     
     func bindViewModel() {
+        // MARK: - 리팩토링 코드
+        let input = CompletionViewModel.Input(viewDidAppear: viewDidAppearTrigger, selection: tableView.rx.modelSelected(CompletionTableViewCellViewModel.self).asDriver(), retrieveNextPageTrigger: retrieveNextPageTrigger.asObservable())
+        let output = viewModel.transform(input: input)
         
-        viewModel.goalData
-            .bind(to: tableView.rx.items(cellIdentifier: CompletionTableViewCell.identifier, cellType: CompletionTableViewCell.self)) { [unowned self] row, element, cell in
-                let startDate = dateFormatter.date(from: element.startDate)!
-                let endDate = dateFormatter.date(from: element.endDate)!
-                cell.dateLabel.text = dateFormatter.string(from: startDate) + " - " + dateFormatter.string(from: endDate)
-                cell.label.text = element.title
-                cell.completionImageView.image = UIImage(named: RewardToImage(rawValue: element.reward ?? "BLUE_JEWEL_1")!.rawValue)
-                
-                if element.hasRetrospect {
-                    cell.button.setTitle("회고 보기", for: .normal)
-                    cell.button.buttonComponentStyle = .secondary_m_line
-                    cell.button.buttonState = .original
-                    cell.hasRetrospect = true
-                } else {
-                    cell.button.setTitle("회고 작성", for: .normal)
-                    cell.button.buttonComponentStyle = .secondary_m
-                    cell.button.buttonState = .original
-                    cell.hasRetrospect = false
-                }
-                
-                cell.button.rx.tap
-                    .asDriver()
-                    .drive(onNext: { [weak self] in
-                        guard let self = self else { return }
-                        if element.hasRetrospect {
-                            let goalDataAtIndex =  self.viewModel.retrieveGoalDataAtIndex(index: row)
-                            self.viewModel.retrieveRetrospectWithId(goalId: goalDataAtIndex.goalId)
-                            let disposable = self.viewModel.retrospect
-                                .subscribe(onNext: {
-                                    if $0.hasGuide {
-                                        var savedVCWithGuide = CompletionSavedReviewWithGuideViewController()
-                                        savedVCWithGuide.goalIndex = row
-                                        savedVCWithGuide.bind(viewModel: self.viewModel)
-                                        self.push(viewController: savedVCWithGuide)
-                                    } else {
-                                        var savedVCWithoutGuide = CompletionSavedReviewWithoutGuideViewController()
-                                        savedVCWithoutGuide.goalIndex = row
-                                        savedVCWithoutGuide.bind(viewModel: self.viewModel)
-                                        self.push(viewController: savedVCWithoutGuide)
-                                    }
-                                })
-                            self.pushViewDisposables.append(disposable)
-                        } else {
-                            let reviewVC = CompletionReviewViewController()
-                            reviewVC.goalIndex = row
-                            reviewVC.viewModel = self.viewModel
-                            self.push(viewController: reviewVC)
-                        }
-                    })
-                    .disposed(by: cell.disposeBag)
-            }
-            .disposed(by: disposeBag)
+        // 1. 회고 작성가능 갯수 카운트 레이블 바인딩
         
-        viewModel.goalDataCount
-            .map { $0 == 0 }
-            .bind(to: alertBox.rx.isHidden)
-            .disposed(by: disposeBag)
-        
-        viewModel.isLoading
-            .asDriver()
-            .drive(onNext: { [weak self] loading in
-                self?.loading(loading: loading)
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.goalDataCount
-            .map { $0 > 0}
-            .bind(to: emptyImageView.rx.isHidden, label.rx.isHidden)
-            .disposed(by: disposeBag)
-        
-        viewModel.enabledRetrospectCount
+        output.retrospectCount
             .map { count -> NSAttributedString in
                 let stringValue = "총 \(count)개의 목표 회고를 작성할 수 있어요!"
                 let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: stringValue)
@@ -214,6 +155,53 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                 return attributedString
             }
             .bind(to: alertBox.label.rx.attributedText)
+            .disposed(by: disposeBag)
+        
+        output.isAlertBoxHidden
+            .bind(to: alertBox.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        output.isAlertBoxHidden.map { !$0 }
+            .bind(to: emptyImageView.rx.isHidden, label.rx.isHidden)
+            .disposed(by: disposeBag)
+    
+        output.items.asDriver(onErrorJustReturn: [])
+            .drive(tableView.rx.items(cellIdentifier: CompletionTableViewCell.identifier, cellType: CompletionTableViewCell.self)) { _, viewModel, cell in
+                cell.bind(to: viewModel)
+            }
+            .disposed(by: disposeBag)
+        
+        // MARK: - 분기처리
+        output.retrospectSelected.drive(onNext: { [unowned self] in
+            if $0.upperGoal.value.hasRetrospect {
+                // 회고 데이터랑 같이 푸시
+                self.viewPushDirection.accept(.push)
+                self.pushRetrospectViewer(goalId: $0.upperGoal.value.goalId, upperGoal: $0.upperGoal.value)
+            } else {
+                self.viewPushDirection.accept(.push)
+                let retrospectVC = RetrospectDetailViewController(viewModel: $0)
+                self.push(viewController: retrospectVC)
+            }
+        })
+        .disposed(by: disposeBag)
+    }
+    
+    func pushRetrospectViewer(goalId: Int, upperGoal: UpperGoal) {
+        viewModel.retrieveRetrospect(goalId: goalId).asObservable()
+            .subscribe(onNext: { [unowned self] in
+                
+                let retrospect = Retrospect(hasGuide: $0.data.hasGuide, contents: $0.data.contents, successLevel: $0.data.successLevel)
+               
+                if $0.data.hasGuide {
+                    let vm = RetrospectViewerWithGuideViewModel(retrospect: retrospect, upperGoal: upperGoal)
+                    let viewerVC = RetrospectViewerWithGuideViewController(viewModel: vm)
+                    self.push(viewController: viewerVC)
+                } else {
+                    let vm = RetrospectViewerWithoutGuideViewModel(retrospect: retrospect, upperGoal: upperGoal)
+                    let viewerVC = RetrospectViewerWithoutGuideViewController(viewModel: vm)
+                    self.push(viewController: viewerVC)
+                }
+            })
             .disposed(by: disposeBag)
         
         networkMonitor.isConnected
@@ -267,22 +255,6 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             bubbleView.isHidden = true
         }
     }
-    
-    private func disposeAll() {
-        pushViewDisposables.forEach { disposable in
-            disposable.dispose()
-        }
-    }
-    
-    func resetScroll() {
-        viewModel.lastPageId = -1
-        viewModel.isLastPage = false
-        scrollDisposable.dispose()
-    }
-    
-    deinit {
-        disposeBag = DisposeBag()
-    }
 }
 
 // MARK: - UITableViewDelegate
@@ -308,10 +280,3 @@ extension CompletionBoxViewController: UITableViewDelegate {
         return 60 + 8
     }
 }
-
-// MARK: - RxTableViewSectionedAnimatedDataSource
-
-extension CompletionBoxViewController {
-    
-}
- 

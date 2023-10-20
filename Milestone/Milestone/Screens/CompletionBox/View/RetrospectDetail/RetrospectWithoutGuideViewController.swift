@@ -1,22 +1,42 @@
 //
-//  CompletionReviewWithGuideViewController.swift
+//  CompletionReviewWithoutGuideViewController.swift
 //  Milestone
 //
 //  Created by 박경준 on 2023/08/16.
 //
 
 import UIKit
+
 import RxCocoa
 import RxSwift
 
-class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBindableType {
+class RetrospectWithoutGuideViewController: BaseViewController {
     
     // MARK: Subviews
+    let textViewWrapper = UIView()
+        .then {
+            $0.layer.cornerRadius = 20
+            $0.backgroundColor = .gray01
+        }
     
-    let firstQuestionView = IndexView()
-    let secondQuestionView = IndexView()
-    let thirdQuestionView = IndexView()
-    let fourthQuestionView = IndexView()
+    let textView = UITextView()
+        .then {
+            $0.textContainerInset = UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
+            $0.text = "자유롭게 회고를 작성해보세요!"
+            $0.backgroundColor = .gray01
+            
+            let style = NSMutableParagraphStyle()
+            style.lineHeightMultiple = 1.2
+            let attributes = [NSMutableAttributedString.Key.paragraphStyle: style, NSMutableAttributedString.Key.font: UIFont.pretendard(.regular, ofSize: 14), NSMutableAttributedString.Key.foregroundColor: UIColor.gray02]
+            $0.attributedText = NSAttributedString(string: $0.text, attributes: attributes)
+        }
+    
+    let textCountLabel = UILabel()
+        .then {
+            $0.textAlignment = .right
+            $0.backgroundColor = .gray01
+            $0.font = .pretendard(.regular, ofSize: 10)
+        }
     
     let fillLabel = UILabel()
         .then {
@@ -36,6 +56,22 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
     let middlePointView = PointView()
     let higherPointView = PointView()
     let highestPointView = PointView()
+    
+    let scrollView = UIScrollView()
+        .then { sv in
+            let view = UIView()
+            sv.addSubview(view)
+            view.snp.makeConstraints {
+                $0.top.equalTo(sv.contentLayoutGuide.snp.top)
+                $0.leading.equalTo(sv.contentLayoutGuide.snp.leading)
+                $0.trailing.equalTo(sv.contentLayoutGuide.snp.trailing)
+                $0.bottom.equalTo(sv.contentLayoutGuide.snp.bottom)
+
+                $0.leading.equalTo(sv.frameLayoutGuide.snp.leading)
+                $0.trailing.equalTo(sv.frameLayoutGuide.snp.trailing)
+                $0.height.equalTo(sv.frameLayoutGuide.snp.height).priority(.low)
+            }
+        }
     
     private lazy var fillPointStackView = UIStackView(arrangedSubviews: [self.lowestPointView, self.lowerPointView, self.middlePointView, self.higherPointView, self.highestPointView])
         .then {
@@ -58,61 +94,48 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
         }
     
     // MARK: Properties
-    
-    var viewModel: CompletionViewModel!
-    private var fillSelected = PublishSubject<Bool>()
-    var goalIndex = 0
+    let heightSubject = PublishSubject<Int>()
+    var fillSelected = PublishSubject<Bool>()
     let selectedPoint = BehaviorRelay<String>(value: "")
+    let pointSelectTrigger = PublishSubject<FillPoint>()
     
     var saveButtonTapDisposable: Disposable!
     
     // MARK: Life Cycles
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.render()
-            self?.view.setNeedsLayout()
-            self?.view.layoutIfNeeded()
-        }
-        
-     }
     
     // MARK: Functions
-    
     override func render() {
-        view.addSubViews([firstQuestionView, secondQuestionView, thirdQuestionView, fourthQuestionView, fillLabel, fillInformationLabel, fillPointStackView, registerButton])
+        view.addSubView(scrollView)
+        scrollView.subviews.first!.addSubViews([textViewWrapper, textView, textCountLabel, fillLabel, fillInformationLabel, fillPointStackView, registerButton])
         
-        firstQuestionView.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
+        scrollView.snp.makeConstraints { make in
             make.top.equalTo(view.snp.top)
-            make.height.equalTo(260)
-        }
-        
-        secondQuestionView.snp.makeConstraints { make in
             make.leading.equalTo(view.snp.leading)
             make.trailing.equalTo(view.snp.trailing)
-            make.top.equalTo(firstQuestionView.snp.bottom).offset(24)
-            make.height.equalTo(260)
+            make.bottom.equalTo(view.snp.bottom)
         }
         
-        thirdQuestionView.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-            make.top.equalTo(secondQuestionView.snp.bottom).offset(24)
-            make.height.equalTo(260)
+        textViewWrapper.snp.makeConstraints { make in
+            make.top.equalTo(scrollView.snp.top)
+            make.leading.equalTo(view.snp.leading).offset(24)
+            make.trailing.equalTo(view.snp.trailing).offset(-24)
+            make.height.equalTo(320)
         }
         
-        fourthQuestionView.snp.makeConstraints { make in
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-            make.top.equalTo(thirdQuestionView.snp.bottom).offset(24)
-            make.height.equalTo(260)
+        textView.snp.makeConstraints { make in
+            make.top.equalTo(textViewWrapper.snp.top)
+            make.leading.equalTo(textViewWrapper.snp.leading).offset(24)
+            make.trailing.equalTo(textViewWrapper.snp.trailing).offset(-24)
+            make.bottom.equalTo(textViewWrapper.snp.bottom).offset(-48)
+        }
+        
+        textCountLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(textViewWrapper.snp.trailing).offset(-24)
+            make.bottom.equalTo(textViewWrapper.snp.bottom).offset(-24)
         }
         
         fillLabel.snp.makeConstraints { make in
-            make.top.equalTo(fourthQuestionView.snp.bottom).offset(24)
+            make.top.equalTo(textViewWrapper.snp.bottom).offset(24)
             make.leading.equalTo(view.snp.leading).offset(24)
         }
         
@@ -129,67 +152,52 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
         }
         
         registerButton.snp.makeConstraints { make in
+            make.top.equalTo(fillPointStackView.snp.bottom).offset(32)
             make.leading.equalTo(view.snp.leading).offset(24)
             make.trailing.equalTo(view.snp.trailing).offset(-24)
-            make.top.equalTo(fillPointStackView.snp.bottom).offset(32)
             make.height.equalTo(54)
-        }
-        
-        guard let parent = parent else { return }
-        registerButton.snp.makeConstraints { make in
-            make.bottom.equalTo(parent.view.safeAreaLayoutGuide.snp.bottom).offset(-16)
+            make.bottom.equalTo(scrollView.snp.bottom).offset(-16)
         }
     }
     
     override func configUI() {
-        
-        setAttributedIndexLabel()
-        setPointViews()
         selectPointView()
-        validateInput()
+        setPointViews()
         
-        firstQuestionView.indexImage.image = ImageLiteral.imgGood
-        secondQuestionView.indexImage.image = ImageLiteral.imgBad
-        thirdQuestionView.indexImage.image = ImageLiteral.imgBook
-        fourthQuestionView.indexImage.image = ImageLiteral.imgGift
-    }
-
-    func bindViewModel() {
-        let goalDataAtIndex = viewModel.retrieveGoalDataAtIndex(index: goalIndex)
-        
-        saveButtonTapDisposable = registerButton.rx.tap
-            .flatMapFirst { [unowned self] in
-                self.viewModel.saveRetrospect(goalId: goalDataAtIndex.goalId, retrospect: Retrospect(hasGuide: true, contents: ["LIKED": firstQuestionView.textView.text, "LACKED": secondQuestionView.textView.text, "LEARNED": thirdQuestionView.textView.text, "LONGED_FOR": fourthQuestionView.textView.text], successLevel: self.selectedPoint.value))
-                    .debug()
-            }
+        textView.rx.didBeginEditing
             .subscribe(onNext: { [unowned self] in
-                self.viewModel.handlingPostResponse(result: $0)
+                if self.textView.text == "자유롭게 회고를 작성해보세요!" {
+                    self.textView.text = ""
+                }
+                self.textView.textColor = .black
             })
+            .disposed(by: disposeBag)
         
-        viewModel.isLoading
-            .asDriver()
-            .drive(onNext: { [unowned self] in
-                self.registerButton.isHidden = $0
+        textView.rx.didEndEditing
+            .subscribe(onNext: { [unowned self] in
+                if self.textView.text.isEmpty {
+                    self.textView.text = "자유롭게 회고를 작성해보세요!"
+                    self.textView.textColor = .gray02
+                }
             })
+            .disposed(by: disposeBag)
+        
+        textView.rx.text
+            .compactMap { $0 }
+            .map { "\($0 == "자유롭게 회고를 작성해보세요!" ? 0 : $0.count)/1000" }
+            .bind(to: textCountLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        textView.rx.text
+            .compactMap { $0 }
+            .scan("") { previous, new in
+                return new.count <= 1000 ? new : previous
+            }
+            .bind(to: textView.rx.text)
             .disposed(by: disposeBag)
     }
     
-    func setAttributedIndexLabel() {
-        setAttributedText(originString: .first, targetView: firstQuestionView, "좋았던 점")
-        setAttributedText(originString: .second, targetView: secondQuestionView, "아쉬웠던 점", "부족했던 점")
-        setAttributedText(originString: .third, targetView: thirdQuestionView, "배운 점")
-        setAttributedText(originString: .fourth, targetView: fourthQuestionView, "얻고자")
-    }
-    
-    func setAttributedText(originString: IndexTextStyle, targetView: IndexView, _ targetText: String...) {
-        let attributedText = NSMutableAttributedString(string: originString.rawValue)
-        
-        for target in targetText {
-            attributedText.setColorForText(textForAttribute: target, withColor: .pointPurple)
-        }
-        
-        targetView.labelText
-            .onNext(attributedText)
+    func bindViewModel() {
     }
     
     func setPointViews() {
@@ -223,7 +231,7 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
     func selectPointView() {
         lowestPointView.pointButton.rx.tap
             .subscribe(onNext: { [unowned self] in
-                selectedPoint.accept("LEVEL1")
+                self.selectedPoint.accept("LEVEL1")
                 self.fillSelected.onNext(true)
                 
                 self.lowestPointView.pointButton.setBackgroundImage(ImageLiteral.imgAfterSelected1, for: .normal)
@@ -240,6 +248,8 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
                 
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
+                
+                pointSelectTrigger.onNext(.level1)
             })
             .disposed(by: disposeBag)
         
@@ -262,7 +272,8 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
                 
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
-                
+              
+                pointSelectTrigger.onNext(.level2)
             })
             .disposed(by: disposeBag)
         
@@ -286,6 +297,7 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
                 
+                pointSelectTrigger.onNext(.level3)
             })
             .disposed(by: disposeBag)
         
@@ -309,6 +321,7 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgBeforeSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .gray02
                 
+                pointSelectTrigger.onNext(.level4)
             })
             .disposed(by: disposeBag)
         
@@ -331,45 +344,9 @@ class CompletionReviewWithGuideViewController: BaseViewController, ViewModelBind
                 
                 self.highestPointView.pointButton.setBackgroundImage(ImageLiteral.imgAfterSelected5, for: .normal)
                 self.highestPointView.pointLabel.textColor = .primary
+                
+                pointSelectTrigger.onNext(.level5)
             })
             .disposed(by: disposeBag)
-    }
-    
-    /// 입력 유효성 검사
-    func validateInput() {
-        let firstObservable = firstQuestionView.textView.rx.text
-            .compactMap { $0 }
-            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
-        
-        let secondObservable = secondQuestionView.textView.rx.text
-            .compactMap { $0 }
-            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
-        
-        let thirdObservable = thirdQuestionView.textView.rx.text
-            .compactMap { $0 }
-            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
-        
-        let fourthObservable = fourthQuestionView.textView.rx.text
-            .compactMap { $0 }
-            .map { $0 != "내용을 입력해주세요!" ? $0.count : 0}
-        
-        Observable.combineLatest(firstObservable, secondObservable, thirdObservable, fourthObservable, fillSelected) { first, second, third, fourth, fill -> Bool in
-            if first > 0 && second > 0 && third > 0 && fourth > 0 && fill {
-                return true
-            } else {
-                return false
-            }
-        }
-        .subscribe(onNext: { [unowned self] in
-            if $0 {
-                self.registerButton.backgroundColor = .primary
-                self.registerButton.isEnabled = true
-            } else {
-                self.registerButton.backgroundColor = .init(hex: "#ADBED6")
-                self.registerButton.isEnabled = false
-            }
-        })
-        .disposed(by: disposeBag)
-            
     }
 }
