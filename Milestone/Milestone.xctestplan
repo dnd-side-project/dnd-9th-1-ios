@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "7085E947-F97E-47A5-ACBC-6C4525D91FBB",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Milestone.xcodeproj",
+      "identifier" : "A22736642A7CE53700D7B3B2",
+      "name" : "Milestone"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Milestone.xcodeproj",
+        "identifier" : "A227367A2A7CE53800D7B3B2",
+        "name" : "MilestoneTests"
+      }
+    }
+  ],
+  "version" : 1
+}
