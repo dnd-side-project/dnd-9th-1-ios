@@ -6,6 +6,9 @@
 //
 
 import XCTest
+import RxSwift
+import RxTest
+
 @testable import Milestone
 
 final class MilestoneTests: XCTestCase {
@@ -32,5 +35,19 @@ final class MilestoneTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+    func testElementsEmitted() {
+        let scheduler = TestScheduler(initialClock: 0)
 
+        let xs = scheduler.createHotObservable([
+            .next(210, "RxSwift"),
+            .next(220, "is"),
+            .next(230, "pretty"),
+            .next(240, "awesome")
+        ])
+
+        let res = scheduler.start { xs.asObservable() }
+
+        XCTAssertRecordedElements(res.events, ["RxSwift", "is", "pretty", "awesome"])
+    }
 }
