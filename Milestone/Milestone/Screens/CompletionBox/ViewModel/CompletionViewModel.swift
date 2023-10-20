@@ -101,6 +101,10 @@ class CompletionViewModel: BindableViewModel, ViewModelType {
         requestRetrospectWithSingle(goalId: goalId)
     }
     
+    func sample(lhs: Int, rhs: Int) -> Int {
+        return lhs + rhs
+    }
+    
     enum FetchState {
         case fetching
         case idle
