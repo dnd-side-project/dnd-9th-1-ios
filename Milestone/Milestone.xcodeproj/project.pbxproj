@@ -264,6 +264,7 @@
 		C947D91C2AC30D4200015407 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C947D91B2AC30D4200015407 /* Lottie */; };
 		C947D95D2AC3F7FF00015407 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D95C2AC3F7FF00015407 /* ToastView.swift */; };
 		C94FD2622AE237A2003777EB /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = C94FD2612AE237A2003777EB /* RxTest */; };
+		C94FD2732AE2605D003777EB /* CompletionBoxMainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94FD2722AE2605D003777EB /* CompletionBoxMainTests.swift */; };
 		C95700EC2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700EB2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift */; };
 		C95700F02AC8239700271FAB /* RetrospectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700EF2AC8239700271FAB /* RetrospectDetailViewController.swift */; };
 		C95700F22AC824AF00271FAB /* RetrospectDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700F12AC824AF00271FAB /* RetrospectDetailViewModel.swift */; };
@@ -313,7 +314,6 @@
 		C9BF3FC72A97817C0074E781 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF3FC62A97817C0074E781 /* SettingViewController.swift */; };
 		C9BF3FCA2A97837C0074E781 /* SettingTableViewCellFirstSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF3FC92A97837C0074E781 /* SettingTableViewCellFirstSection.swift */; };
 		C9BF3FCC2A9783EA0074E781 /* SettingTableViewCellSecondSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF3FCB2A9783EA0074E781 /* SettingTableViewCellSecondSection.swift */; };
-		C9C890C72AE22BEB0010240A /* SampleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C890C62AE22BEB0010240A /* SampleTest.swift */; };
 		C9C890CB2AE232130010240A /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = C9C890CA2AE232130010240A /* RxCocoa */; };
 		C9C890CD2AE233380010240A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = C9C890CC2AE233380010240A /* FirebaseMessaging */; };
 		C9C890CE2AE234730010240A /* LowerGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE4A2A92F95E006289A8 /* LowerGoal.swift */; };
@@ -541,6 +541,7 @@
 		C947D9162AC28D6600015407 /* OnboardingViewControllerThird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerThird.swift; sourceTree = "<group>"; };
 		C947D9182AC28D7300015407 /* OnboardingViewControllerFourth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerFourth.swift; sourceTree = "<group>"; };
 		C947D95C2AC3F7FF00015407 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		C94FD2722AE2605D003777EB /* CompletionBoxMainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionBoxMainTests.swift; sourceTree = "<group>"; };
 		C95700EB2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		C95700EF2AC8239700271FAB /* RetrospectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectDetailViewController.swift; sourceTree = "<group>"; };
 		C95700F12AC824AF00271FAB /* RetrospectDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectDetailViewModel.swift; sourceTree = "<group>"; };
@@ -588,7 +589,6 @@
 		C9BF3FC62A97817C0074E781 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		C9BF3FC92A97837C0074E781 /* SettingTableViewCellFirstSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellFirstSection.swift; sourceTree = "<group>"; };
 		C9BF3FCB2A9783EA0074E781 /* SettingTableViewCellSecondSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCellSecondSection.swift; sourceTree = "<group>"; };
-		C9C890C62AE22BEB0010240A /* SampleTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleTest.swift; sourceTree = "<group>"; };
 		C9C890C82AE22F570010240A /* Milestone.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Milestone.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -678,7 +678,7 @@
 			isa = PBXGroup;
 			children = (
 				A227367F2A7CE53800D7B3B2 /* MilestoneTests.swift */,
-				C9C890C62AE22BEB0010240A /* SampleTest.swift */,
+				C94FD2702AE26026003777EB /* CompletionBoxTests */,
 			);
 			path = MilestoneTests;
 			sourceTree = "<group>";
@@ -1068,6 +1068,22 @@
 				C947D9182AC28D7300015407 /* OnboardingViewControllerFourth.swift */,
 			);
 			path = OnboardingSubviews;
+			sourceTree = "<group>";
+		};
+		C94FD2702AE26026003777EB /* CompletionBoxTests */ = {
+			isa = PBXGroup;
+			children = (
+				C94FD2712AE26049003777EB /* CompletionBoxMain */,
+			);
+			path = CompletionBoxTests;
+			sourceTree = "<group>";
+		};
+		C94FD2712AE26049003777EB /* CompletionBoxMain */ = {
+			isa = PBXGroup;
+			children = (
+				C94FD2722AE2605D003777EB /* CompletionBoxMainTests.swift */,
+			);
+			path = CompletionBoxMain;
 			sourceTree = "<group>";
 		};
 		C95700EE2AC8236500271FAB /* RetrospectDetail */ = {
@@ -1627,6 +1643,7 @@
 				C9C890DF2AE234920010240A /* ViewModelBindableType.swift in Sources */,
 				C9C890D92AE234800010240A /* BindableViewModel.swift in Sources */,
 				C9C891202AE2350F0010240A /* RetrospectViewerWithGuideViewModel.swift in Sources */,
+				C94FD2732AE2605D003777EB /* CompletionBoxMainTests.swift in Sources */,
 				A2FC49582A979F850045FE59 /* ResetGoalViewController.swift in Sources */,
 				A25988FF2A96915F00C6BDE0 /* ServicesLowerGoal.swift in Sources */,
 				A2A3031A2AC3B090006823F3 /* NetworkFailView.swift in Sources */,
@@ -1656,7 +1673,6 @@
 				A2D304CA2A856B6B00A5BA92 /* StorageBoxViewController.swift in Sources */,
 				A2FA592E2A7FD433006ACA2E /* NSObject+.swift in Sources */,
 				A2FA59152A7FCFC8006ACA2E /* Data+.swift in Sources */,
-				C9C890C72AE22BEB0010240A /* SampleTest.swift in Sources */,
 				C9C890E52AE234990010240A /* EnterGoalTitleView.swift in Sources */,
 				A2FA592A2A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
 				A2C98F032A8B6117009B5579 /* AddUpperGoalViewController.swift in Sources */,
