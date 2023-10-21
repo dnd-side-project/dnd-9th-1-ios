@@ -7,8 +7,6 @@
 
 import UIKit
 
-import FirebaseCore
-import FirebaseMessaging
 import KakaoSDKAuth
 import RxKakaoSDKAuth
 import RxKakaoSDKCommon
@@ -21,8 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        FirebaseApp.configure()
-        registerNotification()
+        // 앱 실행 시 사용자에게 알림 허용 권한 받음
+        LocalNotificationHelper.shared.setAuthorization()
+        LocalNotificationHelper.shared.printPendingNotification()
         
         if let kakaoKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_NATIVE_KEY") as? String {
             RxKakaoSDK.initSDK(appKey: kakaoKey)
@@ -36,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         if AuthApi.isKakaoTalkLoginUrl(url) {
             return AuthController.rx.handleOpenUrl(url: url)
         }
@@ -45,18 +44,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    func registerNotification() {
+class LocalNotificationHelper: NSObject, UNUserNotificationCenterDelegate {
+    static let shared = LocalNotificationHelper()
+    
+    private override init() { }
+    
+    func setAuthorization() {
         UNUserNotificationCenter.current().delegate = self
-        Messaging.messaging().delegate = self
-        
-        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound] // 필요한 알림 권한을 설정
         UNUserNotificationCenter.current().requestAuthorization(
             options: authOptions,
             completionHandler: { _, _ in }
         )
-        
-        UIApplication.shared.registerForRemoteNotifications()
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter,
@@ -80,21 +79,60 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     -> UIBackgroundFetchResult {
         return UIBackgroundFetchResult.newData
     }
-}
+    
+    func pushScheduledNotification(title: String, body: String, weekday: Int, hour: Int, minute: Int, identifier: String) {
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = title
+        notificationContent.body = body
 
-extension AppDelegate: MessagingDelegate {
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        Messaging.messaging().token { token, error in
+        var dateComponents = DateComponents()
+        dateComponents.weekday = weekday  // 1: Sun, 2: Mon, 3: Tuesday, ...
+        dateComponents.hour = hour  // 알림 보낼 시간 (24시간 형식)
+        dateComponents.minute = minute
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true) // ✅ true
+        let request = UNNotificationRequest(identifier: identifier,
+                                            content: notificationContent,
+                                            trigger: trigger)
+
+        UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
-                print("Error fetching FCM registration token: \(error)")
-            } else if let token = token {
-                KeychainManager.shared.rx
-                    .saveItem(token, itemClass: .password, key: KeychainKeyList.fcmToken.rawValue)
-                    .subscribe(onNext: {
-                        print($0)
-                    })
-                    .dispose()
+                Logger.debugDescription("Notification Error: \(error)")
             }
         }
+    }
+    
+    func printPendingNotification() {
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            for request in requests {
+                print("Identifier: \(request.identifier)")
+                print("Title: \(request.content.title)")
+                print("Body: \(request.content.body)")
+                print("Trigger: \(String(describing: request.trigger))")
+                print("---")
+            }
+        }
+        UNUserNotificationCenter.current().getDeliveredNotifications { requests in
+            for req in requests {
+                let request = req.request
+                print("Identifier: \(request.identifier)")
+                print("Title: \(request.content.title)")
+                print("Body: \(request.content.body)")
+                print("Trigger: \(String(describing: request.trigger))")
+                print("---")
+            }
+        }
+    }
+    
+    func removePendingNotification(identifiers: [String]) {
+        UNUserNotificationCenter
+            .current()
+            .removePendingNotificationRequests(withIdentifiers: identifiers)
+    }
+
+    func removeDeliveredNotification(identifiers: [String]) {
+        UNUserNotificationCenter
+            .current()
+            .removeDeliveredNotifications(withIdentifiers: identifiers)
     }
 }
