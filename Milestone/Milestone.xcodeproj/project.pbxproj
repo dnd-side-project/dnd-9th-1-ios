@@ -41,6 +41,9 @@
 		A2400D692AA3C24600EB79D6 /* Notification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2400D682AA3C24600EB79D6 /* Notification+.swift */; };
 		A2400D6A2AA3C24600EB79D6 /* Notification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2400D682AA3C24600EB79D6 /* Notification+.swift */; };
 		A2400D6B2AA3C24600EB79D6 /* Notification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2400D682AA3C24600EB79D6 /* Notification+.swift */; };
+		A25153F52AC849D3009BA39F /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25153F42AC849D3009BA39F /* String+.swift */; };
+		A25153F62AC849D3009BA39F /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25153F42AC849D3009BA39F /* String+.swift */; };
+		A25153F72AC849D3009BA39F /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25153F42AC849D3009BA39F /* String+.swift */; };
 		A252C4B52A92B5AB0067B89C /* ParentGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A252C4B32A92B5AB0067B89C /* ParentGoal.swift */; };
 		A252C4B62A92B5AB0067B89C /* ParentGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A252C4B32A92B5AB0067B89C /* ParentGoal.swift */; };
 		A25988FA2A967C3000C6BDE0 /* UpdateGoalListDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A25988F92A967C3000C6BDE0 /* UpdateGoalListDelegate.swift */; };
@@ -351,6 +354,7 @@
 		A23E8BA12A9013610051D135 /* AskOneOfTwoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskOneOfTwoView.swift; sourceTree = "<group>"; };
 		A2400D642AA3891200EB79D6 /* ContentSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizedTableView.swift; sourceTree = "<group>"; };
 		A2400D682AA3C24600EB79D6 /* Notification+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+.swift"; sourceTree = "<group>"; };
+		A25153F42AC849D3009BA39F /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		A252C4B32A92B5AB0067B89C /* ParentGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentGoal.swift; sourceTree = "<group>"; };
 		A25988F92A967C3000C6BDE0 /* UpdateGoalListDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGoalListDelegate.swift; sourceTree = "<group>"; };
 		A25988FD2A96915E00C6BDE0 /* ServicesLowerGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesLowerGoal.swift; sourceTree = "<group>"; };
@@ -738,6 +742,7 @@
 				C90DC9852A88F0B100241B7C /* UITextField+.swift */,
 				C90DC9892A8922D300241B7C /* NSMutableAttributedString+.swift */,
 				A2400D682AA3C24600EB79D6 /* Notification+.swift */,
+				A25153F42AC849D3009BA39F /* String+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1391,6 +1396,7 @@
 				A23E8BA22A9013610051D135 /* AskOneOfTwoView.swift in Sources */,
 				C9B2CDE72A8BBCCC006289A8 /* TriangleView.swift in Sources */,
 				C9B2CE012A8DEBE0006289A8 /* ReviewCompleteViewController.swift in Sources */,
+				A25153F52AC849D3009BA39F /* String+.swift in Sources */,
 				C9040FD02A93C3AC00270E94 /* APIIEventLogger.swift in Sources */,
 				A2B969842A85812F00C4903F /* GoalStatusView.swift in Sources */,
 				A2B9698B2A859EAB00C4903F /* UIButton+.swift in Sources */,
@@ -1478,6 +1484,7 @@
 				A289D94B2A912616005B7F00 /* WriteRetrospectStyle.swift in Sources */,
 				A22736802A7CE53800D7B3B2 /* MilestoneTests.swift in Sources */,
 				A2400D6A2AA3C24600EB79D6 /* Notification+.swift in Sources */,
+				A25153F62AC849D3009BA39F /* String+.swift in Sources */,
 				A2B20D5E2A7E4E68001ED73C /* UIColor+.swift in Sources */,
 				A26416DC2A9959D50073BEA1 /* StorageBoxViewModel.swift in Sources */,
 				A2FA59262A7FD3B1006ACA2E /* UICollectionView+.swift in Sources */,
@@ -1546,6 +1553,7 @@
 				A2B20D962A7ED174001ED73C /* UIImage+.swift in Sources */,
 				A2FC49552A97981D0045FE59 /* RestoreGoalViewController.swift in Sources */,
 				A28EDA132A87808A001A021A /* UIViewController+.swift in Sources */,
+				A25153F72AC849D3009BA39F /* String+.swift in Sources */,
 				A26416DD2A9959D50073BEA1 /* StorageBoxViewModel.swift in Sources */,
 				A227368C2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift in Sources */,
 				A2B20D632A7E4FAD001ED73C /* UIView+.swift in Sources */,
