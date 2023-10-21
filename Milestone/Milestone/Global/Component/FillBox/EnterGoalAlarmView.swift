@@ -93,7 +93,7 @@ class EnterGoalAlarmView: UIView {
     var isModifyMode: Bool!
     let bag = DisposeBag()
     weak var delegate: (PresentDelegate)?
-    private var timePickerData = [["오전", "오후"], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"], ["00", "30"]]
+    private var timePickerData = [["오전", "오후"], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"], (0...59).map { String(format: "%02d", $0) }]
     private var dayList = [DayData(day: DayStyle.MONDAY.rawValue), DayData(day: DayStyle.TUESDAY.rawValue), DayData(day: DayStyle.WEDNESDAY.rawValue), DayData(day: DayStyle.THURSDAY.rawValue), DayData(day: DayStyle.FRIDAY.rawValue), DayData(day: DayStyle.SATURDAY.rawValue), DayData(day: DayStyle.SUNDAY.rawValue)]
     var selectedDayList: [String] = []
     var selectedAmOrPm = "오후"
