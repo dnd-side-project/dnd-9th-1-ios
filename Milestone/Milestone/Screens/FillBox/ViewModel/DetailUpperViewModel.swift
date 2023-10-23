@@ -300,8 +300,12 @@ extension DetailUpperViewModel {
                     completedGoalResult.accept(response.data) // 삭제하고 받은 응답값 방출
                     Logger.debugDescription(response)
                     
-                    // 알림 삭제
-                    self.removePushAlarm(identifiers: ["LOWER_GOAL_\(thisLowerGoal.value.detailGoalId)"])
+                    let lowerGoal = thisLowerGoal.value
+                    let weekdayArray = self.formatPushWeekday(alarmDays: lowerGoal.alarmDays)
+                    for weekday in weekdayArray {
+                        // 알림 삭제
+                        self.removePushAlarm(identifiers: ["LOWER_GOAL_\(lowerGoal.detailGoalId)_\(weekday)"])
+                    }
                 case .failure(let error):
                     Logger.debugDescription(error)
                 }
