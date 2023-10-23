@@ -217,7 +217,7 @@ extension DetailUpperViewModel {
                     // 알림 생성
                     if reqBody.alarmEnabled {
                         for weekday in weekdayArray {
-                            self.createPushAlarm(title: reqBody.title, weekday: weekday, hour: timeArray[0], minute: timeArray[1], identifier: "LOWER_GOAL_\(response.data)")
+                            self.createPushAlarm(title: reqBody.title, weekday: weekday, hour: timeArray[0], minute: timeArray[1], identifier: "LOWER_GOAL_\(response.data)_\(weekday)")
                         }
                     }
                 case .failure(let error):
@@ -258,8 +258,17 @@ extension DetailUpperViewModel {
                 case .success(let response):
                     Logger.debugDescription(response)
                     
-                    // 기존 알림 취소
-                    self.removePushAlarm(identifiers: ["LOWER_GOAL_\(response.data)"])
+                    // 합집합 사용해서 제거된 요일 + 추가된 요일 구하기
+                    let lowerGoal = self.thisLowerGoal.value
+                    let set1 = Set(lowerGoal.alarmDays)
+                    let set2 = Set(reqBody.alarmDays)
+                    let union = set1.union(set2)
+                    let unionWeekdayArray = self.formatPushWeekday(alarmDays: Array(union))
+                    
+                    for weekday in unionWeekdayArray {
+                        // 알림 취소
+                        self.removePushAlarm(identifiers: ["LOWER_GOAL_\(response.data)_\(weekday)"])
+                    }
                     
                     let weekdayArray = self.formatPushWeekday(alarmDays: reqBody.alarmDays)
                     let timeArray = self.formatPushAlarmTime(alarmTime: reqBody.alarmTime)
@@ -267,7 +276,8 @@ extension DetailUpperViewModel {
                     // 업데이트 된 정보로 알림 다시 생성
                     if reqBody.alarmEnabled {
                         for weekday in weekdayArray {
-                            self.createPushAlarm(title: reqBody.title, weekday: weekday, hour: timeArray[0], minute: timeArray[1], identifier: "LOWER_GOAL_\(response.data)")
+                            // 알림 새로 생성
+                            self.createPushAlarm(title: reqBody.title, weekday: weekday, hour: timeArray[0], minute: timeArray[1], identifier: "LOWER_GOAL_\(response.data)_\(weekday)")
                         }
                     }
                 case .failure(let error):
