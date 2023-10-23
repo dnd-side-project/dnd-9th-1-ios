@@ -104,6 +104,7 @@ class LocalNotificationHelper: NSObject, UNUserNotificationCenterDelegate {
     
     func printPendingNotification() {
         UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            print("---Pending Notifications---")
             for request in requests {
                 print("Identifier: \(request.identifier)")
                 print("Title: \(request.content.title)")
@@ -113,6 +114,7 @@ class LocalNotificationHelper: NSObject, UNUserNotificationCenterDelegate {
             }
         }
         UNUserNotificationCenter.current().getDeliveredNotifications { requests in
+            print("---Delivered Notifications---")
             for req in requests {
                 let request = req.request
                 print("Identifier: \(request.identifier)")
