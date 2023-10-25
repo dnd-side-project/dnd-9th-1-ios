@@ -60,4 +60,18 @@ extension UIViewController {
             return nil
         }
     }
+    
+    func animateToastView(toastView: UIView, yValue: CGFloat) {
+        UIView.animate(withDuration: 0.2, delay: 0.5) {
+            toastView.alpha = 1
+            toastView.frame = CGRect(origin: CGPoint(x: toastView.frame.origin.x, y: self.view.frame.origin.y + yValue), size: toastView.frame.size)
+        } completion: { _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                UIView.animate(withDuration: 0.2) {
+                    toastView.alpha = 0
+                    toastView.frame = CGRect(origin: CGPoint(x: toastView.frame.origin.x, y: self.view.frame.origin.y - yValue), size: toastView.frame.size)
+                }
+            }
+        }
+    }
 }

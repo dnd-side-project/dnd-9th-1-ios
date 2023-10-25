@@ -128,7 +128,11 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
     override func render() {
         view.addSubView(scrollView)
         scrollView.addSubView(contentView)
+<<<<<<< HEAD:Milestone/Milestone/Screens/FillBox/View/DetailParentViewController.swift
         contentView.addSubViews([goalTitleLabel, dDayLabel, termLabel, detailGoalCollectionView, detailGoalTableView])
+=======
+        contentView.addSubViews([goalTitleLabel, dDayLabel, termLabel, lowerGoalCollectionView, lowerGoalTableView, networkErrorToastView])
+>>>>>>> 3992dc3 ([Feat] #180 목표 달성 관련 네트워크 에러 처리 및 애니메이션 함수 익스텐션에 추가 및 적용):Milestone/Milestone/Screens/FillBox/View/DetailUpperViewController.swift
         
         scrollView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
@@ -161,6 +165,12 @@ class DetailParentViewController: BaseViewController, ViewModelBindableType {
             make.top.equalTo(detailGoalCollectionView.snp.bottom).offset(36)
             make.left.right.equalToSuperview().inset(20)
             make.height.equalTo(9 * (56 + 8)) // 최대 높이
+        }
+        networkErrorToastView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-50)
+            make.height.equalTo(52)
+            make.leading.equalTo(view.snp.leading).offset(24)
+            make.trailing.equalTo(view.snp.trailing).offset(-24)
         }
     }
     
@@ -348,13 +358,19 @@ extension DetailParentViewController: UITableViewDelegate {
         let row = indexPath.row
         let selectedGoal = sortedGoalData[row]
         
-        viewModel.detailGoalId = selectedGoal.detailGoalId
-        if cell.containerView.backgroundColor == .white {
-            // 세부 목표 달성
-            viewModel.completeDetailGoal()
+        viewModel.lowerGoalId = selectedGoal.detailGoalId
+        
+        // 버튼 클릭 시 연결 끊겼으면 토스트 애니메이션
+        if !networkMonitor.isConnected.value {
+            animateToastView(toastView: self.networkErrorToastView, yValue: 0)
         } else {
-            // 세부 목표 달성 취소
-            viewModel.incompleteDetailGoal()
+            if cell.containerView.backgroundColor == .white {
+                // 하위 목표 달성
+                viewModel.completeLowerGoal()
+            } else {
+                // 하위 목표 달성 취소
+                viewModel.incompleteLowerGoal()
+            }
         }
     }
 }

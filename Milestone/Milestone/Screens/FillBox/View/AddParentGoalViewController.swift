@@ -118,20 +118,6 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
         }
     }
     
-    private func animateToastView() {
-        UIView.animate(withDuration: 0.2, delay: 0.5) {
-            self.networkErrorToastView.alpha = 1
-            self.networkErrorToastView.frame = CGRect(origin: CGPoint(x: self.networkErrorToastView.frame.origin.x, y: self.view.frame.origin.y + 50), size: self.networkErrorToastView.frame.size)
-        } completion: { _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                UIView.animate(withDuration: 0.2) {
-                    self.networkErrorToastView.alpha = 0
-                    self.networkErrorToastView.frame = CGRect(origin: CGPoint(x: self.networkErrorToastView.frame.origin.x, y: self.view.frame.origin.y - 50), size: self.networkErrorToastView.frame.size)
-                }
-            }
-        }
-    }
-    
     // MARK: - @objc Functions
     
     @objc
@@ -143,7 +129,7 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
     private func completeAddParentGoal() {
         // 버튼 클릭 시 연결 끊겼으면 토스트 애니메이션
         if !networkMonitor.isConnected.value {
-            animateToastView()
+            animateToastView(toastView: self.networkErrorToastView, yValue: 50)
         } else {
             // 상위 목표 생성 API 호출
             let reqBody = CreateParentGoal(title: self.enterGoalTitleView.titleTextField.text ?? " ", startDate: self.enterGoalDateView.startDateButton.titleLabel?.text ?? "", endDate: self.enterGoalDateView.endDateButton.titleLabel?.text ?? "", reminderEnabled: self.reminderAlarmView.onOffSwitch.isOn)
@@ -164,7 +150,7 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
     private func completeModifyUpperGoal() {
         // 버튼 클릭 시 연결 끊겼으면 토스트 애니메이션
         if !networkMonitor.isConnected.value {
-            animateToastView()
+            animateToastView(toastView: self.networkErrorToastView, yValue: 50)
         } else {
             let title = self.enterGoalTitleView.titleTextField.text ?? ""
             let startDate = self.enterGoalDateView.startDateButton.titleLabel?.text ?? ""

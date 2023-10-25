@@ -146,20 +146,6 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
         self.view.endEditing(true)
     }
     
-    private func animateToastView() {
-        UIView.animate(withDuration: 0.2, delay: 0.5) {
-            self.networkErrorToastView.alpha = 1
-            self.networkErrorToastView.frame = CGRect(origin: CGPoint(x: self.networkErrorToastView.frame.origin.x, y: self.view.frame.origin.y + 50), size: self.networkErrorToastView.frame.size)
-        } completion: { _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                UIView.animate(withDuration: 0.2) {
-                    self.networkErrorToastView.alpha = 0
-                    self.networkErrorToastView.frame = CGRect(origin: CGPoint(x: self.networkErrorToastView.frame.origin.x, y: self.view.frame.origin.y - 50), size: self.networkErrorToastView.frame.size)
-                }
-            }
-        }
-    }
-    
     // MARK: - @objc Functions
     
     @objc
@@ -171,7 +157,7 @@ class AddDetailGoalViewController: BaseViewController, ViewModelBindableType {
     private func completeAction() {
         // 버튼 클릭 시 연결 끊겼으면 토스트 애니메이션
         if !networkMonitor.isConnected.value {
-            animateToastView()
+            animateToastView(toastView: self.networkErrorToastView, yValue: 50)
         } else {
             updateButtonState(.press)
             
