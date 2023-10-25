@@ -58,7 +58,7 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Properties
     
-    var viewModel: CompletionViewModel!
+    var viewModel: CompletionViewModel! = CompletionViewModel()
     var bubbleKey = UserDefaultsKeyStyle.bubbleInCompletionBox.rawValue
     var pushViewDisposables: [Disposable] = []
     var scrollDisposable: Disposable!
