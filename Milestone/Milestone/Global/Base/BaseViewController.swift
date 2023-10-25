@@ -13,9 +13,16 @@ import RxSwift
 /// render랑 configUI를 override하여 각 VC에 맞게 함수 내용을 작성한다.
 /// 이곳의 viewDidLoad에서 호출하기 때문에 각 VC에서는 render와 configUI 함수를 호출하지 않아도 된다.
 class BaseViewController: UIViewController {
-
+    
+    var networkMonitor = NetworkMonitor.shared
     var disposeBag = DisposeBag()
-
+    
+    lazy var networkErrorToastView = ToastView()
+        .then {
+            $0.alpha = 0
+            $0.text = "네트워크 연결에 실패했어요"
+        }
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
