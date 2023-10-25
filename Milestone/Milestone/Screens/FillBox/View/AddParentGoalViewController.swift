@@ -61,7 +61,7 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Functions
     
     override func render() {
-        view.addSubViews([backButton, topicLabel, enterGoalTitleView, enterGoalDateView, reminderAlarmView, completeButton])
+        view.addSubViews([backButton, topicLabel, enterGoalTitleView, enterGoalDateView, reminderAlarmView, completeButton, networkErrorToastView])
         
         view.snp.makeConstraints { make in
             make.width.equalTo(UIScreen.main.bounds.width)
@@ -93,6 +93,12 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
             make.height.equalTo(54)
         }
+        networkErrorToastView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-50)
+            make.height.equalTo(52)
+            make.leading.equalTo(view.snp.leading).offset(24)
+            make.trailing.equalTo(view.snp.trailing).offset(-24)
+        }
     }
 
     override func configUI() {
@@ -112,6 +118,20 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
         }
     }
     
+    private func animateToastView() {
+        UIView.animate(withDuration: 0.2, delay: 0.5) {
+            self.networkErrorToastView.alpha = 1
+            self.networkErrorToastView.frame = CGRect(origin: CGPoint(x: self.networkErrorToastView.frame.origin.x, y: self.view.frame.origin.y + 50), size: self.networkErrorToastView.frame.size)
+        } completion: { _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                UIView.animate(withDuration: 0.2) {
+                    self.networkErrorToastView.alpha = 0
+                    self.networkErrorToastView.frame = CGRect(origin: CGPoint(x: self.networkErrorToastView.frame.origin.x, y: self.view.frame.origin.y - 50), size: self.networkErrorToastView.frame.size)
+                }
+            }
+        }
+    }
+    
     // MARK: - @objc Functions
     
     @objc
@@ -121,16 +141,21 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
     
     @objc
     private func completeAddParentGoal() {
-        // 상위 목표 생성 API 호출
-        let reqBody = CreateParentGoal(title: self.enterGoalTitleView.titleTextField.text ?? " ", startDate: self.enterGoalDateView.startDateButton.titleLabel?.text ?? "", endDate: self.enterGoalDateView.endDateButton.titleLabel?.text ?? "", reminderEnabled: self.reminderAlarmView.onOffSwitch.isOn)
-        viewModel.createParentGoal(reqBody: reqBody)
-        
-        updateButtonState(.press)
-        // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.dismiss(animated: true) {
-                // 목표 추가 모달 dismiss 하면서 상위 목표 목록 업데이트
-                self.delegate?.updateParentGoalList()
+        // 버튼 클릭 시 연결 끊겼으면 토스트 애니메이션
+        if !networkMonitor.isConnected.value {
+            animateToastView()
+        } else {
+            // 상위 목표 생성 API 호출
+            let reqBody = CreateParentGoal(title: self.enterGoalTitleView.titleTextField.text ?? " ", startDate: self.enterGoalDateView.startDateButton.titleLabel?.text ?? "", endDate: self.enterGoalDateView.endDateButton.titleLabel?.text ?? "", reminderEnabled: self.reminderAlarmView.onOffSwitch.isOn)
+            viewModel.createParentGoal(reqBody: reqBody)
+            
+            updateButtonState(.press)
+            // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.dismiss(animated: true) {
+                    // 목표 추가 모달 dismiss 하면서 상위 목표 목록 업데이트
+                    self.delegate?.updateParentGoalList()
+                }
             }
         }
     }
