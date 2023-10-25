@@ -35,10 +35,16 @@ class DeleteGoalViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Functions
     
     override func render() {
-        view.addSubView(askPopUpView)
+        view.addSubViews([askPopUpView, networkErrorToastView])
         
         askPopUpView.snp.makeConstraints { make in
             make.center.equalToSuperview()
+        }
+        networkErrorToastView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-50)
+            make.height.equalTo(52)
+            make.leading.equalTo(view.snp.leading).offset(24)
+            make.trailing.equalTo(view.snp.trailing).offset(-24)
         }
     }
 
@@ -60,6 +66,20 @@ class DeleteGoalViewController: BaseViewController, ViewModelBindableType {
         self.viewModel?.popDetailParentVC.accept(true)
     }
     
+    private func animateToastView() {
+        UIView.animate(withDuration: 0.2, delay: 0.5) {
+            self.networkErrorToastView.alpha = 1
+            self.networkErrorToastView.frame = CGRect(origin: CGPoint(x: self.networkErrorToastView.frame.origin.x, y: self.view.frame.origin.y + 50), size: self.networkErrorToastView.frame.size)
+        } completion: { _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                UIView.animate(withDuration: 0.2) {
+                    self.networkErrorToastView.alpha = 0
+                    self.networkErrorToastView.frame = CGRect(origin: CGPoint(x: self.networkErrorToastView.frame.origin.x, y: self.view.frame.origin.y - 50), size: self.networkErrorToastView.frame.size)
+                }
+            }
+        }
+    }
+    
     // MARK: - @objc Functions
     
     @objc
@@ -69,19 +89,27 @@ class DeleteGoalViewController: BaseViewController, ViewModelBindableType {
     
     @objc
     private func deleteGoal() {
-        askPopUpView.yesButton.updateButtonState(.press)
-        
-        // 상위 목표 삭제 API 호출
-        if fromParentGoal {
-            viewModel.deleteParentGoal()
-            goToFillBox()
+        // 버튼 클릭 시 연결 끊겼으면 토스트 애니메이션
+        if !networkMonitor.isConnected.value {
+            animateToastView()
         } else {
-            viewModel.deleteDetailGoal()
+            askPopUpView.yesButton.updateButtonState(.press)
             
-            if viewModel.detailGoalList.value.count == 1 { // 여기선 삭제되기 전의 값이라서 1개일 때가 다 지워진 것
+            // 상위 목표 삭제 API 호출
+            if fromUpperGoal {
+                viewModel.deleteUpperGoal()
                 goToFillBox()
-            } else { // 세부 목표가 다 지워진 게 아닌 경우에는 pop 안 함
-                self.dismiss(animated: true)
+            } else {
+                // 하위 목표 삭제 API 호출
+                viewModel.deleteLowerGoal()
+                
+                if viewModel.lowerGoalList.value.count == 1 { // 여기선 삭제되기 전의 값이라서 1개일 때가 다 지워진 것
+                    goToFillBox()
+                } else { // 하위 목표가 다 지워진 게 아닌 경우에는 pop 안 함
+                    self.dismiss(animated: true) {
+                        self.delegate?.updateLowerGoalList()
+                    }
+                }
             }
         }
     }
