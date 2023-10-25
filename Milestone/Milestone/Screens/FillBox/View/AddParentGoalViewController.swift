@@ -161,21 +161,26 @@ class AddParentGoalViewController: BaseViewController, ViewModelBindableType {
     }
     
     @objc
-    private func completeModifyParentGoal() {
-        let title = self.enterGoalTitleView.titleTextField.text ?? ""
-        let startDate = self.enterGoalDateView.startDateButton.titleLabel?.text ?? ""
-        let endDate = self.enterGoalDateView.endDateButton.titleLabel?.text ?? ""
-        let reminderEnabled = self.reminderAlarmView.onOffSwitch.isOn
-        // 상위 목표 수정 API 호출
-        let reqBody = Goal(identity: viewModel.parentGoalId, title: title, startDate: startDate, endDate: endDate, reminderEnabled: reminderEnabled)
-        viewModel.modifyParentGoal(reqBody: reqBody)
-        
-        updateButtonState(.press)
-        // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.dismiss(animated: true) {
-                // 목표 추가 모달 dismiss 하면서 상위 목표 목록 업데이트
-//                self.delegate?.updateParentGoalList()
+    private func completeModifyUpperGoal() {
+        // 버튼 클릭 시 연결 끊겼으면 토스트 애니메이션
+        if !networkMonitor.isConnected.value {
+            animateToastView()
+        } else {
+            let title = self.enterGoalTitleView.titleTextField.text ?? ""
+            let startDate = self.enterGoalDateView.startDateButton.titleLabel?.text ?? ""
+            let endDate = self.enterGoalDateView.endDateButton.titleLabel?.text ?? ""
+            let reminderEnabled = self.reminderAlarmView.onOffSwitch.isOn
+            // 상위 목표 수정 API 호출
+            let reqBody = Goal(identity: viewModel.upperGoalId, title: title, startDate: startDate, endDate: endDate, reminderEnabled: reminderEnabled)
+            viewModel.modifyUpperGoal(reqBody: reqBody)
+            
+            updateButtonState(.press)
+            // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.dismiss(animated: true) {
+                    // 목표 추가 모달 dismiss 하면서 상위 목표 목록 업데이트
+                    //                self.delegate?.updateParentGoalList()
+                }
             }
         }
     }
