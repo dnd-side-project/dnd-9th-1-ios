@@ -62,8 +62,11 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
             $0.guideLabel.text = "이루고 싶은 목표를 설정해주세요!"
         }
     
+    lazy var networkFailView = NetworkFailView()
+    
     // MARK: - Properties
     
+    var networkMonitor = NetworkMonitor.shared
     var viewModel: FillBoxViewModel! = FillBoxViewModel()
     var bubbleKey = UserDefaultsKeyStyle.bubbleInFillBox.rawValue
     
@@ -155,6 +158,35 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
         viewModel.completedGoalCount
             .bind(to: upperGoalHeaderView.completedGoalView.goalNumberLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        networkMonitor.isConnected
+            .subscribe(onNext: { [weak self] isConnected in
+                DispatchQueue.main.async {
+                    // isConnected 값이 바뀔 때마다 실행하고자 하는 함수를 호출
+                    if isConnected {
+                        self?.showFillBoxList()
+                    } else {
+                        self?.showNetworkFailView()
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// 네트워크 연결 실패 뷰 띄우기
+    private func showNetworkFailView() {
+        [upperGoalTableView, addGoalButton, emptyFillBoxImageView, emptyGuideLabel, addNewGoalBubbleView]
+            .forEach { $0.removeFromSuperview() }
+        view.addSubview(networkFailView)
+        networkFailView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(84)
+        }
+    }
+    
+    /// 네트워크 연결 성공이면 채움함 원래 뷰들 띄우기
+    private func showFillBoxList() {
+        networkFailView.removeFromSuperview()
+        render()
     }
     
     /// 처음이 맞는지 확인 -> 맞으면 말풍선 뷰 띄우기

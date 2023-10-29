@@ -1,15 +1,16 @@
 //
-//  CompletionReviewViewController.swift
+//  RetrospectDetailViewController.swift
 //  Milestone
 //
-//  Created by 박경준 on 2023/08/16.
+//  Created by 박경준 on 2023/09/30.
 //
 
 import UIKit
+
 import RxCocoa
 import RxSwift
 
-class CompletionReviewViewController: BaseViewController, ViewModelBindableType {
+class RetrospectDetailViewController: BaseViewController {
     
     // MARK: Subviews
     
@@ -71,10 +72,10 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
     var viewControllers: [UIViewController] {
         [self.reviewVCWithGuide, self.reviewVCWithoutGuide]
     }
-    lazy var reviewVCWithGuide = CompletionReviewWithGuideViewController()
-    lazy var reviewVCWithoutGuide = CompletionReviewWithoutGuideViewController()
+    lazy var reviewVCWithGuide = RetrospectWithGuideViewController()
+    lazy var reviewVCWithoutGuide = RetrospectWithoutGuideViewController()
     
-    let reviewCompleteVC = ReviewCompleteViewController()
+    let reviewCompleteVC = RetrospectModalViewController()
         .then {
             $0.modalTransitionStyle = .crossDissolve
             $0.modalPresentationStyle = .overFullScreen
@@ -82,15 +83,25 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
     
     // MARK: Properties
     
-    var viewModel: CompletionViewModel!
+    var viewModel: RetrospectDetailViewModel
+    
     var coordinator: CompletionBoxCoordinator!
-    var goalIndex: Int!
     let dateFormatter = DateFormatter()
         .then {
             $0.dateFormat = "yyyy.MM.dd"
         }
     
     // MARK: Functions
+    
+    init(viewModel: RetrospectDetailViewModel) {
+        self.viewModel = viewModel
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         coordinator = CompletionBoxCoordinator(navigationController: self.navigationController!)
@@ -181,38 +192,13 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
         reviewCompleteVC.button.rx.tap
             .subscribe(onNext: { [unowned self] in
                 self.dismiss(animated: true) {
-                    self.reviewVCWithoutGuide.saveButtonTapDisposable.dispose()
-                    self.reviewVCWithGuide.saveButtonTapDisposable.dispose()
                     self.pop()
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        reviewVCWithGuide.goalIndex = goalIndex
-        reviewVCWithoutGuide.goalIndex = goalIndex
-        
-        reviewVCWithGuide.bind(viewModel: self.viewModel)
-        reviewVCWithoutGuide.bind(viewModel: self.viewModel)
-        
-        viewModel.presentModal
-            .subscribe(onNext: { [unowned self] in
-                if $0 {
-                    self.present(self.reviewCompleteVC, animated: true) {
-                        self.viewModel.presentModal.accept(false)
-                    }
                 }
             })
             .disposed(by: disposeBag)
     }
     
     func bindViewModel() {
-        let goalDataAtIndex = viewModel.retrieveGoalDataAtIndex(index: goalIndex)
-        
-        let startDate = dateFormatter.date(from: goalDataAtIndex.startDate)!
-        let endDate = dateFormatter.date(from: goalDataAtIndex.endDate)!
-        
-        titleLabel.text = goalDataAtIndex.title
-        dateLabel.text = "\(dateFormatter.string(from: startDate)) - \(dateFormatter.string(from: endDate))"
         
         segmentedControl.rx.value.changed
             .asDriver()
@@ -227,7 +213,59 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
                 }
             })
             .disposed(by: disposeBag)
+        // MARK: - 리팩토링
+        let input = RetrospectDetailViewModel.Input(likedTextViewChanged: reviewVCWithGuide.firstQuestionView.textView.rx.text.asObservable(), lackedTextViewChanged: reviewVCWithGuide.secondQuestionView.textView.rx.text.asObservable(), learnedTextViewChanged: reviewVCWithGuide.thirdQuestionView.textView.rx.text.asObservable(), longedForTextViewChanged: reviewVCWithGuide.fourthQuestionView.textView.rx.text.asObservable(), freeTextViewChanged: reviewVCWithoutGuide.textView.rx.text.asObservable(), pointSelectedWithGuide: reviewVCWithGuide.pointSelectTrigger.asObservable(), pointSelectedWithoutGuide: reviewVCWithoutGuide.pointSelectTrigger.asObservable(),saveButtonTriggerWithGuide: reviewVCWithGuide.registerButton.rx.tap.asObservable(), saveButtonTriggerWithoutGuide: reviewVCWithoutGuide.registerButton.rx.tap.asObservable())
         
+        let output = viewModel.transform(input: input)
+        
+        viewModel.upperGoal
+            .asDriver()
+            .drive(onNext: { [unowned self] in
+                self.titleLabel.text = $0.title
+                self.dateLabel.text = "\($0.startDate) - \($0.endDate)"
+            })
+            .disposed(by: disposeBag)
+        
+        output.textViewCount
+            .drive(onNext: { [unowned self] in
+                self.reviewVCWithGuide.firstQuestionView.textCountLabel.text = "\($0.0 ?? 0)/200"
+                self.reviewVCWithGuide.secondQuestionView.textCountLabel.text = "\($0.1 ?? 0)/200"
+                self.reviewVCWithGuide.thirdQuestionView.textCountLabel.text = "\($0.2 ?? 0)/200"
+                self.reviewVCWithGuide.fourthQuestionView.textCountLabel.text = "\($0.3 ?? 0)/200"
+            })
+            .disposed(by: disposeBag)
+        
+        output.freeTextViewCount
+            .drive(onNext: { [unowned self] in
+                self.reviewVCWithoutGuide.textCountLabel.text = "\($0 ?? 0)/200"
+            })
+            .disposed(by: disposeBag)
+        
+        output.guideViewButtonActivated
+            .drive(onNext: { [unowned self] in
+                self.reviewVCWithGuide.registerButton.isEnabled = $0
+                self.reviewVCWithGuide.registerButton.backgroundColor = $0 ? .primary : .init(hex: "#ADBED6")
+            })
+            .disposed(by: disposeBag)
+        
+        output.freeViewButtonActivated
+            .drive(onNext: { [unowned self] in
+                self.reviewVCWithoutGuide.registerButton.isEnabled = $0
+                self.reviewVCWithoutGuide.registerButton.backgroundColor = $0 ? .primary : .init(hex: "#ADBED6")
+            })
+            .disposed(by: disposeBag)
+        
+        output.modalPresentWithGuide
+            .subscribe(onNext: { [unowned self] _ in
+                self.present(reviewCompleteVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        output.modalPresentWithoutGuide
+            .subscribe(onNext: { [unowned self] _ in
+                self.present(reviewCompleteVC, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     func setFontSize() {
@@ -255,7 +293,7 @@ class CompletionReviewViewController: BaseViewController, ViewModelBindableType 
     }
 }
 
-extension CompletionReviewViewController: UIPageViewControllerDataSource {
+extension RetrospectDetailViewController: UIPageViewControllerDataSource {
     func pageViewController(
         _ pageViewController: UIPageViewController,
         viewControllerBefore viewController: UIViewController
@@ -278,7 +316,7 @@ extension CompletionReviewViewController: UIPageViewControllerDataSource {
     }
 }
 
-extension CompletionReviewViewController: UIPageViewControllerDelegate {
+extension RetrospectDetailViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         guard let viewController = pageViewController.viewControllers?[0],
             let index = self.viewControllers.firstIndex(of: viewController)

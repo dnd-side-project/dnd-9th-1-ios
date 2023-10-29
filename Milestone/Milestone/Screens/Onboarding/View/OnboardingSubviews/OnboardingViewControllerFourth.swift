@@ -109,7 +109,6 @@ class OnboardingViewControllerFourth: BaseViewController {
     // MARK: - Objc functions
     
     @objc func nextButtonTapped() {
-        guard let pageVC = self.parent as? UIPageViewController else { return }
         coordinator?.coordinateToTutorialFirst()
     }
     

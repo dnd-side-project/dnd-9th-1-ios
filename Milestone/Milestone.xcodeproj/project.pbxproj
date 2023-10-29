@@ -24,9 +24,6 @@
 		A22736802A7CE53800D7B3B2 /* MilestoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227367F2A7CE53800D7B3B2 /* MilestoneTests.swift */; };
 		A227368A2A7CE53800D7B3B2 /* MilestoneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22736892A7CE53800D7B3B2 /* MilestoneUITests.swift */; };
 		A227368C2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A227368B2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift */; };
-		A22774AD2A977438004AE5D7 /* AMPMStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22774AC2A977438004AE5D7 /* AMPMStyle.swift */; };
-		A22774AE2A977438004AE5D7 /* AMPMStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22774AC2A977438004AE5D7 /* AMPMStyle.swift */; };
-		A22774AF2A977438004AE5D7 /* AMPMStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22774AC2A977438004AE5D7 /* AMPMStyle.swift */; };
 		A231AA842AB480EA004C4907 /* BubbleTailDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */; };
 		A231AA852AB480EA004C4907 /* BubbleTailDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */; };
 		A231AA862AB480EA004C4907 /* BubbleTailDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */; };
@@ -104,6 +101,9 @@
 		A28EDA1A2A879565001A021A /* DetailUpperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA182A879565001A021A /* DetailUpperViewController.swift */; };
 		A28EDA1B2A879565001A021A /* DetailUpperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28EDA182A879565001A021A /* DetailUpperViewController.swift */; };
 		A298E9592A9968B000EC0067 /* JewelPopUpImageStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A298E9582A9968B000EC0067 /* JewelPopUpImageStyle.swift */; };
+		A2A303192AC3B090006823F3 /* NetworkFailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A303182AC3B090006823F3 /* NetworkFailView.swift */; };
+		A2A3031A2AC3B090006823F3 /* NetworkFailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A303182AC3B090006823F3 /* NetworkFailView.swift */; };
+		A2A3031B2AC3B090006823F3 /* NetworkFailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A303182AC3B090006823F3 /* NetworkFailView.swift */; };
 		A2B20D442A7E3EA1001ED73C /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D432A7E3EA1001ED73C /* Moya */; };
 		A2B20D462A7E3EA1001ED73C /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D452A7E3EA1001ED73C /* RxMoya */; };
 		A2B20D492A7E3EC6001ED73C /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = A2B20D482A7E3EC6001ED73C /* Then */; };
@@ -229,6 +229,9 @@
 		A2FC49572A979F850045FE59 /* ResetGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FC49562A979F850045FE59 /* ResetGoalViewController.swift */; };
 		A2FC49582A979F850045FE59 /* ResetGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FC49562A979F850045FE59 /* ResetGoalViewController.swift */; };
 		A2FC49592A979F850045FE59 /* ResetGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FC49562A979F850045FE59 /* ResetGoalViewController.swift */; };
+		A2FDF3402AC5737B007AAF3D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FDF33F2AC5737A007AAF3D /* NetworkMonitor.swift */; };
+		A2FDF3412AC5737B007AAF3D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FDF33F2AC5737A007AAF3D /* NetworkMonitor.swift */; };
+		A2FDF3422AC5737B007AAF3D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FDF33F2AC5737A007AAF3D /* NetworkMonitor.swift */; };
 		A2FDF3442AC59753007AAF3D /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A2FDF3432AC59753007AAF3D /* Config.xcconfig */; };
 		A2FDF3452AC59753007AAF3D /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A2FDF3432AC59753007AAF3D /* Config.xcconfig */; };
 		A2FDF3462AC59753007AAF3D /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A2FDF3432AC59753007AAF3D /* Config.xcconfig */; };
@@ -268,6 +271,12 @@
 		C947D9192AC28D7300015407 /* OnboardingViewControllerFourth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D9182AC28D7300015407 /* OnboardingViewControllerFourth.swift */; };
 		C947D91C2AC30D4200015407 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C947D91B2AC30D4200015407 /* Lottie */; };
 		C947D95D2AC3F7FF00015407 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947D95C2AC3F7FF00015407 /* ToastView.swift */; };
+		C95700EC2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700EB2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift */; };
+		C95700F02AC8239700271FAB /* RetrospectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700EF2AC8239700271FAB /* RetrospectDetailViewController.swift */; };
+		C95700F22AC824AF00271FAB /* RetrospectDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700F12AC824AF00271FAB /* RetrospectDetailViewModel.swift */; };
+		C95700F42AC9382000271FAB /* FillPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700F32AC9382000271FAB /* FillPoint.swift */; };
+		C95700F82AC9803700271FAB /* RetrospectViewerWithGuideViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700F72AC9803700271FAB /* RetrospectViewerWithGuideViewModel.swift */; };
+		C95700FA2AC9804300271FAB /* RetrospectViewerWithoutGuideViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95700F92AC9804300271FAB /* RetrospectViewerWithoutGuideViewModel.swift */; };
 		C95A3C9B2A94D08D0028B4ED /* UpperGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9A2A94D08D0028B4ED /* UpperGoal.swift */; };
 		C95A3C9F2A94E0AC0028B4ED /* CompletionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */; };
 		C95A3CA12A94EB580028B4ED /* RewardToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95A3CA02A94EB580028B4ED /* RewardToImage.swift */; };
@@ -286,15 +295,14 @@
 		C9B2CDE32A8B5E9D006289A8 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = C9B2CDE22A8B5E9D006289A8 /* RxDataSources */; };
 		C9B2CDE72A8BBCCC006289A8 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDE62A8BBCCC006289A8 /* TriangleView.swift */; };
 		C9B2CDE92A8BCBE0006289A8 /* CompletionBoxCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDE82A8BCBE0006289A8 /* CompletionBoxCoordinator.swift */; };
-		C9B2CDEB2A8BCD6B006289A8 /* CompletionReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEA2A8BCD6B006289A8 /* CompletionReviewViewController.swift */; };
-		C9B2CDED2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEC2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift */; };
-		C9B2CDEF2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */; };
+		C9B2CDED2A8C99ED006289A8 /* RetrospectWithGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEC2A8C99ED006289A8 /* RetrospectWithGuideViewController.swift */; };
+		C9B2CDEF2A8C9B73006289A8 /* RetrospectWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDEE2A8C9B73006289A8 /* RetrospectWithoutGuideViewController.swift */; };
 		C9B2CDF12A8CA397006289A8 /* IndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDF02A8CA397006289A8 /* IndexView.swift */; };
 		C9B2CDF72A8CC26E006289A8 /* PointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDF62A8CC26E006289A8 /* PointView.swift */; };
 		C9B2CDFF2A8DE365006289A8 /* CompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CDFE2A8DE365006289A8 /* CompleteView.swift */; };
-		C9B2CE012A8DEBE0006289A8 /* ReviewCompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE002A8DEBE0006289A8 /* ReviewCompleteViewController.swift */; };
-		C9B2CE032A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */; };
-		C9B2CE052A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */; };
+		C9B2CE012A8DEBE0006289A8 /* RetrospectModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE002A8DEBE0006289A8 /* RetrospectModalViewController.swift */; };
+		C9B2CE032A8E6417006289A8 /* RetrospectViewerWithGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE022A8E6417006289A8 /* RetrospectViewerWithGuideViewController.swift */; };
+		C9B2CE052A8E645D006289A8 /* RetrospectViewerWithoutGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE042A8E645D006289A8 /* RetrospectViewerWithoutGuideViewController.swift */; };
 		C9B2CE072A8E69E5006289A8 /* IndexViewAfterSaved.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE062A8E69E5006289A8 /* IndexViewAfterSaved.swift */; };
 		C9B2CE102A8F4F9A006289A8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE0F2A8F4F9A006289A8 /* Constants.swift */; };
 		C9B2CE132A8F5142006289A8 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2CE122A8F5142006289A8 /* APIError.swift */; };
@@ -347,7 +355,6 @@
 		A22736852A7CE53800D7B3B2 /* MilestoneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MilestoneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A22736892A7CE53800D7B3B2 /* MilestoneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneUITests.swift; sourceTree = "<group>"; };
 		A227368B2A7CE53800D7B3B2 /* MilestoneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		A22774AC2A977438004AE5D7 /* AMPMStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMPMStyle.swift; sourceTree = "<group>"; };
 		A231AA832AB480EA004C4907 /* BubbleTailDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTailDownView.swift; sourceTree = "<group>"; };
 		A23E8B9B2A8FF54C0051D135 /* CompleteGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteGoalViewController.swift; sourceTree = "<group>"; };
 		A23E8B9F2A900EEC0051D135 /* DeleteGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGoalViewController.swift; sourceTree = "<group>"; };
@@ -378,6 +385,7 @@
 		A28EDA142A8791F7001A021A /* LowerGoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowerGoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		A28EDA182A879565001A021A /* DetailUpperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailUpperViewController.swift; sourceTree = "<group>"; };
 		A298E9582A9968B000EC0067 /* JewelPopUpImageStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JewelPopUpImageStyle.swift; sourceTree = "<group>"; };
+		A2A303182AC3B090006823F3 /* NetworkFailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFailView.swift; sourceTree = "<group>"; };
 		A2B20D582A7E4E5C001ED73C /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		A2B20D5C2A7E4E68001ED73C /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		A2B20D602A7E4FAD001ED73C /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
@@ -420,7 +428,8 @@
 		A2FA592C2A7FD433006ACA2E /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 		A2FC49522A97981D0045FE59 /* RestoreGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreGoalViewController.swift; sourceTree = "<group>"; };
 		A2FC49562A979F850045FE59 /* ResetGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetGoalViewController.swift; sourceTree = "<group>"; };
-		A2FDF3432AC59753007AAF3D /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		A2FDF33F2AC5737A007AAF3D /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		A2FDF3432AC59753007AAF3D /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Config.xcconfig; path = ../Config.xcconfig; sourceTree = "<group>"; };
 		A2FFBC8E2A94986200039919 /* FillBoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillBoxViewModel.swift; sourceTree = "<group>"; };
 		C9040FCB2A93B64A00270E94 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		C9040FCD2A93BDB400270E94 /* APIInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIInterceptor.swift; sourceTree = "<group>"; };
@@ -447,6 +456,12 @@
 		C947D9162AC28D6600015407 /* OnboardingViewControllerThird.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerThird.swift; sourceTree = "<group>"; };
 		C947D9182AC28D7300015407 /* OnboardingViewControllerFourth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerFourth.swift; sourceTree = "<group>"; };
 		C947D95C2AC3F7FF00015407 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		C95700EB2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		C95700EF2AC8239700271FAB /* RetrospectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectDetailViewController.swift; sourceTree = "<group>"; };
+		C95700F12AC824AF00271FAB /* RetrospectDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectDetailViewModel.swift; sourceTree = "<group>"; };
+		C95700F32AC9382000271FAB /* FillPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillPoint.swift; sourceTree = "<group>"; };
+		C95700F72AC9803700271FAB /* RetrospectViewerWithGuideViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectViewerWithGuideViewModel.swift; sourceTree = "<group>"; };
+		C95700F92AC9804300271FAB /* RetrospectViewerWithoutGuideViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectViewerWithoutGuideViewModel.swift; sourceTree = "<group>"; };
 		C95A3C9A2A94D08D0028B4ED /* UpperGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperGoal.swift; sourceTree = "<group>"; };
 		C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionHeaderView.swift; sourceTree = "<group>"; };
 		C95A3CA02A94EB580028B4ED /* RewardToImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardToImage.swift; sourceTree = "<group>"; };
@@ -463,15 +478,14 @@
 		C9B2CDDD2A8B42CA006289A8 /* CompletionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCell.swift; sourceTree = "<group>"; };
 		C9B2CDE62A8BBCCC006289A8 /* TriangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
 		C9B2CDE82A8BCBE0006289A8 /* CompletionBoxCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionBoxCoordinator.swift; sourceTree = "<group>"; };
-		C9B2CDEA2A8BCD6B006289A8 /* CompletionReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionReviewViewController.swift; sourceTree = "<group>"; };
-		C9B2CDEC2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionReviewWithGuideViewController.swift; sourceTree = "<group>"; };
-		C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionReviewWithoutGuideViewController.swift; sourceTree = "<group>"; };
+		C9B2CDEC2A8C99ED006289A8 /* RetrospectWithGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectWithGuideViewController.swift; sourceTree = "<group>"; };
+		C9B2CDEE2A8C9B73006289A8 /* RetrospectWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectWithoutGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CDF02A8CA397006289A8 /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
 		C9B2CDF62A8CC26E006289A8 /* PointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointView.swift; sourceTree = "<group>"; };
 		C9B2CDFE2A8DE365006289A8 /* CompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteView.swift; sourceTree = "<group>"; };
-		C9B2CE002A8DEBE0006289A8 /* ReviewCompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCompleteViewController.swift; sourceTree = "<group>"; };
-		C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSavedReviewWithGuideViewController.swift; sourceTree = "<group>"; };
-		C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionSavedReviewWithoutGuideViewController.swift; sourceTree = "<group>"; };
+		C9B2CE002A8DEBE0006289A8 /* RetrospectModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectModalViewController.swift; sourceTree = "<group>"; };
+		C9B2CE022A8E6417006289A8 /* RetrospectViewerWithGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectViewerWithGuideViewController.swift; sourceTree = "<group>"; };
+		C9B2CE042A8E645D006289A8 /* RetrospectViewerWithoutGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectViewerWithoutGuideViewController.swift; sourceTree = "<group>"; };
 		C9B2CE062A8E69E5006289A8 /* IndexViewAfterSaved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewAfterSaved.swift; sourceTree = "<group>"; };
 		C9B2CE0F2A8F4F9A006289A8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C9B2CE122A8F5142006289A8 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
@@ -637,7 +651,6 @@
 				C90C48E82A936C1D00E7E8B0 /* ButtonComponentStyle.swift */,
 				A289D9412A91241C005B7F00 /* UserDefaultsKeyStyle.swift */,
 				A289D9452A91246B005B7F00 /* DayStyle.swift */,
-				A22774AC2A977438004AE5D7 /* AMPMStyle.swift */,
 				A289D9492A912616005B7F00 /* WriteRetrospectStyle.swift */,
 				A289D94D2A912849005B7F00 /* IndexTextStyle.swift */,
 				A289D9512A912864005B7F00 /* PointTextStyle.swift */,
@@ -646,6 +659,7 @@
 				C95A3CA02A94EB580028B4ED /* RewardToImage.swift */,
 				A298E9582A9968B000EC0067 /* JewelPopUpImageStyle.swift */,
 				C91006F82AA0534D000A9C16 /* LoginType.swift */,
+				C95700F32AC9382000271FAB /* FillPoint.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -697,6 +711,7 @@
 				C95A3CA42A959A090028B4ED /* LoadingView.swift */,
 				C9B2CE422A90E76B006289A8 /* GoalAchievementRateView.swift */,
 				A2CC0DB92AB8888C000893B3 /* DefaultLeftBarButton.swift */,
+				A2A303182AC3B090006823F3 /* NetworkFailView.swift */,
 				C947D95C2AC3F7FF00015407 /* ToastView.swift */,
 			);
 			path = Shared;
@@ -792,6 +807,7 @@
 				A2B20D992A7ED40D001ED73C /* Logger.swift */,
 				C9B2CE0F2A8F4F9A006289A8 /* Constants.swift */,
 				C9B2CE442A91D796006289A8 /* KeychainManager.swift */,
+				A2FDF33F2AC5737A007AAF3D /* NetworkMonitor.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -883,14 +899,12 @@
 		A2D304C72A856B4F00A5BA92 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C9B2CDDC2A8B42AD006289A8 /* Cell */,
 				A2248E942A8A5A5C00EB995A /* CompletionBoxViewController.swift */,
-				C9B2CDEA2A8BCD6B006289A8 /* CompletionReviewViewController.swift */,
-				C9B2CDEC2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift */,
-				C9B2CDEE2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift */,
-				C9B2CE022A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift */,
-				C9B2CE042A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift */,
-				C9B2CE002A8DEBE0006289A8 /* ReviewCompleteViewController.swift */,
+				C9B2CE002A8DEBE0006289A8 /* RetrospectModalViewController.swift */,
+				C95700EE2AC8236500271FAB /* RetrospectDetail */,
+				C95700F52AC97C2600271FAB /* RetrospectViewerWithGuide */,
+				C95700F62AC97FCD00271FAB /* RetrospectViewerWithoutGuide */,
+				C9B2CDDC2A8B42AD006289A8 /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -965,6 +979,35 @@
 			path = OnboardingSubviews;
 			sourceTree = "<group>";
 		};
+		C95700EE2AC8236500271FAB /* RetrospectDetail */ = {
+			isa = PBXGroup;
+			children = (
+				C95700EF2AC8239700271FAB /* RetrospectDetailViewController.swift */,
+				C95700F12AC824AF00271FAB /* RetrospectDetailViewModel.swift */,
+				C9B2CDEC2A8C99ED006289A8 /* RetrospectWithGuideViewController.swift */,
+				C9B2CDEE2A8C9B73006289A8 /* RetrospectWithoutGuideViewController.swift */,
+			);
+			path = RetrospectDetail;
+			sourceTree = "<group>";
+		};
+		C95700F52AC97C2600271FAB /* RetrospectViewerWithGuide */ = {
+			isa = PBXGroup;
+			children = (
+				C9B2CE022A8E6417006289A8 /* RetrospectViewerWithGuideViewController.swift */,
+				C95700F72AC9803700271FAB /* RetrospectViewerWithGuideViewModel.swift */,
+			);
+			path = RetrospectViewerWithGuide;
+			sourceTree = "<group>";
+		};
+		C95700F62AC97FCD00271FAB /* RetrospectViewerWithoutGuide */ = {
+			isa = PBXGroup;
+			children = (
+				C9B2CE042A8E645D006289A8 /* RetrospectViewerWithoutGuideViewController.swift */,
+				C95700F92AC9804300271FAB /* RetrospectViewerWithoutGuideViewModel.swift */,
+			);
+			path = RetrospectViewerWithoutGuide;
+			sourceTree = "<group>";
+		};
 		C968F8F32A98F2AE0051DE48 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
@@ -1004,6 +1047,7 @@
 			children = (
 				C9B2CDDD2A8B42CA006289A8 /* CompletionTableViewCell.swift */,
 				C95A3C9E2A94E0AC0028B4ED /* CompletionHeaderView.swift */,
+				C95700EB2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1290,12 +1334,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C947D95D2AC3F7FF00015407 /* ToastView.swift in Sources */,
+				C95700EC2AC7FF5200271FAB /* CompletionTableViewCellViewModel.swift in Sources */,
 				C9B2CE072A8E69E5006289A8 /* IndexViewAfterSaved.swift in Sources */,
 				A2EC47CC2A8A962600401B03 /* LowerGoalInfoViewController.swift in Sources */,
 				A26509102A8D604100E9A2D7 /* CouchMarkViewController.swift in Sources */,
 				A2B20D652A7E5077001ED73C /* UILabel+.swift in Sources */,
 				A289D9522A912864005B7F00 /* PointTextStyle.swift in Sources */,
 				C90DC9862A88F0B100241B7C /* UITextField+.swift in Sources */,
+				A2FDF3402AC5737B007AAF3D /* NetworkMonitor.swift in Sources */,
 				C90DC9762A876F5D00241B7C /* AppCoordinator.swift in Sources */,
 				C968F8ED2A98F1BD0051DE48 /* PrivacyInformationViewController.swift in Sources */,
 				A2CC0DBA2AB8888C000893B3 /* DefaultLeftBarButton.swift in Sources */,
@@ -1310,13 +1356,15 @@
 				A2FA58D12A7F7A1F006ACA2E /* (null) in Sources */,
 				A28EDA112A87808A001A021A /* UIViewController+.swift in Sources */,
 				C9BF3FCC2A9783EA0074E781 /* SettingTableViewCellSecondSection.swift in Sources */,
+				C95700F82AC9803700271FAB /* RetrospectViewerWithGuideViewModel.swift in Sources */,
 				A2B9698F2A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */,
 				C90DC9882A891A8500241B7C /* OnboardingViewControllerTutorialLast.swift in Sources */,
 				A2D304BD2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
 				A2FA592D2A7FD433006ACA2E /* NSObject+.swift in Sources */,
 				A28EDA192A879565001A021A /* DetailUpperViewController.swift in Sources */,
+				C95700F42AC9382000271FAB /* FillPoint.swift in Sources */,
 				C947D9172AC28D6600015407 /* OnboardingViewControllerThird.swift in Sources */,
-				C9B2CDEF2A8C9B73006289A8 /* CompletionReviewWithoutGuideViewController.swift in Sources */,
+				C9B2CDEF2A8C9B73006289A8 /* RetrospectWithoutGuideViewController.swift in Sources */,
 				A23E8BA02A900EEC0051D135 /* DeleteGoalViewController.swift in Sources */,
 				A289D9602A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */,
 				A23E8B9C2A8FF54D0051D135 /* CompleteGoalViewController.swift in Sources */,
@@ -1326,7 +1374,6 @@
 				A26509142A8DE1BA00E9A2D7 /* AddLowerGoalStoneView.swift in Sources */,
 				A2C98F0E2A8B7A99009B5579 /* EnterGoalDateView.swift in Sources */,
 				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
-				A22774AD2A977438004AE5D7 /* AMPMStyle.swift in Sources */,
 				C9B2CE102A8F4F9A006289A8 /* Constants.swift in Sources */,
 				C968F8F72A98F3790051DE48 /* InformationBox.swift in Sources */,
 				A2FA59192A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
@@ -1353,13 +1400,11 @@
 				A289D95C2A9133C7005B7F00 /* PresentDelegate.swift in Sources */,
 				C9BF3FCA2A97837C0074E781 /* SettingTableViewCellFirstSection.swift in Sources */,
 				C90DC97A2A88814700241B7C /* Coordinator.swift in Sources */,
-				A2B969822A85750600C4903F /* MainViewController.swift in Sources */,
 				C968F8F52A98F3080051DE48 /* InformationLabel.swift in Sources */,
 				A282DA522A94BB2400A0D0BF /* DetailUpperViewModel.swift in Sources */,
-				C9B2CE052A8E645D006289A8 /* CompletionSavedReviewWithoutGuideViewController.swift in Sources */,
+				C9B2CE052A8E645D006289A8 /* RetrospectViewerWithoutGuideViewController.swift in Sources */,
 				A2C98F022A8B6117009B5579 /* AddUpperGoalViewController.swift in Sources */,
 				C9B2CE452A91D796006289A8 /* KeychainManager.swift in Sources */,
-				A2FA59192A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
 				C90DC98A2A8922D300241B7C /* NSMutableAttributedString+.swift in Sources */,
 				A289D9422A91241C005B7F00 /* UserDefaultsKeyStyle.swift in Sources */,
 				C90DC9842A88874800241B7C /* OnboardingCoordinator.swift in Sources */,
@@ -1373,6 +1418,7 @@
 				A2FA59102A7FCFB4006ACA2E /* Encodable+.swift in Sources */,
 				A2D304C92A856B6B00A5BA92 /* StorageBoxViewController.swift in Sources */,
 				A2FA59212A7FD2EC006ACA2E /* BaseTableViewCell.swift in Sources */,
+				C95700F22AC824AF00271FAB /* RetrospectDetailViewModel.swift in Sources */,
 				A2FA59142A7FCFC8006ACA2E /* Data+.swift in Sources */,
 				C9B2CDD82A8A7B26006289A8 /* ViewModelBindableType.swift in Sources */,
 				A2FA591D2A7FD2DD006ACA2E /* BaseCollectionViewCell.swift in Sources */,
@@ -1380,7 +1426,7 @@
 				A2B20D902A7ED14C001ED73C /* ImageLiteral.swift in Sources */,
 				C9B2CE472A92F61D006289A8 /* GoalStatusParameter.swift in Sources */,
 				C95A3CA12A94EB580028B4ED /* RewardToImage.swift in Sources */,
-				C9B2CDED2A8C99ED006289A8 /* CompletionReviewWithGuideViewController.swift in Sources */,
+				C9B2CDED2A8C99ED006289A8 /* RetrospectWithGuideViewController.swift in Sources */,
 				C95A3CA32A95973B0028B4ED /* Retrospect.swift in Sources */,
 				C9B2CDF72A8CC26E006289A8 /* PointView.swift in Sources */,
 				C9B2CE242A8F673C006289A8 /* ServicesGoalList.swift in Sources */,
@@ -1390,23 +1436,24 @@
 				A2FC49532A97981D0045FE59 /* RestoreGoalViewController.swift in Sources */,
 				C947D9152AC28D5E00015407 /* OnboardingViewControllerSecond.swift in Sources */,
 				A289D9642A922950005B7F00 /* RecommendGoalViewController.swift in Sources */,
+				C95700F02AC8239700271FAB /* RetrospectDetailViewController.swift in Sources */,
 				A2FA59292A7FD3BA006ACA2E /* UITableView+.swift in Sources */,
 				A231AA842AB480EA004C4907 /* BubbleTailDownView.swift in Sources */,
+				A2A303192AC3B090006823F3 /* NetworkFailView.swift in Sources */,
 				C90C48E92A936C1D00E7E8B0 /* ButtonComponentStyle.swift in Sources */,
 				A23E8BA22A9013610051D135 /* AskOneOfTwoView.swift in Sources */,
 				C9B2CDE72A8BBCCC006289A8 /* TriangleView.swift in Sources */,
-				C9B2CE012A8DEBE0006289A8 /* ReviewCompleteViewController.swift in Sources */,
 				A25153F52AC849D3009BA39F /* String+.swift in Sources */,
+				C9B2CE012A8DEBE0006289A8 /* RetrospectModalViewController.swift in Sources */,
 				C9040FD02A93C3AC00270E94 /* APIIEventLogger.swift in Sources */,
 				A2B969842A85812F00C4903F /* GoalStatusView.swift in Sources */,
 				A2B9698B2A859EAB00C4903F /* UIButton+.swift in Sources */,
 				C9B2CE202A8F62B2006289A8 /* Service.swift in Sources */,
 				C9B2CE4B2A92F95E006289A8 /* LowerGoal.swift in Sources */,
-				C9B2CDEB2A8BCD6B006289A8 /* CompletionReviewViewController.swift in Sources */,
 				C9B2CE1D2A8F5783006289A8 /* APISession.swift in Sources */,
 				A2FA59252A7FD3B1006ACA2E /* UICollectionView+.swift in Sources */,
 				A2D304C12A854EDE00A5BA92 /* MainSegmentedControl.swift in Sources */,
-				C9B2CE032A8E6417006289A8 /* CompletionSavedReviewWithGuideViewController.swift in Sources */,
+				C9B2CE032A8E6417006289A8 /* RetrospectViewerWithGuideViewController.swift in Sources */,
 				C9798ACA2A939F9600B5CC4A /* BindableViewModel.swift in Sources */,
 				A2FC49572A979F850045FE59 /* ResetGoalViewController.swift in Sources */,
 				A2B20D9A2A7ED40D001ED73C /* Logger.swift in Sources */,
@@ -1415,6 +1462,7 @@
 				C9B2CE152A8F514A006289A8 /* APIService.swift in Sources */,
 				A2400D692AA3C24600EB79D6 /* Notification+.swift in Sources */,
 				C9B2CDD62A8A77F1006289A8 /* CompletionViewModel.swift in Sources */,
+				C95700FA2AC9804300271FAB /* RetrospectViewerWithoutGuideViewModel.swift in Sources */,
 				C947D9192AC28D7300015407 /* OnboardingViewControllerFourth.swift in Sources */,
 				C9B2CDFF2A8DE365006289A8 /* CompleteView.swift in Sources */,
 				A2400D652AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */,
@@ -1439,6 +1487,7 @@
 				A2400D662AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */,
 				A28EDA122A87808A001A021A /* UIViewController+.swift in Sources */,
 				A2FA58DE2A7F7A3E006ACA2E /* (null) in Sources */,
+				A2FDF3412AC5737B007AAF3D /* NetworkMonitor.swift in Sources */,
 				A2248E842A8818AD00EB995A /* LowerGoalTableViewCell.swift in Sources */,
 				A2B9698C2A859EAB00C4903F /* UIButton+.swift in Sources */,
 				A289D9472A91246C005B7F00 /* DayStyle.swift in Sources */,
@@ -1449,10 +1498,10 @@
 				A2EC47CD2A8A962600401B03 /* LowerGoalInfoViewController.swift in Sources */,
 				A2FC49582A979F850045FE59 /* ResetGoalViewController.swift in Sources */,
 				A25988FF2A96915F00C6BDE0 /* ServicesLowerGoal.swift in Sources */,
+				A2A3031A2AC3B090006823F3 /* NetworkFailView.swift in Sources */,
 				A289D9612A913400005B7F00 /* UpdateButtonStateDelegate.swift in Sources */,
 				A282DA532A94BB2400A0D0BF /* DetailUpperViewModel.swift in Sources */,
 				A2FFBC902A94986200039919 /* FillBoxViewModel.swift in Sources */,
-				A22774AE2A977438004AE5D7 /* AMPMStyle.swift in Sources */,
 				A2FA58D62A7F7A2A006ACA2E /* (null) in Sources */,
 				A2B20D622A7E4FAD001ED73C /* UIView+.swift in Sources */,
 				A289D9652A922950005B7F00 /* RecommendGoalViewController.swift in Sources */,
@@ -1512,12 +1561,12 @@
 				A289D95E2A9133C7005B7F00 /* PresentDelegate.swift in Sources */,
 				A282DA542A94BB2400A0D0BF /* DetailUpperViewModel.swift in Sources */,
 				A2FC49592A979F850045FE59 /* ResetGoalViewController.swift in Sources */,
-				A22774AF2A977438004AE5D7 /* AMPMStyle.swift in Sources */,
 				A2FA58E72A7F7A55006ACA2E /* (null) in Sources */,
 				A2400D672AA3891200EB79D6 /* ContentSizedTableView.swift in Sources */,
 				A2B969892A85875A00C4903F /* ParentGoalTableViewCell.swift in Sources */,
 				A2D304BF2A854E4000A5BA92 /* FillBoxViewController.swift in Sources */,
 				A289D9442A91241C005B7F00 /* UserDefaultsKeyStyle.swift in Sources */,
+				A2A3031B2AC3B090006823F3 /* NetworkFailView.swift in Sources */,
 				A2C98F042A8B6117009B5579 /* AddUpperGoalViewController.swift in Sources */,
 				A2FA592F2A7FD433006ACA2E /* NSObject+.swift in Sources */,
 				A2FA591B2A7FD2CF006ACA2E /* BaseViewController.swift in Sources */,
@@ -1542,6 +1591,7 @@
 				A2B9698D2A859EAB00C4903F /* UIButton+.swift in Sources */,
 				A2FA59162A7FCFC8006ACA2E /* Data+.swift in Sources */,
 				A2FA591F2A7FD2DD006ACA2E /* BaseCollectionViewCell.swift in Sources */,
+				A2FDF3422AC5737B007AAF3D /* NetworkMonitor.swift in Sources */,
 				A26509122A8D604100E9A2D7 /* CouchMarkViewController.swift in Sources */,
 				A2B969912A85A89300C4903F /* ParentGoalHeaderView.swift in Sources */,
 				A2B20D922A7ED14C001ED73C /* ImageLiteral.swift in Sources */,
@@ -1589,6 +1639,7 @@
 /* Begin XCBuildConfiguration section */
 		A227368D2A7CE53800D7B3B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2FDF3432AC59753007AAF3D /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1650,6 +1701,7 @@
 		};
 		A227368E2A7CE53800D7B3B2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2FDF3432AC59753007AAF3D /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1705,6 +1757,7 @@
 		};
 		A22736902A7CE53800D7B3B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2FDF3432AC59753007AAF3D /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1740,6 +1793,7 @@
 		};
 		A22736912A7CE53800D7B3B2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2FDF3432AC59753007AAF3D /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

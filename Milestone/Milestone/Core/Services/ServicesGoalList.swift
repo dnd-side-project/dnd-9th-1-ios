@@ -14,8 +14,6 @@ protocol ServicesGoalList: Service {
     func postReview(higherLevelGoalId: Int, retrospect: Retrospect) -> Observable<Result<BaseModel<Int>, APIError>>
     
     func requestRetrospect(goalId: Int) -> Observable<Result<BaseModel<Retrospect>, APIError>>
-    
-    func requestEnabledRetrospectCount() -> Observable<Result<BaseModel<RetrospectCount>, APIError>>
 
     func requestAllGoals(lastGoalId: Int, goalStatusParameter: GoalStatusParameter) -> Observable<Result<BaseModel<GoalResponse>, APIError>>
     
@@ -30,6 +28,11 @@ protocol ServicesGoalList: Service {
     func requestRestoreUpperGoal(id: Int, reqBody: Goal) -> Observable<Result<EmptyDataModel, APIError>>
     
     func requestRecommendGoal() -> Observable<Result<BaseModel<[UpperGoal]>, APIError>>
+     
+    // MARK: - Single Trait 리팩토링 함수
+    func requestEnabledRetrospectCount() -> Single<BaseModel<RetrospectCount>>
+    
+    func requestAllGoalsWithSignle(lastGoalId: Int, goalStatusParameter: GoalStatusParameter) -> Single<BaseModel<GoalResponse>>
 }
 
 extension ServicesGoalList {
@@ -45,8 +48,8 @@ extension ServicesGoalList {
         return apiSession.request(.requestRetrospect(higherLevelGoalId: goalId))
     }
     
-    func requestEnabledRetrospectCount() -> Observable<Result<BaseModel<RetrospectCount>, APIError>> {
-        return apiSession.request(.requestEnabledRetrospectCount)
+    func requestEnabledRetrospectCount() -> Single<BaseModel<RetrospectCount>> {
+        return apiSession.requestSingle(.requestEnabledRetrospectCount)
     }
     
     func requestGoalCountByStatus() -> Observable<Result<BaseModel<UpperGoalCount>, APIError>> {
@@ -75,5 +78,18 @@ extension ServicesGoalList {
     // 보관함에 있는 상위 목표 추천
     func requestRecommendGoal() -> Observable<Result<BaseModel<[UpperGoal]>, APIError>> {
         return apiSession.request(.requestRecommendGoal)
+    }
+    
+    func requestAllGoalsWithSignle(lastGoalId: Int, goalStatusParameter: GoalStatusParameter) -> Single<BaseModel<GoalResponse>> {
+        return apiSession.requestSingle(.requestAllGoals(lastGoalId: lastGoalId, goalStatus: goalStatusParameter))
+    }
+    
+    func postRetrospectSingle(higherLevelGoalId: Int, retrospect: Retrospect) -> Single<BaseModel<Int>> {
+        return apiSession.requestSingle(.postRetrospect(higherLevelGoalId: higherLevelGoalId, retrospect: retrospect))
+    }
+    
+    // MARK: - Single Trait
+    func requestRetrospectWithSingle(goalId: Int) -> Single<BaseModel<Retrospect>> {
+        return apiSession.requestSingle(.requestRetrospect(higherLevelGoalId: goalId))
     }
 }

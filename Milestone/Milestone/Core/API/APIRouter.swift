@@ -156,7 +156,7 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .requestAllGoals(let lastGoalId, let goalStatus):
             return [
-                K.Parameters.lastId: lastGoalId,
+                K.Parameters.lastId: lastGoalId ?? 0,
                 K.Parameters.goalStatus: goalStatus.rawValue
             ]
         case .deleteGoal:
@@ -167,8 +167,8 @@ enum APIRouter: URLRequestConvertible {
             return nil
         case .editGoal(_, let goal):
             return [
-                K.Parameters.goalId: goal.identity,
-                K.Parameters.title: goal.title,
+                K.Parameters.goalId: goal.identity ?? 0,
+                K.Parameters.title: goal.title ?? "",
                 K.Parameters.startDate: goal.startDate,
                 K.Parameters.endDate: goal.endDate,
                 K.Parameters.reminderEnabled: goal.reminderEnabled

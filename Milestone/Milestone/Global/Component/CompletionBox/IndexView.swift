@@ -33,7 +33,7 @@ class IndexView: UIView {
             $0.attributedText = NSAttributedString(string: $0.text, attributes: attributes)
         }
     
-    private let textCountLabel = UILabel()
+    let textCountLabel = UILabel()
         .then {
             $0.font = UIFont.pretendard(.regular, ofSize: 10)
         }

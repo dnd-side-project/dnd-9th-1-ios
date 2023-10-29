@@ -32,6 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         coordinator = AppCoordinator(window: window!)
         coordinator?.start()
         
+        // 네트워크 상태 모니터링 시작
+        NetworkMonitor.shared.startMonitoring()
+        
         return true
     }
     
@@ -61,8 +64,6 @@ class LocalNotificationHelper: NSObject, UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification) async
     -> UNNotificationPresentationOptions {
-        let userInfo = notification.request.content.userInfo
-        
         return [[.sound, .banner, .badge]]
     }
     
