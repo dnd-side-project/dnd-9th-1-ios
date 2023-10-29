@@ -9,6 +9,7 @@ import UIKit
 
 import RxCocoa
 import RxSwift
+import UserNotifications
 
 class DetailUpperViewModel: BindableViewModel, ServicesGoalList, ServicesLowerGoal {
     
@@ -201,7 +202,7 @@ extension DetailUpperViewModel {
     
     /// 하위 목표 생성
     func createLowerGoal(reqBody: NewLowerGoal) {
-        var createLowerGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
+        var createLowerGoalResponse: Observable<Result<BaseModel<Int>, APIError>> {
             requestPostLowerGoal(id: selectedUpperGoal?.goalId ?? 0, reqBody: reqBody)
         }
         
@@ -209,7 +210,16 @@ extension DetailUpperViewModel {
             .subscribe(onNext: { result in
                 switch result {
                 case .success(let response):
-                    Logger.debugDescription(response)
+                    // 형식 변경
+                    let weekdayArray = self.formatPushWeekday(alarmDays: reqBody.alarmDays)
+                    let timeArray = self.formatPushAlarmTime(alarmTime: reqBody.alarmTime)
+                    
+                    // 알림 생성
+                    if reqBody.alarmEnabled {
+                        for weekday in weekdayArray {
+                            self.createPushAlarm(title: reqBody.title, weekday: weekday, hour: timeArray[0], minute: timeArray[1], identifier: "LOWER_GOAL_\(response.data)_\(weekday)")
+                        }
+                    }
                 case .failure(let error):
                     Logger.debugDescription(error)
                 }
@@ -238,7 +248,7 @@ extension DetailUpperViewModel {
     
     /// 하위 목표 수정 API
     func modifyLowerGoal(reqBody: NewLowerGoal) {
-        var modifyLowerGoalResponse: Observable<Result<EmptyDataModel, APIError>> {
+        var modifyLowerGoalResponse: Observable<Result<BaseModel<Int>, APIError>> {
             requestEditLowerGoal(id: lowerGoalId, reqBody: reqBody)
         }
         
@@ -247,6 +257,29 @@ extension DetailUpperViewModel {
                 switch result {
                 case .success(let response):
                     Logger.debugDescription(response)
+                    
+                    // 합집합 사용해서 제거된 요일 + 추가된 요일 구하기
+                    let lowerGoal = self.thisLowerGoal.value
+                    let set1 = Set(lowerGoal.alarmDays)
+                    let set2 = Set(reqBody.alarmDays)
+                    let union = set1.union(set2)
+                    let unionWeekdayArray = self.formatPushWeekday(alarmDays: Array(union))
+                    
+                    for weekday in unionWeekdayArray {
+                        // 알림 취소
+                        self.removePushAlarm(identifiers: ["LOWER_GOAL_\(response.data)_\(weekday)"])
+                    }
+                    
+                    let weekdayArray = self.formatPushWeekday(alarmDays: reqBody.alarmDays)
+                    let timeArray = self.formatPushAlarmTime(alarmTime: reqBody.alarmTime)
+                    
+                    // 업데이트 된 정보로 알림 다시 생성
+                    if reqBody.alarmEnabled {
+                        for weekday in weekdayArray {
+                            // 알림 새로 생성
+                            self.createPushAlarm(title: reqBody.title, weekday: weekday, hour: timeArray[0], minute: timeArray[1], identifier: "LOWER_GOAL_\(response.data)_\(weekday)")
+                        }
+                    }
                 case .failure(let error):
                     Logger.debugDescription(error)
                 }
@@ -266,10 +299,62 @@ extension DetailUpperViewModel {
                     retrieveLowerGoalList()
                     completedGoalResult.accept(response.data) // 삭제하고 받은 응답값 방출
                     Logger.debugDescription(response)
+                    
+                    let lowerGoal = thisLowerGoal.value
+                    let weekdayArray = self.formatPushWeekday(alarmDays: lowerGoal.alarmDays)
+                    for weekday in weekdayArray {
+                        // 알림 삭제
+                        self.removePushAlarm(identifiers: ["LOWER_GOAL_\(lowerGoal.detailGoalId)_\(weekday)"])
+                    }
                 case .failure(let error):
                     Logger.debugDescription(error)
                 }
             }
             .disposed(by: bag)
+    }
+}
+
+extension DetailUpperViewModel {
+    private func formatPushWeekday(alarmDays: [String]) -> [Int] {
+        return alarmDays.map {
+            switch $0 {
+            case "SUNDAY":
+                1
+            case "MONDAY":
+                2
+            case "TUESDAY":
+                3
+            case "WEDNESDAY":
+                4
+            case "THURSDAY":
+                5
+            case "FRIDAY":
+                6
+            case "SATURDAY":
+                7
+            default:
+                1
+            }
+        }
+    }
+    
+    private func formatPushAlarmTime(alarmTime: String) -> [Int] {
+        let splitedAMPM = alarmTime.slice(startIdx: 0, endIdx: 2)
+        let splitedHour = Int(alarmTime.slice(startIdx: 3, endIdx: 5)) ?? 01
+        let splitedMinute = Int(alarmTime.slice(startIdx: 6, endIdx: 8)) ?? 00
+        
+        let hour = (splitedAMPM == "오후" ? splitedHour + 12 : splitedHour)
+        return [hour, splitedMinute]
+    }
+    
+    // 로컬 푸시 알림 생성
+    private func createPushAlarm(title: String, weekday: Int, hour: Int, minute: Int, identifier: String) {
+        LocalNotificationHelper.shared.pushScheduledNotification(title: "💎 마일이가 기다리고 있어요!", body: "\(title), 이루고 계신가요?", weekday: weekday, hour: hour, minute: minute, identifier: identifier)
+    }
+    
+    // 로컬 푸시 알림 제거
+    private func removePushAlarm(identifiers: [String]) {
+        LocalNotificationHelper.shared.removePendingNotification(identifiers: identifiers)
+        LocalNotificationHelper.shared.removeDeliveredNotification(identifiers: identifiers)
     }
 }

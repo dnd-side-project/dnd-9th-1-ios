@@ -104,47 +104,35 @@ extension SettingViewController: UITableViewDataSource {
                     DispatchQueue.main.async {
                         cell.toggleButton.isOn = settings.authorizationStatus == .authorized
                     }
-                    
-                    if settings.authorizationStatus == .authorized {
-                        DispatchQueue.main.async {
-                            cell.toggleButton.isOn = UserDefaults.standard.bool(forKey: UserDefaultsKeyStyle.registerNotification.rawValue)
-                        }
-                        
-                        cell.toggleButton.rx.isOn
-                            .subscribe(onNext: {
-                                if $0 {
-                                    UserDefaults.standard.set(true, forKey: UserDefaultsKeyStyle.registerNotification.rawValue)
-                                    UIApplication.shared.registerForRemoteNotifications()
-                                } else {
-                                    UserDefaults.standard.set(false, forKey: UserDefaultsKeyStyle.registerNotification.rawValue)
-                                    UIApplication.shared.unregisterForRemoteNotifications()
-                                }
-                            })
-                            .disposed(by: self.disposeBag)
-                    } else {
-                        cell.toggleButton.rx.isOn
-                            .subscribe(onNext: {
-                                if $0 {
-                                    self.modalViewController.askPopUpView.askLabel.text = "푸시알림을 켜시겠어요?"
-                                    self.modalViewController.askPopUpView.guideLabel.text = "앱 설정에서 알림 권한을 허용해주세요."
-                                    self.present(self.modalViewController, animated: true)
-                                    self.modalViewController.askPopUpView.yesButton.rx.tap
-                                        .asDriver()
-                                        .drive(onNext: {
-                                            if let bundle = Bundle.main.bundleIdentifier,
-                                                let settings = URL(string: UIApplication.openSettingsURLString + bundle) {
-                                                if UIApplication.shared.canOpenURL(settings) {
-                                                    UIApplication.shared.open(settings)
-                                                }
-                                            }
-                                        })
-                                        .disposed(by: self.buttonDisposeBag)
-                                }
-                                
-                                cell.toggleButton.isOn = false
-                            })
-                            .disposed(by: self.disposeBag)
-                    }
+                    cell.toggleButton.rx.isOn
+                        .subscribe(onNext: {
+                            if $0 {
+                                self.modalViewController.askPopUpView.askLabel.text = "푸시알림을 켜시겠어요?"
+                                self.modalViewController.askPopUpView.guideLabel.text = "앱 설정에서 알림 권한을 허용해주세요."
+                            } else {
+                                self.modalViewController.askPopUpView.askLabel.text = "푸시알림을 끄시겠어요?"
+                                self.modalViewController.askPopUpView.guideLabel.text = "앱 설정에서 알림 권한을 꺼주세요."
+                            }
+                            self.present(self.modalViewController, animated: true)
+                            self.modalViewController.askPopUpView.yesButton.rx.tap
+                                .asDriver()
+                                .drive(onNext: {
+                                    DispatchQueue.main.async {
+                                        self.modalViewController.dismiss(animated: true)
+                                    }
+                                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                    }
+                                })
+                                .disposed(by: self.buttonDisposeBag)
+                            self.modalViewController.askPopUpView.noButton.rx.tap
+                                .asDriver()
+                                .drive(onNext: {
+                                    cell.toggleButton.isOn = !cell.toggleButton.isOn
+                                })
+                                .disposed(by: self.buttonDisposeBag)
+                        })
+                        .disposed(by: self.disposeBag)
                 }
             }
             cell.containerView.makeShadow(color: .init(hex: "#DCDCDC"), alpha: 1.0, x: 0, y: 0, blur: 7, spread: 0)
