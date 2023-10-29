@@ -96,17 +96,22 @@ class LowerGoalInfoViewController: BaseViewController, ViewModelBindableType {
                 DispatchQueue.main.async {
                     // 연결 끊겼으면 토스트 애니메이션
                     if !isConnected {
-                        UIView.animate(withDuration: 0.2, delay: 0.5) {
-                            self.networkErrorToastView.alpha = 1
-                            self.networkErrorToastView.frame = CGRect(origin: CGPoint(x: self.networkErrorToastView.frame.origin.x, y: self.networkErrorToastView.frame.origin.y + 50), size: self.networkErrorToastView.frame.size)
-                        } completion: { _ in
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                UIView.animate(withDuration: 0.2) {
-                                    self.networkErrorToastView.alpha = 0
-                                    self.networkErrorToastView.frame = CGRect(origin: CGPoint(x: self.networkErrorToastView.frame.origin.x, y: self.networkErrorToastView.frame.origin.y - 50), size: self.networkErrorToastView.frame.size)
+                        if !self.isToastShowing {
+                            UIView.animate(withDuration: 0.2, delay: 0.5) {
+                                self.networkErrorToastView.alpha = 1
+                                self.networkErrorToastView.frame = CGRect(origin: CGPoint(x: self.networkErrorToastView.frame.origin.x, y: self.networkErrorToastView.frame.origin.y + 50), size: self.networkErrorToastView.frame.size)
+                            } completion: { _ in
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                    UIView.animate(withDuration: 0.2) {
+                                        self.networkErrorToastView.alpha = 0
+                                        self.networkErrorToastView.frame = CGRect(origin: CGPoint(x: self.networkErrorToastView.frame.origin.x, y: self.networkErrorToastView.frame.origin.y - 50), size: self.networkErrorToastView.frame.size)
+                                    }
                                 }
                             }
+                            self.isToastShowing = true
                         }
+                    } else {
+                        self.isToastShowing = false
                     }
                 }
             })

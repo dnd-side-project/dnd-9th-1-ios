@@ -15,6 +15,7 @@ import RxSwift
 class BaseViewController: UIViewController {
     
     var networkMonitor = NetworkMonitor.shared
+    var isToastShowing = false
     var disposeBag = DisposeBag()
     
     lazy var networkErrorToastView = ToastView()

@@ -17,7 +17,7 @@ final class NetworkMonitor {
     
     private let queue = DispatchQueue.global()
     private let monitor: NWPathMonitor
-    public private(set) var isConnected = BehaviorRelay<Bool>(value: false)
+    public private(set) var isConnected = BehaviorRelay<Bool>(value: true)
     public private(set) var connectionType: ConnectionType = .unknown
     
     /// 연결 타입
