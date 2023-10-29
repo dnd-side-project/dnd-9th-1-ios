@@ -183,6 +183,20 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
             }
         })
         .disposed(by: disposeBag)
+        
+        // MARK: - 완료함의 네트워크 상태에 따라 다른 뷰를 띄워줌
+        networkMonitor.isConnected
+            .subscribe(onNext: { [weak self] isConnected in
+                DispatchQueue.main.async {
+                    // isConnected 값이 바뀔 때마다 실행하고자 하는 함수를 호출
+                    if isConnected {
+                        self?.showCompletionBoxList()
+                    } else {
+                        self?.showNetworkFailView()
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     func pushRetrospectViewer(goalId: Int, upperGoal: UpperGoal) {
@@ -199,19 +213,6 @@ class CompletionBoxViewController: BaseViewController, ViewModelBindableType {
                     let vm = RetrospectViewerWithoutGuideViewModel(retrospect: retrospect, upperGoal: upperGoal)
                     let viewerVC = RetrospectViewerWithoutGuideViewController(viewModel: vm)
                     self.push(viewController: viewerVC)
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        networkMonitor.isConnected
-            .subscribe(onNext: { [weak self] isConnected in
-                DispatchQueue.main.async {
-                    // isConnected 값이 바뀔 때마다 실행하고자 하는 함수를 호출
-                    if isConnected {
-                        self?.showCompletionBoxList()
-                    } else {
-                        self?.showNetworkFailView()
-                    }
                 }
             })
             .disposed(by: disposeBag)
