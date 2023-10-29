@@ -38,10 +38,17 @@ class ModalViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Functions
     
     override func render() {
-        view.addSubView(askPopUpView)
+        view.addSubViews([askPopUpView, networkErrorToastView])
         
         askPopUpView.snp.makeConstraints { make in
             make.center.equalToSuperview()
+        }
+        
+        networkErrorToastView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-50)
+            make.height.equalTo(52)
+            make.leading.equalTo(view.snp.leading).offset(24)
+            make.trailing.equalTo(view.snp.trailing).offset(-24)
         }
     }
 
@@ -66,13 +73,21 @@ class ModalViewController: BaseViewController, ViewModelBindableType {
     
     @objc
     private func handleTapLogout() {
-        viewModel.handleLogout()
-        dismissViewController()
+        if networkMonitor.isConnected.value {
+            viewModel.handleLogout()
+            dismissViewController()
+        } else {
+            animateToastView(toastView: self.networkErrorToastView, yValue: 50)
+        }
     }
     
     @objc
     private func handleTapWithdraw() {
-        viewModel.handleWithdraw()
-        dismissViewController()
+        if networkMonitor.isConnected.value {
+            viewModel.handleWithdraw()
+            dismissViewController()
+        } else {
+            animateToastView(toastView: self.networkErrorToastView, yValue: 50)
+        }
     }
 }

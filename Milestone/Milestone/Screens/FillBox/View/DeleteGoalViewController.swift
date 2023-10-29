@@ -36,10 +36,16 @@ class DeleteGoalViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Functions
     
     override func render() {
-        view.addSubView(askPopUpView)
+        view.addSubViews([askPopUpView, networkErrorToastView])
         
         askPopUpView.snp.makeConstraints { make in
             make.center.equalToSuperview()
+        }
+        networkErrorToastView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-50)
+            make.height.equalTo(52)
+            make.leading.equalTo(view.snp.leading).offset(24)
+            make.trailing.equalTo(view.snp.trailing).offset(-24)
         }
     }
 
@@ -70,20 +76,26 @@ class DeleteGoalViewController: BaseViewController, ViewModelBindableType {
     
     @objc
     private func deleteGoal() {
-        askPopUpView.yesButton.updateButtonState(.press)
-        
-        // 상위 목표 삭제 API 호출
-        if fromUpperGoal {
-            viewModel.deleteUpperGoal()
-            goToFillBox()
+        // 버튼 클릭 시 연결 끊겼으면 토스트 애니메이션
+        if !networkMonitor.isConnected.value {
+            animateToastView(toastView: self.networkErrorToastView, yValue: 50)
         } else {
-            viewModel.deleteLowerGoal()
+            askPopUpView.yesButton.updateButtonState(.press)
             
-            if viewModel.lowerGoalList.value.count == 1 { // 여기선 삭제되기 전의 값이라서 1개일 때가 다 지워진 것
+            // 상위 목표 삭제 API 호출
+            if fromUpperGoal {
+                viewModel.deleteUpperGoal()
                 goToFillBox()
-            } else { // 하위 목표가 다 지워진 게 아닌 경우에는 pop 안 함
-                self.dismiss(animated: true) {
-                    self.delegate?.updateLowerGoalList()
+            } else {
+                // 하위 목표 삭제 API 호출
+                viewModel.deleteLowerGoal()
+                
+                if viewModel.lowerGoalList.value.count == 1 { // 여기선 삭제되기 전의 값이라서 1개일 때가 다 지워진 것
+                    goToFillBox()
+                } else { // 하위 목표가 다 지워진 게 아닌 경우에는 pop 안 함
+                    self.dismiss(animated: true) {
+                        self.delegate?.updateLowerGoalList()
+                    }
                 }
             }
         }

@@ -110,7 +110,7 @@ class RetrospectDetailViewController: BaseViewController {
     }
     
     override func render() {
-        view.addSubViews([titleBox, scrollView])
+        view.addSubViews([titleBox, scrollView, networkErrorToastView])
         titleBox.addSubViews([titleLabel, calendarImageView, dateLabel])
         
         scrollView.subviews.first!.addSubViews([segmentedControl, pageViewController.view])
@@ -157,6 +157,13 @@ class RetrospectDetailViewController: BaseViewController {
             make.left.right.bottom.equalTo(scrollView)
             make.top.equalTo(segmentedControl.snp.bottom).offset(16)
         }
+        
+        networkErrorToastView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-50)
+            make.height.equalTo(52)
+            make.leading.equalTo(view.snp.leading).offset(24)
+            make.trailing.equalTo(view.snp.trailing).offset(-24)
+        }
     }
     
     override func configUI() {
@@ -196,6 +203,16 @@ class RetrospectDetailViewController: BaseViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
+        // FIXME: 이거 네트워크 연결 한번 끊기고 나면(= 에러 토스트뷰 나온 이후로는) 네트워크에 재연결 되어도 회고 등록이 안 되는 듯함
+        reviewVCWithGuide.registerButton.rx.tap
+            .subscribe(onNext: { [self] _ in
+                // 버튼 클릭 시 연결 끊겼으면 토스트 애니메이션
+                if !networkMonitor.isConnected.value {
+                    animateToastView(toastView: self.networkErrorToastView, yValue: 50)
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     func bindViewModel() {
@@ -213,6 +230,7 @@ class RetrospectDetailViewController: BaseViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
         // MARK: - 리팩토링
         let input = RetrospectDetailViewModel.Input(likedTextViewChanged: reviewVCWithGuide.firstQuestionView.textView.rx.text.asObservable(), lackedTextViewChanged: reviewVCWithGuide.secondQuestionView.textView.rx.text.asObservable(), learnedTextViewChanged: reviewVCWithGuide.thirdQuestionView.textView.rx.text.asObservable(), longedForTextViewChanged: reviewVCWithGuide.fourthQuestionView.textView.rx.text.asObservable(), freeTextViewChanged: reviewVCWithoutGuide.textView.rx.text.asObservable(), pointSelectedWithGuide: reviewVCWithGuide.pointSelectTrigger.asObservable(), pointSelectedWithoutGuide: reviewVCWithoutGuide.pointSelectTrigger.asObservable(),saveButtonTriggerWithGuide: reviewVCWithGuide.registerButton.rx.tap.asObservable(), saveButtonTriggerWithoutGuide: reviewVCWithoutGuide.registerButton.rx.tap.asObservable())
         

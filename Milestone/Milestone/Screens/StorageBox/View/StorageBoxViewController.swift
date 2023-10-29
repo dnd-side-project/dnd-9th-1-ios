@@ -57,7 +57,6 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Properties
     
-    var networkMonitor = NetworkMonitor.shared
     var viewModel: StorageBoxViewModel! = StorageBoxViewModel()
     
     // MARK: - Life Cycle

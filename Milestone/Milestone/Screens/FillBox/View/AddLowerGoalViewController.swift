@@ -61,7 +61,7 @@ class AddLowerGoalViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Functions
     
     override func render() {
-        view.addSubViews([backButton, topicLabel, enterGoalTitleView, enterGoalAlarmView, completeButton])
+        view.addSubViews([backButton, topicLabel, enterGoalTitleView, enterGoalAlarmView, completeButton, networkErrorToastView])
         
         view.snp.makeConstraints { make in
             make.width.equalTo(UIScreen.main.bounds.width)
@@ -88,6 +88,12 @@ class AddLowerGoalViewController: BaseViewController, ViewModelBindableType {
             make.left.right.equalToSuperview().inset(24)
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
             make.height.equalTo(54)
+        }
+        networkErrorToastView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-50)
+            make.height.equalTo(52)
+            make.leading.equalTo(view.snp.leading).offset(24)
+            make.trailing.equalTo(view.snp.trailing).offset(-24)
         }
     }
 
@@ -149,21 +155,27 @@ class AddLowerGoalViewController: BaseViewController, ViewModelBindableType {
     
     @objc
     private func completeAction() {
-        updateButtonState(.press)
-        Logger.debugDescription(self.enterGoalTitleView.titleTextField.text!)
-        // req body 생성
-        let lowerGoalInfo = NewLowerGoal(title: self.enterGoalTitleView.titleTextField.text!, alarmEnabled: self.enterGoalAlarmView.onOffSwitch.isOn, alarmTime: "\(self.enterGoalAlarmView.selectedAmOrPm) \(self.enterGoalAlarmView.selectedHour):\(self.enterGoalAlarmView.selectedMin)", alarmDays: self.enterGoalAlarmView.getSelectedDay())
-        /// 모드에 맞게 다른 API를 호출한다
-        if isModifyMode {
-            viewModel.modifyLowerGoal(reqBody: lowerGoalInfo)
+        // 버튼 클릭 시 연결 끊겼으면 토스트 애니메이션
+        if !networkMonitor.isConnected.value {
+            animateToastView(toastView: self.networkErrorToastView, yValue: 50)
         } else {
-            viewModel.createLowerGoal(reqBody: lowerGoalInfo)
-        }
-        
-        // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.dismiss(animated: true) {
-                self.delegate?.updateLowerGoalList()
+            updateButtonState(.press)
+            
+            // req body 생성
+            let lowerGoalInfo = NewLowerGoal(title: self.enterGoalTitleView.titleTextField.text!, alarmEnabled: self.enterGoalAlarmView.onOffSwitch.isOn, alarmTime: "\(self.enterGoalAlarmView.selectedAmOrPm) \(self.enterGoalAlarmView.selectedHour):\(self.enterGoalAlarmView.selectedMin)", alarmDays: self.enterGoalAlarmView.getSelectedDay())
+            
+            /// 모드에 맞게 다른 API를 호출한다
+            if isModifyMode {
+                viewModel.modifyLowerGoal(reqBody: lowerGoalInfo)
+            } else {
+                viewModel.createLowerGoal(reqBody: lowerGoalInfo)
+            }
+            
+            // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.dismiss(animated: true) {
+                    self.delegate?.updateLowerGoalList()
+                }
             }
         }
     }

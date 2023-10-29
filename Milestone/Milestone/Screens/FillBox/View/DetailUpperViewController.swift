@@ -126,7 +126,7 @@ class DetailUpperViewController: BaseViewController, ViewModelBindableType {
     override func render() {
         view.addSubView(scrollView)
         scrollView.addSubView(contentView)
-        contentView.addSubViews([goalTitleLabel, dDayLabel, termLabel, lowerGoalCollectionView, lowerGoalTableView])
+        contentView.addSubViews([goalTitleLabel, dDayLabel, termLabel, lowerGoalCollectionView, lowerGoalTableView, networkErrorToastView])
         
         scrollView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
@@ -159,6 +159,12 @@ class DetailUpperViewController: BaseViewController, ViewModelBindableType {
             make.top.equalTo(lowerGoalCollectionView.snp.bottom).offset(36)
             make.left.right.equalToSuperview().inset(20)
             make.height.equalTo(9 * (56 + 8)) // 최대 높이
+        }
+        networkErrorToastView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-50)
+            make.height.equalTo(52)
+            make.leading.equalTo(view.snp.leading).offset(24)
+            make.trailing.equalTo(view.snp.trailing).offset(-24)
         }
     }
     
@@ -344,12 +350,18 @@ extension DetailUpperViewController: UITableViewDelegate {
         let selectedGoal = sortedGoalData[row]
         
         viewModel.lowerGoalId = selectedGoal.detailGoalId
-        if cell.containerView.backgroundColor == .white {
-            // 하위 목표 달성
-            viewModel.completeLowerGoal()
+        
+        // 버튼 클릭 시 연결 끊겼으면 토스트 애니메이션
+        if !networkMonitor.isConnected.value {
+            animateToastView(toastView: self.networkErrorToastView, yValue: 0)
         } else {
-            // 하위 목표 달성 취소
-            viewModel.incompleteLowerGoal()
+            if cell.containerView.backgroundColor == .white {
+                // 하위 목표 달성
+                viewModel.completeLowerGoal()
+            } else {
+                // 하위 목표 달성 취소
+                viewModel.incompleteLowerGoal()
+            }
         }
     }
 }

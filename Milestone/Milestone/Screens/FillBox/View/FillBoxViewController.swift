@@ -66,7 +66,6 @@ class FillBoxViewController: BaseViewController, ViewModelBindableType {
     
     // MARK: - Properties
     
-    var networkMonitor = NetworkMonitor.shared
     var viewModel: FillBoxViewModel! = FillBoxViewModel()
     var bubbleKey = UserDefaultsKeyStyle.bubbleInFillBox.rawValue
     

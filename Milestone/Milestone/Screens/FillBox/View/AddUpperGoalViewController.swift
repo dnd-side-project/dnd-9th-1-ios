@@ -61,7 +61,7 @@ class AddUpperGoalViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Functions
     
     override func render() {
-        view.addSubViews([backButton, topicLabel, enterGoalTitleView, enterGoalDateView, reminderAlarmView, completeButton])
+        view.addSubViews([backButton, topicLabel, enterGoalTitleView, enterGoalDateView, reminderAlarmView, completeButton, networkErrorToastView])
         
         view.snp.makeConstraints { make in
             make.width.equalTo(UIScreen.main.bounds.width)
@@ -93,6 +93,12 @@ class AddUpperGoalViewController: BaseViewController, ViewModelBindableType {
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
             make.height.equalTo(54)
         }
+        networkErrorToastView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(-50)
+            make.height.equalTo(52)
+            make.leading.equalTo(view.snp.leading).offset(24)
+            make.trailing.equalTo(view.snp.trailing).offset(-24)
+        }
     }
 
     override func configUI() {
@@ -121,36 +127,46 @@ class AddUpperGoalViewController: BaseViewController, ViewModelBindableType {
     
     @objc
     private func completeAddUpperGoal() {
-        // 상위 목표 생성 API 호출
-        let reqBody = CreateUpperGoal(title: self.enterGoalTitleView.titleTextField.text ?? " ", startDate: self.enterGoalDateView.startDateButton.titleLabel?.text ?? "", endDate: self.enterGoalDateView.endDateButton.titleLabel?.text ?? "", reminderEnabled: self.reminderAlarmView.onOffSwitch.isOn)
-        viewModel.createUpperGoal(reqBody: reqBody)
-        
-        updateButtonState(.press)
-        // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.dismiss(animated: true) {
-                // 목표 추가 모달 dismiss 하면서 상위 목표 목록 업데이트
-                self.delegate?.updateUpperGoalList()
+        // 버튼 클릭 시 연결 끊겼으면 토스트 애니메이션
+        if !networkMonitor.isConnected.value {
+            animateToastView(toastView: self.networkErrorToastView, yValue: 50)
+        } else {
+            // 상위 목표 생성 API 호출
+            let reqBody = CreateUpperGoal(title: self.enterGoalTitleView.titleTextField.text ?? " ", startDate: self.enterGoalDateView.startDateButton.titleLabel?.text ?? "", endDate: self.enterGoalDateView.endDateButton.titleLabel?.text ?? "", reminderEnabled: self.reminderAlarmView.onOffSwitch.isOn)
+            viewModel.createUpperGoal(reqBody: reqBody)
+            
+            updateButtonState(.press)
+            // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.dismiss(animated: true) {
+                    // 목표 추가 모달 dismiss 하면서 상위 목표 목록 업데이트
+                    self.delegate?.updateUpperGoalList()
+                }
             }
         }
     }
     
     @objc
     private func completeModifyUpperGoal() {
-        let title = self.enterGoalTitleView.titleTextField.text ?? ""
-        let startDate = self.enterGoalDateView.startDateButton.titleLabel?.text ?? ""
-        let endDate = self.enterGoalDateView.endDateButton.titleLabel?.text ?? ""
-        let reminderEnabled = self.reminderAlarmView.onOffSwitch.isOn
-        // 상위 목표 수정 API 호출
-        let reqBody = Goal(identity: viewModel.upperGoalId, title: title, startDate: startDate, endDate: endDate, reminderEnabled: reminderEnabled)
-        viewModel.modifyUpperGoal(reqBody: reqBody)
-        
-        updateButtonState(.press)
-        // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.dismiss(animated: true) {
-                // 목표 추가 모달 dismiss 하면서 상위 목표 목록 업데이트
-//                self.delegate?.updateParentGoalList()
+        // 버튼 클릭 시 연결 끊겼으면 토스트 애니메이션
+        if !networkMonitor.isConnected.value {
+            animateToastView(toastView: self.networkErrorToastView, yValue: 50)
+        } else {
+            let title = self.enterGoalTitleView.titleTextField.text ?? ""
+            let startDate = self.enterGoalDateView.startDateButton.titleLabel?.text ?? ""
+            let endDate = self.enterGoalDateView.endDateButton.titleLabel?.text ?? ""
+            let reminderEnabled = self.reminderAlarmView.onOffSwitch.isOn
+            // 상위 목표 수정 API 호출
+            let reqBody = Goal(identity: viewModel.upperGoalId, title: title, startDate: startDate, endDate: endDate, reminderEnabled: reminderEnabled)
+            viewModel.modifyUpperGoal(reqBody: reqBody)
+            
+            updateButtonState(.press)
+            // 버튼 업데이트 보여주기 위해 0.1초만 딜레이 후 dismiss
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.dismiss(animated: true) {
+                    // 목표 추가 모달 dismiss 하면서 상위 목표 목록 업데이트
+                    //                self.delegate?.updateParentGoalList()
+                }
             }
         }
     }
