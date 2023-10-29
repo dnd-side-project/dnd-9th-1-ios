@@ -22,8 +22,8 @@ class FillBoxViewModel: BindableViewModel {
     var progressGoalCount = BehaviorRelay<String>(value: "0")
     var completedGoalCount = BehaviorRelay<String>(value: "0")
     var storedGoalCount = BehaviorRelay<String>(value: "0")
-    var progressGoals = BehaviorRelay<[ParentGoal]>(value: [])
-    var recommendedGoals = BehaviorRelay<[ParentGoal]>(value: [])
+    var progressGoals = BehaviorRelay<[UpperGoal]>(value: [])
+    var recommendedGoals = BehaviorRelay<[UpperGoal]>(value: [])
     
     var isLastPage: Bool = false
     var lastGoalId: Int = -1
@@ -38,7 +38,7 @@ class FillBoxViewModel: BindableViewModel {
 extension FillBoxViewModel: ServicesGoalList {
     /// 상위 목표 상태별 개수 조회
     func retrieveGoalCountByStatus() {
-        var goalCountByStatusResponse: Observable<Result<BaseModel<ParentGoalCount>, APIError>> {
+        var goalCountByStatusResponse: Observable<Result<BaseModel<UpperGoalCount>, APIError>> {
             requestGoalCountByStatus()
         }
         goalCountByStatusResponse
@@ -49,7 +49,7 @@ extension FillBoxViewModel: ServicesGoalList {
                     completedGoalCount.accept(String(response.data.counts.COMPLETE))
                     storedGoalCount.accept(String(response.data.counts.STORE))
                     
-                    self.retrieveParentGoalList()
+                    self.retrieveUpperGoalList()
                 case .failure(let error):
                     Logger.debugDescription(error)
                 }
@@ -58,17 +58,17 @@ extension FillBoxViewModel: ServicesGoalList {
     }
     
     /// 상위 목표 리스트 조회
-    func retrieveParentGoalList() {
-        var parentGoalListResponse: Observable<Result<BaseModel<GoalResponse>, APIError>> {
+    func retrieveUpperGoalList() {
+        var upperGoalListResponse: Observable<Result<BaseModel<GoalResponse>, APIError>> {
             requestAllGoals(lastGoalId: lastGoalId, goalStatusParameter: .process)
         }
         isLoading = true
         
-        parentGoalListResponse
+        upperGoalListResponse
             .subscribe(onNext: { [unowned self] result in
                 switch result {
                 case .success(let response):
-                    var newData: [ParentGoal] = progressGoals.value
+                    var newData: [UpperGoal] = progressGoals.value
                     newData.append(contentsOf: response.data.contents)
                     progressGoals.accept(newData)
                     isSet.accept(true)
@@ -93,7 +93,7 @@ extension FillBoxViewModel: ServicesGoalList {
     
     /// 보관함에 있는 상위 목표 랜덤 3개 조회
     func retrieveRecommendGoal() {
-        var recommendGoalResponse: Observable<Result<BaseModel<[ParentGoal]>, APIError>> {
+        var recommendGoalResponse: Observable<Result<BaseModel<[UpperGoal]>, APIError>> {
             requestRecommendGoal()
         }
         

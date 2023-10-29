@@ -11,11 +11,8 @@ class PrivacyInformationViewController: BaseViewController {
 
     // MARK: - Subviews
     
-    lazy var leftBarButton = UIBarButtonItem()
+    lazy var leftBarButton = DefaultLeftBarButton()
         .then {
-            $0.image = UIImage(systemName: "chevron.left")
-            $0.style = .plain
-            $0.tintColor = .gray05
             $0.target = self
             $0.action = #selector(pop)
         }
@@ -34,6 +31,13 @@ class PrivacyInformationViewController: BaseViewController {
                 $0.trailing.equalTo(sv.frameLayoutGuide.snp.trailing)
                 $0.height.equalTo(sv.frameLayoutGuide.snp.height).priority(.low)
             }
+        }
+    
+    lazy var titleLabel = UILabel()
+        .then {
+            $0.text = "개인정보 처리 방침"
+            $0.font = .pretendard(.semibold, ofSize: 24)
+            $0.textColor = .black
         }
     
     let firstContent = InformationBox()
@@ -98,17 +102,48 @@ class PrivacyInformationViewController: BaseViewController {
             $0.titleLabel.text = "8. 기타"
         }
     
+    let navAppearance = UINavigationBarAppearance()
+        .then {
+            $0.configureWithOpaqueBackground()
+            $0.shadowColor = .clear
+            $0.shadowImage = UIImage()
+        }
+    
+    // MARK: - Life Cycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navAppearance.backgroundColor = .gray01
+        self.navigationController?.navigationBar.standardAppearance = navAppearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = navAppearance
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navAppearance.backgroundColor = nil
+        self.navigationController?.navigationBar.standardAppearance = navAppearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = navAppearance
+    }
+    
     // MARK: - Functions
+    
     override func render() {
         view.addSubview(scrollView)
-        scrollView.subviews.first!.addSubViews([firstContent, secondContent, secondOneContent, secondTwoContent, thirdContent, fourthContent, fifthContent, sixthContent, seventhContent, eighthContent])
+        scrollView.subviews.first!.addSubViews([titleLabel, firstContent, secondContent, secondOneContent, secondTwoContent, thirdContent, fourthContent, fifthContent, sixthContent, seventhContent, eighthContent])
         
         scrollView.snp.makeConstraints { make in
             make.edges.equalTo(view)
         }
         
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(30)
+            make.left.equalToSuperview().inset(24)
+        }
+        
         firstContent.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(32)
+            make.top.equalTo(titleLabel.snp.bottom).offset(32)
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
         }
@@ -172,8 +207,6 @@ class PrivacyInformationViewController: BaseViewController {
     
     override func configUI() {
         self.navigationItem.leftBarButtonItem = leftBarButton
-        view.backgroundColor = .white
-        self.title = "개인정보 처리 방침"
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        view.backgroundColor = .gray01
     }
 }

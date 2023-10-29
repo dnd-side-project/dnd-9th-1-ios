@@ -43,7 +43,7 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
             $0.backgroundColor = .gray01
             $0.separatorStyle = .none
             $0.showsVerticalScrollIndicator = false
-            $0.register(cell: ParentGoalTableViewCell.self, forCellReuseIdentifier: ParentGoalTableViewCell.identifier)
+            $0.register(cell: UpperGoalTableViewCell.self, forCellReuseIdentifier: UpperGoalTableViewCell.identifier)
             $0.delegate = self
         }
     let headerContainerView = UIView()
@@ -52,6 +52,8 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
             $0.backgroundColor = .white
             $0.layer.cornerRadius = 20
         }
+    
+    lazy var networkFailView = NetworkFailView()
     
     // MARK: - Properties
     
@@ -104,7 +106,7 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
     
     func bindViewModel() {
         viewModel.storedGoals
-            .bind(to: storageGoalTableView.rx.items(cellIdentifier: ParentGoalTableViewCell.identifier, cellType: ParentGoalTableViewCell.self)) { _, goal, cell in
+            .bind(to: storageGoalTableView.rx.items(cellIdentifier: UpperGoalTableViewCell.identifier, cellType: UpperGoalTableViewCell.self)) { _, goal, cell in
                 cell.titleLabel.text = goal.title
                 cell.termLabel.text = "\(goal.startDate) - \(goal.endDate)"
                 cell.goalAchievementRateView.completedCount = CGFloat(goal.completedDetailGoalCnt)
@@ -122,6 +124,35 @@ class StorageBoxViewController: BaseViewController, ViewModelBindableType {
                 }
             }
             .disposed(by: disposeBag)
+        
+        networkMonitor.isConnected
+            .subscribe(onNext: { [weak self] isConnected in
+                DispatchQueue.main.async {
+                    // isConnected 값이 바뀔 때마다 실행하고자 하는 함수를 호출
+                    if isConnected {
+                        self?.showStorageBoxList()
+                    } else {
+                        self?.showNetworkFailView()
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    /// 네트워크 연결 실패 뷰 띄우기
+    private func showNetworkFailView() {
+        [emptyStorageImageView, firstEmptyGuideLabel, secondEmptyGuideLabel, storageGoalTableView]
+            .forEach { $0.removeFromSuperview() }
+        view.addSubview(networkFailView)
+        networkFailView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(84)
+        }
+    }
+    
+    /// 네트워크 연결 성공이면 보관함 원래 뷰들 띄우기
+    private func showStorageBoxList() {
+        networkFailView.removeFromSuperview()
+        render()
     }
     
     /// goals의 개수에 따라 보관함의 뷰의 isHidden 상태와 label에 적히는 목표 개수를 업데이트 한다
@@ -170,12 +201,12 @@ extension StorageBoxViewController: UITableViewDelegate {
 //        goals.accept(goalsValue) // 변경된 배열로 업데이트
 //        tableView.reloadData() // 테이블뷰 UI 업데이트
         let selectedGoalData = self.viewModel.storedGoals.value[indexPath.row]
-        let detailParentVM = DetailParentViewModel()
-        detailParentVM.selectedParentGoal = selectedGoalData
-        let detailParentVC = DetailParentViewController()
-        detailParentVC.isFromStorage = true
-        detailParentVC.viewModel = detailParentVM
-        push(viewController: detailParentVC)
+        let detailUpperVM = DetailUpperViewModel()
+        detailUpperVM.selectedUpperGoal = selectedGoalData
+        let detailUpperVC = DetailUpperViewController()
+        detailUpperVC.isFromStorage = true
+        detailUpperVC.viewModel = detailUpperVM
+        push(viewController: detailUpperVC)
     }
 }
 

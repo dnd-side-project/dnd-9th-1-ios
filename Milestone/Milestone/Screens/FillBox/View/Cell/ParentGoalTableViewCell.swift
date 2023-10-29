@@ -1,5 +1,5 @@
 //
-//  ParentGoalTableViewCell.swift
+//  UpperGoalTableViewCell.swift
 //  Milestone
 //
 //  Created by 서은수 on 2023/08/11.
@@ -12,9 +12,9 @@ import Then
 
 // MARK: - 상위 목표 테이블뷰 셀
 
-class ParentGoalTableViewCell: BaseTableViewCell {
+class UpperGoalTableViewCell: BaseTableViewCell {
     
-    static let identifier = "ParentGoalCell"
+    static let identifier = "UpperGoalCell"
     
     // MARK: - Subviews
     

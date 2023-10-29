@@ -12,6 +12,7 @@ disabled_rules:
 - nesting
 - cyclomatic_complexity
 - mark
+- large_tuple
 
 opt_in_rules:
 - empty_count

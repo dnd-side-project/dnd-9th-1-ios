@@ -14,22 +14,25 @@ protocol ServicesGoalList: Service {
     func postReview(higherLevelGoalId: Int, retrospect: Retrospect) -> Observable<Result<BaseModel<Int>, APIError>>
     
     func requestRetrospect(goalId: Int) -> Observable<Result<BaseModel<Retrospect>, APIError>>
-    
-    func requestEnabledRetrospectCount() -> Observable<Result<BaseModel<RetrospectCount>, APIError>>
 
     func requestAllGoals(lastGoalId: Int, goalStatusParameter: GoalStatusParameter) -> Observable<Result<BaseModel<GoalResponse>, APIError>>
     
-    func requestGoalCountByStatus() -> Observable<Result<BaseModel<ParentGoalCount>, APIError>>
+    func requestGoalCountByStatus() -> Observable<Result<BaseModel<UpperGoalCount>, APIError>>
     
-    func requestPostParentGoal(reqBody: CreateParentGoal) -> Observable<Result<EmptyDataModel, APIError>>
+    func requestPostUpperGoal(reqBody: CreateUpperGoal) -> Observable<Result<EmptyDataModel, APIError>>
 
-    func requestModifyParentGoal(id: Int, reqBody: Goal) -> Observable<Result<BaseModel<ParentGoalInfo>, APIError>>
+    func requestModifyUpperGoal(id: Int, reqBody: Goal) -> Observable<Result<BaseModel<UpperGoalInfo>, APIError>>
     
-    func requestDeleteParentGoal(id: Int) -> Observable<Result<EmptyDataModel, APIError>>
+    func requestDeleteUpperGoal(id: Int) -> Observable<Result<EmptyDataModel, APIError>>
     
-    func requestRestoreParentGoal(id: Int, reqBody: Goal) -> Observable<Result<EmptyDataModel, APIError>>
+    func requestRestoreUpperGoal(id: Int, reqBody: Goal) -> Observable<Result<EmptyDataModel, APIError>>
     
-    func requestRecommendGoal() -> Observable<Result<BaseModel<[ParentGoal]>, APIError>>
+    func requestRecommendGoal() -> Observable<Result<BaseModel<[UpperGoal]>, APIError>>
+     
+    // MARK: - Single Trait 리팩토링 함수
+    func requestEnabledRetrospectCount() -> Single<BaseModel<RetrospectCount>>
+    
+    func requestAllGoalsWithSignle(lastGoalId: Int, goalStatusParameter: GoalStatusParameter) -> Single<BaseModel<GoalResponse>>
 }
 
 extension ServicesGoalList {
@@ -45,35 +48,48 @@ extension ServicesGoalList {
         return apiSession.request(.requestRetrospect(higherLevelGoalId: goalId))
     }
     
-    func requestEnabledRetrospectCount() -> Observable<Result<BaseModel<RetrospectCount>, APIError>> {
-        return apiSession.request(.requestEnabledRetrospectCount)
+    func requestEnabledRetrospectCount() -> Single<BaseModel<RetrospectCount>> {
+        return apiSession.requestSingle(.requestEnabledRetrospectCount)
     }
     
-    func requestGoalCountByStatus() -> Observable<Result<BaseModel<ParentGoalCount>, APIError>> {
+    func requestGoalCountByStatus() -> Observable<Result<BaseModel<UpperGoalCount>, APIError>> {
         return apiSession.request(.requestGoalCountByStatus)
     }
     
-    func requestPostParentGoal(reqBody: CreateParentGoal) -> Observable<Result<EmptyDataModel, APIError>> {
+    func requestPostUpperGoal(reqBody: CreateUpperGoal) -> Observable<Result<EmptyDataModel, APIError>> {
         return apiSession.request(.postGoal(goal: reqBody))
     }
     
     // 상위 목표 수정
-    func requestModifyParentGoal(id: Int, reqBody: Goal) -> Observable<Result<BaseModel<ParentGoalInfo>, APIError>> {
+    func requestModifyUpperGoal(id: Int, reqBody: Goal) -> Observable<Result<BaseModel<UpperGoalInfo>, APIError>> {
         return apiSession.request(.editGoal(id: id, goal: reqBody))
     }
     
     // 상위 목표 삭제
-    func requestDeleteParentGoal(id: Int) -> Observable<Result<EmptyDataModel, APIError>> {
+    func requestDeleteUpperGoal(id: Int) -> Observable<Result<EmptyDataModel, APIError>> {
         return apiSession.request(.deleteGoal(id: id))
     }
     
     // 상위 목표 복구
-    func requestRestoreParentGoal(id: Int, reqBody: Goal) -> Observable<Result<EmptyDataModel, APIError>> {
+    func requestRestoreUpperGoal(id: Int, reqBody: Goal) -> Observable<Result<EmptyDataModel, APIError>> {
         return apiSession.request(.recoverGoal(id: id, goal: reqBody))
     }
     
     // 보관함에 있는 상위 목표 추천
-    func requestRecommendGoal() -> Observable<Result<BaseModel<[ParentGoal]>, APIError>> {
+    func requestRecommendGoal() -> Observable<Result<BaseModel<[UpperGoal]>, APIError>> {
         return apiSession.request(.requestRecommendGoal)
+    }
+    
+    func requestAllGoalsWithSignle(lastGoalId: Int, goalStatusParameter: GoalStatusParameter) -> Single<BaseModel<GoalResponse>> {
+        return apiSession.requestSingle(.requestAllGoals(lastGoalId: lastGoalId, goalStatus: goalStatusParameter))
+    }
+    
+    func postRetrospectSingle(higherLevelGoalId: Int, retrospect: Retrospect) -> Single<BaseModel<Int>> {
+        return apiSession.requestSingle(.postRetrospect(higherLevelGoalId: higherLevelGoalId, retrospect: retrospect))
+    }
+    
+    // MARK: - Single Trait
+    func requestRetrospectWithSingle(goalId: Int) -> Single<BaseModel<Retrospect>> {
+        return apiSession.requestSingle(.requestRetrospect(higherLevelGoalId: goalId))
     }
 }

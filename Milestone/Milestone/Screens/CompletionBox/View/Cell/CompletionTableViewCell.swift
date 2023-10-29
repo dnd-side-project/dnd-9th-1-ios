@@ -54,6 +54,29 @@ class CompletionTableViewCell: BaseTableViewCell {
     var hasRetrospect = false
     
     // MARK: Functions
+    func bind(to viewModel: CompletionTableViewCellViewModel) {
+        viewModel.title.asDriver().drive(label.rx.text).disposed(by: disposeBag)
+        
+        Observable.combineLatest(viewModel.startDate, viewModel.endDate)
+            .map { $0.0 + " - " + $0.1 }
+            .asDriver(onErrorJustReturn: "")
+            .drive(dateLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.hasRetrospect.subscribe(onNext: { [unowned self] in
+            self.button.buttonComponentStyle = $0 ? .secondary_m_line : .secondary_m
+            self.button.buttonState = .original
+            self.button.setTitle( $0 ? "회고 보기" : "회고 작성하기", for: .normal)
+        }).disposed(by: disposeBag)
+        
+        viewModel.reward.map {
+            UIImage(named: $0)
+        }
+        .asDriver(onErrorJustReturn: UIImage())
+        .drive(completionImageView.rx.image)
+        .disposed(by: disposeBag)
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         disposeBag = DisposeBag()

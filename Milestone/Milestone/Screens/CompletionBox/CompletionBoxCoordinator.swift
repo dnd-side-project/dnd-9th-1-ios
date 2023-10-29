@@ -20,10 +20,7 @@ class CompletionBoxCoordinator: Coordinator, CompletionBoxFlow {
     }
     
     func start() {
-        let reviewVC = CompletionReviewViewController()
-        reviewVC.viewModel = CompletionViewModel()
-        navigationController.navigationBar.isHidden = true
-        navigationController.pushViewController(reviewVC, animated: true)
+        
     }
     
     func coordinateToNext() {

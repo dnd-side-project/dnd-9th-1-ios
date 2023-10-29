@@ -19,7 +19,7 @@ enum APIRouter: URLRequestConvertible {
     case requestGoalCountByStatus
     case editGoal(id: Int, goal: Goal)
     case recoverGoal(id: Int, goal: Goal)
-    case postGoal(goal: CreateParentGoal)
+    case postGoal(goal: CreateUpperGoal)
     case requestRecommendGoal
     
     /// 유저 관련 API 리스트
@@ -33,13 +33,13 @@ enum APIRouter: URLRequestConvertible {
     case postRetrospect(higherLevelGoalId: Int, retrospect: Retrospect)
     
     /// 하위목표 관련 API 리스트
-    case deleteDetailGoal(lowerLevelGoalId: Int)
-    case requestAllDetailGoal(higherLevelGoalId: Int)
-    case requestDetailGoalInformation(lowerLevelGoalId: Int)
-    case editDetailGoal(lowerLevelGoalId: Int, detailGoal: NewDetailGoal)
-    case incompleteDetailGoal(lowerLevelGoalId: Int) // 하위목표 완료 취소
-    case completeDetailGoal(lowerLevelGoalId: Int) // 하위목표 완료
-    case postDetailGoal(higherLevelGoalId: Int, detailGoal: NewDetailGoal)
+    case deleteLowerGoal(lowerGoalId: Int)
+    case requestAllLowerGoal(upperGoalId: Int)
+    case requestLowerGoalInformation(lowerGoalId: Int)
+    case editLowerGoal(lowerGoalId: Int, lowerGoal: NewLowerGoal)
+    case incompleteLowerGoal(lowerGoalId: Int) // 하위목표 완료 취소
+    case completeLowerGoal(lowerGoalId: Int) // 하위목표 완료
+    case postLowerGoal(upperGoalId: Int, lowerGoal: NewLowerGoal)
     
     /// 임시
     case authTest
@@ -75,19 +75,19 @@ enum APIRouter: URLRequestConvertible {
             return .get
         case .postRetrospect:
             return .post
-        case .deleteDetailGoal:
+        case .deleteLowerGoal:
             return .delete
-        case .requestAllDetailGoal:
+        case .requestAllLowerGoal:
             return .get
-        case .requestDetailGoalInformation:
+        case .requestLowerGoalInformation:
             return .get
-        case .editDetailGoal:
+        case .editLowerGoal:
             return .patch
-        case .incompleteDetailGoal:
+        case .incompleteLowerGoal:
             return .patch
-        case .completeDetailGoal:
+        case .completeLowerGoal:
             return .patch
-        case .postDetailGoal:
+        case .postLowerGoal:
             return .post
         case .authTest:
             return .get
@@ -127,19 +127,19 @@ enum APIRouter: URLRequestConvertible {
             return "/goals/\(id)/retrospects"
         case .postRetrospect(let id, _):
             return "/goals/\(id)/retrospects"
-        case .deleteDetailGoal(let id):
+        case .deleteLowerGoal(let id):
             return "/detail-goals/\(id)"
-        case .requestAllDetailGoal(let id):
+        case .requestAllLowerGoal(let id):
             return "/goals/\(id)/detail-goals"
-        case .requestDetailGoalInformation(let id):
+        case .requestLowerGoalInformation(let id):
             return "/detail-goals/\(id)"
-        case .editDetailGoal(let id, _):
+        case .editLowerGoal(let id, _):
             return "/detail-goals/\(id)"
-        case .incompleteDetailGoal(let id):
+        case .incompleteLowerGoal(let id):
             return "/detail-goals/\(id)/incomplete"
-        case .completeDetailGoal(let id):
+        case .completeLowerGoal(let id):
             return "/detail-goals/\(id)/complete"
-        case .postDetailGoal(let id, _):
+        case .postLowerGoal(let id, _):
             return "/goals/\(id)/detail-goals"
         case .authTest:
             return "/token"
@@ -156,7 +156,7 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .requestAllGoals(let lastGoalId, let goalStatus):
             return [
-                K.Parameters.lastId: lastGoalId,
+                K.Parameters.lastId: lastGoalId ?? 0,
                 K.Parameters.goalStatus: goalStatus.rawValue
             ]
         case .deleteGoal:
@@ -167,8 +167,8 @@ enum APIRouter: URLRequestConvertible {
             return nil
         case .editGoal(_, let goal):
             return [
-                K.Parameters.goalId: goal.identity,
-                K.Parameters.title: goal.title,
+                K.Parameters.goalId: goal.identity ?? 0,
+                K.Parameters.title: goal.title ?? "",
                 K.Parameters.startDate: goal.startDate,
                 K.Parameters.endDate: goal.endDate,
                 K.Parameters.reminderEnabled: goal.reminderEnabled
@@ -205,29 +205,29 @@ enum APIRouter: URLRequestConvertible {
                 K.Parameters.contents: retrospect.contents,
                 K.Parameters.successLevel: retrospect.successLevel
             ]
-        case .deleteDetailGoal:
+        case .deleteLowerGoal:
             return nil
-        case .requestAllDetailGoal:
+        case .requestAllLowerGoal:
             return nil
-        case .requestDetailGoalInformation:
+        case .requestLowerGoalInformation:
             return nil
-        case .editDetailGoal(_, let detailGoal):
+        case .editLowerGoal(_, let lowerGoal):
             return [
-                K.Parameters.title: detailGoal.title,
-                K.Parameters.alarmEnabled: detailGoal.alarmEnabled,
-                K.Parameters.alarmTime: detailGoal.alarmTime,
-                K.Parameters.alarmDays: detailGoal.alarmDays
+                K.Parameters.title: lowerGoal.title,
+                K.Parameters.alarmEnabled: lowerGoal.alarmEnabled,
+                K.Parameters.alarmTime: lowerGoal.alarmTime,
+                K.Parameters.alarmDays: lowerGoal.alarmDays
             ]
-        case .incompleteDetailGoal:
+        case .incompleteLowerGoal:
             return nil
-        case .completeDetailGoal:
+        case .completeLowerGoal:
             return nil
-        case .postDetailGoal(_, let detailGoal):
+        case .postLowerGoal(_, let lowerGoal):
             return [
-                K.Parameters.title: detailGoal.title,
-                K.Parameters.alarmEnabled: detailGoal.alarmEnabled,
-                K.Parameters.alarmTime: detailGoal.alarmTime,
-                K.Parameters.alarmDays: detailGoal.alarmDays
+                K.Parameters.title: lowerGoal.title,
+                K.Parameters.alarmEnabled: lowerGoal.alarmEnabled,
+                K.Parameters.alarmTime: lowerGoal.alarmTime,
+                K.Parameters.alarmDays: lowerGoal.alarmDays
             ]
         case .authTest:
             return nil

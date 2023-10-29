@@ -19,7 +19,7 @@ class StorageBoxViewModel: BindableViewModel {
     
     // MARK: - Output
     
-    var storedGoals = BehaviorRelay<[ParentGoal]>(value: [])
+    var storedGoals = BehaviorRelay<[UpperGoal]>(value: [])
     var isSet = BehaviorRelay(value: false)
     
     var isLastPage: Bool = false
@@ -50,7 +50,7 @@ extension StorageBoxViewModel: ServicesGoalList {
             .subscribe(onNext: { [unowned self] result in
                 switch result {
                 case .success(let response):
-                    var newData: [ParentGoal] = storedGoals.value
+                    var newData: [UpperGoal] = storedGoals.value
                     newData.append(contentsOf: response.data.contents)
                     storedGoals.accept(newData)
                     isSet.accept(true)

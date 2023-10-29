@@ -29,7 +29,7 @@ class RestoreGoalViewController: BaseViewController {
     
     // MARK: - Properties
     
-    var viewModel: DetailParentViewModel!
+    var viewModel: DetailUpperViewModel!
     var dateFormatter = DateFormatter()
         .then {
             $0.dateFormat = "yyyy / MM / dd"
@@ -72,8 +72,8 @@ class RestoreGoalViewController: BaseViewController {
             let resetGoalVC = ResetGoalViewController()
                 .then {
                     $0.enterGoalDateView.isModifyMode = true
-                    let startDate = self.changeDateFormat(self.viewModel.selectedParentGoal!.startDate)
-                    let endDate = self.changeDateFormat(self.viewModel.selectedParentGoal!.endDate)
+                    let startDate = self.changeDateFormat(self.viewModel.selectedUpperGoal!.startDate)
+                    let endDate = self.changeDateFormat(self.viewModel.selectedUpperGoal!.endDate)
                     $0.enterGoalDateView.startDateButton.setTitle(startDate, for: .normal)
                     $0.enterGoalDateView.endDateButton.setTitle(endDate, for: .normal)
                     if let startDate = self.dateFormatter.date(from: startDate!),
@@ -82,7 +82,7 @@ class RestoreGoalViewController: BaseViewController {
                         $0.enterGoalDateView.endDateToModify = endDate
                         $0.enterGoalDateView.setDatePicker()
                     }
-                    $0.reminderAlarmView.onOffSwitch.isOn = self.viewModel.selectedParentGoal?.reminderEnabled ?? true
+                    $0.reminderAlarmView.onOffSwitch.isOn = self.viewModel.selectedUpperGoal?.reminderEnabled ?? true
                 }
             resetGoalVC.viewModel = self.viewModel
             self.presentingViewController?.presentCustomModal(resetGoalVC, height: resetGoalVC.viewHeight)
